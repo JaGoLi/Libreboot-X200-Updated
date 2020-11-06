@@ -15,6 +15,6 @@ By default, all the builds allocate slightly more vram to the integrated GPU: 35
 Select your rom within the **roms/free** directory for builds without microcode, and select your rom in the **roms/microcode** directory for builds with microcode. Make sure that the size of the rom corresponds to your chip size.
 ## Flashing
 If libreboot is not currently installed on the target computer, the flashing proceedure is detailed very well on the libreboot website. Simply use the rom from this repository instead of the one from the website.<br><br>
-If libreboot is currently installed on the system: boot the computer with the following linux kernel parameter: `iomem=relaxed`.<br>
+If libreboot is currently installed on the system: boot the computer with the following linux kernel parameter: `iomem=relaxed`.<br><br>
 Then, once inside of the operating system, make sure that a recent version of `flashrom` is installed, finally run the following command:<br>
 `sudo flashrom -c "chip_name" -p internal:boardmismatch=force,laptop=force_I_want_a_brick -w name_of_selected_rom`
