@@ -17,4 +17,4 @@ Select your rom within the **roms/free** directory for builds without microcode,
 If libreboot is not currently installed on the target computer, the flashing proceedure is detailed very well on the libreboot website. Simply use the rom from this repository instead of the one from the website.<br><br>
 If libreboot is currently installed on the system: boot the computer with the following linux kernel parameter: `iomem=relaxed`.<br>
 Then, once inside of the operating system, make sure that a recent version of `flashrom` is installed, finally run the following command:<br>
-`sudo flashrom -c "*chip_name*" -p internal:boardmismatch=force,laptop=force_I_want_a_brick -w *name_of_selected_rom`
+`sudo flashrom -c "chip_name" -p internal:boardmismatch=force,laptop=force_I_want_a_brick -w name_of_selected_rom`
