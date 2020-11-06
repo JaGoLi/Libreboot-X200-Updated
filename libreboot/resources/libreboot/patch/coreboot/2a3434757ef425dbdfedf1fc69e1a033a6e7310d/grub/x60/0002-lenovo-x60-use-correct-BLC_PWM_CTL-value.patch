@@ -1,0 +1,31 @@
+From e4b5b65c93122126344771f2042f8d7a3468be19 Mon Sep 17 00:00:00 2001
+From: Leah Rowe <info@minifree.org>
+Date: Mon, 22 Jun 2015 17:37:06 +0100
+Subject: [PATCH 3/9] lenovo/x60: use correct BLC_PWM_CTL value
+
+Bit 16 in BLC_PWM_CTL enables brightness controls, but the
+current value is generic. Use the proper value, obtained
+by reading BLC_PWM_CTL while running the VBIOS.
+
+Change-Id: Ib273359e1c285b405a9bb26fc217c2f7e255b99f
+Signed-off-by: Leah Rowe <info@minifree.org>
+---
+ src/mainboard/lenovo/x60/devicetree.cb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/mainboard/lenovo/x60/devicetree.cb b/src/mainboard/lenovo/x60/devicetree.cb
+index b4d1144..4d62116 100644
+--- a/src/mainboard/lenovo/x60/devicetree.cb
++++ b/src/mainboard/lenovo/x60/devicetree.cb
+@@ -26,7 +26,7 @@ chip northbridge/intel/i945
+ 
+ 	register "gpu_hotplug" = "0x00000220"
+ 	register "gpu_lvds_use_spread_spectrum_clock" = "1"
+-	register "gpu_backlight" = "0x1290128"
++	register "gpu_backlight" = "0x879F879E"
+ 
+ 	device cpu_cluster 0 on
+ 		chip cpu/intel/socket_mFCPGA478
+-- 
+1.9.1
+

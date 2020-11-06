@@ -1,0 +1,15 @@
+.spd.hex files - serial presence detect. These are not blobs
+see JEDEC standard or https://en.wikipedia.org/wiki/Serial_presence_detect
+These are added to the nonblobs file
+
+src/northbridge/intel/nehalem/raminit_tables.c"
+src/northbridge/intel/sandybridge/raminit_patterns.h
+These are used by native raminit for the relevant platforms, and are not blobs
+
+"src/southbridge/nvidia/mcp55/early_setup_ss.h" \
+"src/southbridge/nvidia/ck804/early_setup_ss.h" \
+"src/southbridge/sis/sis966/early_setup_ss.h"
+not blobs
+
+The text in this file is CC-BY-SA 4.0 or higher. All contributions to it must
+be made under the same license.

@@ -1,0 +1,68 @@
+From 0f1e1a29d4d019e7b2b1a3ac3db7ca22c75e8d88 Mon Sep 17 00:00:00 2001
+From: Alexander Couzens <lynxis@fe80.eu>
+Date: Fri, 4 Dec 2015 17:10:43 +0100
+Subject: [PATCH 09/10] mkrescue: add argument --fixed-time to get reproducible
+ uuids
+
+The uuid generation is based on the time.
+---
+ util/grub-mkrescue.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/util/grub-mkrescue.c b/util/grub-mkrescue.c
+index 238d484..a3e0155 100644
+--- a/util/grub-mkrescue.c
++++ b/util/grub-mkrescue.c
+@@ -52,6 +52,7 @@ static int xorriso_arg_alloc;
+ static char **xorriso_argv;
+ static char *iso_uuid;
+ static char *iso9660_dir;
++static time_t fixed_time;
+ 
+ static void
+ xorriso_push (const char *val)
+@@ -110,6 +111,7 @@ static struct argp_option options[] = {
+   {"product-version", OPTION_PRODUCT_VERSION, N_("STRING"), 0, N_("use STRING as product version"), 2},
+   {"sparc-boot", OPTION_SPARC_BOOT, 0, 0, N_("enable sparc boot. Disables HFS+, APM, ARCS and boot as disk image for i386-pc"), 2},
+   {"arcs-boot", OPTION_ARCS_BOOT, 0, 0, N_("enable ARCS (big-endian mips machines, mostly SGI) boot. Disables HFS+, APM, sparc64 and boot as disk image for i386-pc"), 2},
++  {"fixed-time", 't', N_("TIMEEPOCH"), 0, N_("use a fixed timestamp for uuid generation"), 2},
+   {0, 0, 0, 0, 0, 0}
+ };
+ 
+@@ -153,6 +155,8 @@ enum {
+ static error_t 
+ argp_parser (int key, char *arg, struct argp_state *state)
+ {
++  char *b;
++
+   if (grub_install_parse (key, arg))
+     return 0;
+   switch (key)
+@@ -212,6 +216,15 @@ argp_parser (int key, char *arg, struct argp_state *state)
+       xorriso = xstrdup (arg);
+       return 0;
+ 
++    case 't':
++      fixed_time = strtoll (arg, &b, 10);
++      if (*b !='\0') {
++        printf (_("invalid fixed time number: %s\n"), arg);
++        argp_usage (state);
++        exit (1);
++      }
++      return 0;
++
+     default:
+       return ARGP_ERR_UNKNOWN;
+     }
+@@ -542,7 +555,7 @@ main (int argc, char *argv[])
+   {
+     time_t tim;
+     struct tm *tmm;
+-    tim = time (NULL);
++    tim = fixed_time != -1 ? fixed_time : time (NULL);
+     tmm = gmtime (&tim);
+     iso_uuid = xmalloc (55);
+     grub_snprintf (iso_uuid, 50,
+-- 
+1.9.1
+

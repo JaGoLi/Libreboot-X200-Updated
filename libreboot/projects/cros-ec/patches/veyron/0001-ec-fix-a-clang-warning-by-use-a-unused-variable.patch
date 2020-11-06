@@ -1,0 +1,38 @@
+From 35987639080ef4293bffbc1ce21de4d8a35b41db Mon Sep 17 00:00:00 2001
+From: Yunlian Jiang <yunlian@google.com>
+Date: Mon, 20 Apr 2015 09:38:56 -0700
+Subject: [PATCH 1/6] ec: fix a clang warning by use a unused variable.
+
+This uses the variable 'usage' in an error message to fix a clang
+warning.
+
+BUG=chromium:475960
+TEST=CC=x86_64-cros-linux-gnu-clang emerge-falco ec-devutils
+BRANCH=none
+Signed-off-by: yunlian@chromium.org
+
+Change-Id: Ic5703636040805661c7b81b83fc182e127ceab8c
+Reviewed-on: https://chromium-review.googlesource.com/266404
+Reviewed-by: Vincent Palatin <vpalatin@chromium.org>
+Tested-by: Yunlian Jiang <yunlian@chromium.org>
+Commit-Queue: Yunlian Jiang <yunlian@chromium.org>
+---
+ util/lbcc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/util/lbcc.c b/util/lbcc.c
+index b34b21e..953f422 100644
+--- a/util/lbcc.c
++++ b/util/lbcc.c
+@@ -630,7 +630,7 @@ int main(int argc, char *argv[])
+ 	}
+ 
+ 	if (errorcnt) {
+-		fprintf(stderr, "\nUsage:  %s [options] ...\n\n", progname);
++		fprintf(stderr, usage, progname);
+ 		exit(1);
+ 	}
+ 
+-- 
+2.9.0
+

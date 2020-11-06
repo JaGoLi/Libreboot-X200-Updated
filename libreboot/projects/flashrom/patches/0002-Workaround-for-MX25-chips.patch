@@ -1,0 +1,81 @@
+From 886f1db7edbfc9ef4c9727b4f564c1e7e35d6565 Mon Sep 17 00:00:00 2001
+From: consts <grudnevkv@gmail.com>
+Date: Fri, 2 Mar 2018 07:03:37 +0000
+Subject: [PATCH] Workaround for MX25 chips
+
+https://notabug.org/libreboot/libreboot/issues/193
+---
+ cli_classic.c | 5 +++++
+ programmer.h  | 1 +
+ spi.c         | 9 +++++++++
+ 3 files changed, 15 insertions(+)
+
+diff --git a/cli_classic.c b/cli_classic.c
+index 31f7394..c60168c 100644
+--- a/cli_classic.c
++++ b/cli_classic.c
+@@ -62,6 +62,7 @@ static void cli_classic_usage(const char *name)
+ 	       " -o | --output <logfile>            log output to <logfile>\n"
+ 	       "      --flash-contents <ref-file>   assume flash contents to be <ref-file>\n"
+ 	       " -L | --list-supported              print supported devices\n"
++	       " -m | --workaround-mx               keep flash busy before sending command\n"
+ #if CONFIG_PRINT_WIKI == 1
+ 	       " -z | --list-supported-wiki         print supported devices in wiki syntax\n"
+ #endif
+@@ -136,6 +137,7 @@ int main(int argc, char *argv[])
+ 		{"help",		0, NULL, 'h'},
+ 		{"version",		0, NULL, 'R'},
+ 		{"output",		1, NULL, 'o'},
++		{"workaround-mx", 	0, NULL, 'm'},
+ 		{NULL,			0, NULL, 0},
+ 	};
+ 
+@@ -347,6 +349,9 @@ int main(int argc, char *argv[])
+ 			}
+ #endif /* STANDALONE */
+ 			break;
++		case 'm': /* --workaround-mx */
++			workaround_mx = 1;
++			break;
+ 		default:
+ 			cli_classic_abort_usage();
+ 			break;
+diff --git a/programmer.h b/programmer.h
+index 139f4fa..f54e690 100644
+--- a/programmer.h
++++ b/programmer.h
+@@ -664,6 +664,7 @@ enum ich_chipset {
+ 	CHIPSET_100_SERIES_SUNRISE_POINT, /* also 6th/7th gen Core i/o (LP) variants */
+ 	CHIPSET_C620_SERIES_LEWISBURG,
+ };
++extern int workaround_mx; /* workaround for MX25* chips, makes flash operations more reliable, less failures */
+ 
+ /* ichspi.c */
+ #if CONFIG_INTERNAL == 1
+diff --git a/spi.c b/spi.c
+index 56f1fdf..4e61d88 100644
+--- a/spi.c
++++ b/spi.c
+@@ -30,10 +30,19 @@
+ #include "programmer.h"
+ #include "spi.h"
+ 
++int workaround_mx; /* Make operations with MX25* chips more reliable */
++
+ int spi_send_command(struct flashctx *flash, unsigned int writecnt,
+ 		     unsigned int readcnt, const unsigned char *writearr,
+ 		     unsigned char *readarr)
+ {
++	if (workaround_mx) {
++		const unsigned char cmd[JEDEC_READ_OUTSIZE] = {JEDEC_READ, 0, 0, 0};
++		unsigned char buf[256];
++		/* keep flash busy for some time, keep CS warm before sending actual command */
++		flash->mst->spi.command(flash, sizeof(cmd), sizeof(buf), cmd, buf);
++	}
++	/* actual command */
+ 	return flash->mst->spi.command(flash, writecnt, readcnt, writearr,
+ 				       readarr);
+ }
+-- 
+1.9.1
+

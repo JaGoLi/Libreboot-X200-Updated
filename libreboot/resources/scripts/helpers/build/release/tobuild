@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+
+#  helper: prepare a small source archive for those utils
+#  that don't easily cross-compile. Then the tarball can be extracted
+#  on those systems with the target architecture, and compiled.
+#
+#	Copyright (C) 2014, 2015 Leah Rowe <info@minifree.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+if [ -f "version" ]; then
+	# _src release archive is being used
+	version="$(cat version)"
+	versiondate="$(cat versiondate)"
+else
+	# git repo is being used
+	version="$(git describe --tags HEAD)"
+	versiondate="$(git show -s --format=%ct)"
+fi
+versiondir="release/oldbuildsystem/${version}"
+distname="libreboot_${version}_tobuild"
+distdir="${versiondir}/${distname}"
+
+printf "Creating source archive for flashrom and bucts\n"
+
+# delete the old data
+rm -Rf "${distdir:?}/"
+rm -f "${distdir}.tar.xz"
+
+# this is where they will go
+mkdir -p "${distdir}/"
+
+# flashrom
+cp -R "flashrom/" "${distdir}/"
+rm -f "${distdir}/flashrom/flashrom_lenovobios_sst"
+rm -f "${distdir}/flashrom/flashrom_lenovobios_macronix"
+(cd "${distdir}/flashrom/" && make clean)
+mkdir -p "${distdir}/resources/flashrom/"
+cp -R "resources/flashrom/patch/" "${distdir}/resources/flashrom/"
+
+# bucts
+cp -R "bucts/" "${distdir}/"
+(cd "${distdir}/bucts/" && make clean)
+mkdir -p "${distdir}/resources/bucts/"
+cp -R "resources/bucts/patch/" "${distdir}/resources/bucts/"
+
+# the build script will be needed
+cp build "${distdir}/"
+# needed build scripts (helpers)
+mkdir -p "${distdir}/resources/scripts/helpers/build/"
+mkdir -p "${distdir}/resources/scripts/helpers/build/module/"
+mkdir -p "${distdir}/resources/scripts/helpers/build/clean/"
+cp "resources/scripts/helpers/build/clean/bucts" "${distdir}/resources/scripts/helpers/build/clean/"
+cp "resources/scripts/helpers/build/clean/flashrom" "${distdir}/resources/scripts/helpers/build/clean/"
+cp "resources/scripts/helpers/build/module/bucts" "${distdir}/resources/scripts/helpers/build/module/"
+cp "resources/scripts/helpers/build/module/flashrom" "${distdir}/resources/scripts/helpers/build/module/"
+cp "resources/scripts/misc/powertop.trisquel7" "${distdir}/"
+
+# this has to be done before generating
+# the "version" file
+if [ ! -f "version" ]; then
+	# generate ChangeLog and NEWS files
+	rm -f "ChangeLog" "NEWS"
+	git log > "${distdir}/ChangeLog"
+	cp "${distdir}/ChangeLog" "${distdir}/NEWS"
+else
+	# building from release archive
+	cp "ChangeLog" "${distdir}/"
+	cp "NEWS" "${distdir}/"
+fi
+
+if [ -f "RELEASE" ]; then
+    rm -f "${distdir}/ChangeLog"
+    rm -f "${distdir}/NEWS"
+    cp "RELEASE" "${distdir}/ChangeLog"
+    cp "RELEASE" "${distdir}/NEWS"
+fi
+
+# include version information
+printf '%s\n' "${version}" >"${distdir}/version"
+# include version date information
+printf '%s\n' "${versiondate}" >"${distdir}/versiondate"
+
+# that is all. now tar it up
+(cd "${versiondir}/" && tar -c "${distname}/" | xz -9e >"${distname}.tar.xz")
+
+# and delete the directory
+rm -Rf "${distdir:?}/"
+
+printf "\n"
+printf "Tar archive created: %s\n" "${distdir}.tar.xz"
+printf "NOTE: don't forget to add ARM binaries for flashrom.\n"
+printf "NOTE: don't forget to add i386 binaries for flashrom/bucts.\n"
+printf "The archive %s.tar.xz has been created with everything needed to build these utilities.\n\n" "${distname}"

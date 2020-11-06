@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2017 Andrew Robbins <contact@andrewrobbins.info>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+dependencies_print() {
+	local distro="$1"
+	shift
+
+	if [[ "$distro" == 'parabola' ]]; then
+		printf '%s\n' 'Enable the multilib repository in /etc/pacman.conf'
+		printf '\n%s\n' 'Then, run the following command as root:'
+		printf '\n%s%s\n' 'pacman -S --needed ' "$*"
+	else
+		printf '%s\n' 'You will need to run the following command as root:'
+		printf '\n%s%s\n' 'apt-get -y install ' "$*"
+	fi
+}
+
+dependencies_host_supported() {
+	local distro="$1"
+	local arch="$2"
+
+	dependencies_distro_supported "$distro" || return
+	dependencies_arch_supported "$distro" "$arch" || return
+}
+
+dependencies_arch_supported() {
+	local distro="$1"
+	local arch="$2"
+
+	local tool_path="$(tool_path "$tool")"
+	local distro_dir="$tool_path/$CONFIGS/$distro"
+
+	if ! [[ -d "$distro_dir/$arch" ]]; then
+		printf '%s\n'  "Architecture \"$arch\" is not supported" 1>&2
+
+		return 1
+	fi
+}
+
+dependencies_distro_supported() {
+	local distro="$1"
+
+	local tool_path="$(tool_path "$tool")"
+	local targets_path="$tool_path/$CONFIGS/$TARGETS"
+
+	local -a targets_list
+	mapfile -t targets_list < "$targets_path"
+
+	# Necessary to properly format the string for extglob use below
+	IFS='|' eval 'local distro_list="${targets_list[*]}"'
+
+	if [[ "$distro" != @($distro_list) ]]; then
+		printf '%s'  "Argument \"$distro\" is not supported.  " 1>&2
+		printf '%s\n'  'Check spelling?' 1>&2
+
+		usage
+		return 1
+	fi
+}

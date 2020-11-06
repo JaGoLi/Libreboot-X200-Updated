@@ -1,0 +1,240 @@
+From 1e634ac65fbdd43f35046e08b302d162e5d964d4 Mon Sep 17 00:00:00 2001
+From: Paul Kocialkowski <contact@paulk.fr>
+Date: Tue, 11 Aug 2015 11:22:54 +0200
+Subject: [PATCH 3/4] vboot: Display callbacks for all screens
+
+We don't want to use bitmaps stored in GBB since they recommend the use of non-
+free software (Chrome OS), so this implements a text-based interface instead.
+
+Change-Id: I4927846b385b9fdbb8d90b8dc1cd159472363baa
+Signed-off-by: Paul Kocialkowski <contact@paulk.fr>
+---
+ src/vboot/callbacks/display.c | 182 ++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 166 insertions(+), 16 deletions(-)
+
+diff --git a/src/vboot/callbacks/display.c b/src/vboot/callbacks/display.c
+index bae8043..b4e9958 100644
+--- a/src/vboot/callbacks/display.c
++++ b/src/vboot/callbacks/display.c
+@@ -20,6 +20,7 @@
+ #include <sysinfo.h>
+ #include <vboot_api.h>
+ #include <vboot_struct.h>
++#include <vboot_nvstorage.h>
+ 
+ #include "base/cleanup_funcs.h"
+ #include "drivers/video/coreboot_fb.h"
+@@ -81,13 +82,15 @@ void print_on_center(const char *msg)
+ 	print_string(msg);
+ }
+ 
+-VbError_t VbExDisplayScreen(uint32_t screen_type, uint32_t locale)
++VbError_t VbExDisplayScreen(uint32_t screen_type, uint32_t locale,
++			    VbDisplayInfo *info)
+ {
+-	const char *msg = NULL;
+-
+-	if (vboot_draw_screen(screen_type, locale) == CBGFX_SUCCESS)
+-		return VBERROR_SUCCESS;
+-
++	unsigned int rows, cols;
++	const char *fw_id;
++	int fw_index;
++	void *blob = NULL;
++	int size = 0;
++	char *msg;
+ 	/*
+ 	 * Show the debug messages for development. It is a backup method
+ 	 * when GBB does not contain a full set of bitmaps.
+@@ -98,31 +101,178 @@ VbError_t VbExDisplayScreen(uint32_t screen_type, uint32_t locale)
+ 		video_console_clear();
+ 		break;
+ 	case VB_SCREEN_DEVELOPER_WARNING:
+-		msg = "developer mode warning";
++		video_console_clear();
++		video_console_set_cursor(0, 0);
++
++		if (info == NULL)
++			return VBERROR_SUCCESS;
++
++		print_string(
++			"Welcome to developer mode!\n\n"
++			"Useful key combinations:\n"
++			"- Ctrl + H: Hold developer mode\n"
++			"- Ctrl + D: Boot from default medium\n");
++
++		if (info->allow_usb)
++			print_string("- Ctrl + U: Boot from external medium\n");
++
++		if (info->allow_legacy)
++			print_string("- Ctrl + L: Boot from legacy payload\n");
++
++		print_string(
++			"- Ctrl + I: Show device information\n"
++			"- Space: Disable developer mode\n\n"
++			"This screen is shown for 3 seconds (if not held)."
++			"\n\n");
++
++		if (!info->signed_only)
++			print_string(
++				"Warning: this device will boot kernels"
++				" without verifying their signature!"
++				"\n");
++
++		if (info->allow_usb)
++			print_string(
++				"Warning: this device will boot from "
++				"external media!\n");
++
++		if (info->allow_legacy)
++			print_string(
++				"Warning: this device will boot legacy "
++				"payloads!\n");
++
++		if (!info->signed_only || info->allow_usb ||
++		    info->allow_legacy)
++			print_string("\n");
++
++		print_string("Default boot medium: ");
++
++		if (info->use_legacy)
++			print_string("legacy payload");
++		else if (info->use_usb)
++			print_string("external");
++		else
++			print_string("internal");
++
++		print_string("\n");
++
++		find_common_params(&blob, &size);
++
++		if (blob != NULL) {
++			VbSharedDataHeader *vdat = (VbSharedDataHeader *) blob;
++			fw_index = get_active_fw_index(vdat);
++			fw_id = get_fw_id(fw_index);
++
++			if (fw_id == NULL)
++				fw_id = "NOT FOUND";
++
++			print_string("Active firmware id: ");
++			print_string(fw_id);
++
++			switch (fw_index) {
++				case VDAT_RW_A:
++					print_string(" (RW A)\n");
++					break;
++				case VDAT_RW_B:
++					print_string(" (RW A)\n");
++					break;
++				case VDAT_RO:
++					print_string(" (RO)\n");
++					break;
++				default:
++					print_string(" (UNKNOWN)\n");
++					break;
++			}
++		}
+ 		break;
+ 	case VB_SCREEN_DEVELOPER_EGG:
+-		msg = "easter egg";
++		video_console_clear();
++		print_on_center("Free as in Freedom!");
+ 		break;
+ 	case VB_SCREEN_RECOVERY_REMOVE:
+-		msg = "remove inserted devices";
++		video_console_clear();
++		print_on_center(
++			"Please remove any external media before accessing "
++			"recovery screen.");
+ 		break;
+ 	case VB_SCREEN_RECOVERY_INSERT:
+-		msg = "insert recovery image";
+-		break;
+ 	case VB_SCREEN_RECOVERY_NO_GOOD:
+-		msg = "insert image invalid";
++		video_console_clear();
++		print_string(
++			"Welcome to recovery mode!\n\n"
++			"Useful key combinations:\n"
++			"- Ctrl + D: Enable developer mode (if possible)\n\n");
++
++		if (screen_type == VB_SCREEN_RECOVERY_NO_GOOD)
++			print_on_center(
++				"Invalid recovery media, please insert a "
++				"valid one.");
++		else
++			print_on_center(
++				"Please insert an external recovery media.");
++		break;
++	case VB_SCREEN_RECOVERY_TO_DEV:
++		video_console_clear();
++		video_get_rows_cols(&rows, &cols);
++
++		video_console_set_cursor(0, 0);
++
++		print_string(
++			"Enabling developer mode will allow booting unsigned "
++			"kernels and booting from external media (when enabled "
++			"with crossystem).\n\n"
++			"Developer mode can be disabled via the developer mode "
++			"screen.");
++
++		msg = "Developer mode will be enabled.";
++		video_console_set_cursor((cols - strlen(msg)) / 2, rows / 2);
++		print_string(msg);
++
++		msg = "Press enter to confirm or escape to go back.";
++		video_console_set_cursor((cols - strlen(msg)) / 2,
++					 rows / 2 + 2);
++		print_string(msg);
++		break;
++	case VB_SCREEN_DEVELOPER_TO_NORM:
++		video_console_clear();
++		video_get_rows_cols(&rows, &cols);
++
++		video_console_set_cursor(0, 0);
++
++		print_string(
++			"Disabling developer mode will restrict boot to signed "
++			"kernels stored on internal memory only.\n\n"
++			"Developer mode can be enabled again via the recovery "
++			"mode screen.");
++
++		msg = "Developer mode will be disabled.";
++		video_console_set_cursor((cols - strlen(msg)) / 2, rows / 2);
++		print_string(msg);
++
++		msg = "Press enter to confirm or escape to go back.";
++		video_console_set_cursor((cols - strlen(msg)) / 2,
++					 rows / 2 + 2);
++		print_string(msg);
+ 		break;
+ 	case VB_SCREEN_WAIT:
+-		msg = "wait for ec update";
++		video_console_clear();
++		print_on_center("Waiting for EC update...");
++		break;
++	case VB_SCREEN_TO_NORM_CONFIRMED:
++		video_console_clear();
++		print_on_center("Disabling developer mode.");
++		break;
++	case VB_SCREEN_OS_BROKEN:
++		video_console_clear();
++		print_on_center(
++			"Something went wrong and the device cannot boot.\n"
++			"Press Escape + Refresh + Power to access recovery.");
+ 		break;
+ 	default:
+ 		printf("Not a valid screen type: %d.\n", screen_type);
+ 		return VBERROR_INVALID_SCREEN_INDEX;
+ 	}
+ 
+-	if (msg)
+-		print_on_center(msg);
+-
+ 	return VBERROR_SUCCESS;
+ }
+ 
+-- 
+2.10.2
+

@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2017 Andrew Robbins <contact@andrewrobbins.info>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+arguments() {
+	tool_arguments_targets "$tool" "$@"
+}
+
+usage() {
+	tool_usage_actions "$tool" 'print'
+	tool_usage_arguments "$tool" "$@"
+}
+
+print() {
+	local distro="$1"
+
+	local arch="$(uname -i || uname -m)"
+	local tool_path="$(tool_path "$tool")"
+
+	if [[ -z "$arch" ]]; then
+		printf '%s\n' 'uname(1) produced no output.  Exiting' 1>&2
+
+		return 1
+	fi
+
+	dependencies_host_supported "$distro" "$arch" || return
+
+	local -a dependencies
+
+	for dependency_file in "$tool_path/$CONFIGS/$distro/$arch"/*; do
+		if [[ "${dependency_file##*/}" != 'README' ]]; then
+			local -i origin="${#dependencies[@]}"
+
+			mapfile -tO "$origin" dependencies < "$dependency_file"
+		else
+			continue
+		fi
+	done
+
+	local -a sorted
+	mapfile -t sorted < <(printf '%s\n' "${dependencies[@]}" | sort | uniq)
+
+	dependencies_print "$distro" "${sorted[@]}"
+}

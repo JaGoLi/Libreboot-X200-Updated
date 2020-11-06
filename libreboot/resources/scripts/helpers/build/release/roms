@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+
+#
+#  helper script: generate the ROM image release archives
+#
+#	Copyright (C) 2015 Leah Rowe <info@minifree.org>
+#	Copyright (C) 2015 Patrick "P. J." McDermott <pj@pehjota.net>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+if [ ! -d bin/ ]; then
+	printf "build/release/roms: no bin/ directory exists. (you haven't built any images)\n"
+	exit 1
+fi
+
+if [ -f "version" ]; then
+	# _src release archive is being used
+	version="$(cat version)"
+	versiondate="$(cat versiondate)"
+else
+	# git repo is being used
+	version="$(git describe --tags HEAD)"
+	versiondate="$(git show -s --format=%ct)"
+fi
+versiondir="release/oldbuildsystem/${version}"
+romdir="${versiondir}/rom"
+distname="libreboot_${version}"
+
+printf 'Building ROM image release archives for...\n'
+
+cd "bin/"
+
+for payload in *; do
+
+	[ ! -d "../${romdir}/${payload}/" ] && mkdir -p "../${romdir}/${payload}/"
+
+	cd "${payload}/"
+	
+	for board in *; do
+
+		archivename="${distname}_${payload}_${board}"
+
+		printf '...%s' "${payload}/${board}"
+
+		# Delete the old archive
+		rm -f "../../${romdir}/${payload}/${distname}_${board}.tar.xz"
+
+		cp -R "${board}/" "${archivename}/"
+
+		# this has to be done before generating
+		# the "version" file
+		if [ ! -f "version" ]; then
+			# generate ChangeLog and NEWS files
+			rm -f "ChangeLog" "NEWS"
+			git log > "${archivename}/ChangeLog"
+			cp "${archivename}/ChangeLog" "${archivename}/NEWS"
+		else
+			# building from release archive
+			cp "ChangeLog" "${archivename}/"
+			cp "NEWS" "${archivename}/"
+		fi
+
+        if [ -f "../../RELEASE" ]; then
+            rm -f "${archivename}/ChangeLog"
+            rm -f "${archivename}/NEWS"
+            cp "../../RELEASE" "${archivename}/ChangeLog"
+            cp "../../RELEASE" "${archivename}/NEWS"
+        fi
+
+		# Put the version string in the archive.
+		printf '%s\n' "${version}" >"${archivename}/version"
+		# Put the version date string in the archive
+		printf '%s\n' "${versiondate}" >"${archivename}/versiondate"
+
+		# Create the compressed archive.
+		tar -c "${archivename}/" | xz -9e >"../../${romdir}/${payload}/${archivename}.tar.xz"
+
+		rm -Rf "${archivename:?}/"
+
+		printf ' OK\n'
+		
+	done
+	
+	cd "../"
+	
+done
+
+cd "../"
+
+printf 'ROM image release archives are stored in %s/\n' "${romdir}"

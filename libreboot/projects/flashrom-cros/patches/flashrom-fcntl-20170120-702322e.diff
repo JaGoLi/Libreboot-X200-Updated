@@ -1,0 +1,18 @@
+diff --git a/linux_spi.c b/linux_spi.c
+index 0199cf5..d56e8b0 100644
+--- a/linux_spi.c
++++ b/linux_spi.c
+@@ -20,11 +20,12 @@
+ #include <stdio.h>
+ #include <string.h>
+ #include <stdlib.h>
+-#include <sys/fcntl.h>
++#include <fcntl.h>
+ #include <errno.h>
+ #include <ctype.h>
+ #include <unistd.h>
+ #include <linux/spi/spidev.h>
++#include <linux/ioctl.h>
+ #include <sys/ioctl.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>

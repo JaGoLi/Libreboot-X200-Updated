@@ -1,0 +1,10 @@
+autogen
+binutils
+coreutils
+fakeroot
+gawk
+help2man
+libfaketime
+m4
+texinfo
+xz

@@ -1,0 +1,77 @@
+USB
+
+
+coreboot-4.0-7551-ge420139-dirty Wed Dec 10 16:34:05 GMT 2014 starting...
+running main(bist = 0)
+WARNING: Ignoring S4-assertion-width violation.
+Stepping B3
+2 CPU cores
+AMT enabled
+capable of DDR2 of 800 MHz or lower
+VT-d enabled
+GMCH: GS45, using high performance mode by default
+TXT enabled
+Render frequency: 533 MHz
+IGD enabled
+PCIe-to-GMCH enabled
+GMCH supports DDR3 with 1067 MT or less
+GMCH supports FSB with up to 1067 MHz
+SMBus controller enabled.
+0:50:b
+2:51:b
+DDR mask 5, DDR 3
+Bank 0 populated:
+ Raw card type:    F
+ Row addr bits:   14
+ Col addr bits:   10
+ byte width:       1
+ page size:     1024
+ banks:            8
+ ranks:            2
+ tAAmin:    105
+ tCKmin:     15
+  Max clock: 533 MHz
+ CAS:       0x01c0
+Bank 1 populated:
+ Raw card type:    B
+ Row addr bits:   15
+ Col addr bits:   10
+ byte width:       1
+ page size:     1024
+ banks:            8
+ ranks:            1
+ tAAmin:    105
+ tCKmin:     12
+  Max clock: 666 MHz
+ CAS:       0x07e0
+Trying CAS 7, tCK 15.
+Found compatible clock / CAS pair: 533 / 7.
+Timing values:
+ tCLK:   15
+ tRAS:   20
+ tRP:     7
+ tRCD:    7
+ tRFC:  104
+ tWR:     8
+ tRD:    11
+ tRRD:    4
+ tFAW:   20
+ tWL:     6
+Changing memory frequency: old 3, new 6.
+Setting IGD memory frequencies for VCO #1.
+Memory configured in dual-channel assymetric mode.
+Memory map:
+TOM   =   384MB
+TOLUD =   384MB
+TOUUD =   384MB
+REMAP:   base  = 65535MB
+         limit =     0MB
+usedMEsize: 0MB
+Performing Jedec initialization at address 0x00000000.
+Performing Jedec initialization at address 0x08000000.
+Performing Jedec initialization at address 0x10000000.
+Final timings for group 0 on channel 0: 6.1.0.3.2
+Final timings for group 1 on channel 0: 6.0.2.6.3
+Final timings for group 2 on channel 0: 6.1.2.0.1
+Final timings for group 3 on channel 0: 6.1.0.7.3
+Timing under-/overflow during receive-enable calibration.

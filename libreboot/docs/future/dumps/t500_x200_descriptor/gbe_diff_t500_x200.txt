@@ -1,0 +1,68 @@
+--- mkgbe.c	2015-03-31 04:46:11.840747724 +0100
++++ ../lbdev/libreboot/resources/utilities/ich9deblob/src/ich9gen/mkgbe.c	2015-03-26 16:55:12.243313103 +0000
+@@ -1,5 +1,19 @@
+-/* mkgbe.c: generated C code from ich9deblob */
+-/* .c source file for the gbe-generating C code */
++/*
++ *  Copyright (C) 2014 Leah Rowe <info@minifree.org>
++ *
++ *  This program is free software: you can redistribute it and/or modify
++ *  it under the terms of the GNU General Public License as published by
++ *  the Free Software Foundation, either version 3 of the License, or
++ *  (at your option) any later version.
++ *
++ *  This program is distributed in the hope that it will be useful,
++ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
++ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ *  GNU General Public License for more details.
++ *
++ *  You should have received a copy of the GNU General Public License
++ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
++ */
+ 
+ #include "mkgbe.h"
+ 
+@@ -14,11 +28,11 @@
+     /* MAC address (words 00h to 02h) */
+     /* see ../gbe/gbe.c */
+     gbeStruct4k.macAddress[0] = 0x00;
+-    gbeStruct4k.macAddress[1] = 0x22;
+-    gbeStruct4k.macAddress[2] = 0x68;
+-    gbeStruct4k.macAddress[3] = 0x1d;
+-    gbeStruct4k.macAddress[4] = 0x5f;
+-    gbeStruct4k.macAddress[5] = 0xc1;
++    gbeStruct4k.macAddress[1] = 0xf5;
++    gbeStruct4k.macAddress[2] = 0xf0;
++    gbeStruct4k.macAddress[3] = 0x40;
++    gbeStruct4k.macAddress[4] = 0x71;
++    gbeStruct4k.macAddress[5] = 0xfe;
+ 
+     /* Word 03h (Reserved) */
+     gbeStruct4k.reservedWord03h.reserved1_0 = 0x00;
+@@ -83,7 +97,7 @@
+     gbeStruct4k.sharedInitializationControlWord.phyPowerDownEnable = 0x1;
+     gbeStruct4k.sharedInitializationControlWord.reserved3 = 0x1;
+     gbeStruct4k.sharedInitializationControlWord.reserved4 = 0x0;
+-    gbeStruct4k.sharedInitializationControlWord.sign = 0x0;
++    gbeStruct4k.sharedInitializationControlWord.sign = 0x2;
+ 
+     /* Word 14h (Extended Configuration Control Word 1) */
+     gbeStruct4k.extendedConfigurationControlWord1.extendedConfigurationPointer = 0x020;
+@@ -198,7 +212,7 @@
+     gbeStruct4k.pxeSoftwareRegion.bootAgentConfigurationCustomizationOptions31h.reserved2 = 0x0;
+     gbeStruct4k.pxeSoftwareRegion.bootAgentConfigurationCustomizationOptions31h.signature = 0x1;
+     /* Boot Agent Configuration Customization Options (Word 32h) */
+-    gbeStruct4k.pxeSoftwareRegion.bootAgentConfigurationCustomizationOptions32h.buildNumber = 0x24;
++    gbeStruct4k.pxeSoftwareRegion.bootAgentConfigurationCustomizationOptions32h.buildNumber = 0x18;
+     gbeStruct4k.pxeSoftwareRegion.bootAgentConfigurationCustomizationOptions32h.minorVersionNumber = 0x3;
+     gbeStruct4k.pxeSoftwareRegion.bootAgentConfigurationCustomizationOptions32h.majorVersionNumber = 0x1;
+     /* IBA Capabilities (Word 33h) */
+@@ -223,7 +237,7 @@
+     gbeStruct4k.pxeSoftwareRegion.paddingWords34hTo3Eh[10] = 0xffff;
+ 
+     /* Word 3Fh (Checksum) */
+-    gbeStruct4k.checkSum = 0xe818;
++    gbeStruct4k.checkSum = 0x348a;
+ 
+     /* The rest of Gbe (word 40h or byte 80h onwards) is just padding (0xFF) */
+     for (i = 0; i < 3968; i++) {

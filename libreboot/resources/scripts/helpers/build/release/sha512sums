@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+#
+#  helper script: create sha512sum file for the current snapshot
+#
+#	Copyright (C) 2015 Leah Rowe <info@minifree.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+if [ -f "version" ]; then
+	# _src release archive is being used
+	version="$(cat version)"
+	versiondate="$(cat versiondate)"
+else
+	# git repo is being used
+	version="$(git describe --tags HEAD)"
+	versiondate="$(git show -s --format=%ct)"
+fi
+versiondir="release/oldbuildsystem/${version}"
+sha512filename="SHA512SUMS"
+sha512filepath="${versiondir}/${sha512filename}"
+
+if [ ! -d "${versiondir}/" ]; then
+
+	printf "build/release/sha512sums: directory %s/ does not exist. You haven't generated any archives yet.\n" "${versiondir}"
+	exit 1
+
+fi
+
+# delete the old file
+rm -f "${sha512filepath}"
+
+# create sha512sum file
+printf "Creating list of SHA512 sums in %s...\n" "${sha512filepath}"
+(cd "${versiondir}/" && for file in $(find -type f); do sha512sum "${file}" >> "${sha512filename}"; done)
+printf "...done.\n"
+
+printf "\n"

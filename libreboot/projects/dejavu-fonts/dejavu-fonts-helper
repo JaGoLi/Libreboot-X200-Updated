@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2018 Andrew Robbins <contact@andrewrobbins.info>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+UCD_FILES='ucd-files'
+UCD_VERSION='ucd-version'
+UNICODE='unicode'
+
+dejavu_fonts_ucd_version() {
+	project_file_contents "$project" "$CONFIGS" "$UCD_VERSION" "$@"
+}
+
+dejavu_fonts_ucd_files_path() {
+	project_file_path "$project" "$CONFIGS" "$UCD_FILES" "$@"
+}

@@ -1,0 +1,25 @@
+From f8e0c94b546cdba083f33efd062334822240a12b Mon Sep 17 00:00:00 2001
+From: Andrew Robbins <contact@andrewrobbins.info>
+Date: Fri, 30 Jun 2017 01:42:23 -0400
+Subject: [PATCH] turn on beep mode
+
+---
+ config.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/config.h b/config.h
+index 102250d..8a36fd2 100644
+--- a/config.h
++++ b/config.h
+@@ -20,7 +20,7 @@
+ 
+ /* BEEP_MODE - Beep on error. Default off, Change to 1 to enable */
+ #ifndef BEEP_MODE
+-#define BEEP_MODE 0
++#define BEEP_MODE 1
+ #endif
+ 
+ /* BEEP_END_NO_ERROR - Beep at end of each pass without error. Default off, Change to 1 to enable */
+-- 
+1.9.1
+

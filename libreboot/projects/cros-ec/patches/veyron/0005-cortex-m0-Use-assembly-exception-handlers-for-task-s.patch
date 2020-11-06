@@ -1,0 +1,239 @@
+From 27501308493bf2adadfc3b133fd1d6f4b4feec12 Mon Sep 17 00:00:00 2001
+From: Paul Kocialkowski <contact@paulk.fr>
+Date: Sat, 23 Jul 2016 14:17:32 +0200
+Subject: [PATCH] cortex-m0: Use assembly exception handlers for task switching
+
+The way Cortex processors handle exceptions allows writing exception
+routines directly in C, as return from exception is handled by providing
+a special value for the link register.
+
+However, it is not safe to do this when doing context switching. In
+particular, C handlers may push some general-purpose registers that
+are used by the handler and pop them later, even when context switch
+has happened in the meantime. While the processor will restore {r0-r3}
+from the stack when returning from an exception, the C handler code
+may push, use and pop another register, such as r4.
+
+It turns out that GCC 4.8 would generally only use r3 in svc_handler and
+pendsv_handler, but newer versions tend to use r4, thus clobbering r4
+that was restored from the context switch and leading up to a fault
+when r4 is used by the task code.
+
+An occurrence of this behaviour takes place with GCC > 4.8 in __wait_evt,
+where "me" is stored in r4, which gets clobbered after an exception
+triggers pendsv_handler. The exception handler uses r4 internally, does
+a context switch and then restores the previous value of r4, which is
+not restored by the processor's internal, thus clobbering r4.
+This ends up with the following assertion failure:
+'tskid < TASK_ID_COUNT' in timer_cancel() at common/timer.c:137
+
+For this reason, it is safer to have assembly routines for exception
+handlers that do context switching.
+
+BUG=chromium:631514
+BRANCH=None
+TEST=Build and run speedy EC with a recent GCC version
+
+Change-Id: Ib068bc12ce2204aee3e0f563efcb94f15aa87013
+Signed-off-by: Paul Kocialkowski <contact@paulk.fr>
+---
+
+diff --git a/core/cortex-m0/switch.S b/core/cortex-m0/switch.S
+index 95ea29e..d4b47cd 100644
+--- a/core/cortex-m0/switch.S
++++ b/core/cortex-m0/switch.S
+@@ -7,55 +7,14 @@
+ 
+ #include "config.h"
+ 
++#define CPU_SCB_ICSR		0xe000ed04
++
+ .text
+ 
+ .syntax unified
+ .code 16
+ 
+ /**
+- * Task context switching
+- *
+- * Change the task scheduled after returning from the exception.
+- *
+- * Save the registers of the current task below the exception context on
+- * its task, then restore the live registers of the next task and set the
+- * process stack pointer to the new stack.
+- *
+- * r0: pointer to the task to switch from
+- * r1: pointer to the task to switch to
+- *
+- * must be called from interrupt context
+- *
+- * the structure of the saved context on the stack is :
+- *     r8, r9, r10, r11, r4, r5, r6, r7, r0, r1, r2, r3, r12, lr, pc, psr
+- *     additional registers            <|> exception frame
+- */
+-.global __switchto
+-.thumb_func
+-__switchto:
+-  mrs r2, psp            @ get the task stack where the context has been saved
+-  mov r3, sp
+-  mov sp, r2
+-  push {r4-r7}           @ save additional r4-r7 in the task stack
+-  mov r4, r8
+-  mov r5, r9
+-  mov r6, r10
+-  mov r7, r11
+-  push {r4-r7}           @ save additional r8-r11 in the task stack
+-  mov r2, sp             @ prepare to save former task stack pointer
+-  mov sp, r3             @ restore system stack pointer
+-  str r2, [r0]           @ save the task stack pointer in its context
+-  ldr r2, [r1]           @ get the new scheduled task stack pointer
+-  ldmia r2!, {r4-r7}     @ restore r8-r11 for the next task context
+-  mov r8, r4
+-  mov r9, r5
+-  mov r10, r6
+-  mov r11, r7
+-  ldmia r2!, {r4-r7}     @ restore r4-r7 for the next task context
+-  msr psp, r2            @ set the process stack pointer to exception context
+-  bx lr                  @ return from exception
+-
+-/**
+  * Start the task scheduling.  r0 is a pointer to task_stack_ready, which is
+  * set to 1 after the task stack is set up.
+  */
+@@ -79,3 +38,77 @@
+   movs r0, #1             @ set to EC_ERROR_UNKNOWN
+   bx lr
+ 
++/**
++ * SVC exception handler
++ */
++.global svc_handler
++.thumb_func
++svc_handler:
++  push {lr}                  @ save link register
++  bl __svc_handler           @ call svc handler helper
++  ldr r3,=current_task       @ load the current task's address
++  ldr r1, [r3]               @ load the current task
++  cmp r0, r1                 @ compare with previous task returned by helper
++  beq svc_handler_return     @ return if they are the same
++  /* continue to __switchto to switch to the new task */
++
++/**
++ * Task context switching
++ *
++ * Change the task scheduled after returning from the exception.
++ *
++ * Save the registers of the current task below the exception context on
++ * its task, then restore the live registers of the next task and set the
++ * process stack pointer to the new stack.
++ *
++ * r0: pointer to the task to switch from
++ * r1: pointer to the task to switch to
++ *
++ * must be called from interrupt context
++ *
++ * the structure of the saved context on the stack is :
++ *     r8, r9, r10, r11, r4, r5, r6, r7, r0, r1, r2, r3, r12, lr, pc, psr
++ *     additional registers            <|> exception frame
++ */
++__switchto:
++  mrs r2, psp            @ get the task stack where the context has been saved
++  mov r3, sp
++  mov sp, r2
++  push {r4-r7}           @ save additional r4-r7 in the task stack
++  mov r4, r8
++  mov r5, r9
++  mov r6, r10
++  mov r7, r11
++  push {r4-r7}           @ save additional r8-r11 in the task stack
++  mov r2, sp             @ prepare to save former task stack pointer
++  mov sp, r3             @ restore system stack pointer
++  str r2, [r0]           @ save the task stack pointer in its context
++  ldr r2, [r1]           @ get the new scheduled task stack pointer
++  ldmia r2!, {r4-r7}     @ restore r8-r11 for the next task context
++  mov r8, r4
++  mov r9, r5
++  mov r10, r6
++  mov r11, r7
++  ldmia r2!, {r4-r7}     @ restore r4-r7 for the next task context
++  msr psp, r2            @ set the process stack pointer to exception context
++
++svc_handler_return:
++  pop {pc}               @ return from exception or return to caller
++
++/**
++ * PendSVC exception handler
++ */
++.global pendsv_handler
++.thumb_func
++pendsv_handler:
++  push {lr}                  @ save link register
++  ldr r0, =#CPU_SCB_ICSR     @ load CPU_SCB_ICSR's address
++  movs r1, #1                @ prepare left shift (1 << 27)
++  lsls r1, #27               @ shift the bit
++  str r1, [r0]               @ clear pending flag
++  cpsid i                    @ ensure we have priority 0 during re-scheduling
++  movs r1, #0                @ desched nothing
++  movs r0, #0                @ resched nothing
++  bl svc_handler             @ re-schedule the highest priority task
++  cpsie i                    @ leave priority 0
++  pop {pc}                   @ return from exception
+diff --git a/core/cortex-m0/task.c b/core/cortex-m0/task.c
+index 5d219a5..0261261 100644
+--- a/core/cortex-m0/task.c
++++ b/core/cortex-m0/task.c
+@@ -59,7 +59,6 @@
+ static uint32_t irq_dist[CONFIG_IRQ_COUNT];  /* Distribution of IRQ calls */
+ #endif
+ 
+-extern void __switchto(task_ *from, task_ *to);
+ extern int __task_start(int *task_stack_ready);
+ 
+ #ifndef CONFIG_LOW_POWER_IDLE
+@@ -124,7 +123,7 @@
+ /* Reserve space to discard context on first context switch. */
+ uint32_t scratchpad[17];
+ 
+-static task_ *current_task = (task_ *)scratchpad;
++task_ *current_task = (task_ *)scratchpad;
+ 
+ /*
+  * Bitmap of all tasks ready to be run.
+@@ -254,18 +253,6 @@
+ 	return current;
+ }
+ 
+-void svc_handler(int desched, task_id_t resched)
+-{
+-	/*
+-	 * The layout of the this routine (and the __svc_handler companion one)
+-	 * ensures that we are getting the right tail call optimization from
+-	 * the compiler.
+-	 */
+-	task_ *prev = __svc_handler(desched, resched);
+-	if (current_task != prev)
+-		__switchto(prev, current_task);
+-}
+-
+ void __schedule(int desched, int resched)
+ {
+ 	register int p0 asm("r0") = desched;
+@@ -274,18 +261,6 @@
+ 	asm("svc 0" : : "r"(p0), "r"(p1));
+ }
+ 
+-void pendsv_handler(void)
+-{
+-	/* Clear pending flag */
+-	CPU_SCB_ICSR = (1 << 27);
+-
+-	/* ensure we have priority 0 during re-scheduling */
+-	__asm__ __volatile__("cpsid i");
+-	/* re-schedule the highest priority task */
+-	svc_handler(0, 0);
+-	__asm__ __volatile__("cpsie i");
+-}
+-
+ #ifdef CONFIG_TASK_PROFILING
+ void task_start_irq_handler(void *excep_return)
+ {

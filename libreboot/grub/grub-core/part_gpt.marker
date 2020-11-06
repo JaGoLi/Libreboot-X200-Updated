@@ -1,0 +1,1 @@
+  PARTMAP_LIST_MARKER (&grub_gpt_partition_map);

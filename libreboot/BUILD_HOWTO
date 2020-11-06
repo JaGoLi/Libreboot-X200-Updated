@@ -1,0 +1,149 @@
+Libreboot Build System
+======================
+
+Entry Point
+-----------
+
+The entry point for the Libreboot build system is the main script in the root
+directory named "libreboot". Running this script with no argument will show
+its general usage.
+
+Configuration
+-------------
+
+The build system can be configured with a script named "libreboot.conf" which
+must be located in the root directory.
+
+Typical usage of this file is for assigning environment variables. The list
+of environment variables is shown in the main script's general usage.
+
+Since this file is sourced by the build system after libraries are loaded it
+can also be used to override any of their functions or variables.
+
+Project and Tool Targets
+------------------------
+
+The build system works around the concepts of projects and tools, that define
+specific components that can be used to produce either:
+* sources
+* systems
+* images
+* tools
+
+Various actions are available for each project and tool targets, many of which
+are shown in the main script's general usage. Each project and tool may provide
+a usage action that allows to see the specific usage for it. Actions are
+executed recursively when no targets are specified.
+
+Each project and tool target has its own directory (either in projects or tools)
+that contain a script named after the target and possible a helper script, named
+after the script with a "-helper" suffix. The helper script is automatically
+included by the build system. Functions in helper scripts are usually prefixed
+with the name of the target, where "-" symbols are replaced with "_" symbols.
+
+Each project and tool target's actions are functions defined in the target's
+specific script, with names matching the target's actions.
+
+Meta-Targets
+------------
+
+Meta targets are project and tool targets that apply the requested action to
+individual targets, allowing to execute an action to many targets at once.
+For instance, a meta-target named after the build system with a "-all" suffix
+would call other meta-targets, prefixed with "-images", "-tools", etc that would
+then perform the requested action to all underlying targets.
+
+Projects Actions
+----------------
+
+Various generic actions allow preparing projects through a series of steps:
+* downloading, extracting or updating the project's sources
+* building the project to a build directory
+* installing the project to an install directory
+* releasing the project to a release directory
+* cleaning the build, install and release directories
+
+Actions can be checked by a matching project-specific function, named after the
+function to check with a "_check" suffix, to determine whether it is necessary
+to run them again to follow the steps. An environment variable can force actions
+to be executed, by specifying a space-separated list of projects:
+PROJECTS_FORCE.
+
+Projects Configuration and Patches
+----------------------------------
+
+Configuration for each project is stored in each project's own directory.
+Targets for each project are defined with a "targets" file in each directory
+of the "configs" directory. Targets are read recursively, following
+sub-directory names for project targets.
+
+Each project's configuration directory can be used to hold target-specific
+information and configuration.
+
+An "install" file in each sub-directory indicated which files to grab from the
+build files and where to install them in the install directory.
+
+Projects Sources
+----------------
+
+Each project can either download specific sources or use another project's
+sources, possibly providing its own revision and patches.
+
+Sources are downloaded with the "download" action or can be extracted from
+released sources (after placing the sources in the sources directory) with the
+"extract" action.
+
+Projects may also keep their sources in a "sources" directory in their
+project-specific directory.
+
+Projects Build
+--------------
+
+Each project is built to a build directory, named after the project, with the
+list of targets separated by a "-" symbol.
+
+An environment variable allows controlling the number of tasks to run at the
+same time: TASKS.
+
+Projects Install
+----------------
+
+Projects are installed from "install" files in the project directory, that
+copies the selected built files to the install directory, named after the
+project, with the list of targets separated by a "-" symbol. These install files
+are read recursively, following sub-directory names for project targets.
+
+Additional files to install can be specified in the "install" directory and
+described in an "install" file. These install files are read recursively,
+following sub-directory names for project targets.
+
+Projects Release
+----------------
+
+Projects are released to a release directory, named after the project, with the
+list of targets separated by a "-" symbol. Each project's install files are
+packed into a tarball to the corresponding release directory. A checksum and a
+GPG detached signature (if the RELEASE_KEY environment variable is set) are also
+generated.
+
+Tarballs are generated reproducibly, from a list of files stored in the
+".tarfiles" file. They may also contain the ".epoch", git ".revision" and
+".version" files.
+
+Tools Actions
+-------------
+
+Tools are used for maintaining the build system, for performing routine tasks
+that can be automated. They may have specific actions and not implement any of
+the generic actions.
+
+Actions can be checked by a matching tool-specific function, named after the
+function to check with a "_check" suffix, to determine whether it is necessary
+to run them again to follow the steps. An environment variable can force actions
+to be executed, by specifying a space-separated list of tasks: TASKS_FORCE.
+
+Tools Sources
+-------------
+
+Tools may keep their sources in a "sources" directory in their tool-specific
+directory. These sources may be updated with the "update" action.

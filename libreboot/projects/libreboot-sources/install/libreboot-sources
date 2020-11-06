@@ -1,0 +1,146 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+BUILD_SYSTEM="libreboot"
+
+SOURCES="sources"
+ARCHIVE="tar.xz"
+
+usage() {
+	printf 1>&2 '%s\n' "$executable [action] [sources path] (extract path)"
+
+	printf 1>&2 '\n%s\n' 'Actions:'
+	printf 1>&2 '%s\n' '  extract - Extract build system sources'
+	printf 1>&2 '%s\n' '  copy - Copy projects sources'
+	printf 1>&2 '%s\n' '  prepare - Extract and copy sources'
+
+	printf '\n%s\n' '  When no extract path is provided, sources are extracted in the current'
+	printf '%s\n' '  directory.'
+}
+
+extract() {
+	local sources_path=$1
+	local extract_path=$2
+
+	local build_system_path
+	local archive
+
+	build_system_path="$extract_path/$BUILD_SYSTEM"
+
+	if [ -d "$build_system_path" ]
+	then
+		return
+	fi
+
+	archive=$( find $sources_path -name "$BUILD_SYSTEM-sources.$ARCHIVE" || true )
+	if [ -z "$archive" ]
+	then
+		printf 1>&2 '%s\n' "Finding $BUILD_SYSTEM sources archive failed!"
+		usage
+		exit 1
+	fi
+
+	tar -xf "$archive" -ps -C "$extract_path"
+
+	printf '\n%s\n' "Extracted $BUILD_SYSTEM sources from $sources_path to $extract_path"
+}
+
+copy() {
+	local sources_path=$1
+	local extract_path=$2
+
+	local build_system_path
+	local build_system_sources_path
+	local archives
+	local file
+
+	build_system_path="$extract_path/$BUILD_SYSTEM"
+	build_system_sources_path="$build_system_path/$SOURCES"
+
+	if ! [ -d "$build_system_path" ]
+	then
+		return
+	fi
+
+	mkdir -p "$build_system_path/$SOURCES"
+
+	( find "$sources_path" -type f -not -name "$BUILD_SYSTEM*" || true ) | while read file
+	do
+		cp "$file" "$build_system_sources_path"
+	done
+
+	printf '\n%s\n' "Copied $BUILD_SYSTEM sources from $sources_path to $extract_path"
+}
+
+requirements() {
+	local requirement
+	local requirement_path
+
+	for requirement in "$@"
+	do
+		requirement_path=$( which "$requirement" || true )
+
+		if [ -z "$requirement_path" ]
+		then
+			printf 1>&2 '%s\n' "Missing requirement: $requirement"
+			exit 1
+		fi
+	done
+}
+
+setup() {
+	root=$(readlink -f "$( dirname "$0" )" )
+	executable=$( basename "$0" )
+}
+
+libreboot_sources() {
+	local action=$1
+	local sources_path=$2
+	local extract_path=$3
+
+	set -e
+
+	setup "$@"
+
+	if [ -z "$sources_path" ]
+	then
+		usage
+		exit 1
+	fi
+
+	if [ -z "$extract_path" ]
+	then
+		extract_path=$root
+	fi
+
+	requirements "tar" "sha256sum" "gpg"
+
+	case $action in
+		"extract")
+			extract "$sources_path" "$extract_path"
+			;;
+		"copy")
+			copy "$sources_path" "$extract_path"
+			;;
+		"prepare")
+			extract "$sources_path" "$extract_path"
+			copy "$sources_path" "$extract_path"
+			;;
+	esac
+}
+
+libreboot_sources "$@"

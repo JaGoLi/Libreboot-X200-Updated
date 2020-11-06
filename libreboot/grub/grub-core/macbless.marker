@@ -1,0 +1,4 @@
+COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
+P1COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
+  cmd = COMMAND_LIST_MARKER("mactelbless", grub_cmd_macbless, "FILE", "Bless FILE of HFS or HFS+ partition for intel macs.")
+    COMMAND_LIST_MARKER("macppcbless", grub_cmd_macbless, "DIR", "Bless DIR of HFS or HFS+ partition for PPC macs.")

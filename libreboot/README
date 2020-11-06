@@ -1,0 +1,39 @@
+Libreboot project
+
+Libreboot documentation is under docs/
+The website is https://libreboot.org/
+License can be found in COPYING and through parts of the source tree.
+
+Libreboot is a free BIOS or UEFI replacement (free as in freedom); libre boot 
+firmware that initializes the hardware and starts a bootloader for your 
+operating system. It's also an open source BIOS, but open source fails to 
+promote freedom; please call libreboot free software.
+
+Why use libreboot?
+
+Many people use non-free boot firmware, even if they use GNU+Linux. Non-free 
+BIOS/UEFI firmware often contains backdoors, can be slow and have severe bugs, 
+where you are left helpless at the mercy of the developers; you have no freedom 
+over your computing. By contrast, libreboot is building a world where 
+everyone can use, study, adapt and share software, with true control and 
+ownership over their technology. In other words, you should use Libreboot for 
+your freedom's sake!
+
+Libreboot is faster, more secure and more reliable than most non-free firmware, 
+and can provide many advanced features (such as encrypted /boot/, GPG signature 
+checking before booting your kernel, ability to load an OS from the flash chip, 
+and more).
+
+Libreboot's main upstream providers are coreboot (which we deblob, for hardware 
+initialization), depthcharge (bootloader, and default libreboot payload on ARM), 
+and GRUB (bootloader, and default libreboot payload on x86). We also 
+integrate flashrom (for installing libreboot), and several of our own utilities, 
+scripts and configuration files. All of this is integrated into a single, 
+coherent package that is easy to use. We add our own patches to the various 
+upstreams used, and where feasible try to merge upstream as much as possible.
+
+Together, Libreboot's build system and documentation is provided with the aim
+of making free boot firmware accessible to all.
+
+This README is licensed under Creative Commons Zero 1.0:
+https://creativecommons.org/publicdomain/zero/1.0/

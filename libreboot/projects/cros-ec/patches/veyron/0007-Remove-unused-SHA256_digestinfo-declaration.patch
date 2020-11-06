@@ -1,0 +1,31 @@
+From c4b1a9b5547321126658be2b418edc5b86010e3a Mon Sep 17 00:00:00 2001
+From: Andrew Robbins <contact@andrewrobbins.info>
+Date: Thu, 15 Nov 2018 18:54:57 -0500
+Subject: [PATCH] Remove unused SHA256_digestinfo declaration
+
+---
+ common/sha256.c | 8 --------
+ 1 file changed, 8 deletions(-)
+
+diff --git a/common/sha256.c b/common/sha256.c
+index e8f9f18..7e74a7f 100644
+--- a/common/sha256.c
++++ b/common/sha256.c
+@@ -104,14 +104,6 @@ static const uint32_t sha256_k[64] = {
+ 	0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208,
+ 	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2};
+ 
+-#define SHA256_DIGESTINFO_LEN 19
+-
+-static const uint8_t SHA256_digestinfo[] = {
+-	0x30, 0x31, 0x30, 0x0d, 0x06, 0x09, 0x60, 0x86,
+-	0x48, 0x01, 0x65, 0x03, 0x04, 0x02, 0x01, 0x05,
+-	0x00, 0x04, 0x20
+-};
+-
+ void SHA256_init(struct sha256_ctx *ctx)
+ {
+ 	int i;
+-- 
+2.7.4
+

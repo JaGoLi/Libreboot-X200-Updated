@@ -1,0 +1,617 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+# Copyright (C) 2019 Andrew Robbins <contact@andrewrobbins.info>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+BRANCH_PREFIX="libreboot-"
+DOTGIT=".git"
+HEAD="HEAD"
+ORIGIN_HEAD="origin/HEAD"
+WILDDOTPATCH="*.patch"
+GIT_NAME="Libreboot"
+GIT_EMAIL="libreboot@libreboot.org"
+
+git_check() {
+	local repository_path=$1
+
+	directory_filled_check "$repository_path/$DOTGIT"
+}
+
+git_clone() {
+	local repository_path=$1
+	local url=$2
+
+	git clone "$url" "$repository_path"
+}
+
+git_submodule_update() {
+	local repository_path=$1
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git submodule update --init
+	)
+}
+
+git_merge() {
+	local repository_path=$1
+	local revision=$2
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git merge "$revision"
+	)
+}
+
+git_branch_create() {
+	local repository_path=$1
+	local branch=$2
+	local revision=$3
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git checkout -B "$branch"
+
+		if [[ -n "$revision" ]]
+		then
+			git reset --hard "$revision"
+		fi
+	)
+}
+
+git_branch_delete() {
+	local repository_path=$1
+	local branch=$2
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git branch -D "$branch"
+	)
+}
+
+git_branch_checkout() {
+	local repository_path=$1
+	local branch=$2
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git checkout "$branch" > /dev/null
+	)
+}
+
+git_branch_check() {
+	local repository_path=$1
+	local branch=$2
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git rev-parse --verify "$branch" >/dev/null 2>&1
+	)
+}
+
+git_fetch() {
+	local repository_path=$1
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git fetch origin
+	)
+}
+
+git_fetch_check() {
+	local repository_path=$1
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git fetch --dry-run origin >/dev/null 2>&1
+	)
+}
+
+git_clean() {
+	local repository_path=$1
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git clean -df
+	)
+}
+
+git_remove() {
+	local repository_path=$1
+	local path=$2
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git rm -rf "$path"
+	)
+}
+
+git_diff_staged_check() {
+	local repository_path=$1
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git diff --staged --quiet
+	)
+}
+
+git_diff_check() {
+	local repository_path=$1
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git diff --quiet
+	)
+}
+
+git_commit() {
+	local repository_path=$1
+	local message=$2
+
+	(
+		export GIT_COMMITTER_NAME=$GIT_NAME
+		export GIT_COMMITTER_EMAIL=$GIT_EMAIL
+
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git commit --author="$GIT_NAME <$GIT_EMAIL>" -m "$message"
+	)
+}
+
+git_am() {
+	local repository_path=$1
+	local branch=$2
+	local patch=$3
+
+	(
+		export GIT_COMMITTER_NAME=$GIT_NAME
+		export GIT_COMMITTER_EMAIL=$GIT_EMAIL
+
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git checkout "$branch" >/dev/null 2>&1
+
+		if ! git am "$patch"; then
+			git am --abort
+
+			exit 1
+		fi
+	)
+}
+
+git_apply() {
+	local repository_path=$1
+	local branch=$2
+	local patch=$3
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git checkout "$branch" >/dev/null 2>&1
+		git apply --index "$patch"
+	)
+}
+
+git_apply_check() {
+	local repository_path=$1
+	local branch=$2
+	local patch=$3
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git checkout "$branch" >/dev/null 2>&1
+		git apply --check "$patch"
+	)
+}
+
+git_patch() {
+	local repository_path=$1
+	local branch=$2
+	local patch=$3
+
+	if ! git_apply_check "$repository_path" "$branch" "$patch"; then
+		printf '%s\n' "Patching failed with: ${patch##*$root/$PROJECTS/}"
+		return 1
+	fi
+
+	case $patch in
+		*.patch)
+			git_am "$repository_path" "$branch" "$patch"
+			;;
+		*.diff)
+			git_apply "$repository_path" "$branch" "$patch"
+			git_commit "$repository_path" "Applied ${patch##*/}"
+			;;
+		*)
+			;;
+	esac
+}
+
+git_revision() {
+	local repository_path=$1
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git rev-parse "$HEAD"
+	)
+}
+
+git_describe() {
+	local repository_path=$1
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git describe --tags
+	)
+}
+
+git_files() {
+	local repository_path="$1"
+
+	(
+		cd "$repository_path" 2>/dev/null || exit 1
+
+		git ls-files -z | sort -z
+	)
+}
+
+git_project_repository_path() {
+	local repository=$1
+
+	printf '%s\n' "$root/$SOURCES/$repository"
+}
+
+git_project_check() {
+	local repository=$1
+
+	local repository_path=$(git_project_repository_path "$repository")
+
+	git_check "$repository_path"
+}
+
+git_project_patch_recursive() {
+	local project=$1
+	local repository=$2
+	local branch=$3
+	local path=$4
+
+	local repository_path=$(git_project_repository_path "$repository")
+	local project_path=$(project_path "$project")
+	local patches_path=$project_path/$PATCHES/$path
+
+	if ! [[ -d $project_path/$PATCHES ]]; then
+		return 0
+	fi
+
+	for patch in "$patches_path"/[!.]*.@(patch|diff); do
+		git_patch "$repository_path" "$branch" "$patch" || return 1
+	done
+
+	if [[ -n $path && $path != . ]]; then
+		git_project_patch_recursive "$project" "$repository" "$branch" "$(dirname "$path")"
+	fi
+}
+
+git_project_clone() {
+	local repository=$1
+	shift
+	local urls=$@
+
+	local repository_path=$(git_project_repository_path "$repository")
+	local directory_path=$(dirname "$repository_path")
+	local url
+
+	mkdir -p "$directory_path"
+
+	(
+		set +e
+
+		for url in $urls
+		do
+			if git_clone "$repository_path" "$url"
+			then
+				return 0
+			fi
+		done
+
+		return 1
+	)
+}
+
+git_project_prepare() {
+	local project=$1
+	shift
+	local repository=$1
+	shift
+
+	git_project_prepare_revision "$project" "$repository" "$@"
+	git_project_prepare_blobs "$project" "$repository" "$@"
+	git_project_prepare_patch "$project" "$repository" "$@"
+}
+
+git_project_prepare_blobs() {
+	local project=$1
+	shift
+	local repository=$1
+	shift
+
+	local repository_path=$(git_project_repository_path "$repository")
+	local blob
+
+	while read -r blob
+	do
+		git_remove "$repository_path" "$blob"
+	done < <(project_blobs "$project" "$@")
+
+	if ! git_diff_staged_check "$repository_path"
+	then
+		git_commit "$repository_path" "Removed blobs"
+	fi
+}
+
+git_project_prepare_patch() {
+	local project=$1
+	shift
+	local repository=$1
+	shift
+
+	local branch=$project
+	local argument
+	local path
+
+	for argument in "$@"
+	do
+		if [[ -z "$path" ]]
+		then
+			path="$argument"
+		else
+			path="$path/$argument"
+		fi
+
+		branch="$branch-$argument"
+	done
+
+	if [[ -n $branch ]]
+	then
+		local prepare_branch=$BRANCH_PREFIX$branch
+		local prepare_path=$path
+
+		git_project_patch_recursive "$project" "$repository" "$prepare_branch" "$prepare_path"
+	fi
+}
+
+git_project_prepare_revision() {
+	local project=$1
+	shift
+	local repository=$1
+	shift
+
+	local repository_path=$(git_project_repository_path "$repository")
+	local project_path=$(project_path "$project")
+	local configs_path="$project_path/$CONFIGS"
+	local branch=$project
+	local prepare_revision
+	local argument
+	local path
+
+	for argument in "" "$@"
+	do
+		if [[ -n $argument ]]
+		then
+			if [[ -z $path ]]
+			then
+				path="$argument"
+			else
+				path="$path/$argument"
+			fi
+
+			branch="$branch-$argument"
+		fi
+
+		local revision_path="$configs_path/$path/$REVISION"
+
+		if [[ -f $revision_path ]]; then
+			prepare_revision=$(< "$revision_path")
+		fi
+	done
+
+	if [[ -n $branch ]]
+	then
+		local prepare_branch=$BRANCH_PREFIX$branch
+
+		git_branch_create "$repository_path" "$prepare_branch" "$prepare_revision"
+	fi
+}
+
+git_project_prepare_check() {
+	local project=$1
+	shift
+	local repository=$1
+	shift
+
+	local repository_path=$(git_project_repository_path "$repository")
+	local branch=$project
+	local argument
+
+	for argument in "$@"
+	do
+		branch="$branch-$argument"
+	done
+
+	if [[ -n $branch ]]
+	then
+		local prepare_branch=$BRANCH_PREFIX$branch
+
+		git_branch_check "$repository_path" "$prepare_branch"
+	fi
+}
+
+git_project_prepare_clean() {
+	local project=$1
+	shift
+	local repository=$1
+	shift
+
+	local repository_path=$(git_project_repository_path "$repository")
+	local branch=$project
+	local argument
+
+	for argument in "$@"
+	do
+		branch="$branch-$argument"
+	done
+
+	if [[ -n $branch ]]
+	then
+		local prepare_branch=$BRANCH_PREFIX$branch
+
+		if git_branch_check "$repository_path" "$prepare_branch"
+		then
+			git_branch_delete "$repository_path" "$prepare_branch"
+		fi
+	fi
+}
+
+git_project_checkout() {
+	local project=$1
+	shift
+	local repository=$1
+	shift
+
+	local repository_path=$(git_project_repository_path "$repository")
+	local branch=$project
+	local argument
+
+	for argument in "$@"
+	do
+		branch="$branch-$argument"
+	done
+
+	if [[ -n $branch ]]
+	then
+		local checkout_branch=$BRANCH_PREFIX$branch
+
+		if git_branch_check "$repository_path" "$checkout_branch"
+		then
+			git_branch_checkout "$repository_path" "$checkout_branch"
+			git_submodule_update "$repository_path"
+		fi
+	fi
+}
+
+git_project_update() {
+	local project=$1
+	shift
+	local repository=$1
+	shift
+
+	local repository_path=$(git_project_repository_path "$repository")
+
+	git_fetch "$repository_path"
+	git_branch_checkout "$repository_path" "$ORIGIN_HEAD"
+
+	git_project_prepare_clean "$project" "$repository" "$@"
+	git_project_prepare "$project" "$repository" "$@"
+}
+
+git_project_update_check() {
+	local project=$1
+	shift
+	local repository=$1
+	shift
+
+	git_project_prepare_check "$project" "$repository" "$@"
+
+	git_fetch_check "$repository_path"
+}
+
+git_project_release() {
+	local project=$1
+	shift
+	local repository=$1
+	shift
+
+	local repository_path=$(git_project_repository_path "$repository")
+	local branch=$project
+	local argument
+
+	for argument in "$@"
+	do
+		branch="$branch-$argument"
+	done
+
+	if [[ -n $branch ]]
+	then
+		local release_branch=$BRANCH_PREFIX$branch
+
+		if git_branch_check "$repository_path" "$release_branch"
+		then
+			local archive_path="$root/$RELEASE/$SOURCES/$project/$release_branch.$ARCHIVE"
+			local sources_path="$root/$SOURCES/$repository"
+
+			printf '%s\n' "Releasing sources archive for $project (with ${arguments:-no argument}) from "$repository" git"
+
+			git_branch_checkout "$repository_path" "$release_branch"
+			git_submodule_update "$repository_path"
+			git_clean "$repository_path"
+			archive_create "$archive_path" "$sources_path" "$release_branch"
+			file_verification_create "$archive_path"
+		fi
+	fi
+}
+
+git_project_release_check() {
+	local project=$1
+	shift
+	local repository=$1
+	shift
+
+	local repository_path=$(git_project_repository_path "$repository")
+	local branch=$project
+	local argument
+
+	for argument in "$@"
+	do
+		branch="$branch-$argument"
+	done
+
+	if [[ -n $branch ]]
+	then
+		local release_branch=$BRANCH_PREFIX$branch
+
+		if git_branch_check "$repository_path" "$release_branch"
+		then
+			local archive_path="$root/$RELEASE/$SOURCES/$project/$release_branch.$ARCHIVE"
+
+			file_exists_check "$archive_path"
+		fi
+	fi
+}

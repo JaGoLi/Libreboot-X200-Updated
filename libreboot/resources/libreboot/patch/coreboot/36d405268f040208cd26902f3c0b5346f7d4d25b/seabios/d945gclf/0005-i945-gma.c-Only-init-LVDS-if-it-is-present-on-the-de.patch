@@ -1,0 +1,97 @@
+From 603387a7650a80c92f1064f17fbbf06d60c06f30 Mon Sep 17 00:00:00 2001
+From: Arthur Heymans <arthur@aheymans.xyz>
+Date: Tue, 6 Sep 2016 23:53:32 +0200
+Subject: [PATCH 5/5] i945/gma.c: Only init LVDS if it is present on the device
+
+Some devices have no LVDS output but if no VGA is connected or
+no edid can be found, it will try to init LVDS.
+
+This patch makes sure only devices that have an LVDS connector can use LVDS
+graphic initialisation.
+
+Change-Id: Ie15631514535bab6c881c1f52e9edbfb8aaa5db7
+Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
+
+diff --git a/src/mainboard/apple/macbook21/Kconfig b/src/mainboard/apple/macbook21/Kconfig
+index e653c08..8ba3d77 100644
+--- a/src/mainboard/apple/macbook21/Kconfig
++++ b/src/mainboard/apple/macbook21/Kconfig
+@@ -35,6 +35,10 @@ config DCACHE_RAM_SIZE
+ 	hex
+ 	default 0x8000
+ 
++config HAS_LVDS
++	bool
++	default y
++
+ if BOARD_APPLE_MACBOOK21
+ 
+ config MAINBOARD_PART_NUMBER
+diff --git a/src/mainboard/getac/p470/Kconfig b/src/mainboard/getac/p470/Kconfig
+index ea68bed..e74b70c 100644
+--- a/src/mainboard/getac/p470/Kconfig
++++ b/src/mainboard/getac/p470/Kconfig
+@@ -64,4 +64,8 @@ config VGA_BIOS_FILE
+ 	string
+ 	default "getac-pci8086,27a2.rom"
+ 
++config HAS_LVDS
++	bool
++	default y
++
+ endif # BOARD_GETAC_P470
+diff --git a/src/mainboard/lenovo/t60/Kconfig b/src/mainboard/lenovo/t60/Kconfig
+index 52eeda3..e5a7554 100644
+--- a/src/mainboard/lenovo/t60/Kconfig
++++ b/src/mainboard/lenovo/t60/Kconfig
+@@ -54,4 +54,8 @@ config SEABIOS_PS2_TIMEOUT
+ 	int
+ 	default 3000
+ 
++config HAS_LVDS
++	bool
++	default y
++
+ endif
+diff --git a/src/mainboard/lenovo/x60/Kconfig b/src/mainboard/lenovo/x60/Kconfig
+index ab4b58e..152e6b2 100644
+--- a/src/mainboard/lenovo/x60/Kconfig
++++ b/src/mainboard/lenovo/x60/Kconfig
+@@ -61,4 +61,8 @@ config SEABIOS_PS2_TIMEOUT
+ 	int
+ 	default 3000
+ 
++config HAS_LVDS
++	bool
++	default y
++
+ endif
+diff --git a/src/northbridge/intel/i945/Kconfig b/src/northbridge/intel/i945/Kconfig
+index 6e8d35b..ae7961f 100644
+--- a/src/northbridge/intel/i945/Kconfig
++++ b/src/northbridge/intel/i945/Kconfig
+@@ -71,4 +71,8 @@ config CHECK_SLFRCS_ON_RESUME
+ 	  On other boards the check always creates a false positive,
+ 	  effectively making it impossible to resume.
+ 
++config HAS_LVDS
++	bool
++	default n
++
+ endif
+diff --git a/src/northbridge/intel/i945/gma.c b/src/northbridge/intel/i945/gma.c
+index abe7dd6..be299f4 100644
+--- a/src/northbridge/intel/i945/gma.c
++++ b/src/northbridge/intel/i945/gma.c
+@@ -611,7 +611,7 @@ static void gma_func0_init(struct device *dev)
+ 	);
+ 
+ 	int err;
+-	if (vga_connected(mmiobase))
++	if (!CONFIG_HAS_LVDS || vga_connected(mmiobase))
+ 		err = intel_gma_init_vga(conf, pci_read_config32(dev, 0x5c) & ~0xf,
+ 					iobase, mmiobase, graphics_base);
+ 	else
+-- 
+2.9.3
+

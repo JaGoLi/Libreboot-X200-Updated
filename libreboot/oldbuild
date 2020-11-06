@@ -1,0 +1,101 @@
+#!/bin/sh
+
+#  generic build script, for building components (all of them)
+#
+#	Copyright (C) 2014, 2015 Leah Rowe <info@minifree.org>
+#	Copyright (C) 2015 Patrick "P. J." McDermott <pj@pehjota.net>
+#	Copyright (C) 2015, 2016 Klemens Nanni <contact@autoboot.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+build=./resources/scripts/helpers/build
+
+listmodes() {
+	for mode in "${build}"/*; do
+		printf '%s\n' "${mode##*/}"
+	done
+}
+
+# Takes exactly one mode as parameter
+listoptions() {
+	for option in "${build}"/"${1}"/*; do
+		printf '%s\n' "${option##*/}"
+	done
+}
+
+help() {
+	cat <<- EOF
+	USAGE:	./oldbuild <MODE> <OPTION>
+
+	possible values for 'mode':
+	$(listmodes)
+
+	Example:	./oldbuild module all
+	Example:	./oldbuild module flashrom [static]
+	Example:	./oldbuild roms withgrub
+	Example:	./oldbuild clean all
+
+	Refer to the libreboot documentation for more information.
+	EOF
+}
+
+die() {
+	printf 'Error: %s\n' "${@}" 1>&2
+	exit 1
+}
+
+if [ $# -lt 1 ]; then
+	die "Wrong number of arguments specified. See './oldbuild help'."
+fi
+
+mode="${1}"
+
+[ "${mode}" = help ] && help && exit 0
+
+if [ $# -gt 1 ]; then
+
+    option="${2}"
+    shift 2
+
+    case "${option}" in
+    	list)
+    		printf "Available options for mode '%s':\n\n" "${mode}"
+    		listoptions "${mode}"
+    		;;  
+    	all)
+    		for option in $(listoptions "${mode}"); do
+    			"${build}"/"${mode}"/"${option}" $@
+    		done
+    		;;
+    	*)
+    		if [ -d "${build}"/"${mode}"/ ]; then
+    			if [ -f "${build}"/"${mode}"/"${option}" ]; then
+    				"${build}"/"${mode}"/"${option}" $@
+    			else
+                    help
+    				die "Invalid option for '${mode}'. See './oldbuild ${mode} list'."
+    			fi
+    		else
+                help
+    			die "Invalid mode '${mode}'. See './oldbuild help'."
+    		fi
+    esac
+else
+    help
+    exit 0
+fi

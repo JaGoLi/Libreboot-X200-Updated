@@ -1,0 +1,14 @@
+kern/i386/coreboot/kernel_exec-startup.o: kern/i386/coreboot/startup.S \
+ ../include/grub/symbol.h ../config.h ../include/grub/machine/memory.h \
+ ../include/grub/i386/memory.h ../include/grub/i386/memory_raw.h \
+ ../include/grub/cpu/linux.h ../include/grub/offsets.h \
+ ../include/multiboot.h ../include/multiboot2.h
+../include/grub/symbol.h:
+../config.h:
+../include/grub/machine/memory.h:
+../include/grub/i386/memory.h:
+../include/grub/i386/memory_raw.h:
+../include/grub/cpu/linux.h:
+../include/grub/offsets.h:
+../include/multiboot.h:
+../include/multiboot2.h:

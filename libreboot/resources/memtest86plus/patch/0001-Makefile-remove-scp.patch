@@ -1,0 +1,11 @@
+--- Makefile	2015-11-18 23:49:40.900093793 +0100
++++ Makefile.new	2015-11-19 00:08:37.392634002 +0100
+@@ -15,3 +15,3 @@
+ CFLAGS= -Wall -march=i486 -m32 -O1 -fomit-frame-pointer -fno-builtin \
+-	-ffreestanding -fPIC $(SMP_FL) -fno-stack-protector 
++	-ffreestanding -fPIC $(SMP_FL) -fno-stack-protector -fgnu89-inline
+ 	
+@@ -23,3 +23,2 @@
+ all: clean memtest.bin memtest 
+-		 scp memtest.bin root@192.168.0.12:/srv/tftp/mt86plus
+

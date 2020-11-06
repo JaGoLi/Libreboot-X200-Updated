@@ -1,0 +1,27 @@
+From 34270811fce1ecf0bcf3b1363b0dc3dbf284ab09 Mon Sep 17 00:00:00 2001
+From: Leah Rowe <info@minifree.org>
+Date: Wed, 10 Jun 2015 22:53:28 +0000
+Subject: flash script: fix a really really really dumb mistake
+
+---
+diff --git a/flash b/flash
+index c96b915..04fd274 100755
+--- a/flash
++++ b/flash
+@@ -95,12 +95,12 @@ if [ "$mode" = "i945lenovo_firstflash" ] || [ "$mode" = "i945lenovo_secondflash"
+ 		# git or libreboot_src
+ 		bucts="./bucts/bucts"
+ 		flashrom_lenovobios_sst="./flashrom/flashrom_lenovobios_sst"
+-		flashrom_lenovobios_macronix="./flashrom/flashrom_lenovobios_sst"
++		flashrom_lenovobios_macronix="./flashrom/flashrom_lenovobios_macronix"
+ 	else
+ 		# libreboot_util
+ 		bucts="./bucts/$arch/bucts"
+ 		flashrom_lenovobios_sst="./flashrom/$arch/flashrom_lenovobios_sst"
+-		flashrom_lenovobios_macronix="./flashrom/$arch/flashrom_lenovobios_sst"
++		flashrom_lenovobios_macronix="./flashrom/$arch/flashrom_lenovobios_macronix"
+ 	fi
+ 	
+ 	# anti-bricking precaution
+--
+cgit v0.9.0.2

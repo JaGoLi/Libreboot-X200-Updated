@@ -1,0 +1,24 @@
+From 63312528ea81207865077ab2c75963e3660859f0 Mon Sep 17 00:00:00 2001
+From: Leah Rowe <info@minifree.org>
+Date: Sat, 14 Feb 2015 00:56:43 +0000
+Subject: [PATCH] Makefile: don't use git
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 68541e6..b5f43d5 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,6 +1,6 @@
+ CC:=gcc
+ OBJ:=bucts.o
+-VERSION:=$(shell git describe)
++VERSION:=withoutgit
+ 
+ ifeq ($(shell uname), FreeBSD)
+ 	CFLAGS = -I/usr/local/include
+-- 
+1.9.1
+

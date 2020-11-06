@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+
+#  helper script: installs build dependencies for Parabola
+
+# this script is based on the script for Trisquel 7
+#
+#	Copyright (C) 2014, 2015 Leah Rowe <info@minifree.org>
+#	Copyright (C) 2015 Klemens Nanni <klemens@posteo.de>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+if [ $EUID -ne 0 ]; then
+   printf "This script must be run as root\n" 
+   exit 1
+fi
+
+# Duplications are intentional. Please do not re-factor.
+#
+# This is so that they can moved to separate scripts.
+#
+
+pacman -S --needed wget
+
+# For downloading source code
+# ------------------------------------------------------------
+
+printf "Source Code: In order to download the it, git is needed\n"
+pacman -S --needed git
+
+# For building the documentation
+# ------------------------------------------------------------
+
+pacman -S --needed pandoc texi2html
+
+# For building source code:
+# ------------------------------------------------------------
+
+printf "Building Source Code: development packages\n"
+pacman -S --needed base-devel libstdc++5
+
+pacman -S arm-none-eabi-gcc
+
+pacman -S --needed libpciaccess
+
+[ "$(uname -i)" = x86_64 ] || [ "$(uname -m)" = x86_64 ]
+arch=${?}
+
+# For cross-compiling i686 target on x86_64 host.
+if [ "${arch}" -eq 0 ]; then
+	printf "Cross-Compiling: You are running on 64-bit architecture, however 32-bit libraries are needed\n"
+	pacman -Sl multilib &>/dev/null || (printf "You must enable the multilib repository in /etc/pacman.conf first\n"; exit 1)
+	pacman -S --needed gcc-multilib gcc-libs-multilib lib32-libltdl lib32-libpciaccess lib32-libstdc++5 lib32-glibc lib32-fakeroot
+fi
+
+# Memtest86+ build dependencies
+# ------------------------------------------------------------
+
+# pacman -S --needed base-devel
+
+# i945-pwm build dependencies
+# ------------------------------------------------------------
+
+# pacman -S base-devel
+
+# Coreboot build dependencies (also requires build-essential and git)
+# ------------------------------------------------------------
+
+printf "Coreboot: Ncurses for menuconfig and a few other tools\n"
+pacman -S ncurses doxygen iasl gdb flex bison
+# pacman -S git base-devel
+
+# For cross-compiling i686 target on x86_64 host.
+if [ "${arch}" -eq 0 ]; then
+	printf "Cross-Compiling: You are running on 64-bit architecture, however 32-bit libraries are needed\n"
+	pacman -S --needed lib32-ncurses
+fi
+
+# GRUB2 build dependencies (also requires build-essential, bison and flex)
+# pacman -S --needed base-devel bison flex
+
+printf "GRUB: Fonts, (crypto) filesystem support, automake, etc.\n"
+pacman -S --needed autogen m4 autoconf help2man freetype2 automake fuse fuse-exfat xz gawk device-mapper libtool python
+pacman -S --needed bdf-unifont # trying this, otherwise there was an error. I'll try AUR if this won't work.
+
+# BucTS build dependencies (external script)
+# ------------------------------------------------------------
+
+# pacman -S --needed base-devel
+
+# Flashrom build dependencies (also requires build-essential)
+# ------------------------------------------------------------
+
+printf "Flashrom: Your external programmer will be most probably using PCI bus, FTDI chips need additional libraries\n"
+pacman -S --needed pciutils zlib libftdi libftdi-compat 
+# pacman -S --needed base-devel

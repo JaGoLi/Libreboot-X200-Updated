@@ -1,0 +1,354 @@
+From aecef39cda6a70c99bf0caff0452e47ad43a68d8 Mon Sep 17 00:00:00 2001
+From: Paul Kocialkowski <contact@paulk.fr>
+Date: Sun, 10 Jul 2016 23:43:16 +0200
+Subject: [PATCH 7/7] firmware: Pass VbDisplayInfo information structure to
+ VbExDisplayScreen
+
+This provides VbExDisplayScreen with an information structure
+(VbDisplayInfo) that contains various context information for display.
+
+Change-Id: Id9e07bb418f64e9286f07da11314cd63f925e301
+Signed-off-by: Paul Kocialkowski <contact@paulk.fr>
+---
+ firmware/include/vboot_api.h         | 12 +++++++++-
+ firmware/lib/include/vboot_display.h |  2 +-
+ firmware/lib/vboot_api_kernel.c      | 44 ++++++++++++++++++++++++------------
+ firmware/lib/vboot_display.c         | 15 ++++++------
+ firmware/stub/vboot_api_stub.c       |  3 ++-
+ tests/vboot_api_devmode_tests.c      |  3 ++-
+ tests/vboot_api_kernel2_tests.c      |  2 +-
+ tests/vboot_api_kernel3_tests.c      |  2 +-
+ 8 files changed, 55 insertions(+), 28 deletions(-)
+
+diff --git a/firmware/include/vboot_api.h b/firmware/include/vboot_api.h
+index 950c1e2..ba53101 100644
+--- a/firmware/include/vboot_api.h
++++ b/firmware/include/vboot_api.h
+@@ -697,6 +697,15 @@ enum VbScreenType_t {
+ 	VB_SCREEN_OS_BROKEN         = 0x208,
+ };
+ 
++/* Information on display context */
++typedef struct VbDisplayInfo {
++	uint32_t allow_usb;
++	uint32_t allow_legacy;
++	uint32_t use_usb;
++	uint32_t use_legacy;
++	uint32_t signed_only;
++} VbDisplayInfo;
++
+ /**
+  * Initialize and clear the display.  Set width and height to the screen
+  * dimensions in pixels.
+@@ -725,7 +734,8 @@ VbError_t VbExDisplaySetDimension(uint32_t width, uint32_t height);
+  * to be simple ASCII text such as "NO GOOD" or "INSERT"; these screens should
+  * only be seen during development.
+  */
+-VbError_t VbExDisplayScreen(uint32_t screen_type, uint32_t locale);
++VbError_t VbExDisplayScreen(uint32_t screen_type, uint32_t locale,
++			    VbDisplayInfo *info);
+ 
+ /**
+  * Write an image to the display, with the upper left corner at the specified
+diff --git a/firmware/lib/include/vboot_display.h b/firmware/lib/include/vboot_display.h
+index 0ab93f0..0574580 100644
+--- a/firmware/lib/include/vboot_display.h
++++ b/firmware/lib/include/vboot_display.h
+@@ -15,7 +15,7 @@
+ VbError_t VbDisplayScreenFromGBB(VbCommonParams *cparams, uint32_t screen,
+                                  VbNvContext *vncptr, uint32_t locale);
+ VbError_t VbDisplayScreen(VbCommonParams *cparams, uint32_t screen, int force,
+-                          VbNvContext *vncptr);
++                          VbNvContext *vncptr, VbDisplayInfo *info);
+ VbError_t VbDisplayDebugInfo(VbCommonParams *cparams, VbNvContext *vncptr);
+ VbError_t VbCheckDisplayKey(VbCommonParams *cparams, uint32_t key,
+                             VbNvContext *vncptr);
+diff --git a/firmware/lib/vboot_api_kernel.c b/firmware/lib/vboot_api_kernel.c
+index e03e042..7dcc754 100644
+--- a/firmware/lib/vboot_api_kernel.c
++++ b/firmware/lib/vboot_api_kernel.c
+@@ -300,11 +300,13 @@ VbError_t VbBootDeveloper(VbCommonParams *cparams, LoadKernelParams *p)
+ 	VbSharedDataHeader *shared =
+ 		(VbSharedDataHeader *)cparams->shared_data_blob;
+ 
++	VbDisplayInfo info;
+ 	uint32_t allow_usb = 0;
+ 	uint32_t allow_legacy = 0;
+ 	uint32_t disable_dev_boot = 0;
+ 	uint32_t use_usb = 0;
+ 	uint32_t use_legacy = 0;
++	uint32_t signed_only = 0;
+ 	uint32_t default_boot = 0;
+ 	uint32_t ctrl_d_pressed = 0;
+ 	uint32_t hold = 0;
+@@ -350,10 +352,22 @@ VbError_t VbBootDeveloper(VbCommonParams *cparams, LoadKernelParams *p)
+ 		}
+ 	}
+ 
++	VbNvGet(&vnc, VBNV_DEV_BOOT_SIGNED_ONLY, &signed_only);
++
++	if (fwmp.flags & FWMP_DEV_ENABLE_OFFICIAL_ONLY)
++		signed_only = 1;
++
++	info.allow_usb = allow_usb;
++	info.allow_legacy = allow_legacy;
++	info.use_usb = use_usb;
++	info.use_legacy = use_legacy;
++	info.signed_only = signed_only;
++
+ 	/* If dev mode is disabled, only allow TONORM */
+ 	while (disable_dev_boot) {
+ 		VBDEBUG(("%s() - dev_disable_boot is set.\n", __func__));
+-		VbDisplayScreen(cparams, VB_SCREEN_DEVELOPER_TO_NORM, 0, &vnc);
++		VbDisplayScreen(cparams, VB_SCREEN_DEVELOPER_TO_NORM, 0, &vnc,
++				NULL);
+ 		VbExDisplayDebugInfo(dev_disable_msg);
+ 
+ 		/* Ignore space in VbUserConfirms()... */
+@@ -363,7 +377,7 @@ VbError_t VbBootDeveloper(VbCommonParams *cparams, LoadKernelParams *p)
+ 			VbNvSet(&vnc, VBNV_DISABLE_DEV_REQUEST, 1);
+ 			VbDisplayScreen(cparams,
+ 					VB_SCREEN_TO_NORM_CONFIRMED,
+-					0, &vnc);
++					0, &vnc, NULL);
+ 			VbExSleepMs(5000);
+ 			return VBERROR_REBOOT_REQUIRED;
+ 		case -1:
+@@ -377,7 +391,7 @@ VbError_t VbBootDeveloper(VbCommonParams *cparams, LoadKernelParams *p)
+ 
+ developer_mode_screen:
+ 	/* Show the dev mode warning screen */
+-	VbDisplayScreen(cparams, VB_SCREEN_DEVELOPER_WARNING, 0, &vnc);
++	VbDisplayScreen(cparams, VB_SCREEN_DEVELOPER_WARNING, 0, &vnc, &info);
+ 
+ 	/* Get audio/delay context */
+ 	audio = VbAudioOpen(cparams);
+@@ -425,7 +439,7 @@ developer_mode_screen:
+ 				}
+ 				VbDisplayScreen(cparams,
+ 						VB_SCREEN_DEVELOPER_TO_NORM,
+-						0, &vnc);
++						0, &vnc, NULL);
+ 				/* Ignore space in VbUserConfirms()... */
+ 				switch (VbUserConfirms(cparams, 0)) {
+ 				case 1:
+@@ -436,7 +450,7 @@ developer_mode_screen:
+ 					VbDisplayScreen(
+ 						cparams,
+ 						VB_SCREEN_TO_NORM_CONFIRMED,
+-						0, &vnc);
++						0, &vnc, NULL);
+ 					VbExSleepMs(5000);
+ 					return VBERROR_REBOOT_REQUIRED;
+ 				case -1:
+@@ -450,7 +464,7 @@ developer_mode_screen:
+ 					VbDisplayScreen(
+ 						cparams,
+ 						VB_SCREEN_DEVELOPER_WARNING,
+-						0, &vnc);
++						0, &vnc, &info);
+ 					/* Start new countdown */
+ 					audio = VbAudioOpen(cparams);
+ 				}
+@@ -512,7 +526,7 @@ developer_mode_screen:
+ 					 "USB booting is disabled\n"));
+ 
+ 				VbDisplayScreen(cparams, VB_SCREEN_BLANK, 1,
+-						&vnc);
++						&vnc, NULL);
+ 
+ 				VbExDisplayDebugInfo(
+ 					"WARNING: Booting from external media "
+@@ -533,7 +547,7 @@ developer_mode_screen:
+ 				 * key press.
+ 				 */
+ 				VbDisplayScreen(cparams, VB_SCREEN_BLANK, 0,
+-						&vnc);
++						&vnc, NULL);
+ 				if (VBERROR_SUCCESS == VbTryUsb(cparams, p)) {
+ 					VbAudioClose(audio);
+ 					return VBERROR_SUCCESS;
+@@ -542,7 +556,7 @@ developer_mode_screen:
+ 					VbDisplayScreen(
+ 						cparams,
+ 						VB_SCREEN_DEVELOPER_WARNING,
+-						0, &vnc);
++						0, &vnc, &info);
+ 				}
+ 			}
+ 			break;
+@@ -608,7 +622,7 @@ VbError_t VbBootRecovery(VbCommonParams *cparams, LoadKernelParams *p)
+ 				shared->recovery_reason));
+ 		VbSetRecoverySubcode(shared->recovery_reason);
+ 		VbNvCommit();
+-		VbDisplayScreen(cparams, VB_SCREEN_OS_BROKEN, 0, &vnc);
++		VbDisplayScreen(cparams, VB_SCREEN_OS_BROKEN, 0, &vnc, NULL);
+ 		VBDEBUG(("VbBootRecovery() waiting for manual recovery\n"));
+ 		while (1) {
+ 			if (VbWantShutdown(cparams->gbb->flags))
+@@ -637,7 +651,7 @@ VbError_t VbBootRecovery(VbCommonParams *cparams, LoadKernelParams *p)
+ 		VbDisplayScreen(cparams, VBERROR_NO_DISK_FOUND == retval ?
+ 				VB_SCREEN_RECOVERY_INSERT :
+ 				VB_SCREEN_RECOVERY_NO_GOOD,
+-				0, &vnc);
++				0, &vnc, NULL);
+ 
+ 		/*
+ 		 * Scan keyboard more frequently than media, since x86
+@@ -677,7 +691,7 @@ VbError_t VbBootRecovery(VbCommonParams *cparams, LoadKernelParams *p)
+ 				/* Ask the user to confirm entering dev-mode */
+ 				VbDisplayScreen(cparams,
+ 						VB_SCREEN_RECOVERY_TO_DEV,
+-						0, &vnc);
++						0, &vnc, NULL);
+ 				/* SPACE means no... */
+ 				uint32_t vbc_flags =
+ 					VB_CONFIRM_SPACE_MEANS_NO |
+@@ -839,7 +853,7 @@ static VbError_t EcUpdateImage(int devidx, VbCommonParams *cparams,
+ 			return VBERROR_VGA_OPROM_MISMATCH;
+ 		}
+ 
+-		VbDisplayScreen(cparams, VB_SCREEN_WAIT, 0, &vnc);
++		VbDisplayScreen(cparams, VB_SCREEN_WAIT, 0, &vnc, NULL);
+ 	}
+ 
+ 	rv = VbExEcUpdateImage(devidx, select, expected, expected_size);
+@@ -1250,13 +1264,13 @@ VbError_t VbSelectAndLoadKernel(VbCommonParams *cparams,
+ 		p.boot_flags |= BOOT_FLAG_RECOVERY;
+ 		retval = VbBootRecovery(cparams, &p);
+ 		VbExEcEnteringMode(0, VB_EC_RECOVERY);
+-		VbDisplayScreen(cparams, VB_SCREEN_BLANK, 0, &vnc);
++		VbDisplayScreen(cparams, VB_SCREEN_BLANK, 0, &vnc, NULL);
+ 
+ 	} else if (p.boot_flags & BOOT_FLAG_DEVELOPER) {
+ 		/* Developer boot */
+ 		retval = VbBootDeveloper(cparams, &p);
+ 		VbExEcEnteringMode(0, VB_EC_DEVELOPER);
+-		VbDisplayScreen(cparams, VB_SCREEN_BLANK, 0, &vnc);
++		VbDisplayScreen(cparams, VB_SCREEN_BLANK, 0, &vnc, NULL);
+ 
+ 	} else {
+ 		/* Normal boot */
+diff --git a/firmware/lib/vboot_display.c b/firmware/lib/vboot_display.c
+index 6d8ed92..84b7961 100644
+--- a/firmware/lib/vboot_display.c
++++ b/firmware/lib/vboot_display.c
+@@ -321,7 +321,7 @@ VbError_t VbDisplayScreenFromGBB(VbCommonParams *cparams, uint32_t screen,
+  */
+ static VbError_t VbDisplayScreenLegacy(VbCommonParams *cparams, uint32_t screen,
+ 				       int force, VbNvContext *vncptr,
+-				       uint32_t locale)
++				       uint32_t locale, VbDisplayInfo *info)
+ {
+ 	VbError_t retval;
+ 
+@@ -336,7 +336,7 @@ static VbError_t VbDisplayScreenLegacy(VbCommonParams *cparams, uint32_t screen,
+ 	VbExDisplayBacklight(VB_SCREEN_BLANK == screen ? 0 : 1);
+ 
+ 	/* Display default first */
+-	if (VBERROR_SUCCESS == VbExDisplayScreen(screen, locale))
++	if (VBERROR_SUCCESS == VbExDisplayScreen(screen, locale, info))
+ 		return VBERROR_SUCCESS;
+ 
+ 	/* If default doesn't have anything to show, fall back to GBB bitmaps */
+@@ -344,7 +344,7 @@ static VbError_t VbDisplayScreenLegacy(VbCommonParams *cparams, uint32_t screen,
+ }
+ 
+ VbError_t VbDisplayScreen(VbCommonParams *cparams, uint32_t screen,
+-			  int force, VbNvContext *vncptr)
++			  int force, VbNvContext *vncptr, VbDisplayInfo *info)
+ {
+ 	uint32_t locale;
+ 	VbError_t rv;
+@@ -357,7 +357,7 @@ VbError_t VbDisplayScreen(VbCommonParams *cparams, uint32_t screen,
+ 	VbNvGet(vncptr, VBNV_LOCALIZATION_INDEX, &locale);
+ 
+ 	rv = VbDisplayScreenLegacy(cparams, screen, force, vncptr,
+-				   locale);
++				   locale, info);
+ 
+ 	if (rv == VBERROR_SUCCESS)
+ 		/* Keep track of the currently displayed screen */
+@@ -560,7 +560,7 @@ VbError_t VbDisplayDebugInfo(VbCommonParams *cparams, VbNvContext *vncptr)
+ 	uint32_t i;
+ 
+ 	/* Blank screen */
+-	VbDisplayScreen(cparams, VB_SCREEN_BLANK, 1, vncptr);
++	VbDisplayScreen(cparams, VB_SCREEN_BLANK, 1, vncptr, NULL);
+ 
+ 	/* Add hardware ID */
+ 	VbRegionReadHWID(cparams, hwid, sizeof(hwid));
+@@ -725,13 +725,14 @@ VbError_t VbCheckDisplayKey(VbCommonParams *cparams, uint32_t key,
+ #endif
+ 
+ 		/* Force redraw of current screen */
+-		return VbDisplayScreen(cparams, disp_current_screen, 1, vncptr);
++		return VbDisplayScreen(cparams, disp_current_screen, 1, vncptr,
++				       NULL);
+ 	}
+ 
+ 	if (0 == memcmp(MagicBuffer, MAGIC_WORD, MAGIC_WORD_LEN)) {
+ 		if (VBEASTEREGG)
+ 			(void)VbDisplayScreen(cparams, disp_current_screen,
+-					      1, vncptr);
++					      1, vncptr, NULL);
+ 	}
+ 
+   return VBERROR_SUCCESS;
+diff --git a/firmware/stub/vboot_api_stub.c b/firmware/stub/vboot_api_stub.c
+index 717c0f8..c086195 100644
+--- a/firmware/stub/vboot_api_stub.c
++++ b/firmware/stub/vboot_api_stub.c
+@@ -41,7 +41,8 @@ VbError_t VbExDisplaySetDimension(uint32_t width, uint32_t height)
+ 	return VBERROR_SUCCESS;
+ }
+ 
+-VbError_t VbExDisplayScreen(uint32_t screen_type, uint32_t locale)
++VbError_t VbExDisplayScreen(uint32_t screen_type, uint32_t locale,
++			    VbDisplayInfo *info)
+ {
+ 	return VBERROR_SUCCESS;
+ }
+diff --git a/tests/vboot_api_devmode_tests.c b/tests/vboot_api_devmode_tests.c
+index abd8e85..6e8afbd 100644
+--- a/tests/vboot_api_devmode_tests.c
++++ b/tests/vboot_api_devmode_tests.c
+@@ -265,7 +265,8 @@ VbError_t VbExBeep(uint32_t msec, uint32_t frequency) {
+   return beep_return;
+ }
+ 
+-VbError_t VbExDisplayScreen(uint32_t screen_type, uint32_t locale) {
++VbError_t VbExDisplayScreen(uint32_t screen_type, uint32_t locale,
++			    VbDisplayInfo *info) {
+   switch(screen_type) {
+   case VB_SCREEN_BLANK:
+     VBDEBUG(("VbExDisplayScreen(BLANK)\n"));
+diff --git a/tests/vboot_api_kernel2_tests.c b/tests/vboot_api_kernel2_tests.c
+index 433933b..d44fc1e 100644
+--- a/tests/vboot_api_kernel2_tests.c
++++ b/tests/vboot_api_kernel2_tests.c
+@@ -185,7 +185,7 @@ uint32_t VbTryLoadKernel(VbCommonParams *cparams, LoadKernelParams *p,
+ }
+ 
+ VbError_t VbDisplayScreen(VbCommonParams *cparams, uint32_t screen, int force,
+-                          VbNvContext *vncptr)
++                          VbNvContext *vncptr, VbDisplayInfo *info)
+ {
+ 	if (screens_count < ARRAY_SIZE(screens_displayed))
+ 		screens_displayed[screens_count++] = screen;
+diff --git a/tests/vboot_api_kernel3_tests.c b/tests/vboot_api_kernel3_tests.c
+index 3eddb73..0403c71 100644
+--- a/tests/vboot_api_kernel3_tests.c
++++ b/tests/vboot_api_kernel3_tests.c
+@@ -195,7 +195,7 @@ VbError_t VbExEcUpdateImage(int devidx, enum VbSelectFirmware_t select,
+ }
+ 
+ VbError_t VbDisplayScreen(VbCommonParams *cparams, uint32_t screen, int force,
+-                          VbNvContext *vncptr)
++                          VbNvContext *vncptr, VbDisplayInfo *info)
+ {
+ 	if (screens_count < ARRAY_SIZE(screens_displayed))
+ 		screens_displayed[screens_count++] = screen;
+-- 
+2.10.2
+

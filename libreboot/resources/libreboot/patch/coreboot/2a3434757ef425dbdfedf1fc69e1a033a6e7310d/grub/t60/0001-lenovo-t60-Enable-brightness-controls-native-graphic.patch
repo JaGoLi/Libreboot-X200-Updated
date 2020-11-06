@@ -1,0 +1,36 @@
+From 770021ce66a0fddebb9639c4df0696ecfca45488 Mon Sep 17 00:00:00 2001
+From: Leah Rowe <info@minifree.org>
+Date: Mon, 15 Jun 2015 19:59:46 +0100
+Subject: [PATCH 4/9] lenovo/t60: Enable brightness controls (native graphics)
+
+This makes the Fn Home/End keys work for controlling the
+brightness of the display. Value obtained by reading
+BLC_PWM_CTL when running the VBIOS (option ROM).
+
+On i945 legacy brightness control is enabled by a single
+bit in BLC_PWM_CTL. It's bit 16 or bit 0 (the other one
+reverses polarity). Set the bit to enable brightness
+controls.
+
+Change-Id: I22e261f2ce28ec81cd208a73e6311ec67146eb72
+Signed-off-by: Leah Rowe <info@minifree.org>
+---
+ src/mainboard/lenovo/t60/devicetree.cb | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/mainboard/lenovo/t60/devicetree.cb b/src/mainboard/lenovo/t60/devicetree.cb
+index b28f1ad..9e6ce02 100644
+--- a/src/mainboard/lenovo/t60/devicetree.cb
++++ b/src/mainboard/lenovo/t60/devicetree.cb
+@@ -26,7 +26,7 @@ chip northbridge/intel/i945
+ 
+ 	register "gpu_hotplug" = "0x00000220"
+ 	register "gpu_lvds_use_spread_spectrum_clock" = "1"
+-	register "gpu_backlight" = "0x1280128"
++	register "gpu_backlight" = "0x58BF58BE"
+ 
+ 	device cpu_cluster 0 on
+ 		chip cpu/intel/socket_mFCPGA478
+-- 
+1.9.1
+

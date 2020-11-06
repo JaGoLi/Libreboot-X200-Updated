@@ -1,0 +1,286 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+SYS_BLOCK_PATH="/sys/class/block"
+DEV_PATH="/dev"
+DEVICE="device"
+VENDOR="vendor"
+MODEL="model"
+NAME="name"
+
+usage() {
+	printf 1>&2 '%s\n' "$executable [action] [storage] [kernel image|kernel modules]"
+
+	printf 1>&2 '\n%s\n' 'Actions:'
+	printf 1>&2 '%s\n' '  backup - Backup kernel image'
+	printf 1>&2 '%s\n' '  image - Install kernel image'
+	printf 1>&2 '%s\n' '  modules - Install kernel modules'
+
+	usage_storage
+
+	printf 1>&2 '\n%s\n' 'Environment variables:'
+	printf 1>&2 '%s\n' '  VBOOT_KEYS_PATH - Path to the vboot keys'
+	printf 1>&2 '%s\n' '  VBOOT_TOOLS_PATH - Path to vboot tools'
+}
+
+usage_storage() {
+	printf 1>&2 '\n%s\n' 'Storage:'
+
+	local nodes=$( ls "$SYS_BLOCK_PATH" )
+	local node_path
+	local name
+
+	for node in $nodes
+	do
+		node_path="$DEV_PATH/$node"
+		if ! [ -b "$node_path" ]
+		then
+			continue
+		fi
+
+		name=$( storage_name "$node_path" )
+		if [ -z "$name" ]
+		then
+			continue
+		fi
+
+		printf 1>&2 '%s\n' "  $node_path - $name"
+	done
+}
+
+storage_affect_confirm() {
+	local storage_path=$1
+
+	local name=$( storage_name "$storage_path" )
+	local confirm
+
+	printf '%s\n' 'This is going to affect the following storage:'
+	printf '%s\n' "  $storage_path - $name"
+	printf '%s' 'Press enter to confirm: '
+
+	read confirm
+}
+
+storage_name() {
+	local storage_path=$1
+
+	local node=$( basename "$storage_path" )
+	local vendor_path="$SYS_BLOCK_PATH/$node/$DEVICE/$VENDOR"
+	local model_path="$SYS_BLOCK_PATH/$node/$DEVICE/$MODEL"
+	local name_path="$SYS_BLOCK_PATH/$node/$DEVICE/$NAME"
+	local vendor
+	local name
+
+	if [ -f "$model_path" ]
+	then
+		name=$( cat "$model_path" )
+	elif [ -f "$name_path" ]
+	then
+		name=$( cat "$name_path" )
+	else
+		return 0
+	fi
+
+	name=$( printf '%s\n' "$name" | sed -e "s/^[[:space:]]*//;s/[[:space:]]*$//" )
+
+	if [ -f "$vendor_path" ]
+	then
+		vendor=$( cat "$vendor_path" )
+		vendor=$( printf '%s\n' "$vendor" | sed -e "s/^[[:space:]]*//;s/[[:space:]]*$//" )
+
+		name="$vendor $name"
+	fi
+
+	printf '%s\n' "$name"
+}
+
+storage_partition_path() {
+	local storage_path=$1
+	local index=$2
+
+	storage_partition_path="$storage_path$index"
+
+	if ! [ -b "$storage_partition_path" ]
+	then
+		storage_partition_path="$storage_path""p$index"
+	fi
+
+	if ! [ -b "$storage_partition_path" ]
+	then
+		return 1
+	fi
+
+	printf '%s\n' "$storage_partition_path"
+}
+
+storage_partition_mount_path() {
+	local storage_partition_path=$1
+
+	local storage_partition_mount_path=$( udisksctl info -b "$storage_partition_path"  | grep "MountPoints" | sed "s/.*MountPoints:[[:space:]]*\(.*\)/\1/g" )
+
+	printf '%s\n' "$storage_partition_mount_path"
+}
+
+storage_kernel_path() {
+	local storage_path=$1
+
+	cgpt find -t kernel "$storage_path" | head -n 1
+}
+
+storage_rootfs_path() {
+	local storage_path=$1
+
+	cgpt find -t rootfs "$storage_path" | head -n 1
+}
+
+backup() {
+	local storage_path=$1
+	local kernel_image_path=$2
+
+	local storage_kernel_path=$( storage_kernel_path "$storage_path" )
+
+	if [ -z "$storage_kernel_path" ]
+	then
+		printf 1>&2 '%s\n' "No kernel partition found on storage $storage_path"
+		return 1
+	fi
+
+	cat "$storage_kernel_path" > "$kernel_image_path"
+
+	printf '\n%s\n' "Backed up kernel image to $kernel_image_path"
+}
+
+image() {
+	local storage_path=$1
+	local kernel_image_path=$2
+
+	local storage_kernel_path=$( storage_kernel_path "$storage_path" )
+
+	if [ -z "$storage_kernel_path" ]
+	then
+		printf 1>&2 '%s\n' "No kernel partition found on storage $storage_path"
+		return 1
+	fi
+
+	storage_affect_confirm "$storage_path"
+
+	cat "$kernel_image_path" > "$storage_kernel_path"
+	sync
+
+	printf '\n%s\n' "Installed kernel image on storage $storage_path"
+}
+
+modules() {
+	local storage_path=$1
+	local kernel_modules_path=$2
+
+	local storage_rootfs_path=$( storage_rootfs_path "$storage_path" )
+
+	if [ -z "$storage_rootfs_path" ]
+	then
+		printf 1>&2 '%s\n' "No rootfs partition found on storage $storage_path"
+		return 1
+	fi
+
+	storage_affect_confirm "$storage_path"
+
+	# Partition may already be mounted.
+	udisksctl mount -b "$storage_rootfs_path" || true
+
+	storage_rootfs_mount_path=$( storage_partition_mount_path "$storage_rootfs_path" )
+
+	rsync -a --keep-dirlinks "$kernel_modules_path" "$storage_rootfs_mount_path/"
+	sync
+
+	udisksctl unmount -b "$storage_rootfs_path"
+
+	printf '\n%s\n' "Installed kernel modules on storage $storage_path"
+}
+
+requirements() {
+	local requirement
+	local requirement_path
+
+	for requirement in "$@"
+	do
+		requirement_path=$( which "$requirement" || true )
+
+		if [ -z "$requirement_path" ]
+		then
+			printf 1>&2 '%s\n' "Missing requirement: $requirement"
+			exit 1
+		fi
+	done
+}
+
+setup() {
+	root=$(readlink -f "$( dirname "$0" )" )
+	executable=$( basename "$0" )
+
+	if ! [ -z "$VBOOT_TOOLS_PATH" ]
+	then
+		PATH="$PATH:$VBOOT_TOOLS_PATH"
+	fi
+
+	if [ -z "$VBOOT_KEYS_PATH" ]
+	then
+		if ! [ -z "$VBOOT_TOOLS_PATH" ] && [ -d "$VBOOT_TOOLS_PATH/devkeys" ]
+		then
+			VBOOT_KEYS_PATH="$VBOOT_TOOLS_PATH/devkeys"
+		else
+			VBOOT_KEYS_PATH="/usr/share/vboot/devkeys"
+		fi
+	fi
+}
+
+cros_kernel_install() {
+	local action=$1
+	local storage_path=$2
+	local kernel_image_path=$3
+	local kernel_modules_path=$3
+
+	set -e
+
+	setup "$@"
+
+	if [ -z "$action" ] || [ -z "$storage_path" ] || [ -z "$kernel_image_path" ] || [ -z "$kernel_modules_path" ]
+	then
+		usage
+		exit 1
+	fi
+
+	case $action in
+		"backup")
+			requirements "cgpt"
+			backup "$storage_path" "$kernel_image_path"
+			;;
+		"image")
+			requirements "cgpt"
+			image "$storage_path" "$kernel_image_path"
+			;;
+		"modules")
+			requirements "cgpt"
+			modules "$storage_path" "$kernel_modules_path"
+			;;
+		*)
+			usage
+			exit 1
+			;;
+	esac
+}
+
+cros_kernel_install "$@"

@@ -1,0 +1,44 @@
+From 63bb6f6effbaae9864366588464a7b9354c9a623 Mon Sep 17 00:00:00 2001
+From: Paul Kocialkowski <contact@paulk.fr>
+Date: Wed, 20 Jul 2016 16:26:32 +0200
+Subject: [PATCH 3/6] Enforce compilation without system headers
+
+This is based on commit bc404c94b4ab1e6a62e607fd7ef034aa31d6388e
+(Enforce compilation without system headers)
+---
+ Makefile           | 5 +++--
+ Makefile.toolchain | 2 +-
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 01581fb..195ea44 100644
+--- a/Makefile
++++ b/Makefile
+@@ -99,8 +99,9 @@ _rw_size_str:=$(shell echo "CONFIG_FW_RW_SIZE" | $(CPP) $(CPPFLAGS) -P \
+ _rw_size:=$(shell echo "$$(($(_rw_size_str)))")
+ 
+ # Get RSA key size from board defines
+-_rsa_size:=$(shell echo "CONFIG_RSA_KEY_SIZE" | $(CPP) $(CPPFLAGS) -P \
+-            -Ichip/$(CHIP) -Iboard/$(BOARD) -imacros include/rsa.h)
++_rsa_size:=$(shell echo "CONFIG_RSA_KEY_SIZE" | $(CPP) $(CPPFLAGS) \
++            $(CFLAGS_WARN) -P -Ichip/$(CHIP) -Iboard/$(BOARD) \
++            -imacros include/rsa.h)
+ $(eval RSA_KEY_SIZE=$(_rsa_size))
+ 
+ $(eval BOARD_$(UC_BOARD)=y)
+diff --git a/Makefile.toolchain b/Makefile.toolchain
+index 43f390c..898129c 100644
+--- a/Makefile.toolchain
++++ b/Makefile.toolchain
+@@ -19,7 +19,7 @@ BUILDCC?=gcc
+ HOSTCC?=$(HOST_CROSS_COMPILE)gcc
+ 
+ CFLAGS_WARN=-Wall -Werror -Wundef -Wstrict-prototypes -Wno-trigraphs      \
+-            -fno-strict-aliasing -fno-common                              \
++            -fno-strict-aliasing -fno-common -ffreestanding -fno-builtin  \
+             -Werror-implicit-function-declaration -Wno-format-security    \
+             -fno-delete-null-pointer-checks -Wdeclaration-after-statement \
+             -Wno-pointer-sign -fno-strict-overflow -fconserve-stack
+-- 
+2.9.0
+

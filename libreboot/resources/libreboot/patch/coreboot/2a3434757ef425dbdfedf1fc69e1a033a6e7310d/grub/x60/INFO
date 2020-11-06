@@ -1,0 +1,7 @@
+printf "lenovo/x60: use correct BLC_PWM_CTL value\n"
+git am "../resources/libreboot/patch/misc/0003-lenovo-x60-use-correct-BLC_PWM_CTL-value.patch"
+# git fetch http://review.coreboot.org/coreboot refs/changes/24/10624/2 && git cherry-pick FETCH_HEAD
+
+printf "ec/lenovo/h8: permanently enable wifi/trackpoint/touchpad/bluetooth/wwan\n"
+git am "../resources/libreboot/patch/misc/0005-NOTFORMERGE-ec-lenovo-h8-wlan-trackpoint-touchpad-bl.patch"
+# git fetch http://review.coreboot.org/coreboot refs/changes/58/7058/9 && git cherry-pick FETCH_HEAD

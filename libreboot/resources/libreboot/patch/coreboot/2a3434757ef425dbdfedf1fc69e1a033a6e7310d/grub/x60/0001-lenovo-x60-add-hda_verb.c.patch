@@ -1,0 +1,65 @@
+From 4f3452fc544d4e799445c3271b1022496932473c Mon Sep 17 00:00:00 2001
+From: Arthur Heymans <arthur@aheymans.xyz>
+Date: Fri, 3 Jun 2016 18:37:38 +0200
+Subject: [PATCH] lenovo/x60: add hda_verb.c
+
+This creates a config for the x60 audio based
+on values taken from vendor bios.
+
+What is improved:
+- internal microphone is chosen by default
+- when jack is inserted it chosen instead of internal speaker
+
+Before this had to be done manually.
+
+Change-Id: Id3b700fd84905a72cc1f69e7d8bfa6145f231756
+Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
+
+diff --git a/src/mainboard/lenovo/x60/hda_verb.c b/src/mainboard/lenovo/x60/hda_verb.c
+index 072a306..c4b1f3a 100644
+--- a/src/mainboard/lenovo/x60/hda_verb.c
++++ b/src/mainboard/lenovo/x60/hda_verb.c
+@@ -1,7 +1,38 @@
++/*
++ * This file is part of the coreboot project.
++ *
++ * Copyright (C) 2016 Arthur Heymans <arthur@aheymans.xyz>
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License as
++ * published by the Free Software Foundation; version 2 of
++ * the License.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ */
++
+ #include <device/azalia_device.h>
+ 
+-const u32 cim_verb_data[0] = {};
++const u32 cim_verb_data[] = {
++	0x11d41981, /* Codec Vendor / Device ID: Analog Devices AD1981 */
++	0x17aa2025, /* Subsystem ID */
++	0x0000000b, /* Number of 4 dword sets */
+ 
+-const u32 pc_beep_verbs[0] = {};
++	AZALIA_SUBVENDOR(0x0, 0x17aa2025),
+ 
++	AZALIA_PIN_CFG(0, 0x05, 0xc3014110),
++	AZALIA_PIN_CFG(0, 0x06, 0x4221401f),
++	AZALIA_PIN_CFG(0, 0x07, 0x591311f0),
++	AZALIA_PIN_CFG(0, 0x08, 0xc3a15020),
++	AZALIA_PIN_CFG(0, 0x09, 0x41813021),
++	AZALIA_PIN_CFG(0, 0x0a, 0x014470f0),
++	AZALIA_PIN_CFG(0, 0x16, 0x59f311f0),
++	AZALIA_PIN_CFG(0, 0x17, 0x59931122),
++	AZALIA_PIN_CFG(0, 0x18, 0x41a19023),
++	AZALIA_PIN_CFG(0, 0x19, 0x9933e12e)
++};
++const u32 pc_beep_verbs[0] = {};
+ AZALIA_ARRAY_SIZES;
+-- 
+2.8.3
+

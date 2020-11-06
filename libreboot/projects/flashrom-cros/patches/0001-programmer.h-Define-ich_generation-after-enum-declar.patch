@@ -1,0 +1,37 @@
+From f721cdd46196a99dbcc41f0f7ecaf2ee17a147fe Mon Sep 17 00:00:00 2001
+From: Paul Kocialkowski <contact@paulk.fr>
+Date: Wed, 2 Nov 2016 19:16:50 +0100
+Subject: [PATCH] programmer.h: Define ich_generation after enum declaration
+
+This moves the ich_generation definition after the declaration of its
+associated enum.
+
+Signed-off-by: Paul Kocialkowski <contact@paulk.fr>
+---
+ programmer.h | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/programmer.h b/programmer.h
+index 191fb1e..86a695a 100644
+--- a/programmer.h
++++ b/programmer.h
+@@ -275,7 +275,6 @@ int board_flash_enable(const char *vendor, const char *part);
+ /* chipset_enable.c */
+ int chipset_flash_enable(void);
+ int get_target_bus_from_chipset(enum chipbustype *target_bus);
+-enum ich_chipset ich_generation;
+ 
+ /* processor_enable.c */
+ int processor_flash_enable(void);
+@@ -603,6 +602,8 @@ enum ich_chipset {
+ };
+ 
+ #if CONFIG_INTERNAL == 1
++enum ich_chipset ich_generation;
++
+ extern uint32_t ichspi_bbar;
+ int ich_init_spi(struct pci_dev *dev, uint32_t base, void *rcrb,
+ 		 enum ich_chipset ich_generation);
+-- 
+2.10.2
+

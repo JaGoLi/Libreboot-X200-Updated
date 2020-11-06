@@ -1,0 +1,158 @@
+From 44b3d02a49bc25dc8e9119a11bd948db2c37a931 Mon Sep 17 00:00:00 2001
+From: Arthur Heymans <arthur@aheymans.xyz>
+Date: Sun, 15 May 2016 02:17:12 +0200
+Subject: [PATCH] i945: Enable changing VRAM size
+
+On i945 the vram size was the default 8mb. It was also possible
+to set it 1mb or 0mb hardcoding the GGC register in early_init.c
+
+The intel documentation on i945 only documents those three options.
+They are set using 3 bits. The documententation also makes mention
+of 4mb, 16mb, 32mb, 48mb, 64mb but not how to set it.
+
+The other non documented (straight forward) bit combinations allows
+to change the VRAM size to those other states.
+
+Change-Id: I5e510e81322a4c8315c01b7963ac4b5f7f58a17e
+Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
+
+diff --git a/src/northbridge/intel/i945/Kconfig b/src/northbridge/intel/i945/Kconfig
+index 6e8d35b..484ed78 100644
+--- a/src/northbridge/intel/i945/Kconfig
++++ b/src/northbridge/intel/i945/Kconfig
+@@ -72,3 +72,56 @@ config CHECK_SLFRCS_ON_RESUME
+ 	  effectively making it impossible to resume.
+ 
+ endif
++
++config VRAM_CHOICE
++        bool
++choice
++	prompt "VRAM Size"
++	depends on NORTHBRIDGE_INTEL_I945
++	default VRAM_SIZE_8MB
++	help
++	  Set the size of vram that the integrated graphic device can use
++	  for a framebuffer.
++
++config VRAM_SIZE_1MB
++	bool "1 MB"
++	help
++	  Set VRAM size to 1MB.
++config VRAM_SIZE_4MB
++	bool "4 MB"
++	help
++	  Set VRAM size to 4MB.
++config VRAM_SIZE_8MB
++	bool "8 MB"
++	help
++	  Set VRAM size to 8MB.
++config VRAM_SIZE_16MB
++	bool "16 MB"
++	help
++	  Set VRAM size to 16MB.
++config VRAM_SIZE_32MB
++	bool "32 MB"
++	help
++	  Set VRAM size to 32MB.
++config VRAM_SIZE_48MB
++	bool "48 MB"
++	help
++	  Set VRAM size to 48MB.
++config VRAM_SIZE_64MB
++	bool "64 MB"
++	help
++	  Set VRAM size to 64MB.
++
++endchoice
++
++config VRAM_SIZE
++	hex
++	default 0x10 if VRAM_SIZE_1MB
++	default 0x20 if VRAM_SIZE_4MB
++	default 0x30 if VRAM_SIZE_8MB
++	default 0x40 if VRAM_SIZE_16MB
++	default 0x50 if VRAM_SIZE_32MB
++	default 0x60 if VRAM_SIZE_48MB
++	default 0x70 if VRAM_SIZE_64MB
++	help
++	 map the vram sizes to an integer.
+diff --git a/src/northbridge/intel/i945/early_init.c b/src/northbridge/intel/i945/early_init.c
+index 475e88a..bd062ad 100644
+--- a/src/northbridge/intel/i945/early_init.c
++++ b/src/northbridge/intel/i945/early_init.c
+@@ -177,11 +177,8 @@ static void i945_setup_bars(void)
+ 	pci_write_config32(PCI_DEV(0, 0x00, 0), DMIBAR, (uintptr_t)DEFAULT_DMIBAR | 1);
+ 	pci_write_config32(PCI_DEV(0, 0x00, 0), X60BAR, DEFAULT_X60BAR | 1);
+ 
+-	/* Hardware default is 8MB UMA. If someone wants to make this a
+-	 * CMOS or compile time option, send a patch.
+-	 * pci_write_config16(PCI_DEV(0, 0x00, 0), GGC, 0x30);
+-	 */
+-
++	/* Sets up VRAM size from the build option VRAM_SIZE */
++	pci_write_config16(PCI_DEV(0, 0x00, 0), GGC, CONFIG_VRAM_SIZE);
+ 	/* Set C0000-FFFFF to access RAM on both reads and writes */
+ 	pci_write_config8(PCI_DEV(0, 0x00, 0), PAM0, 0x30);
+ 	pci_write_config8(PCI_DEV(0, 0x00, 0), PAM1, 0x33);
+diff --git a/src/northbridge/intel/i945/gma.c b/src/northbridge/intel/i945/gma.c
+index df13ef4..f853cc8 100644
+--- a/src/northbridge/intel/i945/gma.c
++++ b/src/northbridge/intel/i945/gma.c
+@@ -359,9 +359,24 @@ static int intel_gma_init(struct northbridge_intel_i945_config *conf,
+ 		case 1:
+ 			uma_size = 1024;
+ 			break;
++		case 2:
++			uma_size = 4096;
++			break;
+ 		case 3:
+ 			uma_size = 8192;
+ 			break;
++		case 4:
++			uma_size = 16384;
++			break;
++		case 5:
++			uma_size = 32768;
++			break;
++		case 6:
++			uma_size = 49152;
++			break;
++		case 7:
++			uma_size = 65536;
++			break;
+ 		}
+ 
+ 		printk(BIOS_DEBUG, "%dM UMA\n", uma_size >> 10);
+diff --git a/src/northbridge/intel/i945/northbridge.c b/src/northbridge/intel/i945/northbridge.c
+index 514f88c..4be9827 100644
+--- a/src/northbridge/intel/i945/northbridge.c
++++ b/src/northbridge/intel/i945/northbridge.c
+@@ -112,9 +112,24 @@ static void pci_domain_set_resources(device_t dev)
+ 		case 1:
+ 			uma_size = 1024;
+ 			break;
++		case 2:
++			uma_size = 4096;
++			break;
+ 		case 3:
+ 			uma_size = 8192;
+ 			break;
++		case 4:
++			uma_size = 16384;
++			break;
++		case 5:
++			uma_size = 32768;
++			break;
++		case 6:
++			uma_size = 49152;
++			break;
++		case 7:
++			uma_size = 65536;
++			break;
+ 		}
+ 
+ 		printk(BIOS_DEBUG, "%dM UMA\n", uma_size >> 10);
+-- 
+2.8.2
+

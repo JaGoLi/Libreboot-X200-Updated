@@ -1,0 +1,6 @@
+util/ectool:ectool
+util/ec_uartd:ec_uartd
+util/iteflash:iteflash
+util/lbcc:lbcc
+util/lbplay:lbplay
+util/stm32mon:stm32mon

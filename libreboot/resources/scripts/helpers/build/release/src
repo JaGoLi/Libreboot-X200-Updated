@@ -1,0 +1,130 @@
+#!/usr/bin/env bash
+
+#
+#  helper script: generate the source release archive
+#
+#	Copyright (C) 2014, 2015 Leah Rowe <info@minifree.org>
+#	Copyright (C) 2015 Patrick "P. J." McDermott <pj@pehjota.net>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+printf 'Building the source release archive\n'
+
+if [ -f "version" ]; then
+	# _src release archive is being used
+	version="$(cat version)"
+	versiondate="$(cat versiondate)"
+else
+	# git repo is being used
+	version="$(git describe --tags HEAD)"
+	versiondate="$(git show -s --format=%ct)"
+fi
+versiondir="release/oldbuildsystem/${version}"
+distname="libreboot_${version}_src"
+distdir="${versiondir}/${distname}"
+
+printf 'Deleting old source release archives\n'
+rm -f "${distdir}.tar.xz"
+rm -Rf "${distdir:?}/"
+
+mkdir -p "${distdir}/"
+
+printf 'Copying sources to %s/\n' "${distdir}"
+for resource in *; do
+	if [ "${resource}" = "release" ]; then
+		continue
+	fi
+	cp -R "${resource}" "${distdir}/"
+done
+
+# this has to be done before generating
+# the "version" file
+if [ ! -f "version" ]; then
+	# generate ChangeLog and NEWS files
+	rm -f "ChangeLog" "NEWS"
+	git log > "${distdir}/ChangeLog"
+	cp "${distdir}/ChangeLog" "${distdir}/NEWS"
+else
+	# building from release archive
+	cp "ChangeLog" "${distdir}/"
+	cp "NEWS" "${distdir}/"
+fi
+
+if [ -f "RELEASE" ]; then
+    rm -f "${distdir}/ChangeLog"
+    rm -f "${distdir}/NEWS"
+    cp "RELEASE" "${distdir}/ChangeLog"
+    cp "RELEASE" "${distdir}/NEWS"
+fi
+
+# include version information
+printf '%s\n' "${version}" >"${distdir}/version"
+# include version date information
+printf '%s\n' "${versiondate}" >"${distdir}/versiondate"
+
+printf 'Cleaning files in %s/\n' "${distdir}"
+
+# Clean old builds.
+(cd "${distdir}/" && ./oldbuild clean all)
+printf '\n'
+
+# Delete Git repositories and properties and Subversion administrative
+# directories and properties.
+rm -Rf "${distdir}/bucts/".git*
+rm -Rf "${distdir}/flashrom/".git*
+rm -Rf "${distdir}/grub/".git*
+rm -Rf "${distdir}/seabios/".git*
+
+rm -f "${distdir}"/*.vim
+
+# Delete useless files.
+rm -Rf "${distdir}/TODO/"
+rm -f "${distdir}/push"
+
+# Delete the deblob scripts.
+# Since the source archive doesn't distribute the download scripts and already
+# comes with a deblobbed coreboot, the deblobbing scripts aren't needed at all.
+rm -Rf "${distdir}/resources/utilities/coreboot-libre/"
+
+# Download scripts not needed, because the modules already exist
+# in the src release archive
+rm -f "${distdir}/download"
+rm -Rf "${distdir}/resources/scripts/helpers/download/"
+
+rm -Rf "${distdir}/resources/grub/patch/"
+rm -Rf "${distdir}/resources/memtest86plus/patch/"
+
+# ich9deblob: There are certain files in there that the user most likely does
+# not want to share.
+rm -f "${distdir}/resources/utilities/ich9deblob/"*.bin
+rm -f "${distdir}/resources/utilities/ich9deblob/"*.rom
+rm -f "${distdir}/resources/utilities/ich9deblob/mk"*.[ch]
+rm -f "${distdir}/mk"*.[ch]
+rm -f "${distdir}/"*.bin
+rm -f "${distdir}/"*.rom
+
+# Remove any GRUB payload ELF executables that may exist
+rm -f "${distdir}/resources/utilities/grub-assemble/grub_txtmode.elf"
+rm -f "${distdir}/resources/utilities/grub-assemble/grub_vesafb.elf"
+
+printf 'Creating %s.tar.xz\n' "${distdir}"
+(cd "${versiondir}/" && tar -c "${distname}/" | xz -9e >"${distname}.tar.xz")
+
+rm -Rf "${distdir:?}/"
+
+printf 'Source release archive is stored in %s/\n' "${versiondir}"

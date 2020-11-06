@@ -1,0 +1,32 @@
+From e64fb0ce10d01d99154fb4bd95529e5cd8dfd4be Mon Sep 17 00:00:00 2001
+From: Andrew Robbins <contact@andrewrobbins.info>
+Date: Fri, 27 Sep 2019 09:38:09 -0500
+Subject: [PATCH] buildgcc: Check for '-pie' when building gmp
+
+The regex formerly used was not flexible enough to catch some
+instances where the '-pie' flag would be enabled.
+---
+ util/crossgcc/buildgcc | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/util/crossgcc/buildgcc b/util/crossgcc/buildgcc
+index 97c38b8d95..a6e4728514 100755
+--- a/util/crossgcc/buildgcc
++++ b/util/crossgcc/buildgcc
+@@ -515,6 +515,13 @@ set_hostcflags_from_gmp() {
+ }
+ 
+ build_GMP() {
++	# Check if GCC enables `-pie` by default (possible since GCC 6).
++	# We need PIC in all static libraries then.
++	if $CC -dumpspecs 2>/dev/null | grep -q '[{;][[:space:]]*\(!no-pie\)\?:-pie\>'
++	then
++		OPTIONS="$OPTIONS --with-pic"
++	fi
++
+ 	CC="$CC" ../${GMP_DIR}/configure --disable-shared --enable-fat \
+ 		--prefix=$TARGETDIR $OPTIONS \
+ 		|| touch .failed
+-- 
+2.23.0
+

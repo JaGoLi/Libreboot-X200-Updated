@@ -1,0 +1,30 @@
+From 925042a09afb9529b112eff2e4d56bf979ff32ec Mon Sep 17 00:00:00 2001
+From: Paul Kocialkowski <contact@paulk.fr>
+Date: Mon, 19 Dec 2016 14:54:40 +0100
+Subject: [PATCH 4/4] mmc: Initialize clock variable in mmc_recalculate_clock
+
+Initializing the variable before it is used (and set to a proper value)
+avoids triggering a maybe uninitialized compiler warning.
+
+Change-Id: I0f78e534919e892e23fbe6d38bba6e68c408b0c4
+Signed-off-by: Paul Kocialkowski <contact@paulk.fr>
+---
+ src/drivers/storage/mmc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/drivers/storage/mmc.c b/src/drivers/storage/mmc.c
+index b877548..54306a1 100644
+--- a/src/drivers/storage/mmc.c
++++ b/src/drivers/storage/mmc.c
+@@ -509,7 +509,7 @@ static void mmc_set_clock(MmcCtrlr *ctrlr, uint32_t clock)
+ 
+ static void mmc_recalculate_clock(MmcMedia *media)
+ {
+-	uint32_t clock;
++	uint32_t clock = 0;
+ 
+ 	if (IS_SD(media)) {
+ 		if (media->caps & MMC_MODE_HS)
+-- 
+2.10.2
+

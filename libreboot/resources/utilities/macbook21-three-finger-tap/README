@@ -1,0 +1,23 @@
+Three-finger tap
+================
+
+This program uses synclient to enable three-finger tap
+for "button 2" or "middle click" when you log in to GNOME.
+It was written for the macbook2,1 touchpad but may be useful
+for other hardware as well.
+
+It has been confirmed to work on Trisquel GNU/Linux 7.0.
+
+
+Conditions for redistribution
+=============================
+
+This program is free software: you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation, either version 3 of
+the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+the file COPYING for more details.

@@ -1,0 +1,7 @@
+grubenv:grubenv
+textmode/grub.cfg:textmode/grub.cfg
+textmode/grubtest.cfg:textmode/grubtest.cfg
+corebootfb/grub.cfg:corebootfb/grub.cfg
+corebootfb/grubtest.cfg:corebootfb/grubtest.cfg
+corebootfb/background/background1024x768.png:corebootfb/background/background1024x768.png
+corebootfb/background/background1280x800.png:corebootfb/background/background1280x800.png

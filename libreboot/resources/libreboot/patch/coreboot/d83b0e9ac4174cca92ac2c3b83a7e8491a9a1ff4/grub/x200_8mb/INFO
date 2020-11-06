@@ -1,0 +1,5 @@
+# NOTE: remove this when updating to the latest version of coreboot. this patch
+# makes the patch below redundant: https://review.coreboot.org/#/c/12814/
+printf "northbridge/gm45/raminit.c: enable GS45 high-perf (i.e. add X200S support to libreboot)\n"
+git am "../resources/libreboot/patch/misc/0006-northbridge-gm45-raminit.c-enable-GS45-high-performa.patch"
+# git fetch http://review.coreboot.org/coreboot refs/changes/35/11135/3 && git cherry-pick FETCH_HEAD

@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+usage() {
+	project_usage_actions "$project"
+}
+
+download() {
+	local repository="coreboot"
+
+	git_project_prepare "$project" "$repository" "$@"
+}
+
+download_check() {
+	local repository="coreboot"
+
+	git_project_prepare_check "$project" "$repository" "$@"
+}
+
+extract() {
+	local repository="coreboot"
+
+	project_extract "$project" "$@"
+}
+
+extract_check() {
+	local repository="coreboot"
+
+	project_extract_check "$project" "$@"
+}
+
+update() {
+	local repository="coreboot"
+
+	project_update_git "$project" "$repository" "$@"
+}
+
+update_check() {
+	local repository="coreboot"
+
+	project_update_check_git "$project" "$repository" "$@"
+}
+
+build() {
+	local repository="coreboot"
+
+	project_sources_directory_missing_empty_error "$project" "$repository" "$@"
+
+	local coreboot_sources_path=$(project_sources_path "$project" "$repository" "$@")
+	local sources_path="$coreboot_sources_path/util/cbmem/"
+	local build_path=$(project_build_path "$project" "$@")
+
+	if git_project_check "$repository"
+	then
+		git_project_checkout "$project" "$repository" "$@"
+	fi
+
+	mkdir -p "$build_path"
+
+	make -C "$sources_path" -j$TASKS
+
+	cp "$sources_path/cbmem" "$build_path"
+
+	make -C "$sources_path" "clean"
+}
+
+build_check() {
+	project_build_check "$project" "$@"
+}
+
+install() {
+	project_install "$project" "$@"
+}
+
+install_check() {
+	project_install_check "$project" "$@"
+}
+
+release() {
+	local repository="coreboot"
+
+	project_release_install_archive "$project" "$TOOLS" "$@"
+
+	project_release_sources_git "$project" "$repository" "$@"
+}
+
+release_check() {
+	local repository="coreboot"
+
+	project_release_install_archive_check "$project" "$TOOLS" "$@"
+
+	project_release_check_sources_git "$project" "$repository" "$@"
+}
+
+clean() {
+	project_clean "$project" "$@"
+}

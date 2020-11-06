@@ -1,0 +1,3 @@
+printf "lenovo/t60: Enable brightness controls (native graphics)\n"
+git am "../resources/libreboot/patch/misc/0004-lenovo-t60-Enable-brightness-controls-native-graphic.patch"
+# git fetch http://review.coreboot.org/coreboot refs/changes/52/10552/2 && git cherry-pick FETCH_HEAD

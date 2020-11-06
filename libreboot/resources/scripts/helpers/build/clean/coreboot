@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+#  helper script: clean the dependencies that were built in coreboot
+#
+#	Copyright (C) 2014, 2015, 2016 Leah Rowe <info@minifree.org>
+#       Copyright (C) 2015 Klemens Nanni <contact@autoboot.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the current working directory is the root
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+# clean coreboot utilities (dependencies for 'build'):
+
+printf "Cleaning the previous build of coreboot and its utilities\n"
+
+# clean coreboot and crossgcc (source archives preserved)
+for payload in coreboot/*; do
+	for board in "${payload}/"*; do
+
+        # Clean coreboot, of course
+		make -C "${board}/" distclean
+
+		# Clean its utilities as well
+		for util in {cbfs,ifd,nvram}tool cbmem; do
+			make -C "${board}/util/${util}/" clean
+		done
+		make -C "${board}/payloads/libpayload/" distclean
+
+        rm -f "${board}/util/crossgcc"
+	done
+done
+
+printf "\n\n"

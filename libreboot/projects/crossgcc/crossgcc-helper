@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+crossgcc_same_major_version_test() {
+	local buildgcc_path="$sources_path/util/crossgcc/buildgcc"
+	local sources_path="$(project_sources_path "$project" "$repository" "$@")"
+
+	local crossgcc_version="$(sed -rne 's/^GCC_VERSION=(.*)$/\1/p' "$buildgcc_path")"
+	local host_gcc_version="$(gcc -dumpversion)"
+
+	if [[ "${host_gcc_version%%.*}" -eq "${crossgcc_version%%.*}" ]]; then
+
+		return 0
+	else
+		return 1
+	fi
+}
+
+crossgcc_tarballs() {
+	local sources_path=$(project_sources_path "$project" "$repository" "$@")
+	local install_path="$sources_path/util/crossgcc/tarballs/"
+	local tarballs=$(ls "$sources_path/util/crossgcc/sum" | sed "s/.cksum$//")
+
+	printf '%s\n' "$tarballs"
+}
+
+crossgcc_tarball_sources_path() {
+	local tarball=$1
+
+	local tarball_sources_path="$root/$SOURCES/$tarball"
+
+	printf '%s\n' "$tarball_sources_path"
+}
+
+crossgcc_tarball_install_path() {
+	local tarball=$1
+	shift
+
+	local sources_path=$(project_sources_path "$project" "$repository" "$@")
+	local install_path="$sources_path/util/crossgcc/tarballs/"
+	local tarball_install_path="$install_path/$tarball"
+
+	printf '%s\n' "$tarball_install_path"
+}
+
+crossgcc_tarball_release_path() {
+	local tarball=$1
+	shift
+
+	local release_path=$(project_release_path "$project" "$SOURCES" "$@")
+	local tarball_release_path="$release_path/$tarball"
+
+	printf '%s\n' "$tarball_release_path"
+}

@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+arguments() {
+	project_arguments_targets "$project" "$@"
+}
+
+dependencies() {
+	project_dependencies "$project" "$@"
+}
+
+usage() {
+	project_usage_actions "$project"
+	project_usage_arguments "$project" "$@"
+}
+
+download() {
+	local repository=$project
+
+	project_download_git "$project" "$repository" "https://chromium.googlesource.com/chromiumos/platform/depthcharge https://review.coreboot.org/depthcharge.git https://github.com/coreboot/depthcharge.git" "$@"
+}
+
+download_check() {
+	local repository=$project
+
+	project_download_check_git "$project" "$repository" "$@"
+}
+
+extract() {
+	project_extract "$project" "$@"
+}
+
+extract_check() {
+	project_extract_check "$project" "$@"
+}
+
+update() {
+	local repository=$project
+
+	project_update_git "$project" "$repository" "$@"
+}
+
+update_check() {
+	local repository=$project
+
+	project_update_check_git "$project" "$repository" "$@"
+}
+
+build() {
+	local repository=$project
+
+	project_sources_directory_missing_empty_error "$project" "$repository" "$@"
+
+	if git_project_check $repository
+	then
+		git_project_checkout "$project" "$repository" "$@"
+	fi
+
+	local sources_path=$(project_sources_path "$project" "$repository" "$@")
+	local build_path=$(project_build_path "$project" "$@")
+
+	local libpayload_build_path=$(depthcharge_libpayload_build_path "$project" "$@")
+	local libpayload_build_install_path="$libpayload_build_path/install"
+	local vboot_sources_path=$(project_sources_path "vboot" "vboot" "devices")
+
+	local arch=$(depthcharge_arch "$@")
+	local device=$(depthcharge_device "$@")
+
+	project_action_arguments "checkout" "vboot" "devices"
+
+	mkdir -p "$build_path"
+
+	make -C "$sources_path" obj="$build_path" DOTCONFIG="$build_path/.config" BOARD="$device" "defconfig"
+	make -C "$sources_path" obj="$build_path" DOTCONFIG="$build_path/.config" LIBPAYLOAD_DIR="$libpayload_build_install_path/libpayload" VB_SOURCE="$vboot_sources_path" -j$TASKS "depthcharge"
+}
+
+build_check() {
+	project_build_check "$project" "$@"
+}
+
+release() {
+	local repository=$project
+
+	project_release_sources_git "$project" "$repository" "$@"
+}
+
+release_check() {
+	local repository=$project
+
+	project_release_check_sources_git "$project" "$repository" "$@"
+}
+
+clean() {
+	project_clean "$project" "$@"
+}

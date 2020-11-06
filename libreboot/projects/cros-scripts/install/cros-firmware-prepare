@@ -1,0 +1,320 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+KEYBLOCK="keyblock"
+VBPRIVK="vbprivk"
+VBPUBK="vbpubk"
+
+GBB_FLAGS="dev_screen_short_delay load_option_roms enable_alternate_os force_dev_switch_on force_dev_boot_usb disable_fw_rollback_check enter_triggers_tonorm force_dev_boot_legacy faft_key_overide disable_ec_software_sync default_dev_boot_lefacy disable_pd_software_sync disable_lid_shutdown dev_boot_fastboot_full_cap enable_serial"
+
+usage() {
+	printf 1>&2 '%s\n' "$executable [action] [firmware image] [gbb action|vpd action] [gbb file|gbb flag|vpd file]"
+
+	printf 1>&2 '\n%s\n' 'Actions:'
+	printf 1>&2 '%s\n' '  sign - Sign firmware image'
+	printf 1>&2 '%s\n' '  verify - Verify firmware image'
+	printf 1>&2 '%s\n' '  gbb - Google Binary Block'
+
+	printf 1>&2 '\n%s\n' 'GBB actions:'
+	printf 1>&2 '%s\n' '  extract - Extract GBB from firmware image to path'
+	printf 1>&2 '%s\n' '  replace - Replace GBB from path to firmware image'
+	printf 1>&2 '%s\n' '  list - List enabled GBB flags'
+	printf 1>&2 '%s\n' '  enable - Enable GBB flag'
+	printf 1>&2 '%s\n' '  disable - Disable GBB flag'
+
+	printf 1>&2 '\n%s\n' 'GBB flags:'
+
+	for flag in $GBB_FLAGS
+	do
+		printf 1>&2 '%s\n' "  $flag"
+	done
+
+	printf 1>&2 '\n%s\n' 'VPD actions:'
+	printf 1>&2 '%s\n' '  extract - Extract VPD from firmware image to path'
+	printf 1>&2 '%s\n' '  replace - Replace VPD from path to firmware image'
+
+	printf 1>&2 '\n%s\n' 'Environment variables:'
+	printf 1>&2 '%s\n' '  VBOOT_KEYS_PATH - Path to the vboot keys'
+	printf 1>&2 '%s\n' '  VBOOT_TOOLS_PATH - Path to vboot tools'
+}
+
+sign() {
+	local firmware_image_path=$1
+
+	futility sign --signprivate="$VBOOT_KEYS_PATH/firmware_data_key.$VBPRIVK" --keyblock "$VBOOT_KEYS_PATH/firmware.$KEYBLOCK" --kernelkey "$VBOOT_KEYS_PATH/kernel_subkey.$VBPUBK" --infile "$firmware_image_path"
+	futility gbb_utility -s --recoverykey="$VBOOT_KEYS_PATH/recovery_key.$VBPUBK" --rootkey="$VBOOT_KEYS_PATH/root_key.$VBPUBK" "$firmware_image_path" "$firmware_image_path"
+
+	printf '\n%s\n' "Signed firmwares image $firmware_image_path"
+}
+
+verify() {
+	local firmware_image_path=$1
+
+	futility verify -k "$VBOOT_KEYS_PATH/root_key.$VBPUBK" "$firmware_image_path" || ( printf '\n%s\n' "Bad firmware image signature!" >&2 && return 1 )
+
+	printf '\n%s\n' "Verified firmware image $firmware_image_path"
+}
+
+gbb() {
+	local firmware_image_path=$1
+	local gbb_action=$2
+	local gbb_file_path=$3
+	local gbb_flag=$3
+
+	local i=0
+	local flags
+	local flag
+	local flag_value
+
+	case $gbb_action in
+		"extract")
+			if [ -z "$gbb_file_path" ]
+			then
+				usage
+				exit 1
+			fi
+
+
+			futility dump_fmap -x "$firmware_image_path" "GBB:$gbb_file_path"
+
+			printf '\n%s\n' "Extracted GBB from $firmware_image_path to $gbb_file_path"
+			;;
+		"replace")
+			if [ -z "$gbb_file_path" ]
+			then
+				usage
+				exit 1
+			fi
+
+			futility load_fmap "$firmware_image_path" "GBB:$gbb_file_path"
+
+			printf '\n%s\n' "Replaced GBB from $gbb_file_path to $firmware_image_path"
+			;;
+		"list")
+			printf '%s\n' "GBB flags in $firmware_image_path:"
+
+			flags=$( gbb_flags_get "$firmware_image_path" )
+
+			for flag in $GBB_FLAGS
+			do
+				flag_value=$(( 1 << $i ))
+
+				if (( $flags & $flag_value ))
+				then
+					printf '%s\n' "  $flag"
+				fi
+
+				i=$(( $i + 1 ))
+			done
+
+			;;
+		"enable")
+			if [ -z "$gbb_flag" ]
+			then
+				usage
+				exit 1
+			fi
+
+			flags=$( gbb_flags_get "$firmware_image_path" )
+			flag_value=$( gbb_flag_value "$gbb_flag" )
+
+			if [ -z "$flag_value" ]
+			then
+				printf 1>&2 '%s\n' "Invalid GBB flag: $gbb_flag"
+				exit 1
+			fi
+
+			flags=$( printf "0x%x\n" $(( $flags | $flag_value )) )
+
+			gbb_flags_set "$firmware_image_path" "$flags"
+
+			printf '\n%s\n' "Enabled GBB flag $gbb_flag in $firmware_image_path"
+			;;
+		"disable")
+			if [ -z "$gbb_flag" ]
+			then
+				usage
+				exit 1
+			fi
+
+			flags=$( gbb_flags_get "$firmware_image_path" )
+			flag_value=$( gbb_flag_value "$gbb_flag" )
+
+			if [ -z "$flag_value" ]
+			then
+				printf 1>&2 '%s\n' "Invalid GBB flag: $gbb_flag"
+				exit 1
+			fi
+
+			flags=$( printf "0x%x\n" $(( $flags & ~$flag_value )) )
+
+			gbb_flags_set "$firmware_image_path" "$flags"
+
+			printf '\n%s\n' "Disabled GBB flag $gbb_flag in $firmware_image_path"
+			;;
+		*)
+			usage
+			exit 1
+			;;
+	esac
+
+}
+
+gbb_flags_get() {
+	local firmware_image_path=$1
+
+	futility gbb_utility -g --flags "$firmware_image_path" | sed "s/^[^:]*: //g"
+}
+
+gbb_flags_set() {
+	local firmware_image_path=$1
+	local gbb_flags=$2
+
+	futility gbb_utility -s --flags="$gbb_flags" "$firmware_image_path"
+}
+
+gbb_flag_value() {
+	local gbb_flag=$1
+
+	local i=0
+
+	for flag in $GBB_FLAGS
+	do
+		if [ "$gbb_flag" = "$flag" ]
+		then
+			printf '%d\n' $(( 1 << $i ))
+			return
+		fi
+
+		i=$(( $i + 1 ))
+	done
+}
+
+vpd() {
+	local firmware_image_path=$1
+	local vpd_action=$2
+	local vpd_file_path=$3
+
+	case $vpd_action in
+		"extract")
+			futility dump_fmap -x "$firmware_image_path" "RO_VPD:$vpd_file_path"
+
+			printf '\n%s\n' "Extracted VPD from $firmware_image_path to $vpd_file_path"
+			;;
+		"replace")
+			futility load_fmap "$firmware_image_path" "RO_VPD:$vpd_file_path"
+
+			printf '\n%s\n' "Replaced VPD from $vpd_file_path to $firmware_image_path"
+			;;
+		*)
+			usage
+			exit 1
+			;;
+	esac
+}
+
+requirements() {
+	local requirement
+	local requirement_path
+
+	for requirement in "$@"
+	do
+		requirement_path=$( which "$requirement" || true )
+
+		if [ -z "$requirement_path" ]
+		then
+			printf 1>&2 '%s\n' "Missing requirement: $requirement"
+			exit 1
+		fi
+	done
+}
+
+setup() {
+	root=$(readlink -f "$( dirname "$0" )" )
+	executable=$( basename "$0" )
+
+	if ! [ -z "$VBOOT_TOOLS_PATH" ]
+	then
+		PATH="$PATH:$VBOOT_TOOLS_PATH"
+	fi
+
+	if [ -z "$VBOOT_KEYS_PATH" ]
+	then
+		if ! [ -z "$VBOOT_TOOLS_PATH" ] && [ -d "$VBOOT_TOOLS_PATH/devkeys" ]
+		then
+			VBOOT_KEYS_PATH="$VBOOT_TOOLS_PATH/devkeys"
+		else
+			VBOOT_KEYS_PATH="/usr/share/vboot/devkeys"
+		fi
+	fi
+}
+
+cros_firmware_prepare() {
+	local action=$1
+	local firmware_image_path=$2
+	local gbb_action=$3
+	local vpd_action=$3
+	local gbb_file_path_flag=$4
+	local vpd_file_path=$4
+
+	set -e
+
+	setup "$@"
+
+	if [ -z "$action" ] || [ -z "$firmware_image_path" ]
+	then
+		usage
+		exit 1
+	fi
+
+	case $action in
+		"sign")
+			if ! [ -f "$firmware_image_path" ]
+			then
+				usage
+				exit 1
+			fi
+
+			requirements "futility"
+			sign "$firmware_image_path"
+			;;
+		"verify")
+			requirements "futility"
+			verify "$firmware_image_path"
+			;;
+		"gbb")
+			requirements "futility"
+			gbb "$firmware_image_path" "$gbb_action" "$gbb_file_path_flag"
+			;;
+		"vpd")
+			if [ -z "$vpd_file_path" ]
+			then
+				usage
+				exit 1
+			fi
+
+			requirements "futility"
+			vpd "$firmware_image_path" "$vpd_action" "$vpd_file_path"
+			;;
+		*)
+			usage
+			exit 1
+			;;
+	esac
+}
+
+cros_firmware_prepare "$@"

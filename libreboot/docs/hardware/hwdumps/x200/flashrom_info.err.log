@@ -1,0 +1,14 @@
+========================================================================
+WARNING! You seem to be running flashrom on an unsupported laptop.
+Laptops, notebooks and netbooks are difficult to support and we
+recommend to use the vendor flashing utility. The embedded controller
+(EC) in these machines often interacts badly with flashing.
+See http://www.flashrom.org/Laptops for details.
+
+If flash is shared with the EC, erase is guaranteed to brick your laptop
+and write may brick your laptop.
+Read and probe may irritate your EC and cause fan failure, backlight
+failure and sudden poweroff.
+You have been warned.
+========================================================================
+Proceeding anyway because user forced us to.

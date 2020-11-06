@@ -1,0 +1,93 @@
+From c82d4fa874322d70dec0e9d28c050e4c351de157 Mon Sep 17 00:00:00 2001
+From: Arthur Heymans <arthur@aheymans.xyz>
+Date: Fri, 2 Sep 2016 23:14:54 +0200
+Subject: [PATCH 1/5] move DIV_ROUND macros to commonlib
+
+DIV_ROUND_CLOSEST and DIV_ROUND_UP are useful macros for other
+architectures. This patch moves them from soc/nvidia/tegra/types.h
+to commonlib/include/commonlib/helpers.h .
+
+Change-Id: I54521d9b197934cef8e352f9a5c4823015d85f01
+Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
+
+diff --git a/src/commonlib/include/commonlib/helpers.h b/src/commonlib/include/commonlib/helpers.h
+index 0318e44..0b2395b 100644
+--- a/src/commonlib/include/commonlib/helpers.h
++++ b/src/commonlib/include/commonlib/helpers.h
+@@ -34,6 +34,22 @@
+ #define ABS(a) (((a) < 0) ? (-(a)) : (a))
+ #define CEIL_DIV(a, b)  (((a) + (b) - 1) / (b))
+ #define IS_POWER_OF_2(x)  (((x) & ((x) - 1)) == 0)
++#define DIV_ROUND_UP(x, y)  (((x) + (y) - 1) / (y))
++/*
++ * Divide positive or negative dividend by positive divisor and round
++ * to closest integer. Result is undefined for negative divisors and
++ * for negative dividends if the divisor variable type is unsigned.
++ */
++#define DIV_ROUND_CLOSEST(x, divisor)(			\
++{							\
++	typeof(x) __x = x;				\
++	typeof(divisor) __d = divisor;			\
++	(((typeof(x))-1) > 0 ||				\
++	 ((typeof(divisor))-1) > 0 || (__x) > 0) ?	\
++		(((__x) + ((__d) / 2)) / (__d)) :	\
++		(((__x) - ((__d) / 2)) / (__d));	\
++}							\
++)
+ 
+ /* Standard units. */
+ #define KiB (1<<10)
+diff --git a/src/soc/nvidia/tegra/types.h b/src/soc/nvidia/tegra/types.h
+index dab474d..bfeebae 100644
+--- a/src/soc/nvidia/tegra/types.h
++++ b/src/soc/nvidia/tegra/types.h
+@@ -51,22 +51,4 @@
+ 	(type *)( (char *)__mptr - offsetof(type,member) );})
+ #endif
+ 
+-#define DIV_ROUND_UP(x, y)  (((x) + (y) - 1) / (y))
+-
+-/*
+- * Divide positive or negative dividend by positive divisor and round
+- * to closest integer. Result is undefined for negative divisors and
+- * for negative dividends if the divisor variable type is unsigned.
+- */
+-#define DIV_ROUND_CLOSEST(x, divisor)(			\
+-{							\
+-	typeof(x) __x = x;				\
+-	typeof(divisor) __d = divisor;			\
+-	(((typeof(x))-1) > 0 ||				\
+-	 ((typeof(divisor))-1) > 0 || (__x) > 0) ?	\
+-		(((__x) + ((__d) / 2)) / (__d)) :	\
+-		(((__x) - ((__d) / 2)) / (__d));	\
+-}							\
+-)
+-
+ #endif /* __TEGRA_MISC_TYPES_H__ */
+diff --git a/src/soc/nvidia/tegra210/addressmap.c b/src/soc/nvidia/tegra210/addressmap.c
+index e803e1b..b47c5c5 100644
+--- a/src/soc/nvidia/tegra210/addressmap.c
++++ b/src/soc/nvidia/tegra210/addressmap.c
+@@ -23,6 +23,7 @@
+ #include <stdlib.h>
+ #include <symbols.h>
+ #include <soc/nvidia/tegra/types.h>
++#include <commonlib/helpers.h>
+ 
+ static uintptr_t tz_base_mib;
+ static const size_t tz_size_mib = CONFIG_TRUSTZONE_CARVEOUT_SIZE_MB;
+diff --git a/src/soc/nvidia/tegra210/dsi.c b/src/soc/nvidia/tegra210/dsi.c
+index 3b771c9..5504b4d 100644
+--- a/src/soc/nvidia/tegra210/dsi.c
++++ b/src/soc/nvidia/tegra210/dsi.c
+@@ -32,6 +32,7 @@
+ #include <soc/tegra_dsi.h>
+ #include <soc/mipi-phy.h>
+ #include "jdi_25x18_display/panel-jdi-lpm102a188a.h"
++#include <commonlib/helpers.h>
+ 
+ struct tegra_mipi_device mipi_device_data[NUM_DSI];
+ 
+-- 
+2.9.3
+

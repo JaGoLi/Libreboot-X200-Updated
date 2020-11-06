@@ -1,0 +1,7 @@
+COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
+P1COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
+grub_extcmd_t EXTCOMMAND_LIST_MARKER(const char *name, grub_extcmd_func_t func, grub_command_flags_t flags, const char *summary, const char *description, const struct grub_arg_option *parser)
+  cmd = EXTCOMMAND_LIST_MARKER("verify_detached", grub_cmd_verify_signature, 0, "[-s|--skip-sig] FILE SIGNATURE_FILE [PUBKEY_FILE]", "Verify detached signature.", options)
+  cmd_trust = EXTCOMMAND_LIST_MARKER("trust", grub_cmd_trust, 0, "[-s|--skip-sig] PUBKEY_FILE", "Add PUBKEY_FILE to trusted keys.", options)
+  cmd_list = COMMAND_LIST_MARKER("list_trusted", grub_cmd_list, 0, "Show the list of trusted keys.")
+  cmd_distrust = COMMAND_LIST_MARKER("distrust", grub_cmd_distrust, "PUBKEY_ID", "Remove PUBKEY_ID from trusted keys.")

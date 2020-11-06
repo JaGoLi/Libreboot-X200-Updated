@@ -1,0 +1,34 @@
+diff --git a/fdtmap.h b/fdtmap.h
+index 68eeef9..fe75291 100644
+--- a/fdtmap.h
++++ b/fdtmap.h
+@@ -36,6 +36,12 @@
+ #ifndef FLASHMAP_LIB_FDTMAP_H__
+ #define FLASHMAP_LIB_FDTMAP_H__
+ 
++#ifndef _GNU_SOURCE
++#define _GNU_SOURCE
++#endif
++
++#include <fcntl.h>
++
+ #define FDTMAP_SIGNATURE	"__FDTM__"
+ 
+ struct romlayout;
+diff --git a/fmap.h b/fmap.h
+index b3c0a34..8aa82f7 100644
+--- a/fmap.h
++++ b/fmap.h
+@@ -38,7 +38,12 @@
+ #ifndef FLASHMAP_LIB_FMAP_H__
+ #define FLASHMAP_LIB_FMAP_H__
+ 
++#ifndef _GNU_SOURCE
++#define _GNU_SOURCE
++#endif
++
+ #include <inttypes.h>
++#include <fcntl.h>
+ 
+ struct flashctx;
+ 

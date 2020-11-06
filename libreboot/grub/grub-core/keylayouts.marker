@@ -1,0 +1,5 @@
+INPUT_TERMINAL_LIST_MARKER(const char *name __attribute__ ((unused)), grub_term_input_t term)
+OUTPUT_TERMINAL_LIST_MARKER(const char *name __attribute__ ((unused)), grub_term_output_t term)
+COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
+P1COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
+  cmd = COMMAND_LIST_MARKER("keymap", grub_cmd_keymap, 0, "Load a keyboard layout.")

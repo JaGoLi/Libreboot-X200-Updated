@@ -1,0 +1,13 @@
+bison
+doxygen
+flex
+gcc
+gdb
+g++
+iasl
+libncurses5
+libncurses5-dev
+libssl-dev
+make
+ncurses-base
+pkg-config

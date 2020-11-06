@@ -1,0 +1,12 @@
+--- config.h	2015-11-18 23:49:27.696700200 +0100
++++ config.h.new	2015-11-19 00:08:55.799401157 +0100
+@@ -19,3 +19,3 @@
+ /* BEEP_MODE - Beep on error. Default off, Change to 1 to enable */
+-#define BEEP_MODE 0
++#define BEEP_MODE 1
+ 
+@@ -37,3 +37,3 @@
+ /* SERIAL_BAUD_RATE - Baud rate for the serial console */
+-#define SERIAL_BAUD_RATE 9600
++#define SERIAL_BAUD_RATE 115200
+ 

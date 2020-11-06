@@ -1,0 +1,26 @@
+--- flashchips.c	2014-12-30 01:59:49.846383043 +0000
++++ flashchips.c.i945lenovobios_sst	2014-12-30 02:03:51.367580645 +0000
+@@ -10886,12 +10886,12 @@
+ 		.name		= "SST25VF016B",
+ 		.bustype	= BUS_SPI,
+ 		.manufacture_id	= SST_ID,
+-		.model_id	= SST_SST25VF016B,
++		.model_id	= 0x41,
+ 		.total_size	= 2048,
+ 		.page_size	= 256,
+ 		.feature_bits	= FEATURE_WRSR_EITHER,
+ 		.tested		= TEST_OK_PREW,
+-		.probe		= probe_spi_rdid,
++		.probe		= probe_spi_res2,
+ 		.probe_timing	= TIMING_ZERO,
+ 		.block_erasers	=
+ 		{
+@@ -10914,7 +10914,7 @@
+ 		},
+ 		.printlock	= spi_prettyprint_status_register_sst25vf016,
+ 		.unlock		= spi_disable_blockprotect,
+-		.write		= spi_aai_write,
++		.write		= spi_chip_write_1,
+ 		.read		= spi_chip_read,
+ 		.voltage	= {2700, 3600},
+ 	},

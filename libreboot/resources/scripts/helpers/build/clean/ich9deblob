@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+#  helper script: clean the dependencies that were built in ich9deblob
+#
+#	Copyright (C) 2014, 2015 Leah Rowe <info@minifree.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the current working directory is the root
+# of libreboot_src or libreboot git
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+# clean ich9deblob utility
+# --------------------------------------------------------------------
+
+printf "Cleaning the previous build of ich9deblob\n"
+cd "resources/utilities/ich9deblob/"
+make clean
+cd "../../../"
+printf "\n\n"

@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+usage() {
+	project_usage_actions "$project"
+}
+
+update() {
+	local repository_path=$root
+
+	git_fetch "$repository_path"
+	git_merge "$repository_path" "$ORIGIN_HEAD"
+}
+
+install() {
+	local install_path=$(project_install_path "$project" "$@")
+
+	project_install "$project" "$@"
+}
+
+install_check() {
+	project_install_check "$project" "$@"
+}
+
+release() {
+	local archive_path=$(project_release_archive_path "$project" "$SOURCES" "$@")
+	local sources_path=$root
+
+	project_release_install "$project" "$TOOLS" "$@"
+
+	printf '%s\n' "$VERSION" > "$sources_path/$DOTVERSION"
+	printf '%s\n' "$SOURCE_DATE_EPOCH" > "$sources_path/$DOTEPOCH"
+
+	if git_check "$sources_path"
+	then
+		git_revision "$sources_path" > "$sources_path/$DOTREVISION"
+	fi
+
+	archive_create "$archive_path" "$sources_path" "$BUILD_SYSTEM"
+	file_verification_create "$archive_path"
+}
+
+release_check() {
+	local archive_path=$(project_release_archive_path "$project" "$SOURCES" "$@")
+
+	project_release_install_check "$project" "$TOOLS" "$@"
+
+	file_exists_check "$archive_path"
+}
+
+clean() {
+	project_clean "$project" "$@"
+}

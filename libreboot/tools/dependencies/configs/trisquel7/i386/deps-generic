@@ -1,0 +1,17 @@
+autogen
+binutils
+build-essential
+coreutils
+fakeroot
+gawk
+help2man
+libfakeroot
+libfaketime
+libltdl-dev
+liblzma-dev
+libopts25
+libopts25-dev
+libtool
+m4
+texinfo
+xz-utils

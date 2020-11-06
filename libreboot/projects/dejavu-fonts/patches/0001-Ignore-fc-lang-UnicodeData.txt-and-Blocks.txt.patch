@@ -1,0 +1,28 @@
+From b5ece2b11361fdce57cab3e0504babc0b616c396 Mon Sep 17 00:00:00 2001
+From: Andrew Robbins <contact@andrewrobbins.info>
+Date: Mon, 10 Dec 2018 23:18:26 -0500
+Subject: [PATCH] Ignore fc-lang, UnicodeData.txt, and Blocks.txt
+
+UnicodeData.txt and Blocks.txt should be preserved after a
+`git clean -df` to avoid needless refetching of these resources.
+
+Additionally, the fc-lang symlink is kept in order to avoid
+recreating it before each build.
+---
+ .gitignore | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/.gitignore b/.gitignore
+index dedd2b5..74203a0 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -2,3 +2,6 @@ build/
+ dist/
+ tmp/
+ /src/*.sfd~
++resources/Blocks.txt
++resources/UnicodeData.txt
++resources/fc-lang
+-- 
+2.7.4
+

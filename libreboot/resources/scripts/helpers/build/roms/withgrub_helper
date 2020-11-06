@@ -1,0 +1,203 @@
+#!/usr/bin/env bash
+
+#  helper script: create ROM images for a given system, with SeaGRUB
+#
+#	Copyright (C) 2014, 2015, 2016 Leah Rowe <info@minifree.org>
+#	Copyright (C) 2015 Klemens Nanni <contact@autoboot.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the working directory is the root
+# of git or release archive
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+if [ -z ${NPROC+x} ]; then
+    cores="$(nproc)"
+else
+    case ${NPROC} in
+        ''|*[!0-9]*)
+            printf "value '%s' for NPROC is invalid. non-numeric. Exiting.\n" "${NPROC}"
+            exit 1
+            ;;
+    esac
+    cores="${NPROC}"
+fi
+
+if (( $# != 1 )); then
+	printf "Usage: ./oldbuild rom withgrub boardname\n"
+	printf "Example: ./oldbuild rom withgrub x60\n"
+	printf "You need to specify exactly 1 argument\n"
+	exit 1
+fi
+
+boardtarget="${1}"
+
+if [ -f "version" ]; then
+	# release archive is being used
+	version="$(cat version)"
+else
+	# git repo is being used
+	version="$(git describe --tags HEAD)"
+fi
+
+printf "GRUB Helper script: build ROM images for '%s'\n" "${boardtarget}"
+
+(
+cbrevision="$(cat resources/libreboot/config/grub/${boardtarget}/cbrevision)"
+vbootrevision="$(cat resources/libreboot/config/grub/${boardtarget}/vbootrevision)"
+branchname="grub_${boardtarget}"
+
+cd "coreboot/${cbrevision}/${cbrevision}/"
+git checkout ${branchname}
+(
+    cd "3rdparty/vboot/"
+    git checkout ${branchname}
+)
+
+# Make sure to remove these first
+rm -f *.{elf,cfg}
+
+printf 'libreboot-%s\n' "${version}" > ".coreboot-version" # needed for reproducible builds in coreboot
+
+# Build ROM images with text-mode and corebootfb modes.
+
+if [ "${boardtarget}" = "qemu_i440fx_piix4" ] || [ "${boardtarget}" = "qemu_q35_ich9" ]
+then
+	# assume that the default config enable framebuffer mode, duplicate and patch for text-mode
+	# necessary, otherwise it will ask you to enter the Y/X resolution of the framebuffer at build time
+	cp "../../../resources/libreboot/config/grub/${boardtarget}/config" "config_vesafb"
+	sed 's/CONFIG_FRAMEBUFFER_KEEP_VESA_MODE=y/# CONFIG_FRAMEBUFFER_KEEP_VESA_MODE is not set/' < "config_vesafb" > "config_txtmode"
+else
+	# assume that the default config enables text-mode, duplicate and patch for framebuffer mode
+	cp "../../../resources/libreboot/config/grub/${boardtarget}/config" "config_txtmode"
+	sed 's/# CONFIG_FRAMEBUFFER_KEEP_VESA_MODE is not set/CONFIG_FRAMEBUFFER_KEEP_VESA_MODE=y/' < "config_txtmode" > "config_vesafb"
+fi
+
+for romtype in txtmode vesafb
+do
+	if [ "${boardtarget}" = "kgpe-d16" ] || [ "${boardtarget}" = "ga-g41m-es2l" ] || [ "${boardtarget}" = "kcma-d8" ] || [ "${boardtarget}" = "d510mo" ]; then
+		if [ "${romtype}" = "vesafb" ]; then
+			printf "Only text-mode is reported to work on KGPE-D16, KCMA-D8, D510MO and ga-g41m-es2l\n"
+			printf "TODO: get tpearson to fix it\n"
+			continue
+		fi
+	fi
+
+	# Build coreboot ROM image
+	make clean
+	mv "config_${romtype}" ".config"
+	cp "../../grub_${romtype}.elf" "grub.elf"
+    if [ "${boardtarget}" = "d510mo" ] || [ "${boardtarget}" = "ga-g41m-es2l" ]; then
+        # Do not use SeaGRUB 
+        cp grub.elf payload.elf
+	    make -j${cores}
+        mv "build/coreboot.rom" "${boardtarget}_${romtype}.rom"
+
+        # We dont need seabios.elf anymore
+        rm -f "payload.elf"
+    else
+        # Use SeaGRUB
+        cp "../../../seabios/out/bios.bin.elf" "payload.elf"
+	    make -j${cores}
+
+	    mv "build/coreboot.rom" "${boardtarget}_${romtype}.rom"
+
+        # We dont need seabios.elf anymore
+         rm -f "payload.elf"
+        # Add the grub.elf to CBFS
+        ./util/cbfstool/cbfstool "${boardtarget}_${romtype}.rom" add-payload -c lzma -f grub.elf -n img/grub2
+
+        # Set bootorder so that seabios loads grub by default
+        printf "/rom@img/grub2\n" > bootorder
+        ./util/cbfstool/cbfstool "${boardtarget}_${romtype}.rom" add -f bootorder -n bootorder -t raw
+        rm -f bootorder
+
+        # Add 0s delay to seabios, so that the user is not burdened by seeing
+        # that horrible interface that seabios has
+        ./util/cbfstool/cbfstool "${boardtarget}_${romtype}.rom" add-int -i 0 -n etc/show-boot-menu || "already exists"
+
+        # Add a file to CBFS that tells SeaBIOS not to load option ROMs
+        ./util/cbfstool/cbfstool "${boardtarget}_${romtype}.rom" add-int -i 0 -n etc/pci-optionrom-exec || "already exists"
+
+        # keyboard spinup timeout
+       ./util/cbfstool/cbfstool "${boardtarget}_${romtype}.rom" remove -n etc/ps2-keyboard-spinup || printf "does not exist"
+       ./util/cbfstool/cbfstool "${boardtarget}_${romtype}.rom" add-int -i 3000 -n etc/ps2-keyboard-spinup || printf "already exists"
+    fi
+
+    printf "%s\n" "${version}" > lbversion
+    ./util/cbfstool/cbfstool "${boardtarget}_${romtype}.rom" add -f lbversion -n lbversion -t raw
+    rm -f "lbversion"
+
+    # we dont need that grub.elf now
+    rm -f "grub.elf"
+
+	# .config no longer needed
+	rm -f ".config"
+
+	# Add the background image
+	if [ "$romtype" = "vesafb" ]
+	then
+		if [ "$1" = "macbook21" ] || [ "$1" = "x200_4mb" ] || [ "$1" = "x200_8mb" ] || [ "$1" = "x200_16mb" ] || [ "$1" = "r400_4mb" ] || [ "$1" = "r400_8mb" ] || [ "$1" = "r400_16mb" ] || [ "$1" = "t400_4mb" ] || [ "$1" = "t400_8mb" ] || [ "$1" = "t400_16mb" ] || [ "$1" = "t500_4mb" ] || [ "$1" = "t500_8mb" ] || [ "$1" = "t500_16mb" ] || [ "$1" = "w500_4mb" ] || [ "$1" = "w500_8mb" ] || [ "$1" = "w500_16mb" ] 
+ 
+		then
+			./util/cbfstool/cbfstool "${boardtarget}_${romtype}.rom" add -f ../../../resources/grub/background/background1280x800.png -n background.png -t raw
+		else
+			./util/cbfstool/cbfstool "${boardtarget}_${romtype}.rom" add -f ../../../resources/grub/background/background1024x768.png -n background.png -t raw
+		fi
+	fi
+
+	# Add the correct GRUB configuration file for this image.
+	for keylayout in ../../../resources/utilities/grub-assemble/keymap/original/*
+	do
+		keymap="${keylayout##*/}"
+
+		# copy the images based on the keymap
+		cp "${boardtarget}_${romtype}.rom" "${boardtarget}_${keymap}_${romtype}.rom"
+
+		# Insert grub config into the image
+		./util/cbfstool/cbfstool "${boardtarget}_${keymap}_${romtype}.rom" add -f ../../"grub_${keymap}_${romtype}.cfg" -n grub.cfg -t raw
+		# Insert grub test config into the image (for the user to test modifications to before modifying the main one)
+		./util/cbfstool/cbfstool "${boardtarget}_${keymap}_${romtype}.rom" add -f ../../"grub_${keymap}_${romtype}_test.cfg" -n grubtest.cfg -t raw
+	done
+
+	# This config-less ROM is no longer needed
+	rm -f "${boardtarget}_${romtype}.rom"
+done
+
+# Clean up and prepare bin/ containing all ROM images
+
+# move ROM images into the newly created directory
+rm -Rf "${boardtarget:?}/"
+mkdir "${boardtarget}/"
+mv "${boardtarget}"*.rom "${boardtarget}/"
+
+# delete old ROM images
+rm -Rf "../../../bin/grub/${boardtarget}/"
+# put new ROM images in ../bin/grub/
+[ -d "../../../bin/grub/" ] || mkdir -p "../../../bin/grub/"
+mv "${boardtarget}/" "../../../bin/grub/"
+
+# version info file no longer needed
+rm -f ".coreboot-version"
+
+git checkout master
+(
+    cd "3rdparty/vboot/"
+    git checkout master
+)
+)
+
+printf "\n\n"

@@ -1,0 +1,35 @@
+From 873402fb594f06e748563ebf3abc7970613b9bda Mon Sep 17 00:00:00 2001
+From: Arthur Heymans <arthur@aheymans.xyz>
+Date: Mon, 8 Aug 2016 23:55:13 +0200
+Subject: [PATCH] make 256M vram the default for gm45 laptops
+
+Change-Id: Id213807d1ed3260846118f69b459bcad7a146c30
+
+diff --git a/src/mainboard/lenovo/t400/cmos.default b/src/mainboard/lenovo/t400/cmos.default
+index 98ce970..90d796f 100644
+--- a/src/mainboard/lenovo/t400/cmos.default
++++ b/src/mainboard/lenovo/t400/cmos.default
+@@ -13,4 +13,5 @@ sticky_fn=Disable
+ power_management_beeps=Enable
+ low_battery_beep=Enable
+ sata_mode=AHCI
+-hybrid_graphics_mode=Integrated Only
+\ No newline at end of file
++hybrid_graphics_mode=Integrated Only
++gfx_uma_size=256M
+\ No newline at end of file
+diff --git a/src/mainboard/lenovo/x200/cmos.default b/src/mainboard/lenovo/x200/cmos.default
+index 1d7b420..ec7ab46 100644
+--- a/src/mainboard/lenovo/x200/cmos.default
++++ b/src/mainboard/lenovo/x200/cmos.default
+@@ -13,4 +13,4 @@ sticky_fn=Disable
+ power_management_beeps=Enable
+ low_battery_beep=Enable
+ sata_mode=AHCI
+-gfx_uma_size=32M
+\ No newline at end of file
++gfx_uma_size=256M
+\ No newline at end of file
+-- 
+2.9.2
+

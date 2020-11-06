@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+#  helper script: downloads crossgcc, for building coreboot
+#
+#	Copyright (C) 2016 Leah Rowe <info@minifree.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the working directory is the
+# root of libreboot_src or libreboot git.
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+if [ -f "version" ]; then
+	# _src release archive is being used
+	version="libreboot-$(cat version)"
+else
+	# git repo is being used
+	version="libreboot-$(git describe --tags HEAD)"
+fi
+
+# coreboot revisios used for crossgcc
+crossgccrevision="35562d8b6477058e6bca31b5cedd9d4897124fc7"
+vbootrevision="d187cd3fc792f8bcefbee4587c83eafbd08441fc"
+
+rm -Rf "crossgcc/"
+(
+    git clone https://review.coreboot.org/coreboot crossgcc || git clone https://github.com/coreboot/coreboot.git crossgcc
+    cd "crossgcc/"
+    git reset --hard ${crossgccrevision}
+    git submodule update --init --checkout -- 3rdparty/vboot/
+    (
+        cd 3rdparty/vboot/
+        git reset --hard ${vbootrevision}
+    )
+    # If -pie is enabled in GCC, then --with-pic must be used when compiling
+    git am ../resources/libreboot/patch/crossgcc/looking_for_pie.patch
+    # Update URI pointing to the version of libelf we need
+    git am ../resources/libreboot/patch/crossgcc/libelf.patch
+    #Patch to add hash checking to buildgcc
+    git apply ../resources/libreboot/patch/crossgcc/buildgcc_hash_patch.diff
+    rm -Rf .git* */*/.git*
+)
+
+
+printf "Deblobbing coreboot\n"
+./resources/utilities/coreboot-libre/deblob
+
+

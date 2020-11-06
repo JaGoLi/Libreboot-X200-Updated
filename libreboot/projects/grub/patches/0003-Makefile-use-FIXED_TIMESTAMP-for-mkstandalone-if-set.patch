@@ -1,0 +1,30 @@
+From 57174ed960905be4f9c229bbf3913b25745dbfd9 Mon Sep 17 00:00:00 2001
+From: Alexander Couzens <lynxis@fe80.eu>
+Date: Fri, 4 Dec 2015 17:10:44 +0100
+Subject: [PATCH 10/10] Makefile: use FIXED_TIMESTAMP for mkstandalone if set
+
+mkstandalone sets timestamps for files which can be overriden by a fixed_timestamp.
+This makes it possible to build reproducible builds for coreboot.
+
+To build a reproducible build of grub for coreboot do:
+make default_payload.elf FIXED_TIMESTAMP=1134242
+---
+ Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 00a9663..ed7f148 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -411,7 +411,7 @@ bootcheck: $(BOOTCHECKS)
+ if COND_i386_coreboot
+ default_payload.elf: grub-mkstandalone grub-mkimage FORCE
+ 	test -f $@ && rm $@ || true
+-	pkgdatadir=. ./grub-mkstandalone --grub-mkimage=./grub-mkimage -O i386-coreboot -o $@ --modules='ahci pata ehci uhci ohci usb_keyboard usbms part_msdos ext2 fat at_keyboard part_gpt usbserial_usbdebug cbfs' --install-modules='ls linux search configfile normal cbtime cbls memrw iorw minicmd lsmmap lspci halt reboot hexdump pcidump regexp setpci lsacpi chain test serial multiboot cbmemc linux16 gzio echo help syslinuxcfg xnu $(shell cat grub-core/fs.lst) password_pbkdf2 $(EXTRA_PAYLOAD_MODULES)' --fonts= --themes= --locales= -d grub-core/ /boot/grub/grub.cfg=$(srcdir)/coreboot.cfg
++	pkgdatadir=. ./grub-mkstandalone --grub-mkimage=./grub-mkimage -O i386-coreboot -o $@ --modules='ahci pata ehci uhci ohci usb_keyboard usbms part_msdos ext2 fat at_keyboard part_gpt usbserial_usbdebug cbfs' --install-modules='ls linux search configfile normal cbtime cbls memrw iorw minicmd lsmmap lspci halt reboot hexdump pcidump regexp setpci lsacpi chain test serial multiboot cbmemc linux16 gzio echo help syslinuxcfg xnu $(shell cat grub-core/fs.lst) password_pbkdf2 $(EXTRA_PAYLOAD_MODULES)' --fonts= --themes= --locales= -d grub-core/ /boot/grub/grub.cfg=$(srcdir)/coreboot.cfg $(if $(FIXED_TIMESTAMP),-t $(FIXED_TIMESTAMP))
+ endif
+ 
+ endif
+-- 
+1.9.1
+

@@ -1,0 +1,24 @@
+From b1828512abf58911cfb829cb6a98d4e8dbefadc2 Mon Sep 17 00:00:00 2001
+From: Leah Rowe <info@minifree.org>
+Date: Fri, 11 Mar 2016 06:38:39 +0000
+Subject: [PATCH 1/1] Add whitelist for Taurinus X200 laptop
+
+---
+ board_enable.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/board_enable.c b/board_enable.c
+index 1d56203..a71061c 100644
+--- a/board_enable.c
++++ b/board_enable.c
+@@ -2437,6 +2437,7 @@ const struct board_match board_matches[] = {
+ 	{0x8086, 0x3B07, 0x17AA, 0x2166,  0x8086, 0x3B30, 0x17AA, 0x2167, "^Lenovo X201", NULL, NULL,         P2, "IBM/Lenovo",  "ThinkPad X201",         0,   OK, p2_whitelist_laptop},
+ 	{0x8086, 0x1E22, 0x17AA, 0x21FA,  0x8086, 0x1E55, 0x17AA, 0x21FA, "^ThinkPad X230", NULL, NULL,       P2, "IBM/Lenovo",  "ThinkPad X230",         0,   OK, p2_whitelist_laptop},
+ 	{0x8086, 0x27A0, 0x17AA, 0x2017,  0x8086, 0x27B9, 0x17AA, 0x2009, "^ThinkPad X60", NULL, NULL,        P2, "IBM/Lenovo",  "ThinkPad X60(s)",       0,   OK, p2_whitelist_laptop},
++	{0x8086, 0x2917, 0x17AA, 0x20F5,  0x8086, 0x2930, 0x17AA, 0x20F9, "^Taurinus X200", "Libiquity", "Taurinus X200", P2, "Libiquity", "ThinkPad X200", 0, OK, p2_whitelist_laptop},
+ 	{0x8086, 0x2411, 0x8086, 0x2411,  0x8086, 0x7125, 0x0e11, 0xb165, NULL,         NULL, NULL,           P3, "Mitac",       "6513WU",                0,   OK, board_mitac_6513wu},
+ 	{0x8086, 0x8186, 0x8086, 0x8186,  0x8086, 0x8800,      0,      0, "^MSC Vertriebs GmbH$", NULL, NULL, P2, "MSC",         "Q7-TCTC",               0,   OK, p2_not_a_laptop},
+ 	{0x8086, 0x7190,      0,      0,  0x8086, 0x7110,      0,      0, "^MS-6163 (i440BX)$", NULL, NULL,   P3, "MSI",         "MS-6163 (MS-6163 Pro)", 0,   OK, intel_piix4_gpo14_raise},
+-- 
+1.9.1
+

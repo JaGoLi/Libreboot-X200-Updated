@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+
+# for_trisquel7 script: installs build dependencies for Trisquel 7
+#
+#	Copyright (C) 2014, 2015 Leah Rowe <info@minifree.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+if [ $EUID -ne 0 ]; then
+   printf "This script must be run as root\n" 
+   exit 1
+fi
+
+# Duplications are intentional. Please do not re-factor.
+#
+# This is so that they can moved to separate scripts.
+#
+
+apt-get -y install wget
+
+# For downloading source code
+# ------------------------------------------------------------
+
+apt-get -y install git
+
+# For building the documentation
+# ------------------------------------------------------------
+
+apt-get -y install pandoc texi2html texinfo texlive
+
+# For building source code:
+# ------------------------------------------------------------
+
+apt-get -y install build-essential
+
+# for cross-compiling ARM binaries
+apt-get -y install gcc-arm-linux-gnueabi || printf "debian stretch ftw\n"
+
+[ "$(uname -i)" = x86_64 ] || [ "$(uname -m)" = x86_64 ]
+arch=${?}
+
+# For cross-compiling i686 target on x86_64 host.
+if [ "${arch}" -eq 0 ];	then
+	apt-get -y install gcc-multilib libc6-i386 libc6-dev-i386
+	apt-get -y install lib32stdc++6 g++-multilib dh-autoreconf
+	# recommended, but not sure what for:
+	apt-get -y install lib32tinfo-dev texi2html
+fi
+
+# Memtest86+ build dependencies
+# ------------------------------------------------------------
+
+apt-get -y install build-essential
+
+# i945-pwm build dependencies
+# ------------------------------------------------------------
+
+apt-get -y install build-essential
+
+# Coreboot build dependencies (also requires build-essential and git)
+# ------------------------------------------------------------
+
+apt-get -y install libncurses5-dev doxygen iasl gdb flex bison build-essential git libssl-dev
+
+# For cross-compiling i686 target on x86_64 host.
+[ "${arch}" -eq 0 ] && apt-get -y install lib32ncurses5-dev
+
+# GRUB build dependencies (also requires build-essential, bison and flex)
+# ------------------------------------------------------------
+
+apt-get -y install ttf-unifont libopts25 libselinux1-dev autogen m4 autoconf help2man libopts25-dev libfont-freetype-perl automake autotools-dev build-essential bison flex libfuse-dev liblzma-dev gawk libdevmapper-dev libtool libfreetype6-dev
+
+# BucTS build dependencies (external script)
+# ------------------------------------------------------------
+
+apt-get -y install build-essential
+
+# Flashrom build dependencies (also requires build-essential)
+# ------------------------------------------------------------
+
+apt-get -y install libpci-dev pciutils zlib1g-dev libftdi-dev build-essential libusb-1.0-0-dev libusb-1.0
+
+# For cross-compiling i686 target on x86_64 host.
+[ "${arch}" -eq 0 ] && apt-get -y install lib32z1-dev

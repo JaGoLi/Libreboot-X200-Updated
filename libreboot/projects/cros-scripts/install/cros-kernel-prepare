@@ -1,0 +1,159 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+KEYBLOCK="keyblock"
+VBPRIVK="vbprivk"
+VBPUBK="vbpubk"
+ARCH="arch"
+CMDLINE="cmdline"
+BOOTLOADER="bootloader"
+KERNEL="kernel"
+ITS="its"
+FIT="fit"
+IMG="img"
+
+usage() {
+	printf 1>&2 '%s\n' "$executable [action] [kernel files|kernel image] [medium]"
+
+	printf 1>&2 '\n%s\n' 'Actions:'
+	printf 1>&2 '%s\n' '  pack - Pack kernel files to a medium-specific image'
+	printf 1>&2 '%s\n' '  sign - Sign kernel image'
+	printf 1>&2 '%s\n' '  verify - Very kernel image signatures'
+
+	printf 1>&2 '\n%s\n' 'Medium:'
+	printf 1>&2 '%s\n' '  usb - External USB storage'
+	printf 1>&2 '%s\n' '  mmc - External SD card storage'
+	printf 1>&2 '%s\n' '  emmc - Internal storage'
+
+	printf 1>&2 '\n%s\n' 'Environment variables:'
+	printf 1>&2 '%s\n' '  VBOOT_KEYS_PATH - Path to the vboot keys'
+	printf 1>&2 '%s\n' '  VBOOT_TOOLS_PATH - Path to vboot tools'
+}
+
+pack() {
+	local kernel_files_path=$1
+	local medium=$2
+
+	local arch_path="$kernel_files_path/$ARCH"
+	local arch=$( cat "$arch_path" )
+	local cmdline_path="$kernel_files_path/$CMDLINE-$medium"
+	local bootloader_path="$kernel_files_path/$BOOTLOADER"
+	local kernel_its_path="$kernel_files_path/$KERNEL.$ITS"
+	local kernel_fit_path="$kernel_files_path/$KERNEL.$FIT"
+	local kernel_image_path="$kernel_files_path/$KERNEL-$medium.$IMG"
+
+	mkimage -f "$kernel_its_path" "$kernel_fit_path"
+	futility vbutil_kernel --pack "$kernel_image_path" --version 1 --arch "$arch" --keyblock "$VBOOT_KEYS_PATH/kernel.$KEYBLOCK" --signprivate "$VBOOT_KEYS_PATH/kernel_data_key.$VBPRIVK" --config "$cmdline_path" --vmlinuz "$kernel_fit_path" --bootloader "$bootloader_path"
+
+	printf '\n%s\n' "Packed kernel image $kernel_image_path"
+}
+
+sign() {
+	local kernel_image_path=$1
+
+	futility vbutil_kernel --repack "$kernel_image_path" --version 1 --keyblock "$VBOOT_KEYS_PATH/kernel.$KEYBLOCK" --signprivate "$VBOOT_KEYS_PATH/kernel_data_key.$VBPRIVK" --oldblob "$kernel_image_path"
+
+	printf '\n%s\n' "Signed kernel image $kernel_image_path"
+}
+
+verify() {
+	local kernel_image_path=$1
+
+	futility vbutil_kernel --verify "$kernel_image_path" --signpubkey "$VBOOT_KEYS_PATH/kernel_subkey.$VBPUBK"
+
+	printf '\n%s\n' "Verified kernel image $kernel_image_path"
+}
+
+requirements() {
+	local requirement
+	local requirement_path
+
+	for requirement in "$@"
+	do
+		requirement_path=$( which "$requirement" || true )
+
+		if [ -z "$requirement_path" ]
+		then
+			printf 1>&2 '%s\n' "Missing requirement: $requirement"
+			exit 1
+		fi
+	done
+}
+
+setup() {
+	root=$(readlink -f "$( dirname "$0" )" )
+	executable=$( basename "$0" )
+
+	if ! [ -z "$VBOOT_TOOLS_PATH" ]
+	then
+		PATH="$PATH:$VBOOT_TOOLS_PATH"
+	fi
+
+	if [ -z "$VBOOT_KEYS_PATH" ]
+	then
+		if ! [ -z "$VBOOT_TOOLS_PATH" ] && [ -d "$VBOOT_TOOLS_PATH/devkeys" ]
+		then
+			VBOOT_KEYS_PATH="$VBOOT_TOOLS_PATH/devkeys"
+		else
+			VBOOT_KEYS_PATH="/usr/share/vboot/devkeys"
+		fi
+	fi
+}
+
+cros_kernel_prepare() {
+	local action=$1
+	local kernel_files_path=$2
+	local kernel_image_path=$2
+	local medium=$3
+
+	set -e
+
+	setup "$@"
+
+	if [ -z "$action" ] || [ -z "$kernel_files_path" ] || [ -z "$kernel_image_path" ]
+	then
+		usage
+		exit 1
+	fi
+
+	case $action in
+		"pack")
+			if [ -z "$medium" ]
+			then
+				usage
+				exit 1
+			fi
+
+			requirements "mkimage" "futility"
+			pack "$kernel_files_path" "$medium"
+			;;
+		"sign")
+			requirements "futility"
+			sign "$kernel_image_path"
+			;;
+		"verify")
+			requirements "futility"
+			verify "$kernel_image_path"
+			;;
+		*)
+			usage
+			exit 1
+			;;
+	esac
+}
+
+cros_kernel_prepare "$@"

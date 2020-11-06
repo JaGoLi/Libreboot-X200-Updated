@@ -1,0 +1,230 @@
+From f7d7b22a9e711783c99be55b2c1c437a6808f24d Mon Sep 17 00:00:00 2001
+From: Paul Kocialkowski <contact@paulk.fr>
+Date: Sat, 23 Jul 2016 15:51:58 +0200
+Subject: [PATCH 4/4] cortex-m: Use assembly exception handler and routine for
+ task switching
+
+The way Cortex processors handle exceptions allows writing exception
+routines directly in C, as return from exception is handled by providing
+a special value for the link register.
+
+However, it is not safe to do this when doing context switching. In
+particular, C handlers may push some general-purpose registers that
+are used by the handler and pop them later, even when context switch
+has happened in the meantime. While the processor will restore {r0-r3}
+from the stack when returning from an exception, the C handler code
+may push, use and pop another register, clobbering the value resulting
+from the context switch.
+
+For this reason, it is safer to have assembly routines for exception
+handlers that do context switching.
+
+BUG=chromium:631514
+BRANCH=None
+TEST=Build and run big EC with a recent GCC version
+
+Change-Id: Ia356321021731e6e372af152c962d8f01c065da5
+Signed-off-by: Paul Kocialkowski <contact@paulk.fr>
+---
+ core/cortex-m/switch.S | 90 +++++++++++++++++++++++++++++++++++---------------
+ core/cortex-m/task.c   | 28 ++++------------
+ 2 files changed, 69 insertions(+), 49 deletions(-)
+
+diff --git a/core/cortex-m/switch.S b/core/cortex-m/switch.S
+index 92c7e51..80a99c8 100644
+--- a/core/cortex-m/switch.S
++++ b/core/cortex-m/switch.S
+@@ -13,6 +13,48 @@
+ .code 16
+ 
+ /**
++ * Start the task scheduling.  r0 is a pointer to task_stack_ready, which is
++ * set to 1 after the task stack is set up.
++ */
++.global __task_start
++.thumb_func
++__task_start:
++  ldr r2,=scratchpad     @ area used as dummy thread stack for the first switch
++#ifdef CONFIG_FPU
++  mov r3, #6             @ use : priv. mode / thread stack / floating point on
++#else
++  mov r3, #2             @ use : priv. mode / thread stack / no floating point
++#endif
++  add r2, #17*4          @ put the pointer at the top of the stack
++  mov r1, #0             @ __Schedule parameter : re-schedule nothing
++  msr psp, r2            @ setup a thread stack up to the first context switch
++  mov r2, #1
++  isb                    @ ensure the write is done
++  msr control, r3
++  mov r3, r0
++  mov r0, #0             @ __Schedule parameter : de-schedule nothing
++  isb                    @ ensure the write is done
++  str r2, [r3]           @ Task scheduling is now active
++  bl __schedule          @ execute the task with the highest priority
++  /* we should never return here */
++  mov r0, #1             @ set to EC_ERROR_UNKNOWN
++  bx lr
++
++/**
++ * SVC exception handler
++ */
++.global svc_handler
++.thumb_func
++svc_handler:
++  push {lr}                  @ save link register
++  bl __svc_handler           @ call svc handler helper
++  ldr r3,=current_task       @ load the current task's address
++  ldr r1, [r3]               @ load the current task
++  cmp r0, r1                 @ compare with previous task returned by helper
++  beq svc_handler_return     @ return if they are the same
++  /* continue to __switchto to switch to the new task */
++
++/**
+  * Task context switching
+  *
+  * Change the task scheduled after returning from the exception.
+@@ -30,8 +72,6 @@
+  *     r0, r1, r2, r3, r12, lr, pc, psr, r4, r5, r6, r7, r8, r9, r10, r11
+  *       exception frame              <|> additional registers
+  */
+-.global __switchto
+-.thumb_func
+ __switchto:
+   mrs r3, psp            @ get the task stack where the context has been saved
+   ldr r2, [r1]           @ get the new scheduled task stack pointer
+@@ -39,33 +79,29 @@ __switchto:
+   ldmia r2!, {r4-r11}    @ restore r4-r11 for the next task context
+   str r3, [r0]           @ save the task stack pointer in its context
+   msr psp, r2            @ set the process stack pointer to exception context
+-  bx lr                  @ return from exception
++
++svc_handler_return:
++  pop {pc}               @ return from exception or return to caller
+ 
+ /**
+- * Start the task scheduling.  r0 is a pointer to task_stack_ready, which is
+- * set to 1 after the task stack is set up.
++ * Resched task if needed:
++ * Continue iff a rescheduling event happened or profiling is active,
++ * and we are not called from another exception.
+  */
+-.global __task_start
++.global task_resched_if_needed
+ .thumb_func
+-__task_start:
+-  ldr r2,=scratchpad     @ area used as dummy thread stack for the first switch
+-#ifdef CONFIG_FPU
+-  mov r3, #6             @ use : priv. mode / thread stack / floating point on
+-#else
+-  mov r3, #2             @ use : priv. mode / thread stack / no floating point
+-#endif
+-  add r2, #17*4          @ put the pointer at the top of the stack
+-  mov r1, #0             @ __Schedule parameter : re-schedule nothing
+-  msr psp, r2            @ setup a thread stack up to the first context switch
+-  mov r2, #1
+-  isb                    @ ensure the write is done
+-  msr control, r3
+-  mov r3, r0
+-  mov r0, #0             @ __Schedule parameter : de-schedule nothing
+-  isb                    @ ensure the write is done
+-  str r2, [r3]           @ Task scheduling is now active
+-  bl __schedule          @ execute the task with the highest priority
+-  /* we should never return here */
+-  mov r0, #1             @ set to EC_ERROR_UNKNOWN
+-  bx lr
++task_resched_if_needed:
++  push {lr}                                 @ save link register
++  ldr r3,=need_resched_or_profiling         @ load need's address
++  ldr r1, [r3]                              @ load need
++  cbz r1, task_resched_if_needed_return     @ return if there is no need
++  and r0, #0xf                              @ called from another exception
++  cmp r0, #1                                @ check bit
++  beq task_resched_if_needed_return         @ return if called from exception
++  movs r1, #0                               @ desched nothing
++  movs r0, #0                               @ resched nothing
++  bl svc_handler                            @ re-schedule the highest priority
++                                            @ task
+ 
++task_resched_if_needed_return:
++  pop {pc}                                  @ return to caller
+diff --git a/core/cortex-m/task.c b/core/cortex-m/task.c
+index bfb3a9b..9935a28 100644
+--- a/core/cortex-m/task.c
++++ b/core/cortex-m/task.c
+@@ -57,7 +57,6 @@ static uint32_t task_switches;   /* Number of times active task changed */
+ static uint32_t irq_dist[CONFIG_IRQ_COUNT];  /* Distribution of IRQ calls */
+ #endif
+ 
+-extern void __switchto(task_ *from, task_ *to);
+ extern int __task_start(int *task_stack_ready);
+ 
+ #ifndef CONFIG_LOW_POWER_IDLE
+@@ -124,7 +123,7 @@ uint32_t scratchpad[17+18];
+ uint32_t scratchpad[17];
+ #endif
+ 
+-static task_ *current_task = (task_ *)scratchpad;
++task_ *current_task = (task_ *)scratchpad;
+ 
+ /*
+  * Should IRQs chain to svc_handler()?  This should be set if either of the
+@@ -137,7 +136,7 @@ static task_ *current_task = (task_ *)scratchpad;
+  * task unblocking.  After checking for a task switch, svc_handler() will clear
+  * the flag (unless profiling is also enabled; then the flag remains set).
+  */
+-static int need_resched_or_profiling;
++int need_resched_or_profiling;
+ 
+ /*
+  * Bitmap of all tasks ready to be run.
+@@ -197,7 +196,7 @@ int task_start_called(void)
+ /**
+  * Scheduling system call
+  */
+-void svc_handler(int desched, task_id_t resched)
++task_ *__svc_handler(int desched, task_id_t resched)
+ {
+ 	task_ *current, *next;
+ #ifdef CONFIG_TASK_PROFILING
+@@ -264,16 +263,13 @@ void svc_handler(int desched, task_id_t resched)
+ 	need_resched_or_profiling = 0;
+ #endif
+ 
+-	/* Nothing to do */
+-	if (next == current)
+-		return;
+-
+ 	/* Switch to new task */
+ #ifdef CONFIG_TASK_PROFILING
+-	task_switches++;
++	if (next != current)
++		task_switches++;
+ #endif
+ 	current_task = next;
+-	__switchto(current, next);
++	return current;
+ }
+ 
+ void __schedule(int desched, int resched)
+@@ -313,18 +309,6 @@ void task_start_irq_handler(void *excep_return)
+ }
+ #endif
+ 
+-void task_resched_if_needed(void *excep_return)
+-{
+-	/*
+-	 * Continue iff a rescheduling event happened or profiling is active,
+-	 * and we are not called from another exception.
+-	 */
+-	if (!need_resched_or_profiling || (((uint32_t)excep_return & 0xf) == 1))
+-		return;
+-
+-	svc_handler(0, 0);
+-}
+-
+ static uint32_t __wait_evt(int timeout_us, task_id_t resched)
+ {
+ 	task_ *tsk = current_task;
+-- 
+2.9.0
+

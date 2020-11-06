@@ -1,0 +1,11 @@
+crossgcc
+cros-ec
+vboot devices
+libpayload
+depthcharge
+dejavu-fonts
+grub
+seabios
+memtest86plus
+ich9gen
+coreboot

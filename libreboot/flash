@@ -1,0 +1,134 @@
+#!/usr/bin/env bash
+
+#  flash script: uses flashrom to flash a libreboot ROM image
+#
+#	Copyright (C) 2014, 2015 Leah Rowe <info@minifree.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# So that I one day find it again
+# http://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_02
+
+## Don't add here. errors are expected.
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+# set -u -e
+
+if [ ${EUID} -ne 0 ]; then
+   printf "This script must be run as root\n"
+   exit 1
+fi
+
+arch="unknown"
+if [ "$(uname -i)" = "i686" ] || [ "$(uname -m)" = "i686" ]; then
+	arch="i686"
+elif [ "$(uname -i)" = "x86_64" ] || [ "$(uname -m)" = "x86_64" ]; then
+	arch="x86_64"
+else
+	printf "This script must be run on an i686 or x86_64 host. x86_64 is recommended.\n"
+	exit 1
+fi
+
+usage="usage: ./flash mode path/to/yourrom.rom"
+availablemodes="update, forceupdate, i945lenovo_firstflash, i945lenovo_secondflash, i945apple_firstflash"
+
+mode="unknown"
+rompath="unknown"
+
+# User specified no or too few/many parameters
+if [ $# -lt 2 ]; then
+	printf "%s\n" "${usage}"
+	printf "You need to specify exactly one mode, and one file\n"
+	printf "%s\n" "${availablemodes}"
+	exit 1
+fi
+
+mode="${1}"
+rompath="${2}"
+
+# User specified an invalid mode of operation
+if [ "${mode}" != "update" ] && [ "${mode}" != "forceupdate" ] && [ "${mode}" != "i945lenovo_firstflash" ] && [ "${mode}" != "i945lenovo_secondflash" ] && [ "${mode}" != "i945apple_firstflash" ]; then
+	printf "%s\n" "${usage}"
+	printf "Invalid mode. Modes available: %s\n" "${availablemodes}"
+	exit 1
+else
+	printf "Mode selected: %s\n" "${mode}"
+fi
+
+# The specified file does not exist
+if [ ! -f "${rompath}" ]; then
+	printf "File not found!\n"
+	exit 1
+fi
+
+flashrom="unknown"
+if [ -f "build" ]; then
+	# git or libreboot_src
+	flashrom="./flashrom/flashrom"
+else
+	# libreboot_util
+	flashrom="./flashrom/${arch}/flashrom"
+fi
+if [ ! -f "${flashrom}" ]; then
+	printf "flashrom binary not present\n"
+	exit 1
+fi
+
+# i945 lenovobios
+bucts="unknown"
+flashrom_lenovobios_sst="unknown"
+flashrom_lenovobios_macronix="unknown"
+if [ "${mode}" = "i945lenovo_firstflash" ] || [ "${mode}" = "i945lenovo_secondflash" ]; then
+	if [ -f "build" ]; then
+		# git or libreboot_src
+		bucts="./bucts/bucts"
+		flashrom_lenovobios_sst="./flashrom/flashrom_lenovobios_sst"
+		flashrom_lenovobios_macronix="./flashrom/flashrom_lenovobios_macronix"
+	else
+		# libreboot_util
+		bucts="./bucts/${arch}/bucts"
+		flashrom_lenovobios_sst="./flashrom/${arch}/flashrom_lenovobios_sst"
+		flashrom_lenovobios_macronix="./flashrom/${arch}/flashrom_lenovobios_macronix"
+	fi
+	
+	# anti-bricking precaution
+	if [ ! -f "${bucts}" ]; then
+		printf "bucts binary not present. ABORTING so as to protect against bricking the system.\n"
+		exit 1
+	fi
+	
+	# fail if flashrom is not present
+	if [ ! -f "${flashrom_lenovobios_sst}" ] || [ ! -f "${flashrom_lenovobios_macronix}" ]; then
+		printf "Flashrom binaries not present.\n"
+		exit 1
+	fi
+fi
+
+if [ "${mode}" = "update" ]; then
+	${flashrom} -p internal -w "${rompath}"
+elif [ "${mode}" = "forceupdate" ]; then
+	${flashrom} -p internal:boardmismatch=force,laptop=force_I_want_a_brick -w "${rompath}"
+elif [ "${mode}" = "i945apple_firstflash" ]; then
+	${flashrom} -p internal:laptop=force_I_want_a_brick -w "${rompath}"
+elif [ "${mode}" = "i945lenovo_firstflash" ]; then
+	${bucts} 1 # needed to prevent bricks.
+	# One will fail (this is harmless), and the other will succeed.
+	${flashrom_lenovobios_sst} -p internal -w "${rompath}"
+	${flashrom_lenovobios_macronix} -p internal -w "${rompath}"
+elif [ "${mode}" = "i945lenovo_secondflash" ]; then
+	${flashrom} -p internal:laptop=force_I_want_a_brick -w "${rompath}"
+	${bucts} 0
+fi
+
+

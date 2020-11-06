@@ -1,0 +1,40 @@
+From d80a39744d7aad734e8d53f2b2d6cb6b5eeee834 Mon Sep 17 00:00:00 2001
+From: Arthur Heymans <arthur@aheymans.xyz>
+Date: Tue, 6 Sep 2016 23:03:04 +0200
+Subject: [PATCH 4/5] mb/intel/d945gclf: Allow use of native graphic init
+
+Adds pci device id to native graphic init and add a Native graphic init
+option in Kconfig.
+
+Change-Id: I136122daef70547830bcc87f568406be7162461f
+Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
+
+diff --git a/src/mainboard/intel/d945gclf/Kconfig b/src/mainboard/intel/d945gclf/Kconfig
+index 429a304..a83e613 100644
+--- a/src/mainboard/intel/d945gclf/Kconfig
++++ b/src/mainboard/intel/d945gclf/Kconfig
+@@ -29,6 +29,8 @@ config BOARD_SPECIFIC_OPTIONS # dummy
+ 	select HAVE_ACPI_RESUME
+ 	select BOARD_ROMSIZE_KB_512
+ 	select CHANNEL_XOR_RANDOMIZATION
++	select MAINBOARD_HAS_NATIVE_VGA_INIT
++	select INTEL_EDID
+ 
+ config MAINBOARD_DIR
+ 	string
+diff --git a/src/northbridge/intel/i945/gma.c b/src/northbridge/intel/i945/gma.c
+index 37674d7..abe7dd6 100644
+--- a/src/northbridge/intel/i945/gma.c
++++ b/src/northbridge/intel/i945/gma.c
+@@ -716,7 +716,7 @@ static struct device_operations gma_func1_ops = {
+ 	.ops_pci		= &gma_pci_ops,
+ };
+ 
+-static const unsigned short pci_device_ids[] = { 0x27a2, 0x27ae, 0 };
++static const unsigned short pci_device_ids[] = { 0x27a2, 0x27ae, 0x2772, 0 };
+ 
+ static const struct pci_driver i945_gma_func0_driver __pci_driver = {
+ 	.ops	= &gma_func0_ops,
+-- 
+2.9.3
+

@@ -1,0 +1,27 @@
+From 99b8fb271fd244d8e349ca956819c7e1b3420d80 Mon Sep 17 00:00:00 2001
+From: Arthur Heymans <arthur@aheymans.xyz>
+Date: Mon, 8 Aug 2016 21:51:34 +0200
+Subject: [PATCH] hardcode use on intel integrated graphic device on t400
+
+Change-Id: I2ff2d93b024866063715d26aedf510a9753a5445
+---
+ src/mainboard/lenovo/t400/romstage.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/mainboard/lenovo/t400/romstage.c b/src/mainboard/lenovo/t400/romstage.c
+index 147131f..1316d69 100644
+--- a/src/mainboard/lenovo/t400/romstage.c
++++ b/src/mainboard/lenovo/t400/romstage.c
+@@ -208,7 +208,8 @@ void main(unsigned long bist)
+ 	default_southbridge_gpio_setup();
+ 
+ 	uint8_t hybrid_graphics_mode = HYBRID_GRAPHICS_INTEGRATED_ONLY;
+-	get_option(&hybrid_graphics_mode, "hybrid_graphics_mode");
++	/* hardcode use of integrated graphic device for libreboot */
++	/* get_option(&hybrid_graphics_mode, "hybrid_graphics_mode"); */
+ 
+ 	/* Set up hybrid graphics */
+ 	hybrid_graphics_set_up_gpio();
+-- 
+2.9.2
+

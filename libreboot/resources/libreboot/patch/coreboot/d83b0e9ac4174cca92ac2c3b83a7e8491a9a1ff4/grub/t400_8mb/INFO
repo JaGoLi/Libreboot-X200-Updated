@@ -1,0 +1,8 @@
+# NOTE: merged upstream already
+printf "mainboard/lenovo/t400: Add initial hybrid graphics support\n"
+git am "../resources/libreboot/patch/misc/0001-mainboard-lenovo-t400-Add-initial-hybrid-graphics-su.patch"
+# git fetch http://review.coreboot.org/coreboot refs/changes/19/9319/18 && git cherry-pick FETCH_HEAD
+
+printf "NOTFORMERGE: lenovo/t400: hard-code enable integrated-only video\n"
+git am "../resources/libreboot/patch/misc/0002-NOTFORMERGE-lenovo-t400-hard-code-enable-integrated-.patch"
+# git fetch http://review.coreboot.org/coreboot refs/changes/50/10550/1 && git cherry-pick FETCH_HEAD

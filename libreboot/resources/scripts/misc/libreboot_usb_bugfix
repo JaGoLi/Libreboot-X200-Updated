@@ -1,0 +1,50 @@
+#! /bin/sh
+################################################################################
+#   Copyright (C) 2016 Namine Ritsu <ritsu73@ecantorix.moe>                    #
+#                                                                              #
+#   This program is free software: you can redistribute it and/or modify       #
+#   it under the terms of the GNU General Public License as published by       #
+#   the Free Software Foundation, either version 3 of the License, or          #
+#   (at your option) any later version.                                        #
+#                                                                              # 
+#   This program is distributed in the hope that it will be useful,            #
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of             #
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              #
+#   GNU General Public License for more details.                               #
+#                                                                              #
+#   You should have received a copy of the GNU General Public License          #
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.      #
+#                                                                              #
+################################################################################   
+
+### BEGIN INIT INFO
+# Provides:		libreboot_usb_bugfix
+# Required-Start:	$remote_fs $syslog
+# Required-Stop:	$remote_fs $syslog
+# Default-Start:	2 3 4 5
+# Default-Stop:		
+# Short-Description:	Disable USB wakeup on libreboot machines
+### END INIT INFO
+
+case "$1" in
+  start)
+	EHC1=$(cat /proc/acpi/wakeup | grep EHC1 | grep enabled | wc -l)
+	EHC2=$(cat /proc/acpi/wakeup | grep EHC2 | grep enabled | wc -l)
+	if [ "$EHC1" -gt 0 ]
+	then
+		echo EHC1 > /proc/acpi/wakeup
+	fi
+	if [ "$EHC2" -gt 0 ]
+	then
+		echo EHC2 > /proc/acpi/wakeup
+	fi
+	;;
+  status)
+	cat /proc/acpi/wakeup | grep EHC
+	;;
+  *)
+	echo "Usage: /etc/init.d/libreboot_usb_bugfix {start|status}"
+	exit 1
+esac
+
+exit 0

@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+KERNEL="kernel"
+TYPE="type"
+ROM="rom"
+IMG="img"
+
+boot_keys_cros() {
+	local cros_script=$1
+	shift
+
+	local vboot_tools_path=$(project_install_path "vboot" "tools")
+	local cros_scripts_path=$(project_install_path "cros-scripts")
+	local cros_script_path="$cros_scripts_path/$cros_script"
+
+	if ! [[ -x "$cros_script_path" ]]
+	then
+		printf 1>&2 '%s' "$cros_script script missing from cros-scripts install"
+		return 1
+	fi
+
+	VBOOT_KEYS_PATH=$VBOOT_KEYS_PATH VBOOT_TOOLS_PATH=$vboot_tools_path $cros_script_path "$@"
+}
+
+boot_keys_type() {
+	tool_file_contents "$tool" "$CONFIGS" "$TYPE" "$@"
+}
+
+boot_keys_files_install_path() {
+	local project=$1
+	shift
+
+	local helper_arguments
+	local argument
+	local ifs_save
+
+	helper_arguments=$(project_action_helper "arguments" "$project" "$@")
+
+
+	if [[ $? -ne 0 ]] || [[ -z "$helper_arguments" ]]
+	then
+		project_install_path "$project" "$@"
+	else
+		# This it to allow space characters in arguments.
+		ifs_save=$IFS
+		IFS=$'\n'
+
+		for argument in $(printf '%s\n' "$helper_arguments")
+		do
+			(
+				IFS=$ifs_save
+
+				# Only a single argument at a time is returned by the helper.
+				boot_keys_files_install_path "$project" "$@" "$argument"
+			)
+		done
+
+		IFS=$ifs_save
+	fi
+}
+
+boot_keys_files() {
+	local project=$1
+	shift
+
+	local cros_scripts_path=$(project_install_path "cros-scripts")
+	local cros_boot_keys="$cros_scripts_path/cros-boot-keys"
+
+	project_action_arguments_verify_recursive "install" "$project" "$@"
+
+	boot_keys_files_install_path "$project" "$@"
+}

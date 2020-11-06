@@ -1,0 +1,9 @@
+grub-core/lib/zstd/libgrubmods_a-error_private.o: \
+ grub-core/lib/zstd/error_private.c /usr/include/stdc-predef.h \
+ grub-core/lib/zstd/error_private.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include/stddef.h \
+ grub-core/lib/zstd/zstd_errors.h
+/usr/include/stdc-predef.h:
+grub-core/lib/zstd/error_private.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include/stddef.h:
+grub-core/lib/zstd/zstd_errors.h:

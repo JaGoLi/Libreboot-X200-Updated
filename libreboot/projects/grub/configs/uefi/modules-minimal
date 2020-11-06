@@ -1,0 +1,16 @@
+ahci
+cbfs
+cbmemc
+configfile
+ehci
+ext2
+halt
+loadenv
+minicmd
+part_bsd
+part_gpt
+pata
+reboot
+test
+usbms
+verify

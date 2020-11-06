@@ -1,0 +1,89 @@
+From 388f9dbe66f6834013d478eeffe154d59ca6c239 Mon Sep 17 00:00:00 2001
+From: Leah Rowe <info@minifree.org>
+Date: Tue, 8 Mar 2016 07:21:33 +0000
+Subject: [PATCH] HOTFIX: AMD fam10h/fam15h: don't use microcode updates
+
+There were build issues in libreboot. We don't use microcode updates anyway.
+When selecting no microcode updates in menuconfig, build failed because
+coreboot for these boards was still trying to add microcode.
+---
+ src/cpu/Makefile.inc                           | 34 +-------------------------
+ src/cpu/amd/family_10h-family_15h/Kconfig      |  1 -
+ src/cpu/amd/family_10h-family_15h/Makefile.inc | 10 --------
+ 3 files changed, 1 insertion(+), 44 deletions(-)
+
+diff --git a/src/cpu/Makefile.inc b/src/cpu/Makefile.inc
+index 046c418..ef0e236 100644
+--- a/src/cpu/Makefile.inc
++++ b/src/cpu/Makefile.inc
+@@ -17,36 +17,4 @@ $(eval $(call create_class_compiler,cpu_microcode,x86_32))
+ ## Rules for building the microcode blob in CBFS
+ ################################################################################
+ 
+-ifneq ($(CONFIG_CPU_MICROCODE_MULTIPLE_FILES), y)
+-cbfs-files-$(CONFIG_CPU_MICROCODE_CBFS_GENERATE)  += cpu_microcode_blob.bin
+-endif
+-
+-ifeq ($(CONFIG_CPU_MICROCODE_CBFS_EXTERNAL_HEADER),y)
+-cbfs-files-y  += cpu_microcode_blob.bin
+-cpu_microcode_blob.bin-file = $(objgenerated)/microcode.bin
+-
+-$(objgenerated)/microcode.bin:
+-	echo "   util/scripts/ucode_h_to_bin.sh $(objgenerated)/microcode.bin \"$(CONFIG_CPU_MICROCODE_HEADER_FILES)\""
+-	util/scripts/ucode_h_to_bin.sh $(objgenerated)/microcode.bin $(CONFIG_CPU_MICROCODE_HEADER_FILES)
+-endif
+-
+-# We just mash all microcode binaries together into one binary to rule them all.
+-# This approach assumes that the microcode binaries are properly padded, and
+-# their headers specify the correct size. This works fairly well on isolatied
+-# updates, such as Intel and some AMD microcode, but won't work very well if the
+-# updates are wrapped in a container, like AMD's microcode update container. If
+-# there is only one microcode binary (i.e. one container), then we don't have
+-# this issue, and this rule will continue to work.
+-$(obj)/cpu_microcode_blob.bin: $$(cpu_microcode_bins)
+-	@printf "    MICROCODE  $(subst $(obj)/,,$(@))\n"
+-	@echo $(cpu_microcode_bins)
+-	cat /dev/null $+ > $@
+-
+-cpu_microcode_blob.bin-file ?= $(obj)/cpu_microcode_blob.bin
+-cpu_microcode_blob.bin-type := microcode
+-
+-ifneq ($(CONFIG_CPU_MICROCODE_CBFS_LOC),)
+-cpu_microcode_blob.bin-position := $(CONFIG_CPU_MICROCODE_CBFS_LOC)
+-else
+-cpu_microcode_blob.bin-align := 16
+-endif
++# What? Nope! We don't do that in libreboot.
+diff --git a/src/cpu/amd/family_10h-family_15h/Kconfig b/src/cpu/amd/family_10h-family_15h/Kconfig
+index 14ab1cd..3f873a1 100644
+--- a/src/cpu/amd/family_10h-family_15h/Kconfig
++++ b/src/cpu/amd/family_10h-family_15h/Kconfig
+@@ -11,7 +11,6 @@ config CPU_AMD_MODEL_10XXX
+ 	select UDELAY_LAPIC
+ 	select HAVE_MONOTONIC_TIMER
+ 	select SUPPORT_CPU_UCODE_IN_CBFS
+-	select CPU_MICROCODE_MULTIPLE_FILES
+ 
+ if CPU_AMD_MODEL_10XXX
+ 
+diff --git a/src/cpu/amd/family_10h-family_15h/Makefile.inc b/src/cpu/amd/family_10h-family_15h/Makefile.inc
+index f10f732..a295475 100644
+--- a/src/cpu/amd/family_10h-family_15h/Makefile.inc
++++ b/src/cpu/amd/family_10h-family_15h/Makefile.inc
+@@ -9,13 +9,3 @@ romstage-y += ram_calc.c
+ ramstage-y += ram_calc.c
+ ramstage-y += monotonic_timer.c
+ ramstage-$(CONFIG_HAVE_ACPI_TABLES) += powernow_acpi.c
+-
+-# Microcode for Family 10h, 11h, 12h, and 14h
+-cbfs-files-$(CONFIG_CPU_MICROCODE_MULTIPLE_FILES) += microcode_amd.bin
+-microcode_amd.bin-file := 3rdparty/blobs/cpu/amd/family_10h-family_14h/microcode_amd.bin
+-microcode_amd.bin-type := microcode
+-
+-# Microcode for Family 15h
+-cbfs-files-$(CONFIG_CPU_MICROCODE_MULTIPLE_FILES) += microcode_amd_fam15h.bin
+-microcode_amd_fam15h.bin-file := 3rdparty/blobs/cpu/amd/family_15h/microcode_amd_fam15h.bin
+-microcode_amd_fam15h.bin-type := microcode
+-- 
+1.9.1
+

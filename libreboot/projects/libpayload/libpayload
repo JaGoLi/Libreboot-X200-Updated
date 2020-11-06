@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+arguments() {
+	project_arguments_targets "$project" "$@"
+}
+
+usage() {
+	project_usage_actions "$project"
+	project_usage_arguments "$project" "$@"
+}
+
+build() {
+	local repository="coreboot"
+
+	project_sources_directory_missing_empty_error "$project" "$repository" "$@"
+
+	if git_project_check $repository
+	then
+		git_project_checkout "$repository" "$repository" "$@"
+	fi
+
+	local coreboot_sources_path=$(project_sources_path "$repository" "$repository" "$@")
+	local sources_path="$coreboot_sources_path/payloads/libpayload/"
+	local build_path=$(project_build_path "$project" "$@")
+	local build_install_path="$build_path/install"
+
+	local config_name=$(libpayload_config "$@")
+	local config_path="$sources_path/configs/$config_name"
+
+	local arch=$(libpayload_arch "$@")
+
+	local crossgcc_build_path=$(project_build_path "crossgcc" "$arch")
+	local crossgcc_bin_path="$crossgcc_build_path/bin/"
+
+	rm -f "$sources_path/.xcompile"
+
+	mkdir -p "$build_path"
+
+	make -C "$sources_path" obj="$build_path" DOTCONFIG="$build_path/.config" XGCCPATH="$crossgcc_bin_path" KBUILD_DEFCONFIG="$config_path" "defconfig"
+	make -C "$sources_path" obj="$build_path" DOTCONFIG="$build_path/.config" XGCCPATH="$crossgcc_bin_path" -j$TASKS
+	make -C "$sources_path" obj="$build_path" DOTCONFIG="$build_path/.config" XGCCPATH="$crossgcc_bin_path" DESTDIR="$build_install_path" "install"
+
+	rm -f "$sources_path/.xcompile"
+}
+
+build_check() {
+	project_build_check "$project" "$@"
+}
+
+clean() {
+	project_clean "$project" "$@"
+}

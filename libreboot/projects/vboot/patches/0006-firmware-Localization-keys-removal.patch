@@ -1,0 +1,54 @@
+From 95a6212c5eef956289ab6a70ba0debb89508ce99 Mon Sep 17 00:00:00 2001
+From: Paul Kocialkowski <contact@paulk.fr>
+Date: Tue, 11 Aug 2015 00:07:18 +0200
+Subject: [PATCH 6/7] firmware: Localization keys removal
+
+Since we're using a text-based interface, binding the arrow keys to localization
+changes has no effect and only makes the screen flicker.
+
+Change-Id: I92dfe63d9d0826217653e29d3f26fb0ab29071f1
+Signed-off-by: Paul Kocialkowski <contact@paulk.fr>
+---
+ firmware/lib/vboot_api_kernel.c | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/firmware/lib/vboot_api_kernel.c b/firmware/lib/vboot_api_kernel.c
+index 53ef5c7..e03e042 100644
+--- a/firmware/lib/vboot_api_kernel.c
++++ b/firmware/lib/vboot_api_kernel.c
+@@ -273,7 +273,6 @@ int VbUserConfirms(VbCommonParams *cparams, uint32_t confirm_flags)
+ 					return 1;
+ 				}
+ 			}
+-			VbCheckDisplayKey(cparams, key, &vnc);
+ 		}
+ 		VbExSleepMs(CONFIRM_KEY_DELAY);
+ 	}
+@@ -549,7 +548,6 @@ developer_mode_screen:
+ 			break;
+ 		default:
+ 			VBDEBUG(("VbBootDeveloper() - pressed key %d\n", key));
+-			VbCheckDisplayKey(cparams, key, &vnc);
+ 			break;
+ 		}
+ 	} while(hold || VbAudioLooping(audio));
+@@ -613,7 +611,6 @@ VbError_t VbBootRecovery(VbCommonParams *cparams, LoadKernelParams *p)
+ 		VbDisplayScreen(cparams, VB_SCREEN_OS_BROKEN, 0, &vnc);
+ 		VBDEBUG(("VbBootRecovery() waiting for manual recovery\n"));
+ 		while (1) {
+-			VbCheckDisplayKey(cparams, VbExKeyboardRead(), &vnc);
+ 			if (VbWantShutdown(cparams->gbb->flags))
+ 				return VBERROR_SHUTDOWN_REQUESTED;
+ 			VbExSleepMs(REC_KEY_DELAY);
+@@ -711,8 +708,6 @@ VbError_t VbBootRecovery(VbCommonParams *cparams, LoadKernelParams *p)
+ 					i = 4;
+ 					break;
+ 				}
+-			} else {
+-				VbCheckDisplayKey(cparams, key, &vnc);
+ 			}
+ 			if (VbWantShutdown(cparams->gbb->flags))
+ 				return VBERROR_SHUTDOWN_REQUESTED;
+-- 
+2.10.2
+

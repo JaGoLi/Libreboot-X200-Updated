@@ -1,0 +1,51 @@
+From 9dd7a8b9376b4fb6b82422899e0ed7b8606c73ce Mon Sep 17 00:00:00 2001
+From: Andrew Robbins <contact@andrewrobbins.info>
+Date: Thu, 27 Dec 2018 23:37:07 -0500
+Subject: [PATCH] Require a recent fontforge for reproducibility
+
+The required version is set to 20171220 which is the earliest
+date from which fontforge built from source was able to produce
+the non-LGC subset of DejaVu deterministically. "20171220" refers
+to upstream revision 69e561773b91e37096a855f0353b1d6781a61250
+
+Note there was not an actual dejavu-fonts release made on 2017-12-20;
+the date is intended to be both a reference point, as previously
+described, and a mechanism to prevent non-deterministic fonts being
+produced by Libreboot's build system due to an unsupported version
+of fontforge being used.
+---
+ scripts/generate.pe | 4 ++--
+ scripts/generate.py | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/scripts/generate.pe b/scripts/generate.pe
+index 5d9d03d..144e8b1 100755
+--- a/scripts/generate.pe
++++ b/scripts/generate.pe
+@@ -16,8 +16,8 @@
+ def_gen_flags = 0x20 + 0x40 + 0x800
+ exp_gen_flags = def_gen_flags + 8
+ 
+-if ($version < "20080330")
+-  Error("Your version of FontForge is too old - 20080330 or newer is required");
++if ($version < "20171220")
++  Error("Your version of FontForge is too old - 20171220 or newer is required");
+ endif
+ # FoundryName is not used in TTF generation
+ SetPref("FoundryName", "DejaVu")
+diff --git a/scripts/generate.py b/scripts/generate.py
+index 467d52b..168a2be 100755
+--- a/scripts/generate.py
++++ b/scripts/generate.py
+@@ -7,7 +7,7 @@
+ #   chmod +x generate.pe
+ #   ./generate.pe *.sfd
+ import fontforge, sys;
+-required_version = "20080330"
++required_version = "20171220"
+ 
+ # font generation flags:
+ #   omit-instructions => do not include TT instructions (for experimental typefaces)
+-- 
+2.7.4
+

@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+#
+#  helper script: run "make menuconfig" on config(s) to modify them
+#
+#	Copyright (C) 2014, 2015, 2016 Leah Rowe <info@minifree.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the working directory is the root
+# of libreboot_src or git
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+payload="grub"
+configpath="resources/libreboot/config/${payload}"
+
+hackconfig () {
+	board="${1}"
+    cbrevision="$(cat ${configpath}/${board}/cbrevision)"
+    vbootrevision="$(cat ${configpath}/${board}/vbootrevision)"
+(
+    cd "coreboot/${cbrevision}/${cbrevision}/"
+    git checkout ${payload}_${board}
+    (
+        cd "3rdparty/vboot/"
+        git checkout ${payload}_${board}
+    )
+
+	printf "Modifying config for %s (%s payload)\n" "${board}" "${payload}"
+	sleep 2
+
+	if [ ! -d "../../../${configpath}/${board}/" ]; then
+		printf "build/config/grubmodify WARNING: config '%s' does not exist. Skipping.\n" "${board}"
+        git checkout master
+        (
+            cd "3rdparty/vboot/"
+            git checkout master
+        )
+		return
+	fi
+	
+	mv "../../../${configpath}/${board}/config" ".config"
+	make menuconfig
+	mv ".config" "../../../${configpath}/${board}/config"
+
+    git checkout master
+    (
+        cd "3rdparty/vboot/"
+        git checkout master
+    )
+)
+}
+
+if [ $# -lt 1 ]; then
+	for config in ${configpath}/*; do hackconfig "${config##*/}"; done
+else
+	for config in "${@}"; do hackconfig "${config}"; done
+fi

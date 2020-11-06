@@ -1,0 +1,207 @@
+#!/usr/bin/env bash
+
+#  helper script: builds the dependencies that coreboot needs before building a ROM image
+#
+#	Copyright (C) 2014, 2015, 2016 Leah Rowe <info@minifree.org>
+#	Copyright (C) 2015 Klemens Nanni <contact@autoboot.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the working directory is the root
+# of git or release archive
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+HOMEDIR=$(pwd)
+
+# Build utilities needed in coreboot directory
+# --------------------------------------------------------------------
+
+printf "Building the utilities in coreboot\n"
+
+# build coreboot utilities (in each revision) and
+# create symlinks to the crossgcc archive
+for payload in $HOMEDIR/coreboot/*; do
+	for board in "${payload}/"*; do
+
+	# cbfstool, cbmem, nvramtool
+	for util in {cbfs,nvram}tool cbmem; do
+        if [ "${util}" = "cbfstool" ]; then
+            sed -i '/.*fmd_scanner.o.*-Wno-unused-function$/ s/$/ -Wno-sign-compare/'  "${board}"/util/cbfstool/Makefile.inc
+        fi
+		make -BC "${board}/util/${util}"
+	done
+	# create symlink to crossgcc
+	(
+
+	ln -fs $HOMEDIR/crossgcc/util/crossgcc/ ${board}/util/crossgcc
+	)
+
+	done
+done
+
+for payloads in $HOMEDIR/resources/libreboot/config/*; do
+
+	if [ ! -d "${payloads}/" ]; then
+		continue
+	fi
+
+	payload="${payloads##*/}"
+
+	for boardconfig in $HOMEDIR/resources/libreboot/config/${payload}/*; do
+
+		if [ ! -d "${boardconfig}/" ]; then
+			continue
+		fi
+
+		boardname="${boardconfig##*/}"
+		cbrevision=$(cat "${boardconfig}/cbrevision")
+		vbootrevision=$(cat "${boardconfig}/vbootrevision")
+
+		reused_coreboot_patches="$HOMEDIR/resources/libreboot/patch/coreboot/${cbrevision}/${payload}/${boardname}/reused.list"
+		reused_vboot_patches="$HOMEDIR/resources/libreboot/patch/vboot/${vbootrevision}/${payload}/${boardname}/reused.list"
+		for reused_patches in "${reused_coreboot_patches}" "${reused_vboot_patches}"; do
+			if [ -f "${reused_patches}" ]; then
+				for patch in $(cat "${reused_patches}"); do
+					if [ ! -f "./${patch}" ]; then
+						printf "%s listed in %s does not exist\n" "${patch}" "${reused_patches}"
+						exit 1
+					fi
+				done
+			fi
+		done
+
+	done
+done
+
+# sanity check (check for invalid paths in the reused.list patch lists before proceeding)
+# in ascending filename order, apply patches from a directory
+apply_patches_from_directory() {
+	patch_directory="${1}" # directory containing the patch files
+
+	if [ -d "${patch_directory}" ]; then
+		for patch in ${patch_directory}/*.patch;  do
+
+			if [ "${patch##*/}" = "*.patch" ]; then # oh so ugly
+				continue # ugly ugly ugly ugly ugly
+			fi # most hideous thing you've ever seen
+
+			git am "${patch}" || continue
+		done
+	fi
+}
+# files listed in the file (if found) are absolute paths, relative to the root of the libreboot src directory
+# the file lists patches patches that should be applied
+apply_patches_from_file() {
+	patch_list="${1}" # file listing the paths to all the patches
+	libreboot_src_root="${2}" # path to the root of the libreboot_src directory
+
+	if [ -f "${patch_list}" ]; then
+		for patchname in $(cat "${patch_list}"); do
+			git am "${libreboot_src_root}/${patchname}" || continue
+		done
+	fi
+}
+
+create_branch() {
+	branchname="${1}"
+    git branch ${branchname}
+    git checkout ${branchname}
+    git checkout master
+}
+
+# use git-init on everything
+# this is so that we can then apply patche
+# for these revisions of vboot and coreboot
+for i in $HOMEDIR/coreboot/*; do
+    if [ ! -d "${i}/" ]; then
+        continue
+    fi
+    for revision in ${i}/*; do
+        if [ ! -d "${revision}/" ]; then
+            continue
+        fi
+        (
+        cd "${revision}/"
+        rm -rf .git
+        git init
+        git add -A .
+        git commit -m "coreboot revision ${revision##*/}"
+        cd "3rdparty/vboot/"
+        rm -rf .git
+        git init
+        git add -A .
+        git commit -m "coreboot revision ${revision##*/}"
+        )
+    done
+done
+
+for payloads in $HOMEDIR/resources/libreboot/config/*; do
+
+	if [ ! -d "${payloads}/" ]; then
+		continue
+	fi
+
+	payload="${payloads##*/}"
+
+	for boardconfig in $HOMEDIR/resources/libreboot/config/${payload}/*; do
+
+		if [ ! -d "${boardconfig}/" ]; then
+			continue
+		fi
+
+		boardname="${boardconfig##*/}"
+		cbrevision=$(cat "${boardconfig}/cbrevision")
+		vbootrevision=$(cat "${boardconfig}/vbootrevision")
+        branchname="${payload}_${boardname}"
+
+        # the same vboot revision is always used for coreboot revision,
+        # so we don't need to wworry about checking for that here
+
+		# patch that version
+		(
+
+			cd "$HOMEDIR/coreboot/${cbrevision}/${cbrevision}/"
+			create_branch ${branchname}
+
+            git checkout ${branchname}
+
+			# apply patches (coreboot, common to all systems using this revision)
+			apply_patches_from_directory "$HOMEDIR/resources/libreboot/patch/common/coreboot/${cbrevision}"
+			# apply patches re-used from other boards, before applying main patches (common patches for similar boards)
+			apply_patches_from_file "$HOMEDIR/resources/libreboot/patch/coreboot/${cbrevision}/${payload}/${boardname}/reused.list" ../../..
+			# apply patches (coreboot, machine-specific for this revision)
+			apply_patches_from_directory "$HOMEDIR/resources/libreboot/patch/coreboot/${cbrevision}/${payload}/${boardname}"
+
+            git checkout master
+
+			cd "3rdparty/vboot/"
+			# reset to known revision (vboot)
+			create_branch ${branchname}
+
+            git checkout ${branchname}
+
+			# apply patches (vboot, common to all systems using this revision)
+			apply_patches_from_directory "$HOMEDIR/resources/libreboot/patch/common/vboot/${vbootrevision}"
+			# apply patches re-used from other boards, before applying main patches (common patches for similar boards)
+			apply_patches_from_file "$HOMEDIR/resources/libreboot/patch/vboot/${vbootrevision}/${payload}/${boardname}/reused.list" ../../../../..
+			# apply patches (vboot, machine-specific for this revision)
+			apply_patches_from_directory "$HOMEDIR/resources/libreboot/patch/vboot/${vbootrevision}/${payload}/${boardname}"
+
+            git checkout master
+
+		)
+	done
+done

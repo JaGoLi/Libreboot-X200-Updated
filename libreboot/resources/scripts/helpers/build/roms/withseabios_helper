@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+
+#  helper script: create ROM images for a given system, with SeaBIOS
+#
+#	Copyright (C) 2014, 2015, 2016 Leah Rowe <info@minifree.org>
+#	Copyright (C) 2015 Klemens Nanni <contact@autoboot.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the working directory is the root
+# of git or release archive
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+if [ -z ${NPROC+x} ]; then
+    cores="$(nproc)"
+else
+    case ${NPROC} in
+        ''|*[!0-9]*)
+            printf "value '%s' for NPROC is invalid. non-numeric. Exiting.\n" "${NPROC}"
+            exit 1
+            ;;
+    esac
+    cores="${NPROC}"
+fi
+
+if (( $# != 1 )); then
+	printf "Usage: ./oldbuild rom withseabios boardname\n"
+	printf "Example: ./oldbuild rom withseabios x60\n"
+	printf "You need to specify exactly 1 argument\n"
+	exit 1
+fi
+
+boardtarget="${1}"
+
+if [ -f "version" ]; then
+	# release archive is being used
+	version="$(cat version)"
+else
+	# git repo is being used
+	version="$(git describe --tags HEAD)"
+fi
+
+printf "SeaBIOS Helper script: build ROM images for '%s'\n" "${boardtarget}"
+
+(
+cbrevision="$(cat resources/libreboot/config/seabios/${boardtarget}/cbrevision)"
+vbootrevision="$(cat resources/libreboot/config/seabios/${boardtarget}/vbootrevision)"
+branchname="seabios_${boardtarget}"
+
+cd "coreboot/${cbrevision}/${cbrevision}/"
+git checkout ${branchname}
+(
+    cd "3rdparty/vboot/"
+    git checkout ${branchname}
+)
+
+# Make sure to remove these first
+rm -f *{elf,cfg}
+
+printf 'libreboot-%s\n' "${version}" > ".coreboot-version" # needed for reproducible builds in coreboot
+
+# Build ROM images with text-mode and corebootfb modes.
+
+for romtype in txtmode vesafb
+do
+	if [ "${boardtarget}" = "kgpe-d16" ] || [ "${boardtarget}" = "kcma-d8" ] || [ "${boardtarget}" = "d945gclf" ]; then
+		if [ "${romtype}" = "vesafb" ]; then
+			printf "Only text-mode is reported to work on KGPE-D16, KCMA-D8, d945gclf\n"
+			continue
+		fi
+	fi
+
+    if [ "${boardtarget}" = "qemu_i440fx_piix4" ] || [ "${boardtarget}" = "qemu_q35_ich9" ]
+    then
+    	# assume that the default config enable framebuffer mode, duplicate and patch for text-mode
+    	# necessary, otherwise it will ask you to enter the Y/X resolution of the framebuffer at build time
+    	cp "../../../resources/libreboot/config/seabios/${boardtarget}/config" "config_vesafb"
+    	sed 's/CONFIG_FRAMEBUFFER_KEEP_VESA_MODE=y/# CONFIG_FRAMEBUFFER_KEEP_VESA_MODE is not set/' < "config_vesafb" > "config_txtmode"
+    else
+    	# assume that the default config enables text-mode, duplicate and patch for framebuffer mode
+    	cp "../../../resources/libreboot/config/seabios/${boardtarget}/config" "config_txtmode"
+    	sed 's/# CONFIG_FRAMEBUFFER_KEEP_VESA_MODE is not set/CONFIG_FRAMEBUFFER_KEEP_VESA_MODE=y/' < "config_txtmode" > "config_vesafb"
+    fi
+
+	# Build coreboot ROM image
+	make clean
+	cp "../../../seabios/out/bios.bin.vga.elf" "payload.elf"
+    mv "config_${romtype}" .config
+    make -j${cores}
+	rm -f "payload.elf"
+	mv "build/coreboot.rom" "${boardtarget}_${romtype}.rom"
+
+    # Now add SeaVGABIOS (SeaBIOS wrapper for coreboot native video init)
+    ./util/cbfstool/cbfstool "${boardtarget}_${romtype}.rom" add -f ../../../seabios/out/vgabios.bin -n vgaroms/vgabios.bin -t raw 
+
+    # Add a file to CBFS that tells SeaBIOS not to load option ROMs
+    ./util/cbfstool/cbfstool "${boardtarget}_${romtype}.rom" add-int -i 0 -n etc/pci-optionrom-exec || "already exists"
+
+	# .config no longer needed
+	rm -f ".config"
+done
+
+# Clean up and prepare bin/ containing all ROM images
+
+# move ROM images into the newly created directory
+rm -Rf "${boardtarget:?}/"
+mkdir "${boardtarget}/"
+mv "${boardtarget}"*.rom "${boardtarget}/"
+
+# delete old ROM images
+rm -Rf "../../../bin/seabios/${boardtarget}/"
+# put new ROM images in ../bin/grub/
+[ -d "../../../bin/seabios/" ] || mkdir -p "../../../bin/seabios/"
+mv "${boardtarget}/" "../../../bin/seabios/"
+
+# version info file no longer needed
+rm -f ".coreboot-version"
+
+git checkout master
+(
+    cd "3rdparty/vboot/"
+    git checkout master
+)
+)
+
+printf "\n\n"

@@ -1,0 +1,24 @@
+Each file in this directory contains a list of dependencies that
+should be installed before compiling the program indicated by the
+filename's suffix, with a few exceptions; these exceptions being
+"deps-documentation", "deps-download", and "deps-generic" for reasons
+noted below:
+
+* "deps-documentation" contains a general list of packages that are
+  needed to build Libreboot documentation.
+* "deps-download" contains packages necessary for downloading either
+  source code repositories and/or supporting files from a remote
+  source.
+* "deps-generic" contains generic dependencies that didn't quite fit
+  (i.e. listed) under any of the other dependency lists but are
+  necessary nonetheless.
+
+It is expected that these files are updated whenever upstream projects
+change dependency requirements.
+
+Any duplications between files are intentional; in order to provide a
+clear picture as to which dependencies are needed by individual
+programs, any attempt to consolidate these lists is dissuaded.
+
+This README is released under Creative Commons Zero 1.0:
+https://creativecommons.org/publicdomain/zero/1.0/

@@ -1,0 +1,210 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+REGEXP="\([^[:space:]]*\)[[:space:]]\(.*\)"
+
+KEYBLOCK="keyblock"
+VBPRIVK="vbprivk"
+VBPUBK="vbpubk"
+KEYB="keyb"
+PEM="pem"
+CRT="crt"
+
+KEYS="ec_root_key ec_data_key root_key firmware_data_key kernel_subkey kernel_data_key recovery_key recovery_kernel_data_key installer_kernel_data_key"
+KEYBLOCKS="firmware ec recovery_kernel kernel installer_kernel"
+SUBKEYS="firmware_data_key root_key ec_data_key ec_root_key recovery_kernel_data_key recovery_key kernel_data_key kernel_subkey installer_kernel_data_key recovery_key"
+ALGORITHMS="7 7 11 7 7 4 11 11 11"
+MODES="7 7 11 7 10"
+
+usage() {
+	printf 1>&2 '%s\n' "$executable [action]"
+
+	printf 1>&2 '\n%s\n' 'Actions:'
+	printf 1>&2 '%s\n' '  generate - Generate a set of keys'
+	printf 1>&2 '%s\n' '  verify - Verify keyblocks'
+
+	printf 1>&2 '\n%s\n' 'Environment variables:'
+	printf 1>&2 '%s\n' '  KEYS_VERSION - Version to give the keys'
+	printf 1>&2 '%s\n' '  VBOOT_KEYS_PATH - Path to the vboot keys'
+	printf 1>&2 '%s\n' '  VBOOT_TOOLS_PATH - Path to vboot tools'
+}
+
+keys_override_confirm() {
+	local override=0
+	local confirm
+
+	for key in $KEYS
+	do
+		if [ -f "$VBOOT_KEYS_PATH/$key.$VBPUBK" ] || [ -f "$VBOOT_KEYS_PATH/$key.$VBPRIVK" ]
+		then
+			override=1
+		fi
+	done
+
+	for keyblock in $KEYBLOCKS
+	do
+		if [ -f "$VBOOT_KEYS_PATH/$keyblock.$KEYBLOCK" ]
+		then
+			override=1
+		fi
+	done
+
+	if [ $override -ne 1 ]
+	then
+		return 0
+	fi
+
+	printf '%s\n' 'This is going to override keys stored in the following directory:'
+	printf '%s\n' "  $VBOOT_KEYS_PATH"
+	printf '%s' 'Press enter to confirm: '
+
+	read confirm
+}
+
+generate() {
+	local algorithms=$ALGORITHMS
+	local subkeys=$SUBKEYS
+	local modes=$MODES
+	local keyblock
+	local algorithm
+	local pubkey
+	local privkey
+	local mode
+
+	keys_override_confirm
+
+	for key in $KEYS
+	do
+		algorithm=$( printf '%s\n' "$algorithms" | sed "s/$REGEXP/\1/g" )
+		algorithms=$( printf '%s\n' "$algorithms" | sed "s/$REGEXP/\2/g" )
+
+		key_length=$(( 1 << (10 + ($algorithm / 3)) ))
+
+		openssl genrsa -F4 -out "$VBOOT_KEYS_PATH/$key.$PEM" "$key_length"
+		openssl req -batch -new -x509 -key "$VBOOT_KEYS_PATH/$key.$PEM"
+		openssl req -batch -new -x509 -key "$VBOOT_KEYS_PATH/$key.$PEM" -out "$VBOOT_KEYS_PATH/$key.$CRT"
+		dumpRSAPublicKey -cert "$VBOOT_KEYS_PATH/$key.$CRT" > "$VBOOT_KEYS_PATH/$key.$KEYB"
+		futility vbutil_key --pack "$VBOOT_KEYS_PATH/$key.$VBPUBK" --key "$VBOOT_KEYS_PATH/$key.$KEYB" --version "$KEYS_VERSION" --algorithm "$algorithm"
+		futility vbutil_key --pack "$VBOOT_KEYS_PATH/$key.$VBPRIVK" --key "$VBOOT_KEYS_PATH/$key.$PEM" --algorithm "$algorithm"
+
+		rm -f "$VBOOT_KEYS_PATH/$key.$PEM" "$VBOOT_KEYS_PATH/$key.$CRT" "$VBOOT_KEYS_PATH/$key.$KEYB"
+	done
+
+	printf '\n%s\n' "Generated keys $KEYS"
+
+	for keyblock in $KEYBLOCKS
+	do
+		pubkey=$( printf '%s\n' "$subkeys" | sed "s/$REGEXP/\1/g" )
+		subkeys=$( printf '%s\n' "$subkeys" | sed "s/$REGEXP/\2/g" )
+		privkey=$( printf '%s\n' "$subkeys" | sed "s/$REGEXP/\1/g" )
+		subkeys=$( printf '%s\n' "$subkeys" | sed "s/$REGEXP/\2/g" )
+
+		mode=$( printf '%s\n' "$modes" | sed "s/$REGEXP/\1/g" )
+		modes=$( printf '%s\n' "$modes" | sed "s/$REGEXP/\2/g" )
+
+		futility vbutil_keyblock --pack "$VBOOT_KEYS_PATH/$keyblock.$KEYBLOCK" --flags "$mode" --datapubkey "$VBOOT_KEYS_PATH/$pubkey.$VBPUBK" --signprivate "$VBOOT_KEYS_PATH/$privkey.$VBPRIVK"
+		futility vbutil_keyblock --unpack "$VBOOT_KEYS_PATH/$keyblock.$KEYBLOCK" --signpubkey "$VBOOT_KEYS_PATH/$privkey.$VBPUBK"
+	done
+
+	printf '\n%s\n' "Generated keyblocks $KEYBLOCKS"
+}
+
+verify() {
+	local subkeys=$SUBKEYS
+	local pubkey
+	local privkey
+
+	for keyblock in $KEYBLOCKS
+	do
+		pubkey=$( printf '%s\n' "$subkeys" | sed "s/$REGEXP/\1/g" )
+		subkeys=$( printf '%s\n' "$subkeys" | sed "s/$REGEXP/\2/g" )
+		privkey=$( printf '%s\n' "$subkeys" | sed "s/$REGEXP/\1/g" )
+		subkeys=$( printf '%s\n' "$subkeys" | sed "s/$REGEXP/\2/g" )
+
+		futility vbutil_keyblock --unpack "$VBOOT_KEYS_PATH/$keyblock.$KEYBLOCK" --signpubkey "$VBOOT_KEYS_PATH/$privkey.$VBPUBK"
+	done
+
+	printf '\n%s\n' "Verified keyblocks $KEYBLOCKS"
+}
+
+requirements() {
+	local requirement
+	local requirement_path
+
+	for requirement in "$@"
+	do
+		requirement_path=$( which "$requirement" || true )
+
+		if [ -z "$requirement_path" ]
+		then
+			printf 1>&2 '%s\n' "Missing requirement: $requirement"
+			exit 1
+		fi
+	done
+}
+
+setup() {
+	root=$(readlink -f "$( dirname "$0" )" )
+	executable=$( basename "$0" )
+
+	if [ -z "$KEYS_VERSION" ]
+	then
+		KEYS_VERSION=1
+	fi
+
+	if ! [ -z "$VBOOT_TOOLS_PATH" ]
+	then
+		PATH="$PATH:$VBOOT_TOOLS_PATH"
+	fi
+
+	if [ -z "$VBOOT_KEYS_PATH" ]
+	then
+		VBOOT_KEYS_PATH="$root/keys"
+		mkdir -p "$VBOOT_KEYS_PATH"
+	fi
+}
+
+cros_boot_keys() {
+	local action=$1
+
+	set -e
+
+	setup "$@"
+
+	if [ -z "$action" ]
+	then
+		usage
+		exit 1
+	fi
+
+	case $action in
+		"generate")
+			requirements "openssl" "dumpRSAPublicKey" "futility"
+			generate
+			;;
+		"verify")
+			requirements "futility"
+			verify
+			;;
+		*)
+			usage
+			exit 1
+			;;
+	esac
+}
+
+cros_boot_keys "$@"

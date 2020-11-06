@@ -1,0 +1,11 @@
+bison
+doxygen
+flex
+gcc
+gdb
+g++
+iasl
+make
+ncurses
+openssl
+pkg-config

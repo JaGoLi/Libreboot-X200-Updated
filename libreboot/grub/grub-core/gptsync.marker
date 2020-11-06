@@ -1,0 +1,3 @@
+COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
+P1COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
+  cmd = COMMAND_LIST_MARKER("gptsync", grub_cmd_gptsync, "DEVICE [PARTITION[+/-[TYPE]]] ...", "Fill hybrid MBR of GPT drive DEVICE. " "Specified partitions will be a part " "of hybrid MBR. Up to 3 partitions are " "allowed. TYPE is an MBR type. " "+ means that partition is active. " "Only one partition can be active.")

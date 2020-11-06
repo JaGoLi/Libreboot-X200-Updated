@@ -1,0 +1,10 @@
+libftdi1
+libftdi-dev
+libpci3
+libpci-dev
+libusb-1.0-0
+libusb-1.0-0-dev
+pciutils
+pkg-config
+zlib1g
+zlib1g-dev

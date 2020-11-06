@@ -1,0 +1,9 @@
+gcc-libs-multilib
+gcc-multilib
+lib32-fakeroot
+lib32-glibc
+lib32-libltdl
+lib32-libpciaccess
+lib32-libstdc++5
+lib32-openssl
+lib32-ncurses

@@ -1,0 +1,44 @@
+From f8aa6a0eeaa6ae3fd4dfe2d60118a47a3867c906 Mon Sep 17 00:00:00 2001
+From: Paul Kocialkowski <contact@paulk.fr>
+Date: Wed, 10 Feb 2016 20:44:09 +0100
+Subject: [PATCH] Force the definition of build tools
+
+Signed-off-by: Paul Kocialkowski <contact@paulk.fr>
+---
+ Makefile | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index c4cd006..5244242 100644
+--- a/Makefile
++++ b/Makefile
+@@ -264,16 +264,16 @@ include $(srctree)/scripts/Kbuild.include
+ 
+ # Make variables (CC, etc...)
+ 
+-AR		?= $(CROSS_COMPILE)ar
+-AS		?= $(CROSS_COMPILE)as
+-CC		?= $(CROSS_COMPILE)gcc
+-CPP		?= $(CC) -E
+-LD		?= $(CROSS_COMPILE)ld
+-NM		?= $(CROSS_COMPILE)nm
+-STRIP		?= $(CROSS_COMPILE)strip
+-OBJCOPY		?= $(CROSS_COMPILE)objcopy
+-OBJDUMP		?= $(CROSS_COMPILE)objdump
+-INSTALL		?= install
++AR		:= $(CROSS_COMPILE)ar
++AS		:= $(CROSS_COMPILE)as
++CC		:= $(CROSS_COMPILE)gcc
++CPP		:= $(CC) -E
++LD		:= $(CROSS_COMPILE)ld
++NM		:= $(CROSS_COMPILE)nm
++STRIP		:= $(CROSS_COMPILE)strip
++OBJCOPY		:= $(CROSS_COMPILE)objcopy
++OBJDUMP		:= $(CROSS_COMPILE)objdump
++INSTALL		:= install
+ AWK		= awk
+ DEPMOD		= /sbin/depmod
+ CHECK		= sparse
+-- 
+1.9.1
+

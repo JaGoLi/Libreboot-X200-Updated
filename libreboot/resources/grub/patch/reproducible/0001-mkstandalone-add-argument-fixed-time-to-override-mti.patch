@@ -1,0 +1,73 @@
+From 8dde1d7be2dd321a375570b7ff7e22bb01293044 Mon Sep 17 00:00:00 2001
+From: Alexander Couzens <lynxis@fe80.eu>
+Date: Fri, 4 Dec 2015 17:10:42 +0100
+Subject: [PATCH 08/10] mkstandalone: add argument --fixed-time to override
+ mtime of files
+
+mkstandalone adds several files to an archive. Doing this it uses the
+mtime to give these files a timestamp.
+--fixed-time <TIME_EPOCH> overrides these timestamps with a given.
+
+Replacing all timestamps with a specific one is required
+to get reproducible builds. See source epoch specification of
+reproducible-builds.org
+---
+ util/grub-mkstandalone.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/util/grub-mkstandalone.c b/util/grub-mkstandalone.c
+index 4907d44..047f0cd 100644
+--- a/util/grub-mkstandalone.c
++++ b/util/grub-mkstandalone.c
+@@ -30,6 +30,7 @@
+ #pragma GCC diagnostic error "-Wmissing-prototypes"
+ #pragma GCC diagnostic error "-Wmissing-declarations"
+ 
++static time_t fixed_time;
+ static char *output_image;
+ static char **files;
+ static int nfiles;
+@@ -48,6 +49,7 @@ static struct argp_option options[] = {
+    0, N_("save output in FILE [required]"), 2},
+   {"format", 'O', N_("FILE"), 0, 0, 2},
+   {"compression", 'C', "xz|none|auto", OPTION_HIDDEN, 0, 2},
++  {"fixed-time", 't', N_("TIMEEPOCH"), 0, N_("Use a fixed timestamp to override mtime of all files. Time since epoch is used."), 2},
+   {0, 0, 0, 0, 0, 0}
+ };
+ 
+@@ -72,6 +74,7 @@ help_filter (int key, const char *text, void *input __attribute__ ((unused)))
+ static error_t
+ argp_parser (int key, char *arg, struct argp_state *state)
+ {
++  char *b;
+   if (key == 'C')
+     key = GRUB_INSTALL_OPTIONS_INSTALL_CORE_COMPRESS;
+ 
+@@ -80,6 +83,14 @@ argp_parser (int key, char *arg, struct argp_state *state)
+ 
+   switch (key)
+     {
++    case 't':
++      fixed_time = strtoll (arg, &b, 10);
++      if (*b !='\0') {
++        printf (_("invalid fixed time number: %s\n"), arg);
++        argp_usage (state);
++        exit (1);
++      }
++      break;
+ 
+     case 'o':
+       if (output_image)
+@@ -192,7 +203,8 @@ add_tar_file (const char *from,
+   if (grub_util_is_special_file (from))
+     return;
+ 
+-  mtime = grub_util_get_mtime (from);
++  /* use fixed_time if given for mtime */
++  mtime = fixed_time != -1 ? fixed_time : grub_util_get_mtime (from);
+ 
+   optr = tcn = xmalloc (strlen (to) + 1);
+   for (iptr = to; *iptr == '/'; iptr++);
+-- 
+1.9.1
+

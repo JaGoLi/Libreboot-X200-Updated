@@ -1,0 +1,196 @@
+USB
+
+
+coreboot-4.0-7318-g129462d Mon Dec  8 22:08:18 GMT 2014 starting...
+running main(bist = 0)
+WARNING: Ignoring S4-assertion-width violation.
+Stepping B3
+2 CPU cores
+AMT enabled
+capable of DDR2 of 800 MHz or lower
+VT-d enabled
+GMCH: GS45, using low power mode by default
+TXT enabled
+Render frequency: 533 MHz
+IGD enabled
+PCIe-to-GMCH enabled
+GMCH supports DDR3 with 1067 MT or less
+GMCH supports FSB with up to 1067 MHz
+SMBus controller enabled.
+0:50:b
+2:51:b
+DDR mask 5, DDR 3
+Bank 0 populated:
+ Raw card type:    F
+ Row addr bits:   14
+ Col addr bits:   10
+ byte width:       1
+ page size:     1024
+ banks:            8
+ ranks:            2
+ tAAmin:    105
+ tCKmin:     15
+  Max clock: 533 MHz
+ CAS:       0x01c0
+Bank 1 populated:
+ Raw card type:    B
+ Row addr bits:   15
+ Col addr bits:   10
+ byte width:       1
+ page size:     1024
+ banks:            8
+ ranks:            1
+ tAAmin:    105
+ tCKmin:     12
+  Max clock: 666 MHz
+ CAS:       0x07e0
+Trying CAS 7, tCK 15.
+Found compatible clock / CAS pair: 533 / 7.
+Timing values:
+ tCLK:   15
+ tRAS:   20
+ tRP:     7
+ tRCD:    7
+ tRFC:  104
+ tWR:     8
+ tRD:    11
+ tRRD:    4
+ tFAW:   20
+ tWL:     6
+Changing memory frequency: old 3, new 6.
+Setting IGD memory frequencies for VCO #1.
+SFF platform unsupported in RCOMP initialization.
+USB
+
+
+coreboot-4.0-7318-g129462d Mon Dec  8 22:08:18 GMT 2014 starting...
+running main(bist = 0)
+Interrupted RAM init, reset required.
+USB
+
+
+coreboot-4.0-7318-g129462d Mon Dec  8 22:08:18 GMT 2014 starting...
+running main(bist = 0)
+Stepping B3
+2 CPU cores
+AMT enabled
+capable of DDR2 of 800 MHz or lower
+VT-d enabled
+GMCH: GS45, using low power mode by default
+TXT enabled
+Render frequency: 533 MHz
+IGD enabled
+PCIe-to-GMCH enabled
+GMCH supports DDR3 with 1067 MT or less
+GMCH supports FSB with up to 1067 MHz
+SMBus controller enabled.
+0:50:b
+2:51:b
+DDR mask 5, DDR 3
+Bank 0 populated:
+ Raw card type:    F
+ Row addr bits:   14
+ Col addr bits:   10
+ byte width:       1
+ page size:     1024
+ banks:            8
+ ranks:            2
+ tAAmin:    105
+ tCKmin:     15
+  Max clock: 533 MHz
+ CAS:       0x01c0
+Bank 1 populated:
+ Raw card type:    B
+ Row addr bits:   15
+ Col addr bits:   10
+ byte width:       1
+ page size:     1024
+ banks:            8
+ ranks:            1
+ tAAmin:    105
+ tCKmin:     12
+  Max clock: 666 MHz
+ CAS:       0x07e0
+Trying CAS 7, tCK 15.
+Found compatible clock / CAS pair: 533 / 7.
+Timing values:
+ tCLK:   15
+ tRAS:   20
+ tRP:     7
+ tRCD:    7
+ tRFC:  104
+ tWR:     8
+ tRD:    11
+ tRRD:    4
+ tFAW:   20
+ tWL:     6
+Changing memory frequency: old 3, new 6.
+Setting IGD memory frequencies for VCO #1.
+SFF platform unsupported in RCOMP initialization.
+USB
+
+
+coreboot-4.0-7318-g129462d Mon Dec  8 22:08:18 GMT 2014 starting...
+running main(bist = 0)
+Interrupted RAM init, reset required.
+USB
+
+
+coreboot-4.0-7318-g129462d Mon Dec  8 22:08:18 GMT 2014 starting...
+running main(bist = 0)
+Stepping B3
+2 CPU cores
+AMT enabled
+capable of DDR2 of 800 MHz or lower
+VT-d enabled
+GMCH: GS45, using low power mode by default
+TXT enabled
+Render frequency: 533 MHz
+IGD enabled
+PCIe-to-GMCH enabled
+GMCH supports DDR3 with 1067 MT or less
+GMCH supports FSB with up to 1067 MHz
+SMBus controller enabled.
+0:50:b
+2:51:b
+DDR mask 5, DDR 3
+Bank 0 populated:
+ Raw card type:    F
+ Row addr bits:   14
+ Col addr bits:   10
+ byte width:       1
+ page size:     1024
+ banks:            8
+ ranks:            2
+ tAAmin:    105
+ tCKmin:     15
+  Max clock: 533 MHz
+ CAS:       0x01c0
+Bank 1 populated:
+ Raw card type:    B
+ Row addr bits:   15
+ Col addr bits:   10
+ byte width:       1
+ page size:     1024
+ banks:            8
+ ranks:            1
+ tAAmin:    105
+ tCKmin:     12
+  Max clock: 666 MHz
+ CAS:       0x07e0
+Trying CAS 7, tCK 15.
+Found compatible clock / CAS pair: 533 / 7.
+Timing values:
+ tCLK:   15
+ tRAS:   20
+ tRP:     7
+ tRCD:    7
+ tRFC:  104
+ tWR:     8
+ tRD:    11
+ tRRD:    4
+ tFAW:   20
+ tWL:     6
+Changing memory frequency: old 3, new 6.
+Setting IGD memory frequencies for VCO #1.
+SFF platform unsupported in RCOMP initialization.

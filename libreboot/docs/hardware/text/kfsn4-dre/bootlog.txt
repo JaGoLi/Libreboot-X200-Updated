@@ -1,0 +1,3871 @@
+*****TEXT MODE ROM IMAGE*****
+
+<hangs here for 30 seconds or more>
+
+coreboot-4.0 Fri Jun 26 20:19:07 UTC 2015 romstage starting...
+BSP Family_Model: 00100f21
+*sysinfo range: [000c4000,000c6899]
+bsp_apicid = 00
+cpu_init_detectedx = 00000000
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cpu_microcode_blob.bin'
+CBFS: 'cpu_microcode_blob.bin' not found.
+[microcode] microcode file not found. Skipping updates.
+cpuSetAMDMSR  done
+Enter amd_ht_init()
+AMD_CB_EventNotify()
+ event class: 05
+ event: 1004
+ data:  04  00  00  01 
+AMD_CB_EventNotify()
+ event class: 05
+ event: 2006
+ data:  04  00  01  00 
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+Exit amd_ht_init()
+cpuSetAMDPCI 00 done
+cpuSetAMDPCI 01 done
+Prep FID/VID Node:00 
+  F3x80: e600a681 
+  F3x84: a0e641e6 
+  F3xD4: c3310f23 
+  F3xD8: 03001c14 
+  F3xDC: 00005428 
+Prep FID/VID Node:01 
+  F3x80: e600a681 
+  F3x84: a0e641e6 
+  F3xD4: c3310f23 
+  F3xD8: 03001c14 
+  F3xDC: 00005428 
+setup_remote_node: 01 done
+Start node 01 done.
+core0 started:  01
+
+Begin FIDVID MSR 0xc0010071 0x20a600e4 0x38045044
+FIDVID on BSP, APIC_id: 00
+BSP fid = 10400
+Wait for AP stage 1: ap_apicid = 1
+init_fidvid_bsp_stage1: timed out reading from ap 01
+Wait for AP stage 1: ap_apicid = 2
+init_fidvid_bsp_stage1: timed out reading from ap 02
+Wait for AP stage 1: ap_apicid = 3
+init_fidvid_bsp_stage1: timed out reading from ap 03
+Wait for AP stage 1: ap_apicid = 4
+	readback = 4010401
+	common_fid(packed) = 10400
+Wait for AP stage 1: ap_apicid = 5
+init_fidvid_bsp_stage1: timed out reading from ap 05
+Wait for AP stage 1: ap_apicid = 6
+init_fidvid_bsp_stage1: timed out reading from ap 06
+Wait for AP stage 1: ap_apicid = 7
+init_fidvid_bsp_stage1: timed out reading from ap 07
+common_fid = 10400
+FID Change Node:00, F3xD4: c3310f24 
+FID Change Node:01, F3xD4: c3310f24 
+End FIDVIDMSR 0xc0010071 0x20a600e4 0x38005044
+start_other_cores()
+init node: 00  cores: 03 
+Start other core - nodeid: 00  cores: 03
+init node: 01  cores: 03 
+Start other core - nodeid: 01  cores: 03
+started ap apicid: * AP 01started
+* AP 02started
+* AP 03started
+* AP 05started
+* AP 06started
+* AP 07started
+
+set_ck804_base_unit_id()
+...WARM RESET...
+
+
+
+
+coreboot-4.0 Fri Jun 26 20:19:07 UTC 2015 romstage starting...
+BSP Family_Model: 00100f21
+*sysinfo range: [000c4000,000c6899]
+bsp_apicid = 00
+cpu_init_detectedx = 00000000
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cpu_microcode_blob.bin'
+CBFS: 'cpu_microcode_blob.bin' not found.
+[microcode] microcode file not found. Skipping updates.
+cpuSetAMDMSR  done
+Enter amd_ht_init()
+AMD_CB_EventNotify()
+ event class: 05
+ event: 1004
+ data:  04  00  00  01 
+AMD_CB_EventNotify()
+ event class: 05
+ event: 2006
+ data:  04  00  01  00 
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+Exit amd_ht_init()
+cpuSetAMDPCI 00 done
+cpuSetAMDPCI 01 done
+Prep FID/VID Node:00 
+  F3x80: e600a681 
+  F3x84: a0e641e6 
+  F3xD4: c3310f24 
+  F3xD8: 03001c14 
+  F3xDC: 00005428 
+Prep FID/VID Node:01 
+  F3x80: e600a681 
+  F3x84: a0e641e6 
+  F3xD4: c3310f24 
+  F3xD8: 03001c14 
+  F3xDC: 00005428 
+setup_remote_node: 01 done
+Start node 01 done.
+core0 started:  01
+
+Begin FIDVID MSR 0xc0010071 0x20a600e4 0x38005044
+End FIDVIDMSR 0xc0010071 0x20a600e4 0x38003803
+start_other_cores()
+init node: 00  cores: 03 
+Start other core - nodeid: 00  cores: 03
+init node: 01  cores: 03 
+Start other core - nodeid: 01  cores: 03
+started ap apicid: * AP 01started
+* AP 02started
+* AP 03started
+* AP 05started
+* AP 06started
+* AP 07started
+
+set_ck804_base_unit_id()
+fill_mem_ctrl()
+enable_smbus()
+SMBus controller enabled
+raminit_amdmct()
+raminit_amdmct begin:
+activate_spd_rom() for node 00
+enable_spd_node0()
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+activate_spd_rom() for node 01
+enable_spd_node1()
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+ Node: 00  base: 00  limit: ffffff  BottomIO: c00000
+ Node: 01  base: 1400000  limit: 17fffff  BottomIO: c00000
+ Copy dram map from Node 0 to Node 01 
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+raminit_amdmct end:
+CBMEM:
+IMD: root @ bffff000 254 entries.
+IMD: root @ bfffec00 62 entries.
+amdmct_cbmem_store_info: Storing AMDMCT configuration in CBMEM
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+disable_spd()
+enable_msi_mapping()
+Prepare CAR migration and stack regions... Fill [003fd000-003fffff] ... Done
+Copying data from cache to RAM...  Copy [000c4000-000c693f] to [003fd6c0 - 003fffff] ... Done
+Switching to use RAM as stack... Top about 003fd6ac ... Done
+Disabling cache as ram now
+Prepare ramstage memory region...  Fill [00000000-003fcfff] ... Done
+CBFS provider active.
+CBFS @ 0 size ff8c0
+CBFS: Locating 'fallback/ramstage'
+CBFS: Found @ offset 15440 size 147e1
+'fallback/ramstage' located at offset: 15478 size: 147e1
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+Capability: type 0x0a @ 0x44
+
+
+coreboot-4.0 Fri Jun 26 20:19:07 UTC 2015 ramstage starting...
+Moving GDT to bfffe980...ok
+BS: BS_PRE_DEVICE times (us): entry 0 run 1 exit 0
+BS: BS_DEV_INIT_CHIPS times (us): entry 0 run 3 exit 0
+Enumerating buses...
+Show all devs... Before device enumeration.
+Root Device: enabled 1
+CPU_CLUSTER: 0: enabled 1
+APIC: 00: enabled 1
+DOMAIN: 0000: enabled 1
+PCI: 00:18.0: enabled 1
+PCI: 00:00.0: enabled 1
+PCI: 00:01.0: enabled 1
+PNP: 002e.0: enabled 1
+PNP: 002e.1: enabled 0
+PNP: 002e.2: enabled 1
+PNP: 002e.3: enabled 1
+PNP: 002e.5: enabled 1
+PNP: 002e.7: enabled 0
+PNP: 002e.8: enabled 0
+PNP: 002e.9: enabled 1
+PNP: 002e.a: enabled 0
+PNP: 002e.b: enabled 1
+PCI: 00:01.1: enabled 1
+I2C: 00:50: enabled 1
+I2C: 00:51: enabled 1
+I2C: 00:52: enabled 1
+I2C: 00:53: enabled 1
+I2C: 00:54: enabled 1
+I2C: 00:55: enabled 1
+I2C: 00:56: enabled 1
+I2C: 00:57: enabled 1
+I2C: 00:2f: enabled 1
+PCI: 00:02.0: enabled 1
+PCI: 00:02.1: enabled 1
+PCI: 00:04.0: enabled 0
+PCI: 00:04.1: enabled 0
+PCI: 00:06.0: enabled 1
+PCI: 00:07.0: enabled 1
+PCI: 00:08.0: enabled 1
+PCI: 00:09.0: enabled 1
+PCI: 00:04.0: enabled 1
+PCI: 00:0a.0: enabled 0
+PCI: 00:0b.0: enabled 1
+PCI: 00:00.0: enabled 1
+PCI: 00:0c.0: enabled 1
+PCI: 00:00.0: enabled 1
+PCI: 00:0d.0: enabled 1
+PCI: 00:00.0: enabled 1
+PCI: 00:0e.0: enabled 1
+PCI: 00:0f.0: enabled 0
+PCI: 00:18.1: enabled 1
+PCI: 00:18.2: enabled 1
+PCI: 00:18.3: enabled 1
+PCI: 00:18.4: enabled 1
+PCI: 00:19.0: enabled 1
+PCI: 00:19.1: enabled 1
+PCI: 00:19.2: enabled 1
+PCI: 00:19.3: enabled 1
+PCI: 00:19.4: enabled 1
+Compare with tree...
+Root Device: enabled 1
+ CPU_CLUSTER: 0: enabled 1
+  APIC: 00: enabled 1
+ DOMAIN: 0000: enabled 1
+  PCI: 00:18.0: enabled 1
+   PCI: 00:00.0: enabled 1
+   PCI: 00:01.0: enabled 1
+    PNP: 002e.0: enabled 1
+    PNP: 002e.1: enabled 0
+    PNP: 002e.2: enabled 1
+    PNP: 002e.3: enabled 1
+    PNP: 002e.5: enabled 1
+    PNP: 002e.7: enabled 0
+    PNP: 002e.8: enabled 0
+    PNP: 002e.9: enabled 1
+    PNP: 002e.a: enabled 0
+    PNP: 002e.b: enabled 1
+   PCI: 00:01.1: enabled 1
+    I2C: 00:50: enabled 1
+    I2C: 00:51: enabled 1
+    I2C: 00:52: enabled 1
+    I2C: 00:53: enabled 1
+    I2C: 00:54: enabled 1
+    I2C: 00:55: enabled 1
+    I2C: 00:56: enabled 1
+    I2C: 00:57: enabled 1
+    I2C: 00:2f: enabled 1
+   PCI: 00:02.0: enabled 1
+   PCI: 00:02.1: enabled 1
+   PCI: 00:04.0: enabled 0
+   PCI: 00:04.1: enabled 0
+   PCI: 00:06.0: enabled 1
+   PCI: 00:07.0: enabled 1
+   PCI: 00:08.0: enabled 1
+   PCI: 00:09.0: enabled 1
+    PCI: 00:04.0: enabled 1
+   PCI: 00:0a.0: enabled 0
+   PCI: 00:0b.0: enabled 1
+    PCI: 00:00.0: enabled 1
+   PCI: 00:0c.0: enabled 1
+    PCI: 00:00.0: enabled 1
+   PCI: 00:0d.0: enabled 1
+    PCI: 00:00.0: enabled 1
+   PCI: 00:0e.0: enabled 1
+   PCI: 00:0f.0: enabled 0
+  PCI: 00:18.1: enabled 1
+  PCI: 00:18.2: enabled 1
+  PCI: 00:18.3: enabled 1
+  PCI: 00:18.4: enabled 1
+  PCI: 00:19.0: enabled 1
+  PCI: 00:19.1: enabled 1
+  PCI: 00:19.2: enabled 1
+  PCI: 00:19.3: enabled 1
+  PCI: 00:19.4: enabled 1
+Root Device scanning...
+root_dev_scan_bus for Root Device
+setup_bsp_ramtop, TOP MEM: msr.lo = 0xc0000000, msr.hi = 0x00000000
+setup_bsp_ramtop, TOP MEM2: msr.lo = 0x80000000, msr.hi = 0x00000001
+CPU_CLUSTER: 0 enabled
+DOMAIN: 0000 enabled
+CPU_CLUSTER: 0 scanning...
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+  PCI: 00:18.3 siblings=3
+CPU: APIC: 00 enabled
+CPU: APIC: 01 enabled
+CPU: APIC: 02 enabled
+CPU: APIC: 03 enabled
+  PCI: 00:19.3 siblings=3
+CPU: APIC: 04 enabled
+CPU: APIC: 05 enabled
+CPU: APIC: 06 enabled
+CPU: APIC: 07 enabled
+DOMAIN: 0000 scanning...
+PCI: pci_scan_bus for bus 00
+PCI: 00:18.0 [1022/1200] bus ops
+PCI: 00:18.0 [1022/1200] enabled
+PCI: 00:18.1 [1022/1201] enabled
+PCI: 00:18.2 [1022/1202] enabled
+PCI: 00:18.3 [1022/1203] ops
+PCI: 00:18.3 [1022/1203] enabled
+PCI: 00:18.4 [1022/1204] enabled
+PCI: 00:19.0 [1022/1200] bus ops
+PCI: 00:19.0 [1022/1200] enabled
+PCI: 00:19.1 [1022/1201] enabled
+PCI: 00:19.2 [1022/1202] enabled
+PCI: 00:19.3 [1022/1203] ops
+PCI: 00:19.3 [1022/1203] enabled
+PCI: 00:19.4 [1022/1204] enabled
+PCI: 00:18.0 scanning...
+PCI: 00:00.0 [10de/005e] ops
+PCI: 00:00.0 [10de/005e] enabled
+Capability: type 0x08 @ 0x44
+flags: 0x01e0
+PCI: 00:00.0 count: 000f static_count: 0010
+PCI: 00:00.0 [10de/005e] enabled next_unitid: 0010
+PCI: pci_scan_bus for bus 00
+PCI: 00:00.0 [10de/005e] enabled
+PCI: 00:01.0 [10de/0051] bus ops
+PCI: 00:01.0 [10de/0051] enabled
+PCI: 00:01.1 [10de/0052] bus ops
+PCI: 00:01.1 [10de/0052] enabled
+PCI: 00:02.0 [10de/005a] ops
+PCI: 00:02.0 [10de/005a] enabled
+PCI: 00:02.1 [10de/005b] ops
+PCI: 00:02.1 [10de/005b] enabled
+PCI: 00:04.0 [10de/0059] ops
+PCI: 00:04.0 [10de/0059] disabled
+PCI: 00:04.1 [10de/0058] ops
+PCI: 00:04.1 [10de/0058] disabled
+PCI: 00:06.0 [10de/0053] ops
+PCI: 00:06.0 [10de/0053] enabled
+PCI: 00:07.0 [10de/0054] ops
+PCI: 00:07.0 [10de/0054] enabled
+PCI: 00:08.0 [10de/0055] ops
+PCI: 00:08.0 [10de/0055] enabled
+PCI: 00:09.0 [10de/005c] bus ops
+PCI: 00:09.0 [10de/005c] enabled
+PCI: 00:0b.0 [10de/005d] bus ops
+PCI: 00:0b.0 [10de/005d] enabled
+PCI: 00:0c.0 [10de/005d] bus ops
+PCI: 00:0c.0 [10de/005d] enabled
+PCI: 00:0d.0 [10de/005d] bus ops
+PCI: 00:0d.0 [10de/005d] enabled
+PCI: 00:0e.0 [10de/005d] bus ops
+PCI: 00:0e.0 [10de/005d] enabled
+PCI: 00:01.0 scanning...
+scan_lpc_bus for PCI: 00:01.0
+PNP: 002e.0 enabled
+PNP: 002e.1 disabled
+PNP: 002e.2 enabled
+PNP: 002e.3 enabled
+PNP: 002e.5 enabled
+PNP: 002e.7 disabled
+PNP: 002e.8 disabled
+PNP: 002e.9 enabled
+PNP: 002e.a disabled
+PNP: 002e.b enabled
+scan_lpc_bus for PCI: 00:01.0 done
+PCI: 00:01.1 scanning...
+scan_smbus for PCI: 00:01.1
+smbus: PCI: 00:01.1[0]->I2C: 01:50 enabled
+smbus: PCI: 00:01.1[0]->I2C: 01:51 enabled
+smbus: PCI: 00:01.1[0]->I2C: 01:52 enabled
+smbus: PCI: 00:01.1[0]->I2C: 01:53 enabled
+smbus: PCI: 00:01.1[0]->I2C: 01:54 enabled
+smbus: PCI: 00:01.1[0]->I2C: 01:55 enabled
+smbus: PCI: 00:01.1[0]->I2C: 01:56 enabled
+smbus: PCI: 00:01.1[0]->I2C: 01:57 enabled
+smbus: PCI: 00:01.1[0]->I2C: 01:2f enabled
+scan_smbus for PCI: 00:01.1 done
+PCI: 00:09.0 scanning...
+do_pci_scan_bridge for PCI: 00:09.0
+PCI: pci_scan_bus for bus 01
+PCI: 01:04.0 [18ca/0020] ops
+PCI: 01:04.0 [18ca/0020] enabled
+PCI: 00:0b.0 scanning...
+do_pci_scan_bridge for PCI: 00:0b.0
+PCI: pci_scan_bus for bus 02
+PCI: 02:00.0 [14e4/1659] enabled
+PCI: 00:0c.0 scanning...
+do_pci_scan_bridge for PCI: 00:0c.0
+PCI: pci_scan_bus for bus 03
+PCI: 03:00.0 [14e4/1659] enabled
+PCI: 00:0d.0 scanning...
+do_pci_scan_bridge for PCI: 00:0d.0
+PCI: pci_scan_bus for bus 04
+PCI: Static device PCI: 04:00.0 not found, disabling it.
+PCI: 00:0e.0 scanning...
+do_pci_scan_bridge for PCI: 00:0e.0
+PCI: pci_scan_bus for bus 05
+PCI: 00:19.0 scanning...
+DOMAIN: 0000 passpw: enabled
+DOMAIN: 0000 passpw: enabled
+root_dev_scan_bus for Root Device done
+done
+BS: BS_DEV_ENUMERATE times (us): entry 0 run 598152 exit 0
+found VGA at PCI: 01:04.0
+Setting up VGA for PCI: 01:04.0
+Setting PCI_BRIDGE_CTL_VGA for bridge PCI: 00:09.0
+Setting PCI_BRIDGE_CTL_VGA for bridge PCI: 00:18.0
+Setting PCI_BRIDGE_CTL_VGA for bridge DOMAIN: 0000
+Setting PCI_BRIDGE_CTL_VGA for bridge Root Device
+Allocating resources...
+Reading resources...
+Root Device read_resources bus 0 link: 0
+CPU_CLUSTER: 0 read_resources bus 0 link: 0
+APIC: 00 missing read_resources
+APIC: 01 missing read_resources
+APIC: 02 missing read_resources
+APIC: 03 missing read_resources
+APIC: 04 missing read_resources
+APIC: 05 missing read_resources
+APIC: 06 missing read_resources
+APIC: 07 missing read_resources
+CPU_CLUSTER: 0 read_resources bus 0 link: 0 done
+DOMAIN: 0000 read_resources bus 0 link: 0
+PCI: 00:18.0 read_resources bus 0 link: 1
+PCI: 00:01.0 read_resources bus 0 link: 0
+PCI: 00:01.0 read_resources bus 0 link: 0 done
+PCI: 00:01.1 read_resources bus 1 link: 0
+I2C: 01:50 missing read_resources
+I2C: 01:51 missing read_resources
+I2C: 01:52 missing read_resources
+I2C: 01:53 missing read_resources
+I2C: 01:54 missing read_resources
+I2C: 01:55 missing read_resources
+I2C: 01:56 missing read_resources
+I2C: 01:57 missing read_resources
+PCI: 00:01.1 read_resources bus 1 link: 0 done
+PCI: 00:01.1 read_resources bus 2 link: 1
+PCI: 00:01.1 read_resources bus 2 link: 1 done
+PCI: 00:09.0 read_resources bus 1 link: 0
+PCI: 00:09.0 read_resources bus 1 link: 0 done
+PCI: 00:0b.0 read_resources bus 2 link: 0
+PCI: 00:0b.0 read_resources bus 2 link: 0 done
+PCI: 00:0c.0 read_resources bus 3 link: 0
+PCI: 00:0c.0 read_resources bus 3 link: 0 done
+PCI: 00:0d.0 read_resources bus 4 link: 0
+PCI: 00:0d.0 read_resources bus 4 link: 0 done
+PCI: 00:0e.0 read_resources bus 5 link: 0
+PCI: 00:0e.0 read_resources bus 5 link: 0 done
+PCI: 00:18.0 read_resources bus 0 link: 1 done
+PCI: 00:18.0 read_resources bus 0 link: 0
+PCI: 00:18.0 read_resources bus 0 link: 0 done
+PCI: 00:18.0 read_resources bus 0 link: 2
+PCI: 00:18.0 read_resources bus 0 link: 2 done
+PCI: 00:18.0 read_resources bus 0 link: 3
+PCI: 00:18.0 read_resources bus 0 link: 3 done
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+PCI: 00:18.4 read_resources bus 0 link: 0
+PCI: 00:18.4 read_resources bus 0 link: 0 done
+PCI: 00:18.4 read_resources bus 0 link: 1
+PCI: 00:18.4 read_resources bus 0 link: 1 done
+PCI: 00:18.4 read_resources bus 0 link: 2
+PCI: 00:18.4 read_resources bus 0 link: 2 done
+PCI: 00:18.4 read_resources bus 0 link: 3
+PCI: 00:18.4 read_resources bus 0 link: 3 done
+PCI: 00:19.0 read_resources bus 0 link: 0
+PCI: 00:19.0 read_resources bus 0 link: 0 done
+PCI: 00:19.0 read_resources bus 0 link: 1
+PCI: 00:19.0 read_resources bus 0 link: 1 done
+PCI: 00:19.0 read_resources bus 0 link: 2
+PCI: 00:19.0 read_resources bus 0 link: 2 done
+PCI: 00:19.0 read_resources bus 0 link: 3
+PCI: 00:19.0 read_resources bus 0 link: 3 done
+PCI: 00:19.4 read_resources bus 0 link: 0
+PCI: 00:19.4 read_resources bus 0 link: 0 done
+PCI: 00:19.4 read_resources bus 0 link: 1
+PCI: 00:19.4 read_resources bus 0 link: 1 done
+PCI: 00:19.4 read_resources bus 0 link: 2
+PCI: 00:19.4 read_resources bus 0 link: 2 done
+PCI: 00:19.4 read_resources bus 0 link: 3
+PCI: 00:19.4 read_resources bus 0 link: 3 done
+DOMAIN: 0000 read_resources bus 0 link: 0 done
+Root Device read_resources bus 0 link: 0 done
+Done reading resources.
+Show resources in subtree (Root Device)...After reading.
+ Root Device child on link 0 CPU_CLUSTER: 0
+  CPU_CLUSTER: 0 child on link 0 APIC: 00
+   APIC: 00
+   APIC: 01
+   APIC: 02
+   APIC: 03
+   APIC: 04
+   APIC: 05
+   APIC: 06
+   APIC: 07
+  DOMAIN: 0000 child on link 0 PCI: 00:18.0
+  DOMAIN: 0000 resource base 0 size 0 align 0 gran 0 limit ffff flags 40040100 index 10000000
+  DOMAIN: 0000 resource base 0 size 0 align 0 gran 0 limit ffffffff flags 40040200 index 10000100
+  DOMAIN: 0000 resource base c0000000 size 10000000 align 0 gran 0 limit 0 flags f0000200 index c0010058
+  DOMAIN: 0000 resource base 0 size c0000000 align 0 gran 0 limit 0 flags e0004200 index 7
+   PCI: 00:18.0 child on link 0 PCI: 00:00.0
+   PCI: 00:18.0 resource base 0 size 0 align 12 gran 12 limit ffff flags 80100 index 110d8
+   PCI: 00:18.0 resource base 0 size 0 align 20 gran 20 limit ffffffffff flags 81200 index 110b8
+   PCI: 00:18.0 resource base 0 size 0 align 20 gran 20 limit ffffffffff flags 80200 index 110b0
+    PCI: 00:00.0
+    PCI: 00:01.0 child on link 0 PNP: 002e.0
+    PCI: 00:01.0 resource base 0 size 80 align 7 gran 7 limit ffff flags 100 index 10
+    PCI: 00:01.0 resource base fec00000 size 1000 align 12 gran 12 limit ffffffff flags c0000200 index 14
+    PCI: 00:01.0 resource base fed00000 size 1000 align 12 gran 12 limit ffffffff flags c0000200 index 44
+    PCI: 00:01.0 resource base 0 size 100 align 8 gran 8 limit ffff flags 100 index 60
+    PCI: 00:01.0 resource base 0 size 100 align 8 gran 8 limit ffff flags 100 index 64
+    PCI: 00:01.0 resource base 0 size 100 align 8 gran 8 limit ffff flags 100 index 68
+    PCI: 00:01.0 resource base 0 size 1000 align 0 gran 0 limit 0 flags c0040100 index 10000000
+    PCI: 00:01.0 resource base ff800000 size 800000 align 0 gran 0 limit 0 flags c0040200 index 10000100
+     PNP: 002e.0
+     PNP: 002e.0 resource base 3f0 size 8 align 3 gran 3 limit 7ff flags c0000100 index 60
+     PNP: 002e.0 resource base 6 size 1 align 0 gran 0 limit 0 flags c0000400 index 70
+     PNP: 002e.0 resource base 2 size 1 align 0 gran 0 limit 0 flags c0000800 index 74
+     PNP: 002e.1
+     PNP: 002e.1 resource base 0 size 8 align 3 gran 3 limit 7ff flags 100 index 60
+     PNP: 002e.1 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index 70
+     PNP: 002e.1 resource base 0 size 1 align 0 gran 0 limit 0 flags 800 index 74
+     PNP: 002e.2
+     PNP: 002e.2 resource base 3f8 size 8 align 3 gran 3 limit 7ff flags c0000100 index 60
+     PNP: 002e.2 resource base 4 size 1 align 0 gran 0 limit 0 flags c0000400 index 70
+     PNP: 002e.3
+     PNP: 002e.3 resource base 2f8 size 8 align 3 gran 3 limit 7ff flags c0000100 index 60
+     PNP: 002e.3 resource base 3 size 1 align 0 gran 0 limit 0 flags c0000400 index 70
+     PNP: 002e.3 resource base 4 size 1 align 0 gran 0 limit 0 flags c0000500 index f1
+     PNP: 002e.5
+     PNP: 002e.5 resource base 60 size 1 align 0 gran 0 limit ffffffff flags c0000100 index 60
+     PNP: 002e.5 resource base 64 size 1 align 0 gran 0 limit ffffffff flags c0000100 index 62
+     PNP: 002e.5 resource base 1 size 1 align 0 gran 0 limit 0 flags c0000400 index 70
+     PNP: 002e.5 resource base c size 1 align 0 gran 0 limit 0 flags c0000400 index 72
+     PNP: 002e.5 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index f0
+     PNP: 002e.7
+     PNP: 002e.7 resource base 0 size 1 align 0 gran 0 limit ffffffff flags 100 index 60
+     PNP: 002e.7 resource base 0 size 2 align 1 gran 1 limit 7ff flags 100 index 62
+     PNP: 002e.7 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index 70
+     PNP: 002e.8
+     PNP: 002e.9
+     PNP: 002e.9 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index 30
+     PNP: 002e.9 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index f0
+     PNP: 002e.9 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index f1
+     PNP: 002e.a
+     PNP: 002e.a resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index 70
+     PNP: 002e.b
+     PNP: 002e.b resource base 290 size 8 align 3 gran 3 limit fff flags c0000100 index 60
+     PNP: 002e.b resource base 5 size 1 align 0 gran 0 limit 0 flags c0000400 index 70
+    PCI: 00:01.1 child on link 0 I2C: 01:50
+    PCI: 00:01.1 resource base 0 size 20 align 5 gran 5 limit ffff flags 100 index 10
+    PCI: 00:01.1 resource base 0 size 40 align 6 gran 6 limit ffff flags 100 index 20
+    PCI: 00:01.1 resource base 0 size 40 align 6 gran 6 limit ffff flags 100 index 24
+     I2C: 01:50
+     I2C: 01:51
+     I2C: 01:52
+     I2C: 01:53
+     I2C: 01:54
+     I2C: 01:55
+     I2C: 01:56
+     I2C: 01:57
+     I2C: 01:2f
+    PCI: 00:02.0
+    PCI: 00:02.0 resource base 0 size 1000 align 12 gran 12 limit ffffffff flags 200 index 10
+    PCI: 00:02.1
+    PCI: 00:02.1 resource base 0 size 100 align 8 gran 8 limit ffffffff flags 200 index 10
+    PCI: 00:04.0
+    PCI: 00:04.1
+    PCI: 00:06.0
+    PCI: 00:06.0 resource base 0 size 10 align 4 gran 4 limit ffff flags 100 index 20
+    PCI: 00:07.0
+    PCI: 00:07.0 resource base 0 size 8 align 3 gran 3 limit ffff flags 100 index 10
+    PCI: 00:07.0 resource base 0 size 4 align 2 gran 2 limit ffff flags 100 index 14
+    PCI: 00:07.0 resource base 0 size 8 align 3 gran 3 limit ffff flags 100 index 18
+    PCI: 00:07.0 resource base 0 size 4 align 2 gran 2 limit ffff flags 100 index 1c
+    PCI: 00:07.0 resource base 0 size 10 align 4 gran 4 limit ffff flags 100 index 20
+    PCI: 00:07.0 resource base 0 size 1000 align 12 gran 12 limit ffffffff flags 200 index 24
+    PCI: 00:08.0
+    PCI: 00:08.0 resource base 0 size 8 align 3 gran 3 limit ffff flags 100 index 10
+    PCI: 00:08.0 resource base 0 size 4 align 2 gran 2 limit ffff flags 100 index 14
+    PCI: 00:08.0 resource base 0 size 8 align 3 gran 3 limit ffff flags 100 index 18
+    PCI: 00:08.0 resource base 0 size 4 align 2 gran 2 limit ffff flags 100 index 1c
+    PCI: 00:08.0 resource base 0 size 10 align 4 gran 4 limit ffff flags 100 index 20
+    PCI: 00:08.0 resource base 0 size 1000 align 12 gran 12 limit ffffffff flags 200 index 24
+    PCI: 00:09.0 child on link 0 PCI: 01:04.0
+    PCI: 00:09.0 resource base 0 size 0 align 12 gran 12 limit ffff flags 80102 index 1c
+    PCI: 00:09.0 resource base 0 size 0 align 20 gran 20 limit ffffffff flags 81202 index 24
+    PCI: 00:09.0 resource base 0 size 0 align 20 gran 20 limit ffffffff flags 80202 index 20
+     PCI: 01:04.0
+     PCI: 01:04.0 resource base 0 size 4000000 align 26 gran 26 limit ffffffff flags 1200 index 10
+     PCI: 01:04.0 resource base 0 size 40000 align 18 gran 18 limit ffffffff flags 200 index 14
+     PCI: 01:04.0 resource base 0 size 80 align 7 gran 7 limit ffff flags 100 index 18
+    PCI: 00:0a.0
+    PCI: 00:0b.0 child on link 0 PCI: 02:00.0
+    PCI: 00:0b.0 resource base 0 size 0 align 12 gran 12 limit ffffffff flags 80102 index 1c
+    PCI: 00:0b.0 resource base 0 size 0 align 20 gran 20 limit ffffffffffffffff flags 81202 index 24
+    PCI: 00:0b.0 resource base 0 size 0 align 20 gran 20 limit ffffffff flags 80202 index 20
+     PCI: 02:00.0
+     PCI: 02:00.0 resource base 0 size 10000 align 16 gran 16 limit ffffffffffffffff flags 201 index 10
+    PCI: 00:0c.0 child on link 0 PCI: 03:00.0
+    PCI: 00:0c.0 resource base 0 size 0 align 12 gran 12 limit ffffffff flags 80102 index 1c
+    PCI: 00:0c.0 resource base 0 size 0 align 20 gran 20 limit ffffffffffffffff flags 81202 index 24
+    PCI: 00:0c.0 resource base 0 size 0 align 20 gran 20 limit ffffffff flags 80202 index 20
+     PCI: 03:00.0
+     PCI: 03:00.0 resource base 0 size 10000 align 16 gran 16 limit ffffffffffffffff flags 201 index 10
+    PCI: 00:0d.0 child on link 0 PCI: 04:00.0
+    PCI: 00:0d.0 resource base 0 size 0 align 12 gran 12 limit ffffffff flags 80102 index 1c
+    PCI: 00:0d.0 resource base 0 size 0 align 20 gran 20 limit ffffffffffffffff flags 81202 index 24
+    PCI: 00:0d.0 resource base 0 size 0 align 20 gran 20 limit ffffffff flags 80202 index 20
+     PCI: 04:00.0
+    PCI: 00:0e.0
+    PCI: 00:0e.0 resource base 0 size 0 align 12 gran 12 limit ffffffff flags 80102 index 1c
+    PCI: 00:0e.0 resource base 0 size 0 align 20 gran 20 limit ffffffffffffffff flags 81202 index 24
+    PCI: 00:0e.0 resource base 0 size 0 align 20 gran 20 limit ffffffff flags 80202 index 20
+    PCI: 00:0f.0
+   PCI: 00:18.1
+   PCI: 00:18.2
+   PCI: 00:18.3
+   PCI: 00:18.4
+   PCI: 00:19.0
+   PCI: 00:19.1
+   PCI: 00:19.2
+   PCI: 00:19.3
+   PCI: 00:19.4
+DOMAIN: 0000 io: base: 0 size: 0 align: 0 gran: 0 limit: ffff
+PCI: 00:18.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffff
+PCI: 00:09.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffff
+PCI: 01:04.0 18 *  [0x0 - 0x7f] io
+PCI: 00:09.0 io: base: 80 size: 1000 align: 12 gran: 12 limit: ffff done
+PCI: 00:0b.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffffffff
+PCI: 00:0b.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffffffff done
+PCI: 00:0c.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffffffff
+PCI: 00:0c.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffffffff done
+PCI: 00:0d.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffffffff
+PCI: 00:0d.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffffffff done
+PCI: 00:0e.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffffffff
+PCI: 00:0e.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffffffff done
+PCI: 00:09.0 1c *  [0x0 - 0xfff] io
+PCI: 00:01.0 60 *  [0x1000 - 0x10ff] io
+PCI: 00:01.0 64 *  [0x1400 - 0x14ff] io
+PCI: 00:01.0 68 *  [0x1800 - 0x18ff] io
+PCI: 00:01.0 10 *  [0x1c00 - 0x1c7f] io
+PCI: 00:01.1 20 *  [0x1c80 - 0x1cbf] io
+PCI: 00:01.1 24 *  [0x1cc0 - 0x1cff] io
+PCI: 00:01.1 10 *  [0x2000 - 0x201f] io
+PCI: 00:06.0 20 *  [0x2020 - 0x202f] io
+PCI: 00:07.0 20 *  [0x2030 - 0x203f] io
+PCI: 00:08.0 20 *  [0x2040 - 0x204f] io
+PCI: 00:07.0 10 *  [0x2050 - 0x2057] io
+PCI: 00:07.0 18 *  [0x2058 - 0x205f] io
+PCI: 00:08.0 10 *  [0x2060 - 0x2067] io
+PCI: 00:08.0 18 *  [0x2068 - 0x206f] io
+PCI: 00:07.0 14 *  [0x2070 - 0x2073] io
+PCI: 00:07.0 1c *  [0x2074 - 0x2077] io
+PCI: 00:08.0 14 *  [0x2078 - 0x207b] io
+PCI: 00:08.0 1c *  [0x207c - 0x207f] io
+PCI: 00:18.0 io: base: 2080 size: 3000 align: 12 gran: 12 limit: ffff done
+PCI: 00:18.0 110d8 *  [0x0 - 0x2fff] io
+DOMAIN: 0000 io: base: 3000 size: 3000 align: 12 gran: 0 limit: ffff done
+DOMAIN: 0000 mem: base: 0 size: 0 align: 0 gran: 0 limit: ffffffff
+PCI: 00:18.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffff
+PCI: 00:09.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffff
+PCI: 01:04.0 10 *  [0x0 - 0x3ffffff] prefmem
+PCI: 00:09.0 prefmem: base: 4000000 size: 4000000 align: 26 gran: 20 limit: ffffffff done
+PCI: 00:0b.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffffffffff
+PCI: 00:0b.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffffffffff done
+PCI: 00:0c.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffffffffff
+PCI: 00:0c.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffffffffff done
+PCI: 00:0d.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffffffffff
+PCI: 00:0d.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffffffffff done
+PCI: 00:0e.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffffffffff
+PCI: 00:0e.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffffffffff done
+PCI: 00:09.0 24 *  [0x0 - 0x3ffffff] prefmem
+PCI: 00:18.0 prefmem: base: 4000000 size: 4000000 align: 26 gran: 20 limit: ffffffff done
+PCI: 00:18.0 mem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffff
+PCI: 00:09.0 mem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffff
+PCI: 01:04.0 14 *  [0x0 - 0x3ffff] mem
+PCI: 00:09.0 mem: base: 40000 size: 100000 align: 20 gran: 20 limit: ffffffff done
+PCI: 00:0b.0 mem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffff
+PCI: 02:00.0 10 *  [0x0 - 0xffff] mem
+PCI: 00:0b.0 mem: base: 10000 size: 100000 align: 20 gran: 20 limit: ffffffff done
+PCI: 00:0c.0 mem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffff
+PCI: 03:00.0 10 *  [0x0 - 0xffff] mem
+PCI: 00:0c.0 mem: base: 10000 size: 100000 align: 20 gran: 20 limit: ffffffff done
+PCI: 00:0d.0 mem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffff
+PCI: 00:0d.0 mem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffff done
+PCI: 00:0e.0 mem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffff
+PCI: 00:0e.0 mem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffff done
+PCI: 00:09.0 20 *  [0x0 - 0xfffff] mem
+PCI: 00:0b.0 20 *  [0x100000 - 0x1fffff] mem
+PCI: 00:0c.0 20 *  [0x200000 - 0x2fffff] mem
+PCI: 00:02.0 10 *  [0x300000 - 0x300fff] mem
+PCI: 00:07.0 24 *  [0x301000 - 0x301fff] mem
+PCI: 00:08.0 24 *  [0x302000 - 0x302fff] mem
+PCI: 00:02.1 10 *  [0x303000 - 0x3030ff] mem
+PCI: 00:18.0 mem: base: 303100 size: 400000 align: 20 gran: 20 limit: ffffffff done
+PCI: 00:18.0 110b8 *  [0x0 - 0x3ffffff] prefmem
+PCI: 00:18.0 110b0 *  [0x4000000 - 0x43fffff] mem
+DOMAIN: 0000 mem: base: 4400000 size: 4400000 align: 26 gran: 0 limit: ffffffff done
+avoid_fixed_resources: DOMAIN: 0000
+avoid_fixed_resources:@DOMAIN: 0000 10000000 limit 0000ffff
+avoid_fixed_resources:@DOMAIN: 0000 10000100 limit ffffffff
+constrain_resources: DOMAIN: 0000 c0010058 base c0000000 limit cfffffff mem (fixed)
+constrain_resources: DOMAIN: 0000 07 base 00000000 limit bfffffff mem (fixed)
+constrain_resources: PCI: 00:01.0 14 base fec00000 limit fec00fff mem (fixed)
+constrain_resources: PCI: 00:01.0 10000000 base 00000000 limit 00000fff io (fixed)
+avoid_fixed_resources:@DOMAIN: 0000 10000000 base 00001000 limit 0000ffff
+avoid_fixed_resources:@DOMAIN: 0000 10000100 base f8000000 limit febfffff
+Setting resources...
+DOMAIN: 0000 io: base:1000 size:3000 align:12 gran:0 limit:ffff
+PCI: 00:18.0 110d8 *  [0x1000 - 0x3fff] io
+DOMAIN: 0000 io: next_base: 4000 size: 3000 align: 12 gran: 0 done
+PCI: 00:18.0 io: base:1000 size:3000 align:12 gran:12 limit:3fff
+PCI: 00:09.0 1c *  [0x1000 - 0x1fff] io
+PCI: 00:01.0 60 *  [0x2000 - 0x20ff] io
+PCI: 00:01.0 64 *  [0x2400 - 0x24ff] io
+PCI: 00:01.0 68 *  [0x2800 - 0x28ff] io
+PCI: 00:01.0 10 *  [0x2c00 - 0x2c7f] io
+PCI: 00:01.1 20 *  [0x2c80 - 0x2cbf] io
+PCI: 00:01.1 24 *  [0x2cc0 - 0x2cff] io
+PCI: 00:01.1 10 *  [0x3000 - 0x301f] io
+PCI: 00:06.0 20 *  [0x3020 - 0x302f] io
+PCI: 00:07.0 20 *  [0x3030 - 0x303f] io
+PCI: 00:08.0 20 *  [0x3040 - 0x304f] io
+PCI: 00:07.0 10 *  [0x3050 - 0x3057] io
+PCI: 00:07.0 18 *  [0x3058 - 0x305f] io
+PCI: 00:08.0 10 *  [0x3060 - 0x3067] io
+PCI: 00:08.0 18 *  [0x3068 - 0x306f] io
+PCI: 00:07.0 14 *  [0x3070 - 0x3073] io
+PCI: 00:07.0 1c *  [0x3074 - 0x3077] io
+PCI: 00:08.0 14 *  [0x3078 - 0x307b] io
+PCI: 00:08.0 1c *  [0x307c - 0x307f] io
+PCI: 00:18.0 io: next_base: 3080 size: 3000 align: 12 gran: 12 done
+PCI: 00:09.0 io: base:1000 size:1000 align:12 gran:12 limit:1fff
+PCI: 01:04.0 18 *  [0x1000 - 0x107f] io
+PCI: 00:09.0 io: next_base: 1080 size: 1000 align: 12 gran: 12 done
+PCI: 00:0b.0 io: base:3fff size:0 align:12 gran:12 limit:3fff
+PCI: 00:0b.0 io: next_base: 3fff size: 0 align: 12 gran: 12 done
+PCI: 00:0c.0 io: base:3fff size:0 align:12 gran:12 limit:3fff
+PCI: 00:0c.0 io: next_base: 3fff size: 0 align: 12 gran: 12 done
+PCI: 00:0d.0 io: base:3fff size:0 align:12 gran:12 limit:3fff
+PCI: 00:0d.0 io: next_base: 3fff size: 0 align: 12 gran: 12 done
+PCI: 00:0e.0 io: base:3fff size:0 align:12 gran:12 limit:3fff
+PCI: 00:0e.0 io: next_base: 3fff size: 0 align: 12 gran: 12 done
+DOMAIN: 0000 mem: base:f8000000 size:4400000 align:26 gran:0 limit:febfffff
+PCI: 00:18.0 110b8 *  [0xf8000000 - 0xfbffffff] prefmem
+PCI: 00:18.0 110b0 *  [0xfc000000 - 0xfc3fffff] mem
+DOMAIN: 0000 mem: next_base: fc400000 size: 4400000 align: 26 gran: 0 done
+PCI: 00:18.0 prefmem: base:f8000000 size:4000000 align:26 gran:20 limit:fbffffff
+PCI: 00:09.0 24 *  [0xf8000000 - 0xfbffffff] prefmem
+PCI: 00:18.0 prefmem: next_base: fc000000 size: 4000000 align: 26 gran: 20 done
+PCI: 00:09.0 prefmem: base:f8000000 size:4000000 align:26 gran:20 limit:fbffffff
+PCI: 01:04.0 10 *  [0xf8000000 - 0xfbffffff] prefmem
+PCI: 00:09.0 prefmem: next_base: fc000000 size: 4000000 align: 26 gran: 20 done
+PCI: 00:0b.0 prefmem: base:fbffffff size:0 align:20 gran:20 limit:fbffffff
+PCI: 00:0b.0 prefmem: next_base: fbffffff size: 0 align: 20 gran: 20 done
+PCI: 00:0c.0 prefmem: base:fbffffff size:0 align:20 gran:20 limit:fbffffff
+PCI: 00:0c.0 prefmem: next_base: fbffffff size: 0 align: 20 gran: 20 done
+PCI: 00:0d.0 prefmem: base:fbffffff size:0 align:20 gran:20 limit:fbffffff
+PCI: 00:0d.0 prefmem: next_base: fbffffff size: 0 align: 20 gran: 20 done
+PCI: 00:0e.0 prefmem: base:fbffffff size:0 align:20 gran:20 limit:fbffffff
+PCI: 00:0e.0 prefmem: next_base: fbffffff size: 0 align: 20 gran: 20 done
+PCI: 00:18.0 mem: base:fc000000 size:400000 align:20 gran:20 limit:fc3fffff
+PCI: 00:09.0 20 *  [0xfc000000 - 0xfc0fffff] mem
+PCI: 00:0b.0 20 *  [0xfc100000 - 0xfc1fffff] mem
+PCI: 00:0c.0 20 *  [0xfc200000 - 0xfc2fffff] mem
+PCI: 00:02.0 10 *  [0xfc300000 - 0xfc300fff] mem
+PCI: 00:07.0 24 *  [0xfc301000 - 0xfc301fff] mem
+PCI: 00:08.0 24 *  [0xfc302000 - 0xfc302fff] mem
+PCI: 00:02.1 10 *  [0xfc303000 - 0xfc3030ff] mem
+PCI: 00:18.0 mem: next_base: fc303100 size: 400000 align: 20 gran: 20 done
+PCI: 00:09.0 mem: base:fc000000 size:100000 align:20 gran:20 limit:fc0fffff
+PCI: 01:04.0 14 *  [0xfc000000 - 0xfc03ffff] mem
+PCI: 00:09.0 mem: next_base: fc040000 size: 100000 align: 20 gran: 20 done
+PCI: 00:0b.0 mem: base:fc100000 size:100000 align:20 gran:20 limit:fc1fffff
+PCI: 02:00.0 10 *  [0xfc100000 - 0xfc10ffff] mem
+PCI: 00:0b.0 mem: next_base: fc110000 size: 100000 align: 20 gran: 20 done
+PCI: 00:0c.0 mem: base:fc200000 size:100000 align:20 gran:20 limit:fc2fffff
+PCI: 03:00.0 10 *  [0xfc200000 - 0xfc20ffff] mem
+PCI: 00:0c.0 mem: next_base: fc210000 size: 100000 align: 20 gran: 20 done
+PCI: 00:0d.0 mem: base:fc3fffff size:0 align:20 gran:20 limit:fc3fffff
+PCI: 00:0d.0 mem: next_base: fc3fffff size: 0 align: 20 gran: 20 done
+PCI: 00:0e.0 mem: base:fc3fffff size:0 align:20 gran:20 limit:fc3fffff
+PCI: 00:0e.0 mem: next_base: fc3fffff size: 0 align: 20 gran: 20 done
+Root Device assign_resources, bus 0 link: 0
+0: mmio_basek=00300000, basek=00400000, limitk=00500000
+1: mmio_basek=00300000, basek=00500000, limitk=00600000
+DOMAIN: 0000 assign_resources, bus 0 link: 0
+VGA: PCI: 00:18.0 (aka node 0) link 1 has VGA device
+PCI: 00:18.0 110d8 <- [0x0000001000 - 0x0000003fff] size 0x00003000 gran 0x0c io <node 0 link 1>
+PCI: 00:18.0 110b8 <- [0x00f8000000 - 0x00fbffffff] size 0x04000000 gran 0x14 prefmem <node 0 link 1>
+PCI: 00:18.0 110b0 <- [0x00fc000000 - 0x00fc3fffff] size 0x00400000 gran 0x14 mem <node 0 link 1>
+PCI: 00:18.0 assign_resources, bus 0 link: 1
+PCI: 00:01.0 10 <- [0x0000002c00 - 0x0000002c7f] size 0x00000080 gran 0x07 io
+PCI: 00:01.0 60 <- [0x0000002000 - 0x00000020ff] size 0x00000100 gran 0x08 io
+PCI: 00:01.0 64 <- [0x0000002400 - 0x00000024ff] size 0x00000100 gran 0x08 io
+PCI: 00:01.0 68 <- [0x0000002800 - 0x00000028ff] size 0x00000100 gran 0x08 io
+PCI: 00:01.0 assign_resources, bus 0 link: 0
+PNP: 002e.0 60 <- [0x00000003f0 - 0x00000003f7] size 0x00000008 gran 0x03 io
+PNP: 002e.0 70 <- [0x0000000006 - 0x0000000006] size 0x00000001 gran 0x00 irq
+PNP: 002e.0 74 <- [0x0000000002 - 0x0000000002] size 0x00000001 gran 0x00 drq
+PNP: 002e.2 60 <- [0x00000003f8 - 0x00000003ff] size 0x00000008 gran 0x03 io
+PNP: 002e.2 70 <- [0x0000000004 - 0x0000000004] size 0x00000001 gran 0x00 irq
+PNP: 002e.3 60 <- [0x00000002f8 - 0x00000002ff] size 0x00000008 gran 0x03 io
+PNP: 002e.3 70 <- [0x0000000003 - 0x0000000003] size 0x00000001 gran 0x00 irq
+PNP: 002e.3 f1 <- [0x0000000004 - 0x0000000004] size 0x00000001 gran 0x00 io
+PNP: 002e.5 60 <- [0x0000000060 - 0x0000000060] size 0x00000001 gran 0x00 io
+PNP: 002e.5 62 <- [0x0000000064 - 0x0000000064] size 0x00000001 gran 0x00 io
+PNP: 002e.5 70 <- [0x0000000001 - 0x0000000001] size 0x00000001 gran 0x00 irq
+PNP: 002e.5 72 <- [0x000000000c - 0x000000000c] size 0x00000001 gran 0x00 irq
+ERROR: PNP: 002e.5 f0 irq size: 0x0000000001 not assigned
+ERROR: PNP: 002e.9 30 irq size: 0x0000000001 not assigned
+ERROR: PNP: 002e.9 f0 irq size: 0x0000000001 not assigned
+ERROR: PNP: 002e.9 f1 irq size: 0x0000000001 not assigned
+PNP: 002e.b 60 <- [0x0000000290 - 0x0000000297] size 0x00000008 gran 0x03 io
+PNP: 002e.b 70 <- [0x0000000005 - 0x0000000005] size 0x00000001 gran 0x00 irq
+PCI: 00:01.0 assign_resources, bus 0 link: 0
+PCI: 00:01.0 14 <- [0x00fec00000 - 0x00fec00fff] size 0x00001000 gran 0x0c mem
+PCI: 00:01.0 44 <- [0x00fed00000 - 0x00fed00fff] size 0x00001000 gran 0x0c mem
+PCI: 00:01.1 10 <- [0x0000003000 - 0x000000301f] size 0x00000020 gran 0x05 io
+PCI: 00:01.1 20 <- [0x0000002c80 - 0x0000002cbf] size 0x00000040 gran 0x06 io
+PCI: 00:01.1 24 <- [0x0000002cc0 - 0x0000002cff] size 0x00000040 gran 0x06 io
+PCI: 00:01.1 assign_resources, bus 1 link: 0
+PCI: 00:01.1 assign_resources, bus 1 link: 0
+PCI: 00:02.0 10 <- [0x00fc300000 - 0x00fc300fff] size 0x00001000 gran 0x0c mem
+PCI: 00:02.1 10 <- [0x00fc303000 - 0x00fc3030ff] size 0x00000100 gran 0x08 mem
+PCI: 00:06.0 20 <- [0x0000003020 - 0x000000302f] size 0x00000010 gran 0x04 io
+PCI: 00:07.0 10 <- [0x0000003050 - 0x0000003057] size 0x00000008 gran 0x03 io
+PCI: 00:07.0 14 <- [0x0000003070 - 0x0000003073] size 0x00000004 gran 0x02 io
+PCI: 00:07.0 18 <- [0x0000003058 - 0x000000305f] size 0x00000008 gran 0x03 io
+PCI: 00:07.0 1c <- [0x0000003074 - 0x0000003077] size 0x00000004 gran 0x02 io
+PCI: 00:07.0 20 <- [0x0000003030 - 0x000000303f] size 0x00000010 gran 0x04 io
+PCI: 00:07.0 24 <- [0x00fc301000 - 0x00fc301fff] size 0x00001000 gran 0x0c mem
+PCI: 00:08.0 10 <- [0x0000003060 - 0x0000003067] size 0x00000008 gran 0x03 io
+PCI: 00:08.0 14 <- [0x0000003078 - 0x000000307b] size 0x00000004 gran 0x02 io
+PCI: 00:08.0 18 <- [0x0000003068 - 0x000000306f] size 0x00000008 gran 0x03 io
+PCI: 00:08.0 1c <- [0x000000307c - 0x000000307f] size 0x00000004 gran 0x02 io
+PCI: 00:08.0 20 <- [0x0000003040 - 0x000000304f] size 0x00000010 gran 0x04 io
+PCI: 00:08.0 24 <- [0x00fc302000 - 0x00fc302fff] size 0x00001000 gran 0x0c mem
+PCI: 00:09.0 1c <- [0x0000001000 - 0x0000001fff] size 0x00001000 gran 0x0c bus 01 io
+PCI: 00:09.0 24 <- [0x00f8000000 - 0x00fbffffff] size 0x04000000 gran 0x14 bus 01 prefmem
+PCI: 00:09.0 20 <- [0x00fc000000 - 0x00fc0fffff] size 0x00100000 gran 0x14 bus 01 mem
+PCI: 00:09.0 assign_resources, bus 1 link: 0
+PCI: 01:04.0 10 <- [0x00f8000000 - 0x00fbffffff] size 0x04000000 gran 0x1a prefmem
+PCI: 01:04.0 14 <- [0x00fc000000 - 0x00fc03ffff] size 0x00040000 gran 0x12 mem
+PCI: 01:04.0 18 <- [0x0000001000 - 0x000000107f] size 0x00000080 gran 0x07 io
+PCI: 00:09.0 assign_resources, bus 1 link: 0
+PCI: 00:0b.0 1c <- [0x0000003fff - 0x0000003ffe] size 0x00000000 gran 0x0c bus 02 io
+PCI: 00:0b.0 24 <- [0x00fbffffff - 0x00fbfffffe] size 0x00000000 gran 0x14 bus 02 prefmem
+PCI: 00:0b.0 20 <- [0x00fc100000 - 0x00fc1fffff] size 0x00100000 gran 0x14 bus 02 mem
+PCI: 00:0b.0 assign_resources, bus 2 link: 0
+PCI: 02:00.0 10 <- [0x00fc100000 - 0x00fc10ffff] size 0x00010000 gran 0x10 mem64
+PCI: 00:0b.0 assign_resources, bus 2 link: 0
+PCI: 00:0c.0 1c <- [0x0000003fff - 0x0000003ffe] size 0x00000000 gran 0x0c bus 03 io
+PCI: 00:0c.0 24 <- [0x00fbffffff - 0x00fbfffffe] size 0x00000000 gran 0x14 bus 03 prefmem
+PCI: 00:0c.0 20 <- [0x00fc200000 - 0x00fc2fffff] size 0x00100000 gran 0x14 bus 03 mem
+PCI: 00:0c.0 assign_resources, bus 3 link: 0
+PCI: 03:00.0 10 <- [0x00fc200000 - 0x00fc20ffff] size 0x00010000 gran 0x10 mem64
+PCI: 00:0c.0 assign_resources, bus 3 link: 0
+PCI: 00:0d.0 1c <- [0x0000003fff - 0x0000003ffe] size 0x00000000 gran 0x0c bus 04 io
+PCI: 00:0d.0 24 <- [0x00fbffffff - 0x00fbfffffe] size 0x00000000 gran 0x14 bus 04 prefmem
+PCI: 00:0d.0 20 <- [0x00fc3fffff - 0x00fc3ffffe] size 0x00000000 gran 0x14 bus 04 mem
+PCI: 00:0d.0 assign_resources, bus 4 link: 0
+PCI: 00:0d.0 assign_resources, bus 4 link: 0
+PCI: 00:0e.0 1c <- [0x0000003fff - 0x0000003ffe] size 0x00000000 gran 0x0c bus 05 io
+PCI: 00:0e.0 24 <- [0x00fbffffff - 0x00fbfffffe] size 0x00000000 gran 0x14 bus 05 prefmem
+PCI: 00:0e.0 20 <- [0x00fc3fffff - 0x00fc3ffffe] size 0x00000000 gran 0x14 bus 05 mem
+PCI: 00:18.0 assign_resources, bus 0 link: 1
+DOMAIN: 0000 assign_resources, bus 0 link: 0
+Root Device assign_resources, bus 0 link: 0
+Done setting resources.
+Show resources in subtree (Root Device)...After assigning values.
+ Root Device child on link 0 CPU_CLUSTER: 0
+  CPU_CLUSTER: 0 child on link 0 APIC: 00
+   APIC: 00
+   APIC: 01
+   APIC: 02
+   APIC: 03
+   APIC: 04
+   APIC: 05
+   APIC: 06
+   APIC: 07
+  DOMAIN: 0000 child on link 0 PCI: 00:18.0
+  DOMAIN: 0000 resource base 1000 size 3000 align 12 gran 0 limit ffff flags 40040100 index 10000000
+  DOMAIN: 0000 resource base f8000000 size 4400000 align 26 gran 0 limit febfffff flags 40040200 index 10000100
+  DOMAIN: 0000 resource base c0000000 size 10000000 align 0 gran 0 limit 0 flags f0000200 index c0010058
+  DOMAIN: 0000 resource base 0 size c0000000 align 0 gran 0 limit 0 flags e0004200 index 7
+  DOMAIN: 0000 resource base 0 size a0000 align 0 gran 0 limit 0 flags e0004200 index 10
+  DOMAIN: 0000 resource base c0000 size bff40000 align 0 gran 0 limit 0 flags e0004200 index 20
+  DOMAIN: 0000 resource base 100000000 size 40000000 align 0 gran 0 limit 0 flags e0004200 index 30
+  DOMAIN: 0000 resource base 140000000 size 40000000 align 0 gran 0 limit 0 flags e0004200 index 41
+   PCI: 00:18.0 child on link 0 PCI: 00:00.0
+   PCI: 00:18.0 resource base 1000 size 3000 align 12 gran 12 limit 3fff flags 60080100 index 110d8
+   PCI: 00:18.0 resource base f8000000 size 4000000 align 26 gran 20 limit fbffffff flags 60081200 index 110b8
+   PCI: 00:18.0 resource base fc000000 size 400000 align 20 gran 20 limit fc3fffff flags 60080200 index 110b0
+    PCI: 00:00.0
+    PCI: 00:01.0 child on link 0 PNP: 002e.0
+    PCI: 00:01.0 resource base 2c00 size 80 align 7 gran 7 limit 2c7f flags 60000100 index 10
+    PCI: 00:01.0 resource base fec00000 size 1000 align 12 gran 12 limit ffffffff flags e0000200 index 14
+    PCI: 00:01.0 resource base fed00000 size 1000 align 12 gran 12 limit ffffffff flags e0000200 index 44
+    PCI: 00:01.0 resource base 2000 size 100 align 8 gran 8 limit 20ff flags 60000100 index 60
+    PCI: 00:01.0 resource base 2400 size 100 align 8 gran 8 limit 24ff flags 60000100 index 64
+    PCI: 00:01.0 resource base 2800 size 100 align 8 gran 8 limit 28ff flags 60000100 index 68
+    PCI: 00:01.0 resource base 0 size 1000 align 0 gran 0 limit 0 flags c0040100 index 10000000
+    PCI: 00:01.0 resource base ff800000 size 800000 align 0 gran 0 limit 0 flags c0040200 index 10000100
+     PNP: 002e.0
+     PNP: 002e.0 resource base 3f0 size 8 align 3 gran 3 limit 7ff flags e0000100 index 60
+     PNP: 002e.0 resource base 6 size 1 align 0 gran 0 limit 0 flags e0000400 index 70
+     PNP: 002e.0 resource base 2 size 1 align 0 gran 0 limit 0 flags e0000800 index 74
+     PNP: 002e.1
+     PNP: 002e.1 resource base 0 size 8 align 3 gran 3 limit 7ff flags 100 index 60
+     PNP: 002e.1 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index 70
+     PNP: 002e.1 resource base 0 size 1 align 0 gran 0 limit 0 flags 800 index 74
+     PNP: 002e.2
+     PNP: 002e.2 resource base 3f8 size 8 align 3 gran 3 limit 7ff flags e0000100 index 60
+     PNP: 002e.2 resource base 4 size 1 align 0 gran 0 limit 0 flags e0000400 index 70
+     PNP: 002e.3
+     PNP: 002e.3 resource base 2f8 size 8 align 3 gran 3 limit 7ff flags e0000100 index 60
+     PNP: 002e.3 resource base 3 size 1 align 0 gran 0 limit 0 flags e0000400 index 70
+     PNP: 002e.3 resource base 4 size 1 align 0 gran 0 limit 0 flags e0000500 index f1
+     PNP: 002e.5
+     PNP: 002e.5 resource base 60 size 1 align 0 gran 0 limit ffffffff flags e0000100 index 60
+     PNP: 002e.5 resource base 64 size 1 align 0 gran 0 limit ffffffff flags e0000100 index 62
+     PNP: 002e.5 resource base 1 size 1 align 0 gran 0 limit 0 flags e0000400 index 70
+     PNP: 002e.5 resource base c size 1 align 0 gran 0 limit 0 flags e0000400 index 72
+     PNP: 002e.5 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index f0
+     PNP: 002e.7
+     PNP: 002e.7 resource base 0 size 1 align 0 gran 0 limit ffffffff flags 100 index 60
+     PNP: 002e.7 resource base 0 size 2 align 1 gran 1 limit 7ff flags 100 index 62
+     PNP: 002e.7 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index 70
+     PNP: 002e.8
+     PNP: 002e.9
+     PNP: 002e.9 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index 30
+     PNP: 002e.9 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index f0
+     PNP: 002e.9 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index f1
+     PNP: 002e.a
+     PNP: 002e.a resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index 70
+     PNP: 002e.b
+     PNP: 002e.b resource base 290 size 8 align 3 gran 3 limit fff flags e0000100 index 60
+     PNP: 002e.b resource base 5 size 1 align 0 gran 0 limit 0 flags e0000400 index 70
+    PCI: 00:01.1 child on link 0 I2C: 01:50
+    PCI: 00:01.1 resource base 3000 size 20 align 5 gran 5 limit 301f flags 60000100 index 10
+    PCI: 00:01.1 resource base 2c80 size 40 align 6 gran 6 limit 2cbf flags 60000100 index 20
+    PCI: 00:01.1 resource base 2cc0 size 40 align 6 gran 6 limit 2cff flags 60000100 index 24
+     I2C: 01:50
+     I2C: 01:51
+     I2C: 01:52
+     I2C: 01:53
+     I2C: 01:54
+     I2C: 01:55
+     I2C: 01:56
+     I2C: 01:57
+     I2C: 01:2f
+    PCI: 00:02.0
+    PCI: 00:02.0 resource base fc300000 size 1000 align 12 gran 12 limit fc300fff flags 60000200 index 10
+    PCI: 00:02.1
+    PCI: 00:02.1 resource base fc303000 size 100 align 8 gran 8 limit fc3030ff flags 60000200 index 10
+    PCI: 00:04.0
+    PCI: 00:04.1
+    PCI: 00:06.0
+    PCI: 00:06.0 resource base 3020 size 10 align 4 gran 4 limit 302f flags 60000100 index 20
+    PCI: 00:07.0
+    PCI: 00:07.0 resource base 3050 size 8 align 3 gran 3 limit 3057 flags 60000100 index 10
+    PCI: 00:07.0 resource base 3070 size 4 align 2 gran 2 limit 3073 flags 60000100 index 14
+    PCI: 00:07.0 resource base 3058 size 8 align 3 gran 3 limit 305f flags 60000100 index 18
+    PCI: 00:07.0 resource base 3074 size 4 align 2 gran 2 limit 3077 flags 60000100 index 1c
+    PCI: 00:07.0 resource base 3030 size 10 align 4 gran 4 limit 303f flags 60000100 index 20
+    PCI: 00:07.0 resource base fc301000 size 1000 align 12 gran 12 limit fc301fff flags 60000200 index 24
+    PCI: 00:08.0
+    PCI: 00:08.0 resource base 3060 size 8 align 3 gran 3 limit 3067 flags 60000100 index 10
+    PCI: 00:08.0 resource base 3078 size 4 align 2 gran 2 limit 307b flags 60000100 index 14
+    PCI: 00:08.0 resource base 3068 size 8 align 3 gran 3 limit 306f flags 60000100 index 18
+    PCI: 00:08.0 resource base 307c size 4 align 2 gran 2 limit 307f flags 60000100 index 1c
+    PCI: 00:08.0 resource base 3040 size 10 align 4 gran 4 limit 304f flags 60000100 index 20
+    PCI: 00:08.0 resource base fc302000 size 1000 align 12 gran 12 limit fc302fff flags 60000200 index 24
+    PCI: 00:09.0 child on link 0 PCI: 01:04.0
+    PCI: 00:09.0 resource base 1000 size 1000 align 12 gran 12 limit 1fff flags 60080102 index 1c
+    PCI: 00:09.0 resource base f8000000 size 4000000 align 26 gran 20 limit fbffffff flags 60081202 index 24
+    PCI: 00:09.0 resource base fc000000 size 100000 align 20 gran 20 limit fc0fffff flags 60080202 index 20
+     PCI: 01:04.0
+     PCI: 01:04.0 resource base f8000000 size 4000000 align 26 gran 26 limit fbffffff flags 60001200 index 10
+     PCI: 01:04.0 resource base fc000000 size 40000 align 18 gran 18 limit fc03ffff flags 60000200 index 14
+     PCI: 01:04.0 resource base 1000 size 80 align 7 gran 7 limit 107f flags 60000100 index 18
+     PCI: 01:04.0 resource base a0000 size 1fc00 align 0 gran 0 limit 0 flags f0000200 index 3
+    PCI: 00:0a.0
+    PCI: 00:0b.0 child on link 0 PCI: 02:00.0
+    PCI: 00:0b.0 resource base 3fff size 0 align 12 gran 12 limit 3fff flags 60080102 index 1c
+    PCI: 00:0b.0 resource base fbffffff size 0 align 20 gran 20 limit fbffffff flags 60081202 index 24
+    PCI: 00:0b.0 resource base fc100000 size 100000 align 20 gran 20 limit fc1fffff flags 60080202 index 20
+     PCI: 02:00.0
+     PCI: 02:00.0 resource base fc100000 size 10000 align 16 gran 16 limit fc10ffff flags 60000201 index 10
+    PCI: 00:0c.0 child on link 0 PCI: 03:00.0
+    PCI: 00:0c.0 resource base 3fff size 0 align 12 gran 12 limit 3fff flags 60080102 index 1c
+    PCI: 00:0c.0 resource base fbffffff size 0 align 20 gran 20 limit fbffffff flags 60081202 index 24
+    PCI: 00:0c.0 resource base fc200000 size 100000 align 20 gran 20 limit fc2fffff flags 60080202 index 20
+     PCI: 03:00.0
+     PCI: 03:00.0 resource base fc200000 size 10000 align 16 gran 16 limit fc20ffff flags 60000201 index 10
+    PCI: 00:0d.0 child on link 0 PCI: 04:00.0
+    PCI: 00:0d.0 resource base 3fff size 0 align 12 gran 12 limit 3fff flags 60080102 index 1c
+    PCI: 00:0d.0 resource base fbffffff size 0 align 20 gran 20 limit fbffffff flags 60081202 index 24
+    PCI: 00:0d.0 resource base fc3fffff size 0 align 20 gran 20 limit fc3fffff flags 60080202 index 20
+     PCI: 04:00.0
+    PCI: 00:0e.0
+    PCI: 00:0e.0 resource base 3fff size 0 align 12 gran 12 limit 3fff flags 60080102 index 1c
+    PCI: 00:0e.0 resource base fbffffff size 0 align 20 gran 20 limit fbffffff flags 60081202 index 24
+    PCI: 00:0e.0 resource base fc3fffff size 0 align 20 gran 20 limit fc3fffff flags 60080202 index 20
+    PCI: 00:0f.0
+   PCI: 00:18.1
+   PCI: 00:18.2
+   PCI: 00:18.3
+   PCI: 00:18.4
+   PCI: 00:19.0
+   PCI: 00:19.1
+   PCI: 00:19.2
+   PCI: 00:19.3
+   PCI: 00:19.4
+Done allocating resources.
+BS: BS_DEV_RESOURCES times (us): entry 0 run 3267943 exit 0
+Enabling resources...
+PCI: 00:18.0 cmd <- 00
+PCI: 00:18.1 subsystem <- 1043/8162
+PCI: 00:18.1 cmd <- 00
+PCI: 00:18.2 subsystem <- 1043/8162
+PCI: 00:18.2 cmd <- 00
+PCI: 00:18.3 cmd <- 00
+PCI: 00:18.4 subsystem <- 1043/8162
+PCI: 00:18.4 cmd <- 00
+PCI: 00:19.0 cmd <- 00
+PCI: 00:19.1 subsystem <- 1043/8162
+PCI: 00:19.1 cmd <- 00
+PCI: 00:19.2 subsystem <- 1043/8162
+PCI: 00:19.2 cmd <- 00
+PCI: 00:19.3 cmd <- 00
+PCI: 00:19.4 subsystem <- 1043/8162
+PCI: 00:19.4 cmd <- 00
+PCI: 00:00.0 subsystem <- 1043/8162
+PCI: 00:00.0 cmd <- 06
+PCI: 00:01.0 subsystem <- 1043/8162
+PCI: 00:01.0 cmd <- 0f
+ck804 lpc decode:PNP: 002e.0, base=0x000003f0, end=0x000003f7
+ck804 lpc decode:PNP: 002e.2, base=0x000003f8, end=0x000003ff
+ck804 lpc decode:PNP: 002e.3, base=0x000002f8, end=0x000002ff
+ck804 lpc decode:PNP: 002e.3, base=0x00000004, end=0x00000004
+ck804 lpc decode:PNP: 002e.5, base=0x00000060, end=0x00000060
+ck804 lpc decode:PNP: 002e.5, base=0x00000064, end=0x00000064
+ck804 lpc decode:PNP: 002e.b, base=0x00000290, end=0x00000297
+PCI: 00:01.1 subsystem <- 1043/8162
+PCI: 00:01.1 cmd <- 01
+PCI: 00:02.0 subsystem <- 1043/8162
+PCI: 00:02.0 cmd <- 02
+PCI: 00:02.1 subsystem <- 1043/8162
+PCI: 00:02.1 cmd <- 02
+PCI: 00:06.0 subsystem <- 1043/8162
+PCI: 00:06.0 cmd <- 01
+PCI: 00:07.0 subsystem <- 1043/8162
+PCI: 00:07.0 cmd <- 03
+PCI: 00:08.0 subsystem <- 1043/8162
+PCI: 00:08.0 cmd <- 03
+PCI: 00:09.0 bridge ctrl <- 000b
+PCI: 00:09.0 cmd <- 07
+PCI: 00:0b.0 bridge ctrl <- 0003
+PCI: 00:0b.0 cmd <- 06
+PCI: 00:0c.0 bridge ctrl <- 0003
+PCI: 00:0c.0 cmd <- 06
+PCI: 00:0d.0 bridge ctrl <- 0003
+PCI: 00:0d.0 cmd <- 00
+PCI: 00:0e.0 bridge ctrl <- 0003
+PCI: 00:0e.0 cmd <- 00
+PCI: 01:04.0 cmd <- 03
+PCI: 02:00.0 subsystem <- 1043/8162
+PCI: 02:00.0 cmd <- 02
+PCI: 03:00.0 subsystem <- 1043/8162
+PCI: 03:00.0 cmd <- 02
+done.
+BS: BS_DEV_ENABLE times (us): entry 0 run 162779 exit 0
+Initializing devices...
+Root Device init ...
+Root Device init finished in 1931 usecs
+CPU_CLUSTER: 0 init ...
+start_eip=0x00001000, code_size=0x00000031
+CPU1: stack_base 00138000, stack_end 00138ff8
+Asserting INIT.
+Waiting for send to finish...
++Deasserting INIT.
+Waiting for send to finish...
++#startup loops: 2.
+Sending STARTUP #1 to 1.
+After apic_write.
+Initializing CPU #1
+Startup point 1.
+Waiting for send to finish...
++CPU: vendor AMD device 100f21
+Sending STARTUP #2 to 1.
+After apic_write.
+CPU: family 10, model 02, stepping 01
+Startup point 1.
+Waiting for send to finish...
++nodeid = 00, coreid = 01
+After Startup.
+CPU2: stack_base 00137000, stack_end 00137ff8
+Enabling cache
+Asserting INIT.
+CPU ID 0x80000001: 100f21
+CPU is Fam 0Fh rev.F or later. We can use TOM2WB for any memory above 4GB
+Waiting for send to finish...
++MTRR: Physical address space:
+0x0000000000000000 - 0x00000000000a0000 size 0x000a0000 type 6
+0x00000000000a0000 - 0x00000000000c0000 size 0x00020000 type 0
+0x00000000000c0000 - 0x00000000c0000000 size 0xbff40000 type 6
+0x00000000c0000000 - 0x00000000f8000000 size 0x38000000 type 0
+0x00000000f8000000 - 0x00000000fc000000 size 0x04000000 type 1
+0x00000000fc000000 - 0x0000000100000000 size 0x04000000 type 0
+0x0000000100000000 - 0x0000000180000000 size 0x80000000 type 6
+Deasserting INIT.
+MTRR: Fixed MSR 0x250 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x258 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x259 0x0000000000000000
+MTRR: Fixed MSR 0x268 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x269 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26a 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26b 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26c 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26d 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26e 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26f 0x1e1e1e1e1e1e1e1e
+Waiting for send to finish...
++MTRR: default type WB/UC MTRR counts: 5/3.
+MTRR: UC selected as default type.
+MTRR: 0 base 0x0000000000000000 mask 0x0000ffff80000000 type 6
+MTRR: 1 base 0x0000000080000000 mask 0x0000ffffc0000000 type 6
+MTRR: 2 base 0x00000000f8000000 mask 0x0000fffffc000000 type 1
+#startup loops: 2.
+Sending STARTUP #1 to 2.
+After apic_write.
+
+MTRR check
+Fixed MTRRs   : Enabled
+Variable MTRRs: Enabled
+
+Startup point 1.
+Waiting for send to finish...
++Setting up local apic...Sending STARTUP #2 to 2.
+After apic_write.
+ apic_id: 0x01 done.
+Startup point 1.
+Waiting for send to finish...
++CPU model: Quad-Core AMD Opteron(tm) Processor 8347
+Initializing CPU #2
+After Startup.
+siblings = 03, CPU3: stack_base 00136000, stack_end 00136ff8
+CPU #1 initialized
+Asserting INIT.
+Waiting for send to finish...
++CPU: vendor AMD device 100f21
+Deasserting INIT.
+Waiting for send to finish...
++CPU: family 10, model 02, stepping 01
+#startup loops: 2.
+Sending STARTUP #1 to 3.
+After apic_write.
+nodeid = 00, coreid = 02
+Startup point 1.
+Waiting for send to finish...
++Initializing CPU #3
+Sending STARTUP #2 to 3.
+After apic_write.
+Enabling cache
+Startup point 1.
+Waiting for send to finish...
++CPU ID 0x80000001: 100f21
+CPU is Fam 0Fh rev.F or later. We can use TOM2WB for any memory above 4GB
+After Startup.
+MTRR: Fixed MSR 0x250 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x258 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x259 0x0000000000000000
+MTRR: Fixed MSR 0x268 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x269 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26a 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26b 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26c 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26d 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26e 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26f 0x1e1e1e1e1e1e1e1e
+CPU4: stack_base 00135000, stack_end 00135ff8
+
+MTRR check
+Fixed MTRRs   : Enabled
+Variable MTRRs: Enabled
+
+Asserting INIT.
+Setting up local apic...Waiting for send to finish...
++ apic_id: 0x02 done.
+Deasserting INIT.
+CPU model: Quad-Core AMD Opteron(tm) Processor 8347
+Waiting for send to finish...
++siblings = 03, #startup loops: 2.
+Sending STARTUP #1 to 4.
+After apic_write.
+CPU #2 initialized
+Startup point 1.
+Waiting for send to finish...
++Initializing CPU #4
+Sending STARTUP #2 to 4.
+After apic_write.
+CPU: vendor AMD device 100f21
+Startup point 1.
+Waiting for send to finish...
++CPU: family 10, model 02, stepping 01
+After Startup.
+CPU5: stack_base 00134000, stack_end 00134ff8
+nodeid = 00, coreid = 03
+Asserting INIT.
+Waiting for send to finish...
++Enabling cache
+Deasserting INIT.
+CPU ID 0x80000001: 100f21
+CPU is Fam 0Fh rev.F or later. We can use TOM2WB for any memory above 4GB
+Waiting for send to finish...
++MTRR: Fixed MSR 0x250 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x258 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x259 0x0000000000000000
+MTRR: Fixed MSR 0x268 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x269 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26a 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26b 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26c 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26d 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26e 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26f 0x1e1e1e1e1e1e1e1e
+#startup loops: 2.
+Sending STARTUP #1 to 5.
+After apic_write.
+
+MTRR check
+Fixed MTRRs   : Enabled
+Variable MTRRs: Enabled
+
+Startup point 1.
+Waiting for send to finish...
++Setting up local apic...Sending STARTUP #2 to 5.
+After apic_write.
+ apic_id: 0x03 done.
+Startup point 1.
+Waiting for send to finish...
++CPU model: Quad-Core AMD Opteron(tm) Processor 8347
+After Startup.
+siblings = 03, CPU6: stack_base 00133000, stack_end 00133ff8
+CPU #3 initialized
+Asserting INIT.
+Waiting for send to finish...
++CPU: vendor AMD device 100f21
+Deasserting INIT.
+Waiting for send to finish...
++Initializing CPU #5
+#startup loops: 2.
+Sending STARTUP #1 to 6.
+After apic_write.
+CPU: family 10, model 02, stepping 01
+Startup point 1.
+Waiting for send to finish...
++CPU: vendor AMD device 100f21
+Sending STARTUP #2 to 6.
+After apic_write.
+Initializing CPU #6
+Startup point 1.
+Waiting for send to finish...
++CPU: vendor AMD device 100f21
+After Startup.
+CPU7: stack_base 00132000, stack_end 00132ff8
+nodeid = 01, coreid = 00
+Asserting INIT.
+Waiting for send to finish...
++CPU: family 10, model 02, stepping 01
+Deasserting INIT.
+Waiting for send to finish...
++nodeid = 01, coreid = 01
+#startup loops: 2.
+Sending STARTUP #1 to 7.
+After apic_write.
+CPU: family 10, model 02, stepping 01
+Startup point 1.
+Waiting for send to finish...
++Enabling cache
+Sending STARTUP #2 to 7.
+After apic_write.
+CPU ID 0x80000001: 100f21
+CPU is Fam 0Fh rev.F or later. We can use TOM2WB for any memory above 4GB
+Startup point 1.
+Waiting for send to finish...
++MTRR: Fixed MSR 0x250 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x258 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x259 0x0000000000000000
+MTRR: Fixed MSR 0x268 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x269 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26a 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26b 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26c 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26d 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26e 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26f 0x1e1e1e1e1e1e1e1e
+After Startup.
+Initializing CPU #0
+
+MTRR check
+Fixed MTRRs   : Enabled
+Variable MTRRs: Enabled
+
+CPU: vendor AMD device 100f21
+CPU: family 10, model 02, stepping 01
+Setting up local apic...nodeid = 00, coreid = 00
+ apic_id: 0x05 done.
+Enabling cache
+CPU model: Quad-Core AMD Opteron(tm) Processor 8347
+CPU ID 0x80000001: 100f21
+CPU is Fam 0Fh rev.F or later. We can use TOM2WB for any memory above 4GB
+siblings = 03, MTRR: Fixed MSR 0x250 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x258 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x259 0x0000000000000000
+MTRR: Fixed MSR 0x268 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x269 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26a 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26b 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26c 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26d 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26e 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26f 0x1e1e1e1e1e1e1e1e
+CPU #5 initialized
+
+MTRR check
+Fixed MTRRs   : Enabled
+Variable MTRRs: Enabled
+
+Enabling cache
+Setting up local apic...CPU ID 0x80000001: 100f21
+CPU is Fam 0Fh rev.F or later. We can use TOM2WB for any memory above 4GB
+ apic_id: 0x00 done.
+MTRR: Fixed MSR 0x250 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x258 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x259 0x0000000000000000
+MTRR: Fixed MSR 0x268 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x269 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26a 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26b 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26c 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26d 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26e 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26f 0x1e1e1e1e1e1e1e1e
+CPU model: Quad-Core AMD Opteron(tm) Processor 8347
+
+MTRR check
+Fixed MTRRs   : Enabled
+Variable MTRRs: Enabled
+
+siblings = 03, Setting up local apic...CPU #0 initialized
+ apic_id: 0x04 done.
+Waiting for 3 CPUS to stop
+CPU model: Quad-Core AMD Opteron(tm) Processor 8347
+siblings = 03, nodeid = 01, coreid = 02
+CPU #4 initialized
+Enabling cache
+Waiting for 2 CPUS to stop
+CPU ID 0x80000001: 100f21
+CPU is Fam 0Fh rev.F or later. We can use TOM2WB for any memory above 4GB
+Initializing CPU #7
+MTRR: Fixed MSR 0x250 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x258 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x259 0x0000000000000000
+MTRR: Fixed MSR 0x268 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x269 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26a 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26b 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26c 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26d 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26e 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26f 0x1e1e1e1e1e1e1e1e
+CPU: vendor AMD device 100f21
+
+MTRR check
+Fixed MTRRs   : Enabled
+Variable MTRRs: Enabled
+
+CPU: family 10, model 02, stepping 01
+Setting up local apic...nodeid = 01, coreid = 03
+ apic_id: 0x06 done.
+Enabling cache
+CPU model: Quad-Core AMD Opteron(tm) Processor 8347
+CPU ID 0x80000001: 100f21
+CPU is Fam 0Fh rev.F or later. We can use TOM2WB for any memory above 4GB
+siblings = 03, MTRR: Fixed MSR 0x250 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x258 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x259 0x0000000000000000
+MTRR: Fixed MSR 0x268 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x269 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26a 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26b 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26c 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26d 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26e 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26f 0x1e1e1e1e1e1e1e1e
+CPU #6 initialized
+
+MTRR check
+Fixed MTRRs   : Enabled
+Variable MTRRs: Enabled
+
+Waiting for 1 CPUS to stop
+Setting up local apic... apic_id: 0x07 done.
+CPU model: Quad-Core AMD Opteron(tm) Processor 8347
+siblings = 03, CPU #7 initialized
+All AP CPUs stopped (14884 loops)
+CPU1: stack: 00138000 - 00139000, lowest used address 00138c8c, stack used: 884 bytes
+CPU2: stack: 00137000 - 00138000, lowest used address 00137cd4, stack used: 812 bytes
+CPU3: stack: 00136000 - 00137000, lowest used address 00136cd4, stack used: 812 bytes
+CPU4: stack: 00135000 - 00136000, lowest used address 00135cd4, stack used: 812 bytes
+CPU5: stack: 00134000 - 00135000, lowest used address 00134cd4, stack used: 812 bytes
+CPU6: stack: 00133000 - 00134000, lowest used address 00133cd4, stack used: 812 bytes
+CPU7: stack: 00132000 - 00133000, lowest used address 00132cd4, stack used: 812 bytes
+CPU_CLUSTER: 0 init finished in 995136 usecs
+PCI: 00:18.0 init ...
+PCI: 00:18.0 init finished in 2030 usecs
+PCI: 00:18.1 init ...
+PCI: 00:18.1 init finished in 2027 usecs
+PCI: 00:18.2 init ...
+PCI: 00:18.2 init finished in 2018 usecs
+PCI: 00:18.3 init ...
+NB: Function 3 Misc Control.. done.
+PCI: 00:18.3 init finished in 5293 usecs
+PCI: 00:18.4 init ...
+PCI: 00:18.4 init finished in 2018 usecs
+PCI: 00:19.0 init ...
+PCI: 00:19.0 init finished in 2019 usecs
+PCI: 00:19.1 init ...
+PCI: 00:19.1 init finished in 2018 usecs
+PCI: 00:19.2 init ...
+PCI: 00:19.2 init finished in 2017 usecs
+PCI: 00:19.3 init ...
+NB: Function 3 Misc Control.. done.
+PCI: 00:19.3 init finished in 5268 usecs
+PCI: 00:19.4 init ...
+PCI: 00:19.4 init finished in 2017 usecs
+PCI: 00:00.0 init ...
+PCI: 00:00.0 init finished in 2028 usecs
+PCI: 00:01.0 init ...
+IOAPIC: Initializing IOAPIC at 0xfec00000
+IOAPIC: Bootstrap Processor Local APIC = 0x00
+IOAPIC: Dumping registers
+  reg 0x0000: 0x00000000
+  reg 0x0001: 0x00170011
+  reg 0x0002: 0x00000000
+IOAPIC: 24 interrupts
+IOAPIC: Enabling interrupts on FSB
+IOAPIC: reg 0x00000000 value 0x00000000 0x00000700
+IOAPIC: reg 0x00000001 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000002 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000003 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000004 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000005 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000006 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000007 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000008 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000009 value 0x00000000 0x00010000
+IOAPIC: reg 0x0000000a value 0x00000000 0x00010000
+IOAPIC: reg 0x0000000b value 0x00000000 0x00010000
+IOAPIC: reg 0x0000000c value 0x00000000 0x00010000
+IOAPIC: reg 0x0000000d value 0x00000000 0x00010000
+IOAPIC: reg 0x0000000e value 0x00000000 0x00010000
+IOAPIC: reg 0x0000000f value 0x00000000 0x00010000
+IOAPIC: reg 0x00000010 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000011 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000012 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000013 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000014 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000015 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000016 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000017 value 0x00000000 0x00010000
+lpc_init: pm_base = 2000 
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+set power on after power fail
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+RTC Init
+PCI: 00:01.0 init finished in 164685 usecs
+PCI: 00:02.0 init ...
+PCI: 00:02.0 init finished in 2026 usecs
+PCI: 00:02.1 init ...
+PCI: 00:02.1 init finished in 2018 usecs
+PCI: 00:06.0 init ...
+IDE1 	IDE0
+PCI: 00:06.0 init finished in 3105 usecs
+PCI: 00:07.0 init ...
+SATA S 	SATA P 
+PCI: 00:07.0 init finished in 3534 usecs
+PCI: 00:08.0 init ...
+SATA S 	SATA P 
+PCI: 00:08.0 init finished in 3517 usecs
+PCI: 00:09.0 init ...
+PCI DOMAIN mem base = 0x00f8000000
+[0x50] <-- 0xf8000000
+PCI: 00:09.0 init finished in 7192 usecs
+PCI: 00:0b.0 init ...
+PCI: 00:0b.0 init finished in 2017 usecs
+PCI: 00:0c.0 init ...
+PCI: 00:0c.0 init finished in 2019 usecs
+PCI: 00:0d.0 init ...
+PCI: 00:0d.0 init finished in 2019 usecs
+PCI: 00:0e.0 init ...
+PCI: 00:0e.0 init finished in 2018 usecs
+PNP: 002e.0 init ...
+PNP: 002e.0 init finished in 1939 usecs
+PNP: 002e.2 init ...
+PNP: 002e.2 init finished in 1930 usecs
+PNP: 002e.3 init ...
+PNP: 002e.3 init finished in 1931 usecs
+PNP: 002e.5 init ...
+Keyboard init...
+PNP: 002e.5 init finished in 352042 usecs
+PNP: 002e.9 init ...
+PNP: 002e.9 init finished in 1928 usecs
+PNP: 002e.b init ...
+PNP: 002e.b init finished in 1929 usecs
+smbus: PCI: 00:01.1[0]->I2C: 01:2f init ...
+ID: 5ca3
+I2C: 01:2f init finished in 101140 usecs
+PCI: 01:04.0 init ...
+XGI Z9s: initializing video device
+XGI VGA: Relocate IO address: 1000 [00001030]
+XGI VGA: chipid = 31
+XGI VGA: Framebuffer at 0xf8000000, mapped to 0xf8000000, size 16384k
+XGI VGA: MMIO at 0xfc000000, mapped to 0xfc000000, size 256k
+XGI VGA: No or unknown bridge type detected
+XGI VGA: Default mode is 800x600x16 (60Hz)
+XGI VGA: Set new mode: 800x600x16-60
+PCI: 01:04.0 init finished in 42544 usecs
+PCI: 02:00.0 init ...
+PCI: 02:00.0 init finished in 2018 usecs
+PCI: 03:00.0 init ...
+PCI: 03:00.0 init finished in 2018 usecs
+Devices initialized
+Show all devs... After init.
+Root Device: enabled 1
+CPU_CLUSTER: 0: enabled 1
+APIC: 00: enabled 1
+DOMAIN: 0000: enabled 1
+PCI: 00:18.0: enabled 1
+PCI: 00:00.0: enabled 1
+PCI: 00:01.0: enabled 1
+PNP: 002e.0: enabled 1
+PNP: 002e.1: enabled 0
+PNP: 002e.2: enabled 1
+PNP: 002e.3: enabled 1
+PNP: 002e.5: enabled 1
+PNP: 002e.7: enabled 0
+PNP: 002e.8: enabled 0
+PNP: 002e.9: enabled 1
+PNP: 002e.a: enabled 0
+PNP: 002e.b: enabled 1
+PCI: 00:01.1: enabled 1
+I2C: 01:50: enabled 1
+I2C: 01:51: enabled 1
+I2C: 01:52: enabled 1
+I2C: 01:53: enabled 1
+I2C: 01:54: enabled 1
+I2C: 01:55: enabled 1
+I2C: 01:56: enabled 1
+I2C: 01:57: enabled 1
+I2C: 01:2f: enabled 1
+PCI: 00:02.0: enabled 1
+PCI: 00:02.1: enabled 1
+PCI: 00:04.0: enabled 0
+PCI: 00:04.1: enabled 0
+PCI: 00:06.0: enabled 1
+PCI: 00:07.0: enabled 1
+PCI: 00:08.0: enabled 1
+PCI: 00:09.0: enabled 1
+PCI: 01:04.0: enabled 1
+PCI: 00:0a.0: enabled 0
+PCI: 00:0b.0: enabled 1
+PCI: 02:00.0: enabled 1
+PCI: 00:0c.0: enabled 1
+PCI: 03:00.0: enabled 1
+PCI: 00:0d.0: enabled 1
+PCI: 04:00.0: enabled 0
+PCI: 00:0e.0: enabled 1
+PCI: 00:0f.0: enabled 0
+PCI: 00:18.1: enabled 1
+PCI: 00:18.2: enabled 1
+PCI: 00:18.3: enabled 1
+PCI: 00:18.4: enabled 1
+PCI: 00:19.0: enabled 1
+PCI: 00:19.1: enabled 1
+PCI: 00:19.2: enabled 1
+PCI: 00:19.3: enabled 1
+PCI: 00:19.4: enabled 1
+APIC: 01: enabled 1
+APIC: 02: enabled 1
+APIC: 03: enabled 1
+APIC: 04: enabled 1
+APIC: 05: enabled 1
+APIC: 06: enabled 1
+APIC: 07: enabled 1
+BS: BS_DEV_INIT times (us): entry 0 run 1990325 exit 0
+Finalize devices...
+Devices finalized
+BS: BS_POST_DEVICE times (us): entry 0 run 3526 exit 0
+BS: BS_OS_RESUME_CHECK times (us): entry 0 run 1 exit 0
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CONFIG_LOGICAL_CPUS==1: apicid_base: 00000001
+Writing IRQ routing tables to 0xf0000...done.
+Writing IRQ routing tables to 0xbffd8000...done.
+PIRQ table: 224 bytes.
+Wrote the mp table end at: 000f0410 - 000f05cc
+Wrote the mp table end at: bffd7010 - bffd71cc
+MP table: 460 bytes.
+CBFS @ 0 size ff8c0
+CBFS: Locating 'fallback/dsdt.aml'
+CBFS: Found @ offset c00 size 2644
+CBFS @ 0 size ff8c0
+CBFS: Locating 'fallback/slic'
+CBFS: 'fallback/slic' not found.
+ACPI: Writing ACPI tables at bffb3000.
+ACPI:    * FACS
+ACPI:    * DSDT
+ACPI:    * FADT
+pm_base: 0x2000
+ACPI: added table 1/32, length now 40
+ACPI:     * SSDT
+processor_brand=Quad-Core AMD Opteron(tm) Processor 8347
+Pstates algorithm ...
+Pstate_freq[0] = 1900MHz	Pstate_power[0] = 23040mw
+Pstate_latency[0] = 5us
+Pstate_freq[1] = 1700MHz	Pstate_power[1] = 21385mw
+Pstate_latency[1] = 5us
+Pstate_freq[2] = 1400MHz	Pstate_power[2] = 18787mw
+Pstate_latency[2] = 5us
+Pstate_freq[3] = 1200MHz	Pstate_power[3] = 16770mw
+Pstate_latency[3] = 5us
+PSS: 1900MHz power 23040 control 0x0 status 0x0
+PSS: 1700MHz power 21385 control 0x1 status 0x1
+PSS: 1400MHz power 18787 control 0x2 status 0x2
+PSS: 1200MHz power 16770 control 0x3 status 0x3
+PSS: 1900MHz power 23040 control 0x0 status 0x0
+PSS: 1700MHz power 21385 control 0x1 status 0x1
+PSS: 1400MHz power 18787 control 0x2 status 0x2
+PSS: 1200MHz power 16770 control 0x3 status 0x3
+PSS: 1900MHz power 23040 control 0x0 status 0x0
+PSS: 1700MHz power 21385 control 0x1 status 0x1
+PSS: 1400MHz power 18787 control 0x2 status 0x2
+PSS: 1200MHz power 16770 control 0x3 status 0x3
+PSS: 1900MHz power 23040 control 0x0 status 0x0
+PSS: 1700MHz power 21385 control 0x1 status 0x1
+PSS: 1400MHz power 18787 control 0x2 status 0x2
+PSS: 1200MHz power 16770 control 0x3 status 0x3
+PSS: 1900MHz power 23040 control 0x0 status 0x0
+PSS: 1700MHz power 21385 control 0x1 status 0x1
+PSS: 1400MHz power 18787 control 0x2 status 0x2
+PSS: 1200MHz power 16770 control 0x3 status 0x3
+PSS: 1900MHz power 23040 control 0x0 status 0x0
+PSS: 1700MHz power 21385 control 0x1 status 0x1
+PSS: 1400MHz power 18787 control 0x2 status 0x2
+PSS: 1200MHz power 16770 control 0x3 status 0x3
+PSS: 1900MHz power 23040 control 0x0 status 0x0
+PSS: 1700MHz power 21385 control 0x1 status 0x1
+PSS: 1400MHz power 18787 control 0x2 status 0x2
+PSS: 1200MHz power 16770 control 0x3 status 0x3
+PSS: 1900MHz power 23040 control 0x0 status 0x0
+PSS: 1700MHz power 21385 control 0x1 status 0x1
+PSS: 1400MHz power 18787 control 0x2 status 0x2
+PSS: 1200MHz power 16770 control 0x3 status 0x3
+ACPI: added table 2/32, length now 44
+ACPI:    * MCFG
+ACPI:    * TCPA
+TCPA log created at bffa3000
+ACPI: added table 3/32, length now 48
+ACPI:    * MADT
+ACPI: added table 4/32, length now 52
+current = bffb6910
+ACPI:    * SRAT at bffb6910
+SRAT: lapic cpu_index=00, node_id=00, apic_id=00
+SRAT: lapic cpu_index=01, node_id=00, apic_id=01
+SRAT: lapic cpu_index=02, node_id=00, apic_id=02
+SRAT: lapic cpu_index=03, node_id=00, apic_id=03
+SRAT: lapic cpu_index=04, node_id=01, apic_id=04
+SRAT: lapic cpu_index=05, node_id=01, apic_id=05
+SRAT: lapic cpu_index=06, node_id=01, apic_id=06
+SRAT: lapic cpu_index=07, node_id=01, apic_id=07
+set_srat_mem: dev DOMAIN: 0000, res->index=0007 startk=00000000, sizek=00300000
+set_srat_mem: dev DOMAIN: 0000, res->index=0010 startk=00000000, sizek=00000280
+set_srat_mem: dev DOMAIN: 0000, res->index=0020 startk=00000300, sizek=002ffd00
+set_srat_mem: dev DOMAIN: 0000, res->index=0030 startk=00400000, sizek=00100000
+set_srat_mem: dev DOMAIN: 0000, res->index=0041 startk=00500000, sizek=00100000
+ACPI: added table 5/32, length now 56
+ACPI:   * SLIT at bffb6a88
+ACPI: added table 6/32, length now 60
+ACPI:    * HPET
+ACPI: added table 7/32, length now 64
+ACPI:    * SRAT at bffb6b00
+SRAT: lapic cpu_index=00, node_id=00, apic_id=00
+SRAT: lapic cpu_index=01, node_id=00, apic_id=01
+SRAT: lapic cpu_index=02, node_id=00, apic_id=02
+SRAT: lapic cpu_index=03, node_id=00, apic_id=03
+SRAT: lapic cpu_index=04, node_id=01, apic_id=04
+SRAT: lapic cpu_index=05, node_id=01, apic_id=05
+SRAT: lapic cpu_index=06, node_id=01, apic_id=06
+SRAT: lapic cpu_index=07, node_id=01, apic_id=07
+set_srat_mem: dev DOMAIN: 0000, res->index=0007 startk=00000000, sizek=00300000
+set_srat_mem: dev DOMAIN: 0000, res->index=0010 startk=00000000, sizek=00000280
+set_srat_mem: dev DOMAIN: 0000, res->index=0020 startk=00000300, sizek=002ffd00
+set_srat_mem: dev DOMAIN: 0000, res->index=0030 startk=00400000, sizek=00100000
+set_srat_mem: dev DOMAIN: 0000, res->index=0041 startk=00500000, sizek=00100000
+ACPI: added table 8/32, length now 68
+ACPI:   * SLIT at bffb6c78
+ACPI: added table 9/32, length now 72
+ACPI: done.
+ACPI tables: 15536 bytes.
+smbios_write_tables: bffa2000
+Root Device (ASUS KFSN4-DRE)
+CPU_CLUSTER: 0 (AMD FAM10 Root Complex)
+APIC: 00 (unknown)
+DOMAIN: 0000 (AMD FAM10 Root Complex)
+PCI: 00:18.0 (AMD FAM10 Northbridge)
+PCI: 00:00.0 (NVIDIA CK804 Southbridge)
+PCI: 00:01.0 (NVIDIA CK804 Southbridge)
+PNP: 002e.0 (Winbond W83627THG Super I/O)
+PNP: 002e.1 (Winbond W83627THG Super I/O)
+PNP: 002e.2 (Winbond W83627THG Super I/O)
+PNP: 002e.3 (Winbond W83627THG Super I/O)
+PNP: 002e.5 (Winbond W83627THG Super I/O)
+PNP: 002e.7 (Winbond W83627THG Super I/O)
+PNP: 002e.8 (Winbond W83627THG Super I/O)
+PNP: 002e.9 (Winbond W83627THG Super I/O)
+PNP: 002e.a (Winbond W83627THG Super I/O)
+PNP: 002e.b (Winbond W83627THG Super I/O)
+PCI: 00:01.1 (NVIDIA CK804 Southbridge)
+I2C: 01:50 (unknown)
+I2C: 01:51 (unknown)
+I2C: 01:52 (unknown)
+I2C: 01:53 (unknown)
+I2C: 01:54 (unknown)
+I2C: 01:55 (unknown)
+I2C: 01:56 (unknown)
+I2C: 01:57 (unknown)
+I2C: 01:2f (Nuvoton W83793 Hardware Monitor)
+PCI: 00:02.0 (NVIDIA CK804 Southbridge)
+PCI: 00:02.1 (NVIDIA CK804 Southbridge)
+PCI: 00:04.0 (NVIDIA CK804 Southbridge)
+PCI: 00:04.1 (NVIDIA CK804 Southbridge)
+PCI: 00:06.0 (NVIDIA CK804 Southbridge)
+PCI: 00:07.0 (NVIDIA CK804 Southbridge)
+PCI: 00:08.0 (NVIDIA CK804 Southbridge)
+PCI: 00:09.0 (NVIDIA CK804 Southbridge)
+PCI: 01:04.0 (NVIDIA CK804 Southbridge)
+PCI: 00:0a.0 (NVIDIA CK804 Southbridge)
+PCI: 00:0b.0 (NVIDIA CK804 Southbridge)
+PCI: 02:00.0 (NVIDIA CK804 Southbridge)
+PCI: 00:0c.0 (NVIDIA CK804 Southbridge)
+PCI: 03:00.0 (NVIDIA CK804 Southbridge)
+PCI: 00:0d.0 (NVIDIA CK804 Southbridge)
+PCI: 04:00.0 (NVIDIA CK804 Southbridge)
+PCI: 00:0e.0 (NVIDIA CK804 Southbridge)
+PCI: 00:0f.0 (NVIDIA CK804 Southbridge)
+PCI: 00:18.1 (AMD FAM10 Northbridge)
+PCI: 00:18.2 (AMD FAM10 Northbridge)
+PCI: 00:18.3 (AMD FAM10 Northbridge)
+PCI: 00:18.4 (AMD FAM10 Northbridge)
+PCI: 00:19.0 (AMD FAM10 Northbridge)
+PCI: 00:19.1 (AMD FAM10 Northbridge)
+PCI: 00:19.2 (AMD FAM10 Northbridge)
+PCI: 00:19.3 (AMD FAM10 Northbridge)
+PCI: 00:19.4 (AMD FAM10 Northbridge)
+APIC: 01 (unknown)
+APIC: 02 (unknown)
+APIC: 03 (unknown)
+APIC: 04 (unknown)
+APIC: 05 (unknown)
+APIC: 06 (unknown)
+APIC: 07 (unknown)
+SMBIOS tables: 553 bytes.
+Writing table forward entry at 0x00000500
+Wrote coreboot table at: 00000500, 0x10 bytes, checksum 9fe4
+Table forward entry ends at 0x00000528.
+... aligned to 0x00001000
+Writing coreboot table at 0xbff9a000
+rom_table_end = 0xbff9a000
+... aligned to 0xbffa0000
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+ 0. 0000000000000000-0000000000000fff: CONFIGURATION TABLES
+ 1. 0000000000001000-000000000009ffff: RAM
+ 2. 00000000000a0000-00000000000bffff: RESERVED
+ 3. 00000000000c0000-00000000bff99fff: RAM
+ 4. 00000000bff9a000-00000000bfffffff: CONFIGURATION TABLES
+ 5. 00000000c0000000-00000000cfffffff: RESERVED
+ 6. 0000000100000000-000000017fffffff: RAM
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+Wrote coreboot table at: bff9a000, 0xc08 bytes, checksum 440a
+coreboot table: 3104 bytes.
+IMD ROOT    0. bffff000 00001000
+IMD SMALL   1. bfffe000 00001000
+CAR GLOBALS 2. bfffb000 0000291c
+CONSOLE     3. bffdb000 00020000
+AMDMEM INFO 4. bffd9000 0000172c
+IRQ TABLE   5. bffd8000 00001000
+SMP TABLE   6. bffd7000 00001000
+ACPI        7. bffb3000 00024000
+54435041    8. bffa3000 00010000
+SMBIOS      9. bffa2000 00000800
+COREBOOT   10. bff9a000 00008000
+IMD small region:
+  IMD ROOT    0. bfffec00 00000400
+  USBDEBUG    1. bfffeba0 00000058
+  ROMSTAGE    2. bfffeb80 00000004
+  GDT         3. bfffe980 00000200
+BS: BS_WRITE_TABLES times (us): entry 0 run 759226 exit 0
+CBFS provider active.
+CBFS @ 0 size ff8c0
+CBFS: Locating 'fallback/payload'
+CBFS: Found @ offset 29c80 size 92b41
+'fallback/payload' located at offset: 29cb8 size: 92b41
+Loading segment from rom address 0xfff29cb8
+  code (compression=1)
+  New segment dstaddr 0x8200 memsize 0x17420 srcaddr 0xfff29d0c filesize 0x8215
+Loading segment from rom address 0xfff29cd4
+  code (compression=1)
+  New segment dstaddr 0x100000 memsize 0x23f9f0 srcaddr 0xfff31f21 filesize 0x8a8d8
+Loading segment from rom address 0xfff29cf0
+  Entry Point 0x00008200
+Bounce Buffer at bfc5b000, 3401660 bytes
+Loading Segment: addr: 0x0000000000008200 memsz: 0x0000000000017420 filesz: 0x0000000000008215
+lb: [0x0000000000100000, 0x00000000001fedcc)
+Post relocation: addr: 0x0000000000008200 memsz: 0x0000000000017420 filesz: 0x0000000000008215
+using LZMA
+[ 0x00008200, 00017ce3, 0x0001f620) <- fff29d0c
+Clearing Segment: addr: 0x0000000000017ce3 memsz: 0x000000000000793d
+dest 00008200, end 0001f620, bouncebuffer bfc5b000
+Loading Segment: addr: 0x0000000000100000 memsz: 0x000000000023f9f0 filesz: 0x000000000008a8d8
+lb: [0x0000000000100000, 0x00000000001fedcc)
+segment: [0x0000000000100000, 0x000000000018a8d8, 0x000000000033f9f0)
+ bounce: [0x00000000bfc5b000, 0x00000000bfce58d8, 0x00000000bfe9a9f0)
+Post relocation: addr: 0x00000000bfc5b000 memsz: 0x000000000023f9f0 filesz: 0x000000000008a8d8
+using LZMA
+[ 0xbfc5b000, bfe9a9f0, 0xbfe9a9f0) <- fff31f21
+dest bfc5b000, end bfe9a9f0, bouncebuffer bfc5b000
+move suffix around: from bfd59dcc, to 1fedcc, amount: 140c24
+Loaded segments
+BS: BS_PAYLOAD_LOAD times (us): entry 0 run 781450 exit 0
+Jumping to boot code at 00008200(bff9a000)
+CPU0: stack: 00139000 - 0013a000, lowest used address 00139ae0, stack used: 1312 bytes
+entry    = 0x00008200
+lb_start = 0x00100000
+lb_size  = 0x000fedcc
+buffer   = 0xbfc5b000
+[H[J[1;1H[?25l[m[H[J[1;1H[2;32HFREE AS IN FREEDOM
+
+
+[m[4;2H+----------------------------------------------------------------------------+[5;2H|[5;79H|[6;2H|[6;79H|[7;2H|[7;79H|[8;2H|[8;79H|[9;2H|[9;79H|[10;2H|[10;79H|[11;2H|[11;79H|[12;2H|[12;79H|[13;2H|[13;79H|[14;2H|[14;79H|[15;2H|[15;79H|[16;2H|[16;79H|[17;2H+----------------------------------------------------------------------------+[m[18;2H[19;2H[m     Use the ^ and v keys to select which entry is highlighted.          
+
+      Press enter to boot the selected OS, `e' to edit the commands       
+
+      before booting or `c' for a command-line.                           [5;80H [7m[5;3H*Load Operating System                                                      [m[5;78H[m[m[6;3H Parse ISOLINUX menu (ahci0)                                                [m[6;78H[m[m[7;3H Parse ISOLINUX menu (USB)                                                  [m[7;78H[m[m[8;3H Parse ISOLINUX menu (CD/DVD)                                               [m[8;78H[m[m[9;3H Switch to grubtest.cfg                                                     [m[9;78H[m[m[10;3H Search for GRUB configuration (grub.cfg) outside of CBFS                   [m[10;78H[m[m[11;3H Load MemTest86+                                                            [m[11;78H[m[m[12;3H                                                                            [m[12;78H[m[m[13;3H                                                                            [m[13;78H[m[m[14;3H                                                                            [m[14;78H[m[m[15;3H                                                                            [m[15;78H[m[m[16;3H                                                                            [m[16;78H[m[16;80H [5;78H[22;1H   The highlighted entry will be executed automatically in 1s.                 [5;78H[22;1H   The highlighted entry will be executed automatically in 0s.                 [5;78H[?25h[H[J[1;1H[H[J[1;1H  Booting `Load Operating System'
+
+
+
+  Failed to boot both default and fallback entries.
+
+
+Press any key to continue...
+
+[?25l[m[H[J[1;1H[2;32HFREE AS IN FREEDOM
+
+
+[m[4;2H+----------------------------------------------------------------------------+[5;2H|[5;79H|[6;2H|[6;79H|[7;2H|[7;79H|[8;2H|[8;79H|[9;2H|[9;79H|[10;2H|[10;79H|[11;2H|[11;79H|[12;2H|[12;79H|[13;2H|[13;79H|[14;2H|[14;79H|[15;2H|[15;79H|[16;2H|[16;79H|[17;2H+----------------------------------------------------------------------------+[m[18;2H[19;2H[m     Use the ^ and v keys to select which entry is highlighted.          
+
+      Press enter to boot the selected OS, `e' to edit the commands       
+
+      before booting or `c' for a command-line.                           [5;80H [7m[5;3H*Load Operating System                                                      [m[5;78H[m[m[6;3H Parse ISOLINUX menu (ahci0)                                                [m[6;78H[m[m[7;3H Parse ISOLINUX menu (USB)                                                  [m[7;78H[m[m[8;3H Parse ISOLINUX menu (CD/DVD)                                               [m[8;78H[m[m[9;3H Switch to grubtest.cfg                                                     [m[9;78H[m[m[10;3H Search for GRUB configuration (grub.cfg) outside of CBFS                   [m[10;78H[m[m[11;3H Load MemTest86+                                                            [m[11;78H[m[m[12;3H                                                                            [m[12;78H[m[m[13;3H                                                                            [m[13;78H[m[m[14;3H                                                                            [m[14;78H[m[m[15;3H                                                                            [m[15;78H[m[m[16;3H                                                                            [m[16;78H[m[16;80H [5;78H[22;1H                                                                               [23;1H                                                                               [5;78H[m[5;3H Load Operating System                                                      [m[5;78H[m[7m[6;3H*Parse ISOLINUX menu (ahci0)                                                [m[6;78H[m[m[6;3H Parse ISOLINUX menu (ahci0)                                                [m[6;78H[m[7m[7;3H*Parse ISOLINUX menu (USB)                                                  [m[7;78H[m[m[7;3H Parse ISOLINUX menu (USB)                                                  [m[7;78H[m[7m[8;3H*Parse ISOLINUX menu (CD/DVD)                                               [m[8;78H[m[m[8;3H Parse ISOLINUX menu (CD/DVD)                                               [m[8;78H[m[7m[9;3H*Switch to grubtest.cfg                                                     [m[9;78H[m ��ޒ���������� 
+
+*****GRAPHICAL FRAMEBUFFER ROM IMAGE*****
+
+<hangs here for 30 seconds or more>
+
+coreboot-4.0 Fri Jun 26 20:19:42 UTC 2015 romstage starting...
+BSP Family_Model: 00100f21
+*sysinfo range: [000c4000,000c6899]
+bsp_apicid = 00
+cpu_init_detectedx = 00000000
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cpu_microcode_blob.bin'
+CBFS: 'cpu_microcode_blob.bin' not found.
+[microcode] microcode file not found. Skipping updates.
+cpuSetAMDMSR  done
+Enter amd_ht_init()
+AMD_CB_EventNotify()
+ event class: 05
+ event: 1004
+ data:  04  00  00  01 
+AMD_CB_EventNotify()
+ event class: 05
+ event: 2006
+ data:  04  00  01  00 
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+Exit amd_ht_init()
+cpuSetAMDPCI 00 done
+cpuSetAMDPCI 01 done
+Prep FID/VID Node:00 
+  F3x80: e600a681 
+  F3x84: a0e641e6 
+  F3xD4: c3310f23 
+  F3xD8: 03001c14 
+  F3xDC: 00005428 
+Prep FID/VID Node:01 
+  F3x80: e600a681 
+  F3x84: a0e641e6 
+  F3xD4: c3310f23 
+  F3xD8: 03001c14 
+  F3xDC: 00005428 
+setup_remote_node: 01 done
+Start node 01 done.
+core0 started:  01
+
+Begin FIDVID MSR 0xc0010071 0x20a600e4 0x38045044
+FIDVID on BSP, APIC_id: 00
+BSP fid = 10400
+Wait for AP stage 1: ap_apicid = 1
+init_fidvid_bsp_stage1: timed out reading from ap 01
+Wait for AP stage 1: ap_apicid = 2
+init_fidvid_bsp_stage1: timed out reading from ap 02
+Wait for AP stage 1: ap_apicid = 3
+init_fidvid_bsp_stage1: timed out reading from ap 03
+Wait for AP stage 1: ap_apicid = 4
+	readback = 4010401
+	common_fid(packed) = 10400
+Wait for AP stage 1: ap_apicid = 5
+init_fidvid_bsp_stage1: timed out reading from ap 05
+Wait for AP stage 1: ap_apicid = 6
+init_fidvid_bsp_stage1: timed out reading from ap 06
+Wait for AP stage 1: ap_apicid = 7
+init_fidvid_bsp_stage1: timed out reading from ap 07
+common_fid = 10400
+FID Change Node:00, F3xD4: c3310f24 
+FID Change Node:01, F3xD4: c3310f24 
+End FIDVIDMSR 0xc0010071 0x20a600e4 0x38005044
+start_other_cores()
+init node: 00  cores: 03 
+Start other core - nodeid: 00  cores: 03
+init node: 01  cores: 03 
+Start other core - nodeid: 01  cores: 03
+started ap apicid:  01start                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+
+coreboot-4.0 Fri Jun 26 20:19:42 UTC 2015 romstage starting...
+BSP Family_Model: 00100f21
+*sysinfo range: [000c4000,000c6899]
+bsp_apicid = 00
+cpu_init_detectedx = 00000000
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cpu_microcode_blob.bin'
+CBFS: 'cpu_microcode_blob.bin' not found.
+[microcode] microcode file not found. Skipping updates.
+cpuSetAMDMSR  done
+Enter amd_ht_init()
+AMD_CB_EventNotify()
+ event class: 05
+ event: 1004
+ data:  04  00  00  01 
+AMD_CB_EventNotify()
+ event class: 05
+ event: 2006
+ data:  04  00  01  00 
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+Exit amd_ht_init()
+cpuSetAMDPCI 00 done
+cpuSetAMDPCI 01 done
+Prep FID/VID Node:00 
+  F3x80: e600a681 
+  F3x84: a0e641e6 
+  F3xD4: c3310f24 
+  F3xD8: 03001c14 
+  F3xDC: 00005428 
+Prep FID/VID Node:01 
+  F3x80: e600a681 
+  F3x84: a0e641e6 
+  F3xD4: c3310f24 
+  F3xD8: 03001c14 
+  F3xDC: 00005428 
+setup_remote_node: 01 done
+Start node 01 done.
+core0 started:  01
+
+Begin FIDVID MSR 0xc0010071 0x20a600e4 0x38005044
+End FIDVIDMSR 0xc0010071 0x20a600e4 0x38003803
+start_other_cores()
+init node: 00  cores: 03 
+Start other core - nodeid: 00  cores: 03
+init node: 01  cores: 03 
+Start other core - nodeid: 01  cores: 03
+started ap apicid: * AP 01started
+* AP 02started
+* AP 03started
+* AP 05started
+* AP 06started
+* AP 07started
+
+set_ck804_base_unit_id()
+fill_mem_ctrl()
+enable_smbus()
+SMBus controller enabled
+raminit_amdmct()
+raminit_amdmct begin:
+activate_spd_rom() for node 00
+enable_spd_node0()
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+activate_spd_rom() for node 01
+enable_spd_node1()
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+ Node: 00  base: 00  limit: ffffff  BottomIO: c00000
+ Node: 01  base: 1400000  limit: 17fffff  BottomIO: c00000
+ Copy dram map from Node 0 to Node 01 
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+raminit_amdmct end:
+CBMEM:
+IMD: root @ bffff000 254 entries.
+IMD: root @ bfffec00 62 entries.
+amdmct_cbmem_store_info: Storing AMDMCT configuration in CBMEM
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+disable_spd()
+enable_msi_mapping()
+Prepare CAR migration and stack regions... Fill [003fd000-003fffff] ... Done
+Copying data from cache to RAM...  Copy [000c4000-000c693f] to [003fd6c0 - 003fffff] ... Done
+Switching to use RAM as stack... Top about 003fd6ac ... Done
+Disabling cache as ram now
+Prepare ramstage memory region...  Fill [00000000-003fcfff] ... Done
+CBFS provider active.
+CBFS @ 0 size ff8c0
+CBFS: Locating 'fallback/ramstage'
+CBFS: Found @ offset 15440 size 147e1
+'fallback/ramstage' located at offset: 15478 size: 147e1
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+Capability: type 0x0a @ 0x44
+
+coreboot-4.0 Fri Jun 26 20:19:42 UTC 2015 ramstage starting...
+Moving GDT to bfffe980...ok
+BS: BS_PRE_DEVICE times (us): entry 0 run 1 exit 0
+BS: BS_DEV_INIT_CHIPS times (us): entry 0 run 3 exit 0
+Enumerating buses...
+Show all devs... Before device enumeration.
+Root Device: enabled 1
+CPU_CLUSTER: 0: enabled 1
+APIC: 00: enabled 1
+DOMAIN: 0000: enabled 1
+PCI: 00:18.0: enabled 1
+PCI: 00:00.0: enabled 1
+PCI: 00:01.0: enabled 1
+PNP: 002e.0: enabled 1
+PNP: 002e.1: enabled 0
+PNP: 002e.2: enabled 1
+PNP: 002e.3: enabled 1
+PNP: 002e.5: enabled 1
+PNP: 002e.7: enabled 0
+PNP: 002e.8: enabled 0
+PNP: 002e.9: enabled 1
+PNP: 002e.a: enabled 0
+PNP: 002e.b: enabled 1
+PCI: 00:01.1: enabled 1
+I2C: 00:50: enabled 1
+I2C: 00:51: enabled 1
+I2C: 00:52: enabled 1
+I2C: 00:53: enabled 1
+I2C: 00:54: enabled 1
+I2C: 00:55: enabled 1
+I2C: 00:56: enabled 1
+I2C: 00:57: enabled 1
+I2C: 00:2f: enabled 1
+PCI: 00:02.0: enabled 1
+PCI: 00:02.1: enabled 1
+PCI: 00:04.0: enabled 0
+PCI: 00:04.1: enabled 0
+PCI: 00:06.0: enabled 1
+PCI: 00:07.0: enabled 1
+PCI: 00:08.0: enabled 1
+PCI: 00:09.0: enabled 1
+PCI: 00:04.0: enabled 1
+PCI: 00:0a.0: enabled 0
+PCI: 00:0b.0: enabled 1
+PCI: 00:00.0: enabled 1
+PCI: 00:0c.0: enabled 1
+PCI: 00:00.0: enabled 1
+PCI: 00:0d.0: enabled 1
+PCI: 00:00.0: enabled 1
+PCI: 00:0e.0: enabled 1
+PCI: 00:0f.0: enabled 0
+PCI: 00:18.1: enabled 1
+PCI: 00:18.2: enabled 1
+PCI: 00:18.3: enabled 1
+PCI: 00:18.4: enabled 1
+PCI: 00:19.0: enabled 1
+PCI: 00:19.1: enabled 1
+PCI: 00:19.2: enabled 1
+PCI: 00:19.3: enabled 1
+PCI: 00:19.4: enabled 1
+Compare with tree...
+Root Device: enabled 1
+ CPU_CLUSTER: 0: enabled 1
+  APIC: 00: enabled 1
+ DOMAIN: 0000: enabled 1
+  PCI: 00:18.0: enabled 1
+   PCI: 00:00.0: enabled 1
+   PCI: 00:01.0: enabled 1
+    PNP: 002e.0: enabled 1
+    PNP: 002e.1: enabled 0
+    PNP: 002e.2: enabled 1
+    PNP: 002e.3: enabled 1
+    PNP: 002e.5: enabled 1
+    PNP: 002e.7: enabled 0
+    PNP: 002e.8: enabled 0
+    PNP: 002e.9: enabled 1
+    PNP: 002e.a: enabled 0
+    PNP: 002e.b: enabled 1
+   PCI: 00:01.1: enabled 1
+    I2C: 00:50: enabled 1
+    I2C: 00:51: enabled 1
+    I2C: 00:52: enabled 1
+    I2C: 00:53: enabled 1
+    I2C: 00:54: enabled 1
+    I2C: 00:55: enabled 1
+    I2C: 00:56: enabled 1
+    I2C: 00:57: enabled 1
+    I2C: 00:2f: enabled 1
+   PCI: 00:02.0: enabled 1
+   PCI: 00:02.1: enabled 1
+   PCI: 00:04.0: enabled 0
+   PCI: 00:04.1: enabled 0
+   PCI: 00:06.0: enabled 1
+   PCI: 00:07.0: enabled 1
+   PCI: 00:08.0: enabled 1
+   PCI: 00:09.0: enabled 1
+    PCI: 00:04.0: enabled 1
+   PCI: 00:0a.0: enabled 0
+   PCI: 00:0b.0: enabled 1
+    PCI: 00:00.0: enabled 1
+   PCI: 00:0c.0: enabled 1
+    PCI: 00:00.0: enabled 1
+   PCI: 00:0d.0: enabled 1
+    PCI: 00:00.0: enabled 1
+   PCI: 00:0e.0: enabled 1
+   PCI: 00:0f.0: enabled 0
+  PCI: 00:18.1: enabled 1
+  PCI: 00:18.2: enabled 1
+  PCI: 00:18.3: enabled 1
+  PCI: 00:18.4: enabled 1
+  PCI: 00:19.0: enabled 1
+  PCI: 00:19.1: enabled 1
+  PCI: 00:19.2: enabled 1
+  PCI: 00:19.3: enabled 1
+  PCI: 00:19.4: enabled 1
+Root Device scanning...
+root_dev_scan_bus for Root Device
+setup_bsp_ramtop, TOP MEM: msr.lo = 0xc0000000, msr.hi = 0x00000000
+setup_bsp_ramtop, TOP MEM2: msr.lo = 0x80000000, msr.hi = 0x00000001
+CPU_CLUSTER: 0 enabled
+DOMAIN: 0000 enabled
+CPU_CLUSTER: 0 scanning...
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+  PCI: 00:18.3 siblings=3
+CPU: APIC: 00 enabled
+CPU: APIC: 01 enabled
+CPU: APIC: 02 enabled
+CPU: APIC: 03 enabled
+  PCI: 00:19.3 siblings=3
+CPU: APIC: 04 enabled
+CPU: APIC: 05 enabled
+CPU: APIC: 06 enabled
+CPU: APIC: 07 enabled
+DOMAIN: 0000 scanning...
+PCI: pci_scan_bus for bus 00
+PCI: 00:18.0 [1022/1200] bus ops
+PCI: 00:18.0 [1022/1200] enabled
+PCI: 00:18.1 [1022/1201] enabled
+PCI: 00:18.2 [1022/1202] enabled
+PCI: 00:18.3 [1022/1203] ops
+PCI: 00:18.3 [1022/1203] enabled
+PCI: 00:18.4 [1022/1204] enabled
+PCI: 00:19.0 [1022/1200] bus ops
+PCI: 00:19.0 [1022/1200] enabled
+PCI: 00:19.1 [1022/1201] enabled
+PCI: 00:19.2 [1022/1202] enabled
+PCI: 00:19.3 [1022/1203] ops
+PCI: 00:19.3 [1022/1203] enabled
+PCI: 00:19.4 [1022/1204] enabled
+PCI: 00:18.0 scanning...
+PCI: 00:00.0 [10de/005e] ops
+PCI: 00:00.0 [10de/005e] enabled
+Capability: type 0x08 @ 0x44
+flags: 0x01e0
+PCI: 00:00.0 count: 000f static_count: 0010
+PCI: 00:00.0 [10de/005e] enabled next_unitid: 0010
+PCI: pci_scan_bus for bus 00
+PCI: 00:00.0 [10de/005e] enabled
+PCI: 00:01.0 [10de/0051] bus ops
+PCI: 00:01.0 [10de/0051] enabled
+PCI: 00:01.1 [10de/0052] bus ops
+PCI: 00:01.1 [10de/0052] enabled
+PCI: 00:02.0 [10de/005a] ops
+PCI: 00:02.0 [10de/005a] enabled
+PCI: 00:02.1 [10de/005b] ops
+PCI: 00:02.1 [10de/005b] enabled
+PCI: 00:04.0 [10de/0059] ops
+PCI: 00:04.0 [10de/0059] disabled
+PCI: 00:04.1 [10de/0058] ops
+PCI: 00:04.1 [10de/0058] disabled
+PCI: 00:06.0 [10de/0053] ops
+PCI: 00:06.0 [10de/0053] enabled
+PCI: 00:07.0 [10de/0054] ops
+PCI: 00:07.0 [10de/0054] enabled
+PCI: 00:08.0 [10de/0055] ops
+PCI: 00:08.0 [10de/0055] enabled
+PCI: 00:09.0 [10de/005c] bus ops
+PCI: 00:09.0 [10de/005c] enabled
+PCI: 00:0b.0 [10de/005d] bus ops
+PCI: 00:0b.0 [10de/005d] enabled
+PCI: 00:0c.0 [10de/005d] bus ops
+PCI: 00:0c.0 [10de/005d] enabled
+PCI: 00:0d.0 [10de/005d] bus ops
+PCI: 00:0d.0 [10de/005d] enabled
+PCI: 00:0e.0 [10de/005d] bus ops
+PCI: 00:0e.0 [10de/005d] enabled
+PCI: 00:01.0 scanning...
+scan_lpc_bus for PCI: 00:01.0
+PNP: 002e.0 enabled
+PNP: 002e.1 disabled
+PNP: 002e.2 enabled
+PNP: 002e.3 enabled
+PNP: 002e.5 enabled
+PNP: 002e.7 disabled
+PNP: 002e.8 disabled
+PNP: 002e.9 enabled
+PNP: 002e.a disabled
+PNP: 002e.b enabled
+scan_lpc_bus for PCI: 00:01.0 done
+PCI: 00:01.1 scanning...
+scan_smbus for PCI: 00:01.1
+smbus: PCI: 00:01.1[0]->I2C: 01:50 enabled
+smbus: PCI: 00:01.1[0]->I2C: 01:51 enabled
+smbus: PCI: 00:01.1[0]->I2C: 01:52 enabled
+smbus: PCI: 00:01.1[0]->I2C: 01:53 enabled
+smbus: PCI: 00:01.1[0]->I2C: 01:54 enabled
+smbus: PCI: 00:01.1[0]->I2C: 01:55 enabled
+smbus: PCI: 00:01.1[0]->I2C: 01:56 enabled
+smbus: PCI: 00:01.1[0]->I2C: 01:57 enabled
+smbus: PCI: 00:01.1[0]->I2C: 01:2f enabled
+scan_smbus for PCI: 00:01.1 done
+PCI: 00:09.0 scanning...
+do_pci_scan_bridge for PCI: 00:09.0
+PCI: pci_scan_bus for bus 01
+PCI: 01:04.0 [18ca/0020] ops
+PCI: 01:04.0 [18ca/0020] enabled
+PCI: 00:0b.0 scanning...
+do_pci_scan_bridge for PCI: 00:0b.0
+PCI: pci_scan_bus for bus 02
+PCI: 02:00.0 [14e4/1659] enabled
+PCI: 00:0c.0 scanning...
+do_pci_scan_bridge for PCI: 00:0c.0
+PCI: pci_scan_bus for bus 03
+PCI: 03:00.0 [14e4/1659] enabled
+PCI: 00:0d.0 scanning...
+do_pci_scan_bridge for PCI: 00:0d.0
+PCI: pci_scan_bus for bus 04
+PCI: Static device PCI: 04:00.0 not found, disabling it.
+PCI: 00:0e.0 scanning...
+do_pci_scan_bridge for PCI: 00:0e.0
+PCI: pci_scan_bus for bus 05
+PCI: 00:19.0 scanning...
+DOMAIN: 0000 passpw: enabled
+DOMAIN: 0000 passpw: enabled
+root_dev_scan_bus for Root Device done
+done
+BS: BS_DEV_ENUMERATE times (us): entry 0 run 598144 exit 0
+found VGA at PCI: 01:04.0
+Setting up VGA for PCI: 01:04.0
+Setting PCI_BRIDGE_CTL_VGA for bridge PCI: 00:09.0
+Setting PCI_BRIDGE_CTL_VGA for bridge PCI: 00:18.0
+Setting PCI_BRIDGE_CTL_VGA for bridge DOMAIN: 0000
+Setting PCI_BRIDGE_CTL_VGA for bridge Root Device
+Allocating resources...
+Reading resources...
+Root Device read_resources bus 0 link: 0
+CPU_CLUSTER: 0 read_resources bus 0 link: 0
+APIC: 00 missing read_resources
+APIC: 01 missing read_resources
+APIC: 02 missing read_resources
+APIC: 03 missing read_resources
+APIC: 04 missing read_resources
+APIC: 05 missing read_resources
+APIC: 06 missing read_resources
+APIC: 07 missing read_resources
+CPU_CLUSTER: 0 read_resources bus 0 link: 0 done
+DOMAIN: 0000 read_resources bus 0 link: 0
+PCI: 00:18.0 read_resources bus 0 link: 1
+PCI: 00:01.0 read_resources bus 0 link: 0
+PCI: 00:01.0 read_resources bus 0 link: 0 done
+PCI: 00:01.1 read_resources bus 1 link: 0
+I2C: 01:50 missing read_resources
+I2C: 01:51 missing read_resources
+I2C: 01:52 missing read_resources
+I2C: 01:53 missing read_resources
+I2C: 01:54 missing read_resources
+I2C: 01:55 missing read_resources
+I2C: 01:56 missing read_resources
+I2C: 01:57 missing read_resources
+PCI: 00:01.1 read_resources bus 1 link: 0 done
+PCI: 00:01.1 read_resources bus 2 link: 1
+PCI: 00:01.1 read_resources bus 2 link: 1 done
+PCI: 00:09.0 read_resources bus 1 link: 0
+PCI: 00:09.0 read_resources bus 1 link: 0 done
+PCI: 00:0b.0 read_resources bus 2 link: 0
+PCI: 00:0b.0 read_resources bus 2 link: 0 done
+PCI: 00:0c.0 read_resources bus 3 link: 0
+PCI: 00:0c.0 read_resources bus 3 link: 0 done
+PCI: 00:0d.0 read_resources bus 4 link: 0
+PCI: 00:0d.0 read_resources bus 4 link: 0 done
+PCI: 00:0e.0 read_resources bus 5 link: 0
+PCI: 00:0e.0 read_resources bus 5 link: 0 done
+PCI: 00:18.0 read_resources bus 0 link: 1 done
+PCI: 00:18.0 read_resources bus 0 link: 0
+PCI: 00:18.0 read_resources bus 0 link: 0 done
+PCI: 00:18.0 read_resources bus 0 link: 2
+PCI: 00:18.0 read_resources bus 0 link: 2 done
+PCI: 00:18.0 read_resources bus 0 link: 3
+PCI: 00:18.0 read_resources bus 0 link: 3 done
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+PCI: 00:18.4 read_resources bus 0 link: 0
+PCI: 00:18.4 read_resources bus 0 link: 0 done
+PCI: 00:18.4 read_resources bus 0 link: 1
+PCI: 00:18.4 read_resources bus 0 link: 1 done
+PCI: 00:18.4 read_resources bus 0 link: 2
+PCI: 00:18.4 read_resources bus 0 link: 2 done
+PCI: 00:18.4 read_resources bus 0 link: 3
+PCI: 00:18.4 read_resources bus 0 link: 3 done
+PCI: 00:19.0 read_resources bus 0 link: 0
+PCI: 00:19.0 read_resources bus 0 link: 0 done
+PCI: 00:19.0 read_resources bus 0 link: 1
+PCI: 00:19.0 read_resources bus 0 link: 1 done
+PCI: 00:19.0 read_resources bus 0 link: 2
+PCI: 00:19.0 read_resources bus 0 link: 2 done
+PCI: 00:19.0 read_resources bus 0 link: 3
+PCI: 00:19.0 read_resources bus 0 link: 3 done
+PCI: 00:19.4 read_resources bus 0 link: 0
+PCI: 00:19.4 read_resources bus 0 link: 0 done
+PCI: 00:19.4 read_resources bus 0 link: 1
+PCI: 00:19.4 read_resources bus 0 link: 1 done
+PCI: 00:19.4 read_resources bus 0 link: 2
+PCI: 00:19.4 read_resources bus 0 link: 2 done
+PCI: 00:19.4 read_resources bus 0 link: 3
+PCI: 00:19.4 read_resources bus 0 link: 3 done
+DOMAIN: 0000 read_resources bus 0 link: 0 done
+Root Device read_resources bus 0 link: 0 done
+Done reading resources.
+Show resources in subtree (Root Device)...After reading.
+ Root Device child on link 0 CPU_CLUSTER: 0
+  CPU_CLUSTER: 0 child on link 0 APIC: 00
+   APIC: 00
+   APIC: 01
+   APIC: 02
+   APIC: 03
+   APIC: 04
+   APIC: 05
+   APIC: 06
+   APIC: 07
+  DOMAIN: 0000 child on link 0 PCI: 00:18.0
+  DOMAIN: 0000 resource base 0 size 0 align 0 gran 0 limit ffff flags 40040100 index 10000000
+  DOMAIN: 0000 resource base 0 size 0 align 0 gran 0 limit ffffffff flags 40040200 index 10000100
+  DOMAIN: 0000 resource base c0000000 size 10000000 align 0 gran 0 limit 0 flags f0000200 index c0010058
+  DOMAIN: 0000 resource base 0 size c0000000 align 0 gran 0 limit 0 flags e0004200 index 7
+   PCI: 00:18.0 child on link 0 PCI: 00:00.0
+   PCI: 00:18.0 resource base 0 size 0 align 12 gran 12 limit ffff flags 80100 index 110d8
+   PCI: 00:18.0 resource base 0 size 0 align 20 gran 20 limit ffffffffff flags 81200 index 110b8
+   PCI: 00:18.0 resource base 0 size 0 align 20 gran 20 limit ffffffffff flags 80200 index 110b0
+    PCI: 00:00.0
+    PCI: 00:01.0 child on link 0 PNP: 002e.0
+    PCI: 00:01.0 resource base 0 size 80 align 7 gran 7 limit ffff flags 100 index 10
+    PCI: 00:01.0 resource base fec00000 size 1000 align 12 gran 12 limit ffffffff flags c0000200 index 14
+    PCI: 00:01.0 resource base fed00000 size 1000 align 12 gran 12 limit ffffffff flags c0000200 index 44
+    PCI: 00:01.0 resource base 0 size 100 align 8 gran 8 limit ffff flags 100 index 60
+    PCI: 00:01.0 resource base 0 size 100 align 8 gran 8 limit ffff flags 100 index 64
+    PCI: 00:01.0 resource base 0 size 100 align 8 gran 8 limit ffff flags 100 index 68
+    PCI: 00:01.0 resource base 0 size 1000 align 0 gran 0 limit 0 flags c0040100 index 10000000
+    PCI: 00:01.0 resource base ff800000 size 800000 align 0 gran 0 limit 0 flags c0040200 index 10000100
+     PNP: 002e.0
+     PNP: 002e.0 resource base 3f0 size 8 align 3 gran 3 limit 7ff flags c0000100 index 60
+     PNP: 002e.0 resource base 6 size 1 align 0 gran 0 limit 0 flags c0000400 index 70
+     PNP: 002e.0 resource base 2 size 1 align 0 gran 0 limit 0 flags c0000800 index 74
+     PNP: 002e.1
+     PNP: 002e.1 resource base 0 size 8 align 3 gran 3 limit 7ff flags 100 index 60
+     PNP: 002e.1 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index 70
+     PNP: 002e.1 resource base 0 size 1 align 0 gran 0 limit 0 flags 800 index 74
+     PNP: 002e.2
+     PNP: 002e.2 resource base 3f8 size 8 align 3 gran 3 limit 7ff flags c0000100 index 60
+     PNP: 002e.2 resource base 4 size 1 align 0 gran 0 limit 0 flags c0000400 index 70
+     PNP: 002e.3
+     PNP: 002e.3 resource base 2f8 size 8 align 3 gran 3 limit 7ff flags c0000100 index 60
+     PNP: 002e.3 resource base 3 size 1 align 0 gran 0 limit 0 flags c0000400 index 70
+     PNP: 002e.3 resource base 4 size 1 align 0 gran 0 limit 0 flags c0000500 index f1
+     PNP: 002e.5
+     PNP: 002e.5 resource base 60 size 1 align 0 gran 0 limit ffffffff flags c0000100 index 60
+     PNP: 002e.5 resource base 64 size 1 align 0 gran 0 limit ffffffff flags c0000100 index 62
+     PNP: 002e.5 resource base 1 size 1 align 0 gran 0 limit 0 flags c0000400 index 70
+     PNP: 002e.5 resource base c size 1 align 0 gran 0 limit 0 flags c0000400 index 72
+     PNP: 002e.5 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index f0
+     PNP: 002e.7
+     PNP: 002e.7 resource base 0 size 1 align 0 gran 0 limit ffffffff flags 100 index 60
+     PNP: 002e.7 resource base 0 size 2 align 1 gran 1 limit 7ff flags 100 index 62
+     PNP: 002e.7 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index 70
+     PNP: 002e.8
+     PNP: 002e.9
+     PNP: 002e.9 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index 30
+     PNP: 002e.9 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index f0
+     PNP: 002e.9 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index f1
+     PNP: 002e.a
+     PNP: 002e.a resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index 70
+     PNP: 002e.b
+     PNP: 002e.b resource base 290 size 8 align 3 gran 3 limit fff flags c0000100 index 60
+     PNP: 002e.b resource base 5 size 1 align 0 gran 0 limit 0 flags c0000400 index 70
+    PCI: 00:01.1 child on link 0 I2C: 01:50
+    PCI: 00:01.1 resource base 0 size 20 align 5 gran 5 limit ffff flags 100 index 10
+    PCI: 00:01.1 resource base 0 size 40 align 6 gran 6 limit ffff flags 100 index 20
+    PCI: 00:01.1 resource base 0 size 40 align 6 gran 6 limit ffff flags 100 index 24
+     I2C: 01:50
+     I2C: 01:51
+     I2C: 01:52
+     I2C: 01:53
+     I2C: 01:54
+     I2C: 01:55
+     I2C: 01:56
+     I2C: 01:57
+     I2C: 01:2f
+    PCI: 00:02.0
+    PCI: 00:02.0 resource base 0 size 1000 align 12 gran 12 limit ffffffff flags 200 index 10
+    PCI: 00:02.1
+    PCI: 00:02.1 resource base 0 size 100 align 8 gran 8 limit ffffffff flags 200 index 10
+    PCI: 00:04.0
+    PCI: 00:04.1
+    PCI: 00:06.0
+    PCI: 00:06.0 resource base 0 size 10 align 4 gran 4 limit ffff flags 100 index 20
+    PCI: 00:07.0
+    PCI: 00:07.0 resource base 0 size 8 align 3 gran 3 limit ffff flags 100 index 10
+    PCI: 00:07.0 resource base 0 size 4 align 2 gran 2 limit ffff flags 100 index 14
+    PCI: 00:07.0 resource base 0 size 8 align 3 gran 3 limit ffff flags 100 index 18
+    PCI: 00:07.0 resource base 0 size 4 align 2 gran 2 limit ffff flags 100 index 1c
+    PCI: 00:07.0 resource base 0 size 10 align 4 gran 4 limit ffff flags 100 index 20
+    PCI: 00:07.0 resource base 0 size 1000 align 12 gran 12 limit ffffffff flags 200 index 24
+    PCI: 00:08.0
+    PCI: 00:08.0 resource base 0 size 8 align 3 gran 3 limit ffff flags 100 index 10
+    PCI: 00:08.0 resource base 0 size 4 align 2 gran 2 limit ffff flags 100 index 14
+    PCI: 00:08.0 resource base 0 size 8 align 3 gran 3 limit ffff flags 100 index 18
+    PCI: 00:08.0 resource base 0 size 4 align 2 gran 2 limit ffff flags 100 index 1c
+    PCI: 00:08.0 resource base 0 size 10 align 4 gran 4 limit ffff flags 100 index 20
+    PCI: 00:08.0 resource base 0 size 1000 align 12 gran 12 limit ffffffff flags 200 index 24
+    PCI: 00:09.0 child on link 0 PCI: 01:04.0
+    PCI: 00:09.0 resource base 0 size 0 align 12 gran 12 limit ffff flags 80102 index 1c
+    PCI: 00:09.0 resource base 0 size 0 align 20 gran 20 limit ffffffff flags 81202 index 24
+    PCI: 00:09.0 resource base 0 size 0 align 20 gran 20 limit ffffffff flags 80202 index 20
+     PCI: 01:04.0
+     PCI: 01:04.0 resource base 0 size 4000000 align 26 gran 26 limit ffffffff flags 1200 index 10
+     PCI: 01:04.0 resource base 0 size 40000 align 18 gran 18 limit ffffffff flags 200 index 14
+     PCI: 01:04.0 resource base 0 size 80 align 7 gran 7 limit ffff flags 100 index 18
+    PCI: 00:0a.0
+    PCI: 00:0b.0 child on link 0 PCI: 02:00.0
+    PCI: 00:0b.0 resource base 0 size 0 align 12 gran 12 limit ffffffff flags 80102 index 1c
+    PCI: 00:0b.0 resource base 0 size 0 align 20 gran 20 limit ffffffffffffffff flags 81202 index 24
+    PCI: 00:0b.0 resource base 0 size 0 align 20 gran 20 limit ffffffff flags 80202 index 20
+     PCI: 02:00.0
+     PCI: 02:00.0 resource base 0 size 10000 align 16 gran 16 limit ffffffffffffffff flags 201 index 10
+    PCI: 00:0c.0 child on link 0 PCI: 03:00.0
+    PCI: 00:0c.0 resource base 0 size 0 align 12 gran 12 limit ffffffff flags 80102 index 1c
+    PCI: 00:0c.0 resource base 0 size 0 align 20 gran 20 limit ffffffffffffffff flags 81202 index 24
+    PCI: 00:0c.0 resource base 0 size 0 align 20 gran 20 limit ffffffff flags 80202 index 20
+     PCI: 03:00.0
+     PCI: 03:00.0 resource base 0 size 10000 align 16 gran 16 limit ffffffffffffffff flags 201 index 10
+    PCI: 00:0d.0 child on link 0 PCI: 04:00.0
+    PCI: 00:0d.0 resource base 0 size 0 align 12 gran 12 limit ffffffff flags 80102 index 1c
+    PCI: 00:0d.0 resource base 0 size 0 align 20 gran 20 limit ffffffffffffffff flags 81202 index 24
+    PCI: 00:0d.0 resource base 0 size 0 align 20 gran 20 limit ffffffff flags 80202 index 20
+     PCI: 04:00.0
+    PCI: 00:0e.0
+    PCI: 00:0e.0 resource base 0 size 0 align 12 gran 12 limit ffffffff flags 80102 index 1c
+    PCI: 00:0e.0 resource base 0 size 0 align 20 gran 20 limit ffffffffffffffff flags 81202 index 24
+    PCI: 00:0e.0 resource base 0 size 0 align 20 gran 20 limit ffffffff flags 80202 index 20
+    PCI: 00:0f.0
+   PCI: 00:18.1
+   PCI: 00:18.2
+   PCI: 00:18.3
+   PCI: 00:18.4
+   PCI: 00:19.0
+   PCI: 00:19.1
+   PCI: 00:19.2
+   PCI: 00:19.3
+   PCI: 00:19.4
+DOMAIN: 0000 io: base: 0 size: 0 align: 0 gran: 0 limit: ffff
+PCI: 00:18.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffff
+PCI: 00:09.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffff
+PCI: 01:04.0 18 *  [0x0 - 0x7f] io
+PCI: 00:09.0 io: base: 80 size: 1000 align: 12 gran: 12 limit: ffff done
+PCI: 00:0b.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffffffff
+PCI: 00:0b.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffffffff done
+PCI: 00:0c.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffffffff
+PCI: 00:0c.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffffffff done
+PCI: 00:0d.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffffffff
+PCI: 00:0d.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffffffff done
+PCI: 00:0e.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffffffff
+PCI: 00:0e.0 io: base: 0 size: 0 align: 12 gran: 12 limit: ffffffff done
+PCI: 00:09.0 1c *  [0x0 - 0xfff] io
+PCI: 00:01.0 60 *  [0x1000 - 0x10ff] io
+PCI: 00:01.0 64 *  [0x1400 - 0x14ff] io
+PCI: 00:01.0 68 *  [0x1800 - 0x18ff] io
+PCI: 00:01.0 10 *  [0x1c00 - 0x1c7f] io
+PCI: 00:01.1 20 *  [0x1c80 - 0x1cbf] io
+PCI: 00:01.1 24 *  [0x1cc0 - 0x1cff] io
+PCI: 00:01.1 10 *  [0x2000 - 0x201f] io
+PCI: 00:06.0 20 *  [0x2020 - 0x202f] io
+PCI: 00:07.0 20 *  [0x2030 - 0x203f] io
+PCI: 00:08.0 20 *  [0x2040 - 0x204f] io
+PCI: 00:07.0 10 *  [0x2050 - 0x2057] io
+PCI: 00:07.0 18 *  [0x2058 - 0x205f] io
+PCI: 00:08.0 10 *  [0x2060 - 0x2067] io
+PCI: 00:08.0 18 *  [0x2068 - 0x206f] io
+PCI: 00:07.0 14 *  [0x2070 - 0x2073] io
+PCI: 00:07.0 1c *  [0x2074 - 0x2077] io
+PCI: 00:08.0 14 *  [0x2078 - 0x207b] io
+PCI: 00:08.0 1c *  [0x207c - 0x207f] io
+PCI: 00:18.0 io: base: 2080 size: 3000 align: 12 gran: 12 limit: ffff done
+PCI: 00:18.0 110d8 *  [0x0 - 0x2fff] io
+DOMAIN: 0000 io: base: 3000 size: 3000 align: 12 gran: 0 limit: ffff done
+DOMAIN: 0000 mem: base: 0 size: 0 align: 0 gran: 0 limit: ffffffff
+PCI: 00:18.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffff
+PCI: 00:09.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffff
+PCI: 01:04.0 10 *  [0x0 - 0x3ffffff] prefmem
+PCI: 00:09.0 prefmem: base: 4000000 size: 4000000 align: 26 gran: 20 limit: ffffffff done
+PCI: 00:0b.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffffffffff
+PCI: 00:0b.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffffffffff done
+PCI: 00:0c.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffffffffff
+PCI: 00:0c.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffffffffff done
+PCI: 00:0d.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffffffffff
+PCI: 00:0d.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffffffffff done
+PCI: 00:0e.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffffffffff
+PCI: 00:0e.0 prefmem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffffffffff done
+PCI: 00:09.0 24 *  [0x0 - 0x3ffffff] prefmem
+PCI: 00:18.0 prefmem: base: 4000000 size: 4000000 align: 26 gran: 20 limit: ffffffff done
+PCI: 00:18.0 mem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffffff
+PCI: 00:09.0 mem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffff
+PCI: 01:04.0 14 *  [0x0 - 0x3ffff] mem
+PCI: 00:09.0 mem: base: 40000 size: 100000 align: 20 gran: 20 limit: ffffffff done
+PCI: 00:0b.0 mem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffff
+PCI: 02:00.0 10 *  [0x0 - 0xffff] mem
+PCI: 00:0b.0 mem: base: 10000 size: 100000 align: 20 gran: 20 limit: ffffffff done
+PCI: 00:0c.0 mem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffff
+PCI: 03:00.0 10 *  [0x0 - 0xffff] mem
+PCI: 00:0c.0 mem: base: 10000 size: 100000 align: 20 gran: 20 limit: ffffffff done
+PCI: 00:0d.0 mem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffff
+PCI: 00:0d.0 mem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffff done
+PCI: 00:0e.0 mem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffff
+PCI: 00:0e.0 mem: base: 0 size: 0 align: 20 gran: 20 limit: ffffffff done
+PCI: 00:09.0 20 *  [0x0 - 0xfffff] mem
+PCI: 00:0b.0 20 *  [0x100000 - 0x1fffff] mem
+PCI: 00:0c.0 20 *  [0x200000 - 0x2fffff] mem
+PCI: 00:02.0 10 *  [0x300000 - 0x300fff] mem
+PCI: 00:07.0 24 *  [0x301000 - 0x301fff] mem
+PCI: 00:08.0 24 *  [0x302000 - 0x302fff] mem
+PCI: 00:02.1 10 *  [0x303000 - 0x3030ff] mem
+PCI: 00:18.0 mem: base: 303100 size: 400000 align: 20 gran: 20 limit: ffffffff done
+PCI: 00:18.0 110b8 *  [0x0 - 0x3ffffff] prefmem
+PCI: 00:18.0 110b0 *  [0x4000000 - 0x43fffff] mem
+DOMAIN: 0000 mem: base: 4400000 size: 4400000 align: 26 gran: 0 limit: ffffffff done
+avoid_fixed_resources: DOMAIN: 0000
+avoid_fixed_resources:@DOMAIN: 0000 10000000 limit 0000ffff
+avoid_fixed_resources:@DOMAIN: 0000 10000100 limit ffffffff
+constrain_resources: DOMAIN: 0000 c0010058 base c0000000 limit cfffffff mem (fixed)
+constrain_resources: DOMAIN: 0000 07 base 00000000 limit bfffffff mem (fixed)
+constrain_resources: PCI: 00:01.0 14 base fec00000 limit fec00fff mem (fixed)
+constrain_resources: PCI: 00:01.0 10000000 base 00000000 limit 00000fff io (fixed)
+avoid_fixed_resources:@DOMAIN: 0000 10000000 base 00001000 limit 0000ffff
+avoid_fixed_resources:@DOMAIN: 0000 10000100 base f8000000 limit febfffff
+Setting resources...
+DOMAIN: 0000 io: base:1000 size:3000 align:12 gran:0 limit:ffff
+PCI: 00:18.0 110d8 *  [0x1000 - 0x3fff] io
+DOMAIN: 0000 io: next_base: 4000 size: 3000 align: 12 gran: 0 done
+PCI: 00:18.0 io: base:1000 size:3000 align:12 gran:12 limit:3fff
+PCI: 00:09.0 1c *  [0x1000 - 0x1fff] io
+PCI: 00:01.0 60 *  [0x2000 - 0x20ff] io
+PCI: 00:01.0 64 *  [0x2400 - 0x24ff] io
+PCI: 00:01.0 68 *  [0x2800 - 0x28ff] io
+PCI: 00:01.0 10 *  [0x2c00 - 0x2c7f] io
+PCI: 00:01.1 20 *  [0x2c80 - 0x2cbf] io
+PCI: 00:01.1 24 *  [0x2cc0 - 0x2cff] io
+PCI: 00:01.1 10 *  [0x3000 - 0x301f] io
+PCI: 00:06.0 20 *  [0x3020 - 0x302f] io
+PCI: 00:07.0 20 *  [0x3030 - 0x303f] io
+PCI: 00:08.0 20 *  [0x3040 - 0x304f] io
+PCI: 00:07.0 10 *  [0x3050 - 0x3057] io
+PCI: 00:07.0 18 *  [0x3058 - 0x305f] io
+PCI: 00:08.0 10 *  [0x3060 - 0x3067] io
+PCI: 00:08.0 18 *  [0x3068 - 0x306f] io
+PCI: 00:07.0 14 *  [0x3070 - 0x3073] io
+PCI: 00:07.0 1c *  [0x3074 - 0x3077] io
+PCI: 00:08.0 14 *  [0x3078 - 0x307b] io
+PCI: 00:08.0 1c *  [0x307c - 0x307f] io
+PCI: 00:18.0 io: next_base: 3080 size: 3000 align: 12 gran: 12 done
+PCI: 00:09.0 io: base:1000 size:1000 align:12 gran:12 limit:1fff
+PCI: 01:04.0 18 *  [0x1000 - 0x107f] io
+PCI: 00:09.0 io: next_base: 1080 size: 1000 align: 12 gran: 12 done
+PCI: 00:0b.0 io: base:3fff size:0 align:12 gran:12 limit:3fff
+PCI: 00:0b.0 io: next_base: 3fff size: 0 align: 12 gran: 12 done
+PCI: 00:0c.0 io: base:3fff size:0 align:12 gran:12 limit:3fff
+PCI: 00:0c.0 io: next_base: 3fff size: 0 align: 12 gran: 12 done
+PCI: 00:0d.0 io: base:3fff size:0 align:12 gran:12 limit:3fff
+PCI: 00:0d.0 io: next_base: 3fff size: 0 align: 12 gran: 12 done
+PCI: 00:0e.0 io: base:3fff size:0 align:12 gran:12 limit:3fff
+PCI: 00:0e.0 io: next_base: 3fff size: 0 align: 12 gran: 12 done
+DOMAIN: 0000 mem: base:f8000000 size:4400000 align:26 gran:0 limit:febfffff
+PCI: 00:18.0 110b8 *  [0xf8000000 - 0xfbffffff] prefmem
+PCI: 00:18.0 110b0 *  [0xfc000000 - 0xfc3fffff] mem
+DOMAIN: 0000 mem: next_base: fc400000 size: 4400000 align: 26 gran: 0 done
+PCI: 00:18.0 prefmem: base:f8000000 size:4000000 align:26 gran:20 limit:fbffffff
+PCI: 00:09.0 24 *  [0xf8000000 - 0xfbffffff] prefmem
+PCI: 00:18.0 prefmem: next_base: fc000000 size: 4000000 align: 26 gran: 20 done
+PCI: 00:09.0 prefmem: base:f8000000 size:4000000 align:26 gran:20 limit:fbffffff
+PCI: 01:04.0 10 *  [0xf8000000 - 0xfbffffff] prefmem
+PCI: 00:09.0 prefmem: next_base: fc000000 size: 4000000 align: 26 gran: 20 done
+PCI: 00:0b.0 prefmem: base:fbffffff size:0 align:20 gran:20 limit:fbffffff
+PCI: 00:0b.0 prefmem: next_base: fbffffff size: 0 align: 20 gran: 20 done
+PCI: 00:0c.0 prefmem: base:fbffffff size:0 align:20 gran:20 limit:fbffffff
+PCI: 00:0c.0 prefmem: next_base: fbffffff size: 0 align: 20 gran: 20 done
+PCI: 00:0d.0 prefmem: base:fbffffff size:0 align:20 gran:20 limit:fbffffff
+PCI: 00:0d.0 prefmem: next_base: fbffffff size: 0 align: 20 gran: 20 done
+PCI: 00:0e.0 prefmem: base:fbffffff size:0 align:20 gran:20 limit:fbffffff
+PCI: 00:0e.0 prefmem: next_base: fbffffff size: 0 align: 20 gran: 20 done
+PCI: 00:18.0 mem: base:fc000000 size:400000 align:20 gran:20 limit:fc3fffff
+PCI: 00:09.0 20 *  [0xfc000000 - 0xfc0fffff] mem
+PCI: 00:0b.0 20 *  [0xfc100000 - 0xfc1fffff] mem
+PCI: 00:0c.0 20 *  [0xfc200000 - 0xfc2fffff] mem
+PCI: 00:02.0 10 *  [0xfc300000 - 0xfc300fff] mem
+PCI: 00:07.0 24 *  [0xfc301000 - 0xfc301fff] mem
+PCI: 00:08.0 24 *  [0xfc302000 - 0xfc302fff] mem
+PCI: 00:02.1 10 *  [0xfc303000 - 0xfc3030ff] mem
+PCI: 00:18.0 mem: next_base: fc303100 size: 400000 align: 20 gran: 20 done
+PCI: 00:09.0 mem: base:fc000000 size:100000 align:20 gran:20 limit:fc0fffff
+PCI: 01:04.0 14 *  [0xfc000000 - 0xfc03ffff] mem
+PCI: 00:09.0 mem: next_base: fc040000 size: 100000 align: 20 gran: 20 done
+PCI: 00:0b.0 mem: base:fc100000 size:100000 align:20 gran:20 limit:fc1fffff
+PCI: 02:00.0 10 *  [0xfc100000 - 0xfc10ffff] mem
+PCI: 00:0b.0 mem: next_base: fc110000 size: 100000 align: 20 gran: 20 done
+PCI: 00:0c.0 mem: base:fc200000 size:100000 align:20 gran:20 limit:fc2fffff
+PCI: 03:00.0 10 *  [0xfc200000 - 0xfc20ffff] mem
+PCI: 00:0c.0 mem: next_base: fc210000 size: 100000 align: 20 gran: 20 done
+PCI: 00:0d.0 mem: base:fc3fffff size:0 align:20 gran:20 limit:fc3fffff
+PCI: 00:0d.0 mem: next_base: fc3fffff size: 0 align: 20 gran: 20 done
+PCI: 00:0e.0 mem: base:fc3fffff size:0 align:20 gran:20 limit:fc3fffff
+PCI: 00:0e.0 mem: next_base: fc3fffff size: 0 align: 20 gran: 20 done
+Root Device assign_resources, bus 0 link: 0
+0: mmio_basek=00300000, basek=00400000, limitk=00500000
+1: mmio_basek=00300000, basek=00500000, limitk=00600000
+DOMAIN: 0000 assign_resources, bus 0 link: 0
+VGA: PCI: 00:18.0 (aka node 0) link 1 has VGA device
+PCI: 00:18.0 110d8 <- [0x0000001000 - 0x0000003fff] size 0x00003000 gran 0x0c io <node 0 link 1>
+PCI: 00:18.0 110b8 <- [0x00f8000000 - 0x00fbffffff] size 0x04000000 gran 0x14 prefmem <node 0 link 1>
+PCI: 00:18.0 110b0 <- [0x00fc000000 - 0x00fc3fffff] size 0x00400000 gran 0x14 mem <node 0 link 1>
+PCI: 00:18.0 assign_resources, bus 0 link: 1
+PCI: 00:01.0 10 <- [0x0000002c00 - 0x0000002c7f] size 0x00000080 gran 0x07 io
+PCI: 00:01.0 60 <- [0x0000002000 - 0x00000020ff] size 0x00000100 gran 0x08 io
+PCI: 00:01.0 64 <- [0x0000002400 - 0x00000024ff] size 0x00000100 gran 0x08 io
+PCI: 00:01.0 68 <- [0x0000002800 - 0x00000028ff] size 0x00000100 gran 0x08 io
+PCI: 00:01.0 assign_resources, bus 0 link: 0
+PNP: 002e.0 60 <- [0x00000003f0 - 0x00000003f7] size 0x00000008 gran 0x03 io
+PNP: 002e.0 70 <- [0x0000000006 - 0x0000000006] size 0x00000001 gran 0x00 irq
+PNP: 002e.0 74 <- [0x0000000002 - 0x0000000002] size 0x00000001 gran 0x00 drq
+PNP: 002e.2 60 <- [0x00000003f8 - 0x00000003ff] size 0x00000008 gran 0x03 io
+PNP: 002e.2 70 <- [0x0000000004 - 0x0000000004] size 0x00000001 gran 0x00 irq
+PNP: 002e.3 60 <- [0x00000002f8 - 0x00000002ff] size 0x00000008 gran 0x03 io
+PNP: 002e.3 70 <- [0x0000000003 - 0x0000000003] size 0x00000001 gran 0x00 irq
+PNP: 002e.3 f1 <- [0x0000000004 - 0x0000000004] size 0x00000001 gran 0x00 io
+PNP: 002e.5 60 <- [0x0000000060 - 0x0000000060] size 0x00000001 gran 0x00 io
+PNP: 002e.5 62 <- [0x0000000064 - 0x0000000064] size 0x00000001 gran 0x00 io
+PNP: 002e.5 70 <- [0x0000000001 - 0x0000000001] size 0x00000001 gran 0x00 irq
+PNP: 002e.5 72 <- [0x000000000c - 0x000000000c] size 0x00000001 gran 0x00 irq
+ERROR: PNP: 002e.5 f0 irq size: 0x0000000001 not assigned
+ERROR: PNP: 002e.9 30 irq size: 0x0000000001 not assigned
+ERROR: PNP: 002e.9 f0 irq size: 0x0000000001 not assigned
+ERROR: PNP: 002e.9 f1 irq size: 0x0000000001 not assigned
+PNP: 002e.b 60 <- [0x0000000290 - 0x0000000297] size 0x00000008 gran 0x03 io
+PNP: 002e.b 70 <- [0x0000000005 - 0x0000000005] size 0x00000001 gran 0x00 irq
+PCI: 00:01.0 assign_resources, bus 0 link: 0
+PCI: 00:01.0 14 <- [0x00fec00000 - 0x00fec00fff] size 0x00001000 gran 0x0c mem
+PCI: 00:01.0 44 <- [0x00fed00000 - 0x00fed00fff] size 0x00001000 gran 0x0c mem
+PCI: 00:01.1 10 <- [0x0000003000 - 0x000000301f] size 0x00000020 gran 0x05 io
+PCI: 00:01.1 20 <- [0x0000002c80 - 0x0000002cbf] size 0x00000040 gran 0x06 io
+PCI: 00:01.1 24 <- [0x0000002cc0 - 0x0000002cff] size 0x00000040 gran 0x06 io
+PCI: 00:01.1 assign_resources, bus 1 link: 0
+PCI: 00:01.1 assign_resources, bus 1 link: 0
+PCI: 00:02.0 10 <- [0x00fc300000 - 0x00fc300fff] size 0x00001000 gran 0x0c mem
+PCI: 00:02.1 10 <- [0x00fc303000 - 0x00fc3030ff] size 0x00000100 gran 0x08 mem
+PCI: 00:06.0 20 <- [0x0000003020 - 0x000000302f] size 0x00000010 gran 0x04 io
+PCI: 00:07.0 10 <- [0x0000003050 - 0x0000003057] size 0x00000008 gran 0x03 io
+PCI: 00:07.0 14 <- [0x0000003070 - 0x0000003073] size 0x00000004 gran 0x02 io
+PCI: 00:07.0 18 <- [0x0000003058 - 0x000000305f] size 0x00000008 gran 0x03 io
+PCI: 00:07.0 1c <- [0x0000003074 - 0x0000003077] size 0x00000004 gran 0x02 io
+PCI: 00:07.0 20 <- [0x0000003030 - 0x000000303f] size 0x00000010 gran 0x04 io
+PCI: 00:07.0 24 <- [0x00fc301000 - 0x00fc301fff] size 0x00001000 gran 0x0c mem
+PCI: 00:08.0 10 <- [0x0000003060 - 0x0000003067] size 0x00000008 gran 0x03 io
+PCI: 00:08.0 14 <- [0x0000003078 - 0x000000307b] size 0x00000004 gran 0x02 io
+PCI: 00:08.0 18 <- [0x0000003068 - 0x000000306f] size 0x00000008 gran 0x03 io
+PCI: 00:08.0 1c <- [0x000000307c - 0x000000307f] size 0x00000004 gran 0x02 io
+PCI: 00:08.0 20 <- [0x0000003040 - 0x000000304f] size 0x00000010 gran 0x04 io
+PCI: 00:08.0 24 <- [0x00fc302000 - 0x00fc302fff] size 0x00001000 gran 0x0c mem
+PCI: 00:09.0 1c <- [0x0000001000 - 0x0000001fff] size 0x00001000 gran 0x0c bus 01 io
+PCI: 00:09.0 24 <- [0x00f8000000 - 0x00fbffffff] size 0x04000000 gran 0x14 bus 01 prefmem
+PCI: 00:09.0 20 <- [0x00fc000000 - 0x00fc0fffff] size 0x00100000 gran 0x14 bus 01 mem
+PCI: 00:09.0 assign_resources, bus 1 link: 0
+PCI: 01:04.0 10 <- [0x00f8000000 - 0x00fbffffff] size 0x04000000 gran 0x1a prefmem
+PCI: 01:04.0 14 <- [0x00fc000000 - 0x00fc03ffff] size 0x00040000 gran 0x12 mem
+PCI: 01:04.0 18 <- [0x0000001000 - 0x000000107f] size 0x00000080 gran 0x07 io
+PCI: 00:09.0 assign_resources, bus 1 link: 0
+PCI: 00:0b.0 1c <- [0x0000003fff - 0x0000003ffe] size 0x00000000 gran 0x0c bus 02 io
+PCI: 00:0b.0 24 <- [0x00fbffffff - 0x00fbfffffe] size 0x00000000 gran 0x14 bus 02 prefmem
+PCI: 00:0b.0 20 <- [0x00fc100000 - 0x00fc1fffff] size 0x00100000 gran 0x14 bus 02 mem
+PCI: 00:0b.0 assign_resources, bus 2 link: 0
+PCI: 02:00.0 10 <- [0x00fc100000 - 0x00fc10ffff] size 0x00010000 gran 0x10 mem64
+PCI: 00:0b.0 assign_resources, bus 2 link: 0
+PCI: 00:0c.0 1c <- [0x0000003fff - 0x0000003ffe] size 0x00000000 gran 0x0c bus 03 io
+PCI: 00:0c.0 24 <- [0x00fbffffff - 0x00fbfffffe] size 0x00000000 gran 0x14 bus 03 prefmem
+PCI: 00:0c.0 20 <- [0x00fc200000 - 0x00fc2fffff] size 0x00100000 gran 0x14 bus 03 mem
+PCI: 00:0c.0 assign_resources, bus 3 link: 0
+PCI: 03:00.0 10 <- [0x00fc200000 - 0x00fc20ffff] size 0x00010000 gran 0x10 mem64
+PCI: 00:0c.0 assign_resources, bus 3 link: 0
+PCI: 00:0d.0 1c <- [0x0000003fff - 0x0000003ffe] size 0x00000000 gran 0x0c bus 04 io
+PCI: 00:0d.0 24 <- [0x00fbffffff - 0x00fbfffffe] size 0x00000000 gran 0x14 bus 04 prefmem
+PCI: 00:0d.0 20 <- [0x00fc3fffff - 0x00fc3ffffe] size 0x00000000 gran 0x14 bus 04 mem
+PCI: 00:0d.0 assign_resources, bus 4 link: 0
+PCI: 00:0d.0 assign_resources, bus 4 link: 0
+PCI: 00:0e.0 1c <- [0x0000003fff - 0x0000003ffe] size 0x00000000 gran 0x0c bus 05 io
+PCI: 00:0e.0 24 <- [0x00fbffffff - 0x00fbfffffe] size 0x00000000 gran 0x14 bus 05 prefmem
+PCI: 00:0e.0 20 <- [0x00fc3fffff - 0x00fc3ffffe] size 0x00000000 gran 0x14 bus 05 mem
+PCI: 00:18.0 assign_resources, bus 0 link: 1
+DOMAIN: 0000 assign_resources, bus 0 link: 0
+Root Device assign_resources, bus 0 link: 0
+Done setting resources.
+Show resources in subtree (Root Device)...After assigning values.
+ Root Device child on link 0 CPU_CLUSTER: 0
+  CPU_CLUSTER: 0 child on link 0 APIC: 00
+   APIC: 00
+   APIC: 01
+   APIC: 02
+   APIC: 03
+   APIC: 04
+   APIC: 05
+   APIC: 06
+   APIC: 07
+  DOMAIN: 0000 child on link 0 PCI: 00:18.0
+  DOMAIN: 0000 resource base 1000 size 3000 align 12 gran 0 limit ffff flags 40040100 index 10000000
+  DOMAIN: 0000 resource base f8000000 size 4400000 align 26 gran 0 limit febfffff flags 40040200 index 10000100
+  DOMAIN: 0000 resource base c0000000 size 10000000 align 0 gran 0 limit 0 flags f0000200 index c0010058
+  DOMAIN: 0000 resource base 0 size c0000000 align 0 gran 0 limit 0 flags e0004200 index 7
+  DOMAIN: 0000 resource base 0 size a0000 align 0 gran 0 limit 0 flags e0004200 index 10
+  DOMAIN: 0000 resource base c0000 size bff40000 align 0 gran 0 limit 0 flags e0004200 index 20
+  DOMAIN: 0000 resource base 100000000 size 40000000 align 0 gran 0 limit 0 flags e0004200 index 30
+  DOMAIN: 0000 resource base 140000000 size 40000000 align 0 gran 0 limit 0 flags e0004200 index 41
+   PCI: 00:18.0 child on link 0 PCI: 00:00.0
+   PCI: 00:18.0 resource base 1000 size 3000 align 12 gran 12 limit 3fff flags 60080100 index 110d8
+   PCI: 00:18.0 resource base f8000000 size 4000000 align 26 gran 20 limit fbffffff flags 60081200 index 110b8
+   PCI: 00:18.0 resource base fc000000 size 400000 align 20 gran 20 limit fc3fffff flags 60080200 index 110b0
+    PCI: 00:00.0
+    PCI: 00:01.0 child on link 0 PNP: 002e.0
+    PCI: 00:01.0 resource base 2c00 size 80 align 7 gran 7 limit 2c7f flags 60000100 index 10
+    PCI: 00:01.0 resource base fec00000 size 1000 align 12 gran 12 limit ffffffff flags e0000200 index 14
+    PCI: 00:01.0 resource base fed00000 size 1000 align 12 gran 12 limit ffffffff flags e0000200 index 44
+    PCI: 00:01.0 resource base 2000 size 100 align 8 gran 8 limit 20ff flags 60000100 index 60
+    PCI: 00:01.0 resource base 2400 size 100 align 8 gran 8 limit 24ff flags 60000100 index 64
+    PCI: 00:01.0 resource base 2800 size 100 align 8 gran 8 limit 28ff flags 60000100 index 68
+    PCI: 00:01.0 resource base 0 size 1000 align 0 gran 0 limit 0 flags c0040100 index 10000000
+    PCI: 00:01.0 resource base ff800000 size 800000 align 0 gran 0 limit 0 flags c0040200 index 10000100
+     PNP: 002e.0
+     PNP: 002e.0 resource base 3f0 size 8 align 3 gran 3 limit 7ff flags e0000100 index 60
+     PNP: 002e.0 resource base 6 size 1 align 0 gran 0 limit 0 flags e0000400 index 70
+     PNP: 002e.0 resource base 2 size 1 align 0 gran 0 limit 0 flags e0000800 index 74
+     PNP: 002e.1
+     PNP: 002e.1 resource base 0 size 8 align 3 gran 3 limit 7ff flags 100 index 60
+     PNP: 002e.1 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index 70
+     PNP: 002e.1 resource base 0 size 1 align 0 gran 0 limit 0 flags 800 index 74
+     PNP: 002e.2
+     PNP: 002e.2 resource base 3f8 size 8 align 3 gran 3 limit 7ff flags e0000100 index 60
+     PNP: 002e.2 resource base 4 size 1 align 0 gran 0 limit 0 flags e0000400 index 70
+     PNP: 002e.3
+     PNP: 002e.3 resource base 2f8 size 8 align 3 gran 3 limit 7ff flags e0000100 index 60
+     PNP: 002e.3 resource base 3 size 1 align 0 gran 0 limit 0 flags e0000400 index 70
+     PNP: 002e.3 resource base 4 size 1 align 0 gran 0 limit 0 flags e0000500 index f1
+     PNP: 002e.5
+     PNP: 002e.5 resource base 60 size 1 align 0 gran 0 limit ffffffff flags e0000100 index 60
+     PNP: 002e.5 resource base 64 size 1 align 0 gran 0 limit ffffffff flags e0000100 index 62
+     PNP: 002e.5 resource base 1 size 1 align 0 gran 0 limit 0 flags e0000400 index 70
+     PNP: 002e.5 resource base c size 1 align 0 gran 0 limit 0 flags e0000400 index 72
+     PNP: 002e.5 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index f0
+     PNP: 002e.7
+     PNP: 002e.7 resource base 0 size 1 align 0 gran 0 limit ffffffff flags 100 index 60
+     PNP: 002e.7 resource base 0 size 2 align 1 gran 1 limit 7ff flags 100 index 62
+     PNP: 002e.7 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index 70
+     PNP: 002e.8
+     PNP: 002e.9
+     PNP: 002e.9 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index 30
+     PNP: 002e.9 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index f0
+     PNP: 002e.9 resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index f1
+     PNP: 002e.a
+     PNP: 002e.a resource base 0 size 1 align 0 gran 0 limit 0 flags 400 index 70
+     PNP: 002e.b
+     PNP: 002e.b resource base 290 size 8 align 3 gran 3 limit fff flags e0000100 index 60
+     PNP: 002e.b resource base 5 size 1 align 0 gran 0 limit 0 flags e0000400 index 70
+    PCI: 00:01.1 child on link 0 I2C: 01:50
+    PCI: 00:01.1 resource base 3000 size 20 align 5 gran 5 limit 301f flags 60000100 index 10
+    PCI: 00:01.1 resource base 2c80 size 40 align 6 gran 6 limit 2cbf flags 60000100 index 20
+    PCI: 00:01.1 resource base 2cc0 size 40 align 6 gran 6 limit 2cff flags 60000100 index 24
+     I2C: 01:50
+     I2C: 01:51
+     I2C: 01:52
+     I2C: 01:53
+     I2C: 01:54
+     I2C: 01:55
+     I2C: 01:56
+     I2C: 01:57
+     I2C: 01:2f
+    PCI: 00:02.0
+    PCI: 00:02.0 resource base fc300000 size 1000 align 12 gran 12 limit fc300fff flags 60000200 index 10
+    PCI: 00:02.1
+    PCI: 00:02.1 resource base fc303000 size 100 align 8 gran 8 limit fc3030ff flags 60000200 index 10
+    PCI: 00:04.0
+    PCI: 00:04.1
+    PCI: 00:06.0
+    PCI: 00:06.0 resource base 3020 size 10 align 4 gran 4 limit 302f flags 60000100 index 20
+    PCI: 00:07.0
+    PCI: 00:07.0 resource base 3050 size 8 align 3 gran 3 limit 3057 flags 60000100 index 10
+    PCI: 00:07.0 resource base 3070 size 4 align 2 gran 2 limit 3073 flags 60000100 index 14
+    PCI: 00:07.0 resource base 3058 size 8 align 3 gran 3 limit 305f flags 60000100 index 18
+    PCI: 00:07.0 resource base 3074 size 4 align 2 gran 2 limit 3077 flags 60000100 index 1c
+    PCI: 00:07.0 resource base 3030 size 10 align 4 gran 4 limit 303f flags 60000100 index 20
+    PCI: 00:07.0 resource base fc301000 size 1000 align 12 gran 12 limit fc301fff flags 60000200 index 24
+    PCI: 00:08.0
+    PCI: 00:08.0 resource base 3060 size 8 align 3 gran 3 limit 3067 flags 60000100 index 10
+    PCI: 00:08.0 resource base 3078 size 4 align 2 gran 2 limit 307b flags 60000100 index 14
+    PCI: 00:08.0 resource base 3068 size 8 align 3 gran 3 limit 306f flags 60000100 index 18
+    PCI: 00:08.0 resource base 307c size 4 align 2 gran 2 limit 307f flags 60000100 index 1c
+    PCI: 00:08.0 resource base 3040 size 10 align 4 gran 4 limit 304f flags 60000100 index 20
+    PCI: 00:08.0 resource base fc302000 size 1000 align 12 gran 12 limit fc302fff flags 60000200 index 24
+    PCI: 00:09.0 child on link 0 PCI: 01:04.0
+    PCI: 00:09.0 resource base 1000 size 1000 align 12 gran 12 limit 1fff flags 60080102 index 1c
+    PCI: 00:09.0 resource base f8000000 size 4000000 align 26 gran 20 limit fbffffff flags 60081202 index 24
+    PCI: 00:09.0 resource base fc000000 size 100000 align 20 gran 20 limit fc0fffff flags 60080202 index 20
+     PCI: 01:04.0
+     PCI: 01:04.0 resource base f8000000 size 4000000 align 26 gran 26 limit fbffffff flags 60001200 index 10
+     PCI: 01:04.0 resource base fc000000 size 40000 align 18 gran 18 limit fc03ffff flags 60000200 index 14
+     PCI: 01:04.0 resource base 1000 size 80 align 7 gran 7 limit 107f flags 60000100 index 18
+     PCI: 01:04.0 resource base a0000 size 1fc00 align 0 gran 0 limit 0 flags f0000200 index 3
+    PCI: 00:0a.0
+    PCI: 00:0b.0 child on link 0 PCI: 02:00.0
+    PCI: 00:0b.0 resource base 3fff size 0 align 12 gran 12 limit 3fff flags 60080102 index 1c
+    PCI: 00:0b.0 resource base fbffffff size 0 align 20 gran 20 limit fbffffff flags 60081202 index 24
+    PCI: 00:0b.0 resource base fc100000 size 100000 align 20 gran 20 limit fc1fffff flags 60080202 index 20
+     PCI: 02:00.0
+     PCI: 02:00.0 resource base fc100000 size 10000 align 16 gran 16 limit fc10ffff flags 60000201 index 10
+    PCI: 00:0c.0 child on link 0 PCI: 03:00.0
+    PCI: 00:0c.0 resource base 3fff size 0 align 12 gran 12 limit 3fff flags 60080102 index 1c
+    PCI: 00:0c.0 resource base fbffffff size 0 align 20 gran 20 limit fbffffff flags 60081202 index 24
+    PCI: 00:0c.0 resource base fc200000 size 100000 align 20 gran 20 limit fc2fffff flags 60080202 index 20
+     PCI: 03:00.0
+     PCI: 03:00.0 resource base fc200000 size 10000 align 16 gran 16 limit fc20ffff flags 60000201 index 10
+    PCI: 00:0d.0 child on link 0 PCI: 04:00.0
+    PCI: 00:0d.0 resource base 3fff size 0 align 12 gran 12 limit 3fff flags 60080102 index 1c
+    PCI: 00:0d.0 resource base fbffffff size 0 align 20 gran 20 limit fbffffff flags 60081202 index 24
+    PCI: 00:0d.0 resource base fc3fffff size 0 align 20 gran 20 limit fc3fffff flags 60080202 index 20
+     PCI: 04:00.0
+    PCI: 00:0e.0
+    PCI: 00:0e.0 resource base 3fff size 0 align 12 gran 12 limit 3fff flags 60080102 index 1c
+    PCI: 00:0e.0 resource base fbffffff size 0 align 20 gran 20 limit fbffffff flags 60081202 index 24
+    PCI: 00:0e.0 resource base fc3fffff size 0 align 20 gran 20 limit fc3fffff flags 60080202 index 20
+    PCI: 00:0f.0
+   PCI: 00:18.1
+   PCI: 00:18.2
+   PCI: 00:18.3
+   PCI: 00:18.4
+   PCI: 00:19.0
+   PCI: 00:19.1
+   PCI: 00:19.2
+   PCI: 00:19.3
+   PCI: 00:19.4
+Done allocating resources.
+BS: BS_DEV_RESOURCES times (us): entry 0 run 3268064 exit 0
+Enabling resources...
+PCI: 00:18.0 cmd <- 00
+PCI: 00:18.1 subsystem <- 1043/8162
+PCI: 00:18.1 cmd <- 00
+PCI: 00:18.2 subsystem <- 1043/8162
+PCI: 00:18.2 cmd <- 00
+PCI: 00:18.3 cmd <- 00
+PCI: 00:18.4 subsystem <- 1043/8162
+PCI: 00:18.4 cmd <- 00
+PCI: 00:19.0 cmd <- 00
+PCI: 00:19.1 subsystem <- 1043/8162
+PCI: 00:19.1 cmd <- 00
+PCI: 00:19.2 subsystem <- 1043/8162
+PCI: 00:19.2 cmd <- 00
+PCI: 00:19.3 cmd <- 00
+PCI: 00:19.4 subsystem <- 1043/8162
+PCI: 00:19.4 cmd <- 00
+PCI: 00:00.0 subsystem <- 1043/8162
+PCI: 00:00.0 cmd <- 06
+PCI: 00:01.0 subsystem <- 1043/8162
+PCI: 00:01.0 cmd <- 0f
+ck804 lpc decode:PNP: 002e.0, base=0x000003f0, end=0x000003f7
+ck804 lpc decode:PNP: 002e.2, base=0x000003f8, end=0x000003ff
+ck804 lpc decode:PNP: 002e.3, base=0x000002f8, end=0x000002ff
+ck804 lpc decode:PNP: 002e.3, base=0x00000004, end=0x00000004
+ck804 lpc decode:PNP: 002e.5, base=0x00000060, end=0x00000060
+ck804 lpc decode:PNP: 002e.5, base=0x00000064, end=0x00000064
+ck804 lpc decode:PNP: 002e.b, base=0x00000290, end=0x00000297
+PCI: 00:01.1 subsystem <- 1043/8162
+PCI: 00:01.1 cmd <- 01
+PCI: 00:02.0 subsystem <- 1043/8162
+PCI: 00:02.0 cmd <- 02
+PCI: 00:02.1 subsystem <- 1043/8162
+PCI: 00:02.1 cmd <- 02
+PCI: 00:06.0 subsystem <- 1043/8162
+PCI: 00:06.0 cmd <- 01
+PCI: 00:07.0 subsystem <- 1043/8162
+PCI: 00:07.0 cmd <- 03
+PCI: 00:08.0 subsystem <- 1043/8162
+PCI: 00:08.0 cmd <- 03
+PCI: 00:09.0 bridge ctrl <- 000b
+PCI: 00:09.0 cmd <- 07
+PCI: 00:0b.0 bridge ctrl <- 0003
+PCI: 00:0b.0 cmd <- 06
+PCI: 00:0c.0 bridge ctrl <- 0003
+PCI: 00:0c.0 cmd <- 06
+PCI: 00:0d.0 bridge ctrl <- 0003
+PCI: 00:0d.0 cmd <- 00
+PCI: 00:0e.0 bridge ctrl <- 0003
+PCI: 00:0e.0 cmd <- 00
+PCI: 01:04.0 cmd <- 03
+PCI: 02:00.0 subsystem <- 1043/8162
+PCI: 02:00.0 cmd <- 02
+PCI: 03:00.0 subsystem <- 1043/8162
+PCI: 03:00.0 cmd <- 02
+done.
+BS: BS_DEV_ENABLE times (us): entry 0 run 162780 exit 0
+Initializing devices...
+Root Device init ...
+Root Device init finished in 1931 usecs
+CPU_CLUSTER: 0 init ...
+start_eip=0x00001000, code_size=0x00000031
+CPU1: stack_base 00138000, stack_end 00138ff8
+Asserting INIT.
+Waiting for send to finish...
++Deasserting INIT.
+Waiting for send to finish...
++#startup loops: 2.
+Sending STARTUP #1 to 1.
+After apic_write.
+Initializing CPU #1
+Startup point 1.
+Waiting for send to finish...
++CPU: vendor AMD device 100f21
+Sending STARTUP #2 to 1.
+After apic_write.
+CPU: family 10, model 02, stepping 01
+Startup point 1.
+Waiting for send to finish...
++nodeid = 00, coreid = 01
+After Startup.
+CPU2: stack_base 00137000, stack_end 00137ff8
+Enabling cache
+Asserting INIT.
+CPU ID 0x80000001: 100f21
+CPU is Fam 0Fh rev.F or later. We can use TOM2WB for any memory above 4GB
+Waiting for send to finish...
++MTRR: Physical address space:
+0x0000000000000000 - 0x00000000000a0000 size 0x000a0000 type 6
+0x00000000000a0000 - 0x00000000000c0000 size 0x00020000 type 0
+0x00000000000c0000 - 0x00000000c0000000 size 0xbff40000 type 6
+0x00000000c0000000 - 0x00000000f8000000 size 0x38000000 type 0
+0x00000000f8000000 - 0x00000000fc000000 size 0x04000000 type 1
+0x00000000fc000000 - 0x0000000100000000 size 0x04000000 type 0
+0x0000000100000000 - 0x0000000180000000 size 0x80000000 type 6
+Deasserting INIT.
+MTRR: Fixed MSR 0x250 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x258 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x259 0x0000000000000000
+MTRR: Fixed MSR 0x268 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x269 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26a 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26b 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26c 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26d 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26e 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26f 0x1e1e1e1e1e1e1e1e
+Waiting for send to finish...
++MTRR: default type WB/UC MTRR counts: 5/3.
+MTRR: UC selected as default type.
+MTRR: 0 base 0x0000000000000000 mask 0x0000ffff80000000 type 6
+MTRR: 1 base 0x0000000080000000 mask 0x0000ffffc0000000 type 6
+MTRR: 2 base 0x00000000f8000000 mask 0x0000fffffc000000 type 1
+#startup loops: 2.
+Sending STARTUP #1 to 2.
+After apic_write.
+
+MTRR check
+Fixed MTRRs   : Enabled
+Variable MTRRs: Enabled
+
+Startup point 1.
+Waiting for send to finish...
++Setting up local apic...Sending STARTUP #2 to 2.
+After apic_write.
+ apic_id: 0x01 done.
+Startup point 1.
+Waiting for send to finish...
++CPU model: Quad-Core AMD Opteron(tm) Processor 8347
+After Startup.
+siblings = 03, CPU3: stack_base 00136000, stack_end 00136ff8
+CPU #1 initialized
+Asserting INIT.
+Waiting for send to finish...
++Initializing CPU #2
+Deasserting INIT.
+Waiting for send to finish...
++CPU: vendor AMD device 100f21
+#startup loops: 2.
+Sending STARTUP #1 to 3.
+After apic_write.
+CPU: family 10, model 02, stepping 01
+Startup point 1.
+Waiting for send to finish...
++nodeid = 00, coreid = 02
+Sending STARTUP #2 to 3.
+After apic_write.
+Enabling cache
+Startup point 1.
+Waiting for send to finish...
++CPU ID 0x80000001: 100f21
+CPU is Fam 0Fh rev.F or later. We can use TOM2WB for any memory above 4GB
+After Startup.
+MTRR: Fixed MSR 0x250 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x258 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x259 0x0000000000000000
+MTRR: Fixed MSR 0x268 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x269 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26a 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26b 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26c 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26d 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26e 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26f 0x1e1e1e1e1e1e1e1e
+CPU4: stack_base 00135000, stack_end 00135ff8
+
+MTRR check
+Fixed MTRRs   : Enabled
+Variable MTRRs: Enabled
+
+Asserting INIT.
+Setting up local apic...Waiting for send to finish...
++ apic_id: 0x02 done.
+Deasserting INIT.
+CPU model: Quad-Core AMD Opteron(tm) Processor 8347
+Waiting for send to finish...
++siblings = 03, #startup loops: 2.
+Sending STARTUP #1 to 4.
+After apic_write.
+CPU #2 initialized
+Startup point 1.
+Waiting for send to finish...
++Initializing CPU #3
+Sending STARTUP #2 to 4.
+After apic_write.
+CPU: vendor AMD device 100f21
+Startup point 1.
+Waiting for send to finish...
++Initializing CPU #4
+After Startup.
+CPU5: stack_base 00134000, stack_end 00134ff8
+CPU: vendor AMD device 100f21
+Asserting INIT.
+Waiting for send to finish...
++CPU: family 10, model 02, stepping 01
+Deasserting INIT.
+Waiting for send to finish...
++nodeid = 01, coreid = 00
+#startup loops: 2.
+Sending STARTUP #1 to 5.
+After apic_write.
+CPU: family 10, model 02, stepping 01
+Startup point 1.
+Waiting for send to finish...
++Enabling cache
+Sending STARTUP #2 to 5.
+After apic_write.
+CPU ID 0x80000001: 100f21
+CPU is Fam 0Fh rev.F or later. We can use TOM2WB for any memory above 4GB
+Startup point 1.
+Waiting for send to finish...
++MTRR: Fixed MSR 0x250 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x258 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x259 0x0000000000000000
+MTRR: Fixed MSR 0x268 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x269 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26a 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26b 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26c 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26d 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26e 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26f 0x1e1e1e1e1e1e1e1e
+After Startup.
+CPU6: stack_base 00133000, stack_end 00133ff8
+
+MTRR check
+Fixed MTRRs   : Enabled
+Variable MTRRs: Enabled
+
+Asserting INIT.
+Setting up local apic...Waiting for send to finish...
++ apic_id: 0x04 done.
+Deasserting INIT.
+CPU model: Quad-Core AMD Opteron(tm) Processor 8347
+Waiting for send to finish...
++siblings = 03, #startup loops: 2.
+Sending STARTUP #1 to 6.
+After apic_write.
+CPU #4 initialized
+Startup point 1.
+Waiting for send to finish...
++nodeid = 00, coreid = 03
+Sending STARTUP #2 to 6.
+After apic_write.
+Initializing CPU #6
+Startup point 1.
+Waiting for send to finish...
++Enabling cache
+After Startup.
+CPU ID 0x80000001: 100f21
+CPU is Fam 0Fh rev.F or later. We can use TOM2WB for any memory above 4GB
+CPU7: stack_base 00132000, stack_end 00132ff8
+MTRR: Fixed MSR 0x250 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x258 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x259 0x0000000000000000
+MTRR: Fixed MSR 0x268 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x269 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26a 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26b 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26c 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26d 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26e 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26f 0x1e1e1e1e1e1e1e1e
+Asserting INIT.
+Waiting for send to finish...
++
+MTRR check
+Fixed MTRRs   : Enabled
+Variable MTRRs: Enabled
+
+Deasserting INIT.
+Setting up local apic...Waiting for send to finish...
++ apic_id: 0x03 done.
+#startup loops: 2.
+Sending STARTUP #1 to 7.
+After apic_write.
+CPU model: Quad-Core AMD Opteron(tm) Processor 8347
+Startup point 1.
+Waiting for send to finish...
++siblings = 03, Sending STARTUP #2 to 7.
+After apic_write.
+CPU #3 initialized
+Startup point 1.
+Waiting for send to finish...
++CPU: vendor AMD device 100f21
+After Startup.
+Initializing CPU #0
+Initializing CPU #5
+CPU: vendor AMD device 100f21
+CPU: family 10, model 02, stepping 01
+nodeid = 00, coreid = 00
+Enabling cache
+CPU ID 0x80000001: 100f21
+CPU is Fam 0Fh rev.F or later. We can use TOM2WB for any memory above 4GB
+Initializing CPU #7
+MTRR: Fixed MSR 0x250 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x258 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x259 0x0000000000000000
+MTRR: Fixed MSR 0x268 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x269 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26a 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26b 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26c 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26d 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26e 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26f 0x1e1e1e1e1e1e1e1e
+CPU: vendor AMD device 100f21
+
+MTRR check
+Fixed MTRRs   : Enabled
+Variable MTRRs: Enabled
+
+CPU: family 10, model 02, stepping 01
+Setting up local apic...nodeid = 01, coreid = 02
+ apic_id: 0x00 done.
+CPU: family 10, model 02, stepping 01
+CPU model: Quad-Core AMD Opteron(tm) Processor 8347
+siblings = 03, CPU: vendor AMD device 100f21
+CPU #0 initialized
+Waiting for 3 CPUS to stop
+Enabling cache
+CPU: family 10, model 02, stepping 01
+CPU ID 0x80000001: 100f21
+CPU is Fam 0Fh rev.F or later. We can use TOM2WB for any memory above 4GB
+nodeid = 01, coreid = 01
+MTRR: Fixed MSR 0x250 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x258 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x259 0x0000000000000000
+MTRR: Fixed MSR 0x268 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x269 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26a 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26b 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26c 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26d 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26e 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26f 0x1e1e1e1e1e1e1e1e
+Enabling cache
+nodeid = 01, coreid = 03
+CPU ID 0x80000001: 100f21
+CPU is Fam 0Fh rev.F or later. We can use TOM2WB for any memory above 4GB
+
+MTRR check
+Fixed MTRRs   : Enabled
+Variable MTRRs: Enabled
+
+MTRR: Fixed MSR 0x250 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x258 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x259 0x0000000000000000
+MTRR: Fixed MSR 0x268 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x269 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26a 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26b 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26c 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26d 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26e 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26f 0x1e1e1e1e1e1e1e1e
+Setting up local apic...
+MTRR check
+Fixed MTRRs   : Enabled
+Variable MTRRs: Enabled
+
+ apic_id: 0x06 done.
+Setting up local apic...CPU model: Quad-Core AMD Opteron(tm) Processor 8347
+ apic_id: 0x05 done.
+siblings = 03, Enabling cache
+CPU model: Quad-Core AMD Opteron(tm) Processor 8347
+CPU #6 initialized
+CPU ID 0x80000001: 100f21
+CPU is Fam 0Fh rev.F or later. We can use TOM2WB for any memory above 4GB
+siblings = 03, MTRR: Fixed MSR 0x250 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x258 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x259 0x0000000000000000
+MTRR: Fixed MSR 0x268 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x269 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26a 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26b 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26c 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26d 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26e 0x1e1e1e1e1e1e1e1e
+MTRR: Fixed MSR 0x26f 0x1e1e1e1e1e1e1e1e
+CPU #5 initialized
+
+MTRR check
+Fixed MTRRs   : Enabled
+Variable MTRRs: Enabled
+
+Waiting for 2 CPUS to stop
+Setting up local apic...Waiting for 1 CPUS to stop
+ apic_id: 0x07 done.
+CPU model: Quad-Core AMD Opteron(tm) Processor 8347
+siblings = 03, CPU #7 initialized
+All AP CPUs stopped (15172 loops)
+CPU1: stack: 00138000 - 00139000, lowest used address 00138c8c, stack used: 884 bytes
+CPU2: stack: 00137000 - 00138000, lowest used address 00137cd4, stack used: 812 bytes
+CPU3: stack: 00136000 - 00137000, lowest used address 00136cd4, stack used: 812 bytes
+CPU4: stack: 00135000 - 00136000, lowest used address 00135cd4, stack used: 812 bytes
+CPU5: stack: 00134000 - 00135000, lowest used address 00134cd4, stack used: 812 bytes
+CPU6: stack: 00133000 - 00134000, lowest used address 00133cd4, stack used: 812 bytes
+CPU7: stack: 00132000 - 00133000, lowest used address 00132cd4, stack used: 812 bytes
+CPU_CLUSTER: 0 init finished in 995136 usecs
+PCI: 00:18.0 init ...
+PCI: 00:18.0 init finished in 2028 usecs
+PCI: 00:18.1 init ...
+PCI: 00:18.1 init finished in 2027 usecs
+PCI: 00:18.2 init ...
+PCI: 00:18.2 init finished in 2018 usecs
+PCI: 00:18.3 init ...
+NB: Function 3 Misc Control.. done.
+PCI: 00:18.3 init finished in 5294 usecs
+PCI: 00:18.4 init ...
+PCI: 00:18.4 init finished in 2018 usecs
+PCI: 00:19.0 init ...
+PCI: 00:19.0 init finished in 2018 usecs
+PCI: 00:19.1 init ...
+PCI: 00:19.1 init finished in 2018 usecs
+PCI: 00:19.2 init ...
+PCI: 00:19.2 init finished in 2019 usecs
+PCI: 00:19.3 init ...
+NB: Function 3 Misc Control.. done.
+PCI: 00:19.3 init finished in 5277 usecs
+PCI: 00:19.4 init ...
+PCI: 00:19.4 init finished in 2017 usecs
+PCI: 00:00.0 init ...
+PCI: 00:00.0 init finished in 2028 usecs
+PCI: 00:01.0 init ...
+IOAPIC: Initializing IOAPIC at 0xfec00000
+IOAPIC: Bootstrap Processor Local APIC = 0x00
+IOAPIC: Dumping registers
+  reg 0x0000: 0x00000000
+  reg 0x0001: 0x00170011
+  reg 0x0002: 0x00000000
+IOAPIC: 24 interrupts
+IOAPIC: Enabling interrupts on FSB
+IOAPIC: reg 0x00000000 value 0x00000000 0x00000700
+IOAPIC: reg 0x00000001 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000002 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000003 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000004 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000005 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000006 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000007 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000008 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000009 value 0x00000000 0x00010000
+IOAPIC: reg 0x0000000a value 0x00000000 0x00010000
+IOAPIC: reg 0x0000000b value 0x00000000 0x00010000
+IOAPIC: reg 0x0000000c value 0x00000000 0x00010000
+IOAPIC: reg 0x0000000d value 0x00000000 0x00010000
+IOAPIC: reg 0x0000000e value 0x00000000 0x00010000
+IOAPIC: reg 0x0000000f value 0x00000000 0x00010000
+IOAPIC: reg 0x00000010 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000011 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000012 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000013 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000014 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000015 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000016 value 0x00000000 0x00010000
+IOAPIC: reg 0x00000017 value 0x00000000 0x00010000
+lpc_init: pm_base = 2000 
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+set power on after power fail
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+RTC Init
+PCI: 00:01.0 init finished in 164771 usecs
+PCI: 00:02.0 init ...
+PCI: 00:02.0 init finished in 2026 usecs
+PCI: 00:02.1 init ...
+PCI: 00:02.1 init finished in 2018 usecs
+PCI: 00:06.0 init ...
+IDE1 	IDE0
+PCI: 00:06.0 init finished in 3096 usecs
+PCI: 00:07.0 init ...
+SATA S 	SATA P 
+PCI: 00:07.0 init finished in 3535 usecs
+PCI: 00:08.0 init ...
+SATA S 	SATA P 
+PCI: 00:08.0 init finished in 3526 usecs
+PCI: 00:09.0 init ...
+PCI DOMAIN mem base = 0x00f8000000
+[0x50] <-- 0xf8000000
+PCI: 00:09.0 init finished in 7192 usecs
+PCI: 00:0b.0 init ...
+PCI: 00:0b.0 init finished in 2018 usecs
+PCI: 00:0c.0 init ...
+PCI: 00:0c.0 init finished in 2019 usecs
+PCI: 00:0d.0 init ...
+PCI: 00:0d.0 init finished in 2019 usecs
+PCI: 00:0e.0 init ...
+PCI: 00:0e.0 init finished in 2019 usecs
+PNP: 002e.0 init ...
+PNP: 002e.0 init finished in 1939 usecs
+PNP: 002e.2 init ...
+PNP: 002e.2 init finished in 1929 usecs
+PNP: 002e.3 init ...
+PNP: 002e.3 init finished in 1930 usecs
+PNP: 002e.5 init ...
+Keyboard init...
+PNP: 002e.5 init finished in 351037 usecs
+PNP: 002e.9 init ...
+PNP: 002e.9 init finished in 1928 usecs
+PNP: 002e.b init ...
+PNP: 002e.b init finished in 1930 usecs
+smbus: PCI: 00:01.1[0]->I2C: 01:2f init ...
+ID: 5ca3
+I2C: 01:2f init finished in 101155 usecs
+PCI: 01:04.0 init ...
+XGI Z9s: initializing video device
+XGI VGA: Relocate IO address: 1000 [00001030]
+XGI VGA: chipid = 31
+XGI VGA: Framebuffer at 0xf8000000, mapped to 0xf8000000, size 16384k
+XGI VGA: MMIO at 0xfc000000, mapped to 0xfc000000, size 256k
+XGI VGA: No or unknown bridge type detected
+XGI VGA: Default mode is 800x600x16 (60Hz)
+XGI VGA: Set new mode: 800x600x16-60
+PCI: 01:04.0 init finished in 42560 usecs
+PCI: 02:00.0 init ...
+PCI: 02:00.0 init finished in 2017 usecs
+PCI: 03:00.0 init ...
+PCI: 03:00.0 init finished in 2018 usecs
+Devices initialized
+Show all devs... After init.
+Root Device: enabled 1
+CPU_CLUSTER: 0: enabled 1
+APIC: 00: enabled 1
+DOMAIN: 0000: enabled 1
+PCI: 00:18.0: enabled 1
+PCI: 00:00.0: enabled 1
+PCI: 00:01.0: enabled 1
+PNP: 002e.0: enabled 1
+PNP: 002e.1: enabled 0
+PNP: 002e.2: enabled 1
+PNP: 002e.3: enabled 1
+PNP: 002e.5: enabled 1
+PNP: 002e.7: enabled 0
+PNP: 002e.8: enabled 0
+PNP: 002e.9: enabled 1
+PNP: 002e.a: enabled 0
+PNP: 002e.b: enabled 1
+PCI: 00:01.1: enabled 1
+I2C: 01:50: enabled 1
+I2C: 01:51: enabled 1
+I2C: 01:52: enabled 1
+I2C: 01:53: enabled 1
+I2C: 01:54: enabled 1
+I2C: 01:55: enabled 1
+I2C: 01:56: enabled 1
+I2C: 01:57: enabled 1
+I2C: 01:2f: enabled 1
+PCI: 00:02.0: enabled 1
+PCI: 00:02.1: enabled 1
+PCI: 00:04.0: enabled 0
+PCI: 00:04.1: enabled 0
+PCI: 00:06.0: enabled 1
+PCI: 00:07.0: enabled 1
+PCI: 00:08.0: enabled 1
+PCI: 00:09.0: enabled 1
+PCI: 01:04.0: enabled 1
+PCI: 00:0a.0: enabled 0
+PCI: 00:0b.0: enabled 1
+PCI: 02:00.0: enabled 1
+PCI: 00:0c.0: enabled 1
+PCI: 03:00.0: enabled 1
+PCI: 00:0d.0: enabled 1
+PCI: 04:00.0: enabled 0
+PCI: 00:0e.0: enabled 1
+PCI: 00:0f.0: enabled 0
+PCI: 00:18.1: enabled 1
+PCI: 00:18.2: enabled 1
+PCI: 00:18.3: enabled 1
+PCI: 00:18.4: enabled 1
+PCI: 00:19.0: enabled 1
+PCI: 00:19.1: enabled 1
+PCI: 00:19.2: enabled 1
+PCI: 00:19.3: enabled 1
+PCI: 00:19.4: enabled 1
+APIC: 01: enabled 1
+APIC: 02: enabled 1
+APIC: 03: enabled 1
+APIC: 04: enabled 1
+APIC: 05: enabled 1
+APIC: 06: enabled 1
+APIC: 07: enabled 1
+BS: BS_DEV_INIT times (us): entry 0 run 1989467 exit 0
+Finalize devices...
+Devices finalized
+BS: BS_POST_DEVICE times (us): entry 0 run 3526 exit 0
+BS: BS_OS_RESUME_CHECK times (us): entry 0 run 1 exit 0
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+CONFIG_LOGICAL_CPUS==1: apicid_base: 00000001
+Writing IRQ routing tables to 0xf0000...done.
+Writing IRQ routing tables to 0xbffd8000...done.
+PIRQ table: 224 bytes.
+Wrote the mp table end at: 000f0410 - 000f05cc
+Wrote the mp table end at: bffd7010 - bffd71cc
+MP table: 460 bytes.
+CBFS @ 0 size ff8c0
+CBFS: Locating 'fallback/dsdt.aml'
+CBFS: Found @ offset c00 size 2644
+CBFS @ 0 size ff8c0
+CBFS: Locating 'fallback/slic'
+CBFS: 'fallback/slic' not found.
+ACPI: Writing ACPI tables at bffb3000.
+ACPI:    * FACS
+ACPI:    * DSDT
+ACPI:    * FADT
+pm_base: 0x2000
+ACPI: added table 1/32, length now 40
+ACPI:     * SSDT
+processor_brand=Quad-Core AMD Opteron(tm) Processor 8347
+Pstates algorithm ...
+Pstate_freq[0] = 1900MHz	Pstate_power[0] = 23040mw
+Pstate_latency[0] = 5us
+Pstate_freq[1] = 1700MHz	Pstate_power[1] = 21385mw
+Pstate_latency[1] = 5us
+Pstate_freq[2] = 1400MHz	Pstate_power[2] = 18787mw
+Pstate_latency[2] = 5us
+Pstate_freq[3] = 1200MHz	Pstate_power[3] = 16770mw
+Pstate_latency[3] = 5us
+PSS: 1900MHz power 23040 control 0x0 status 0x0
+PSS: 1700MHz power 21385 control 0x1 status 0x1
+PSS: 1400MHz power 18787 control 0x2 status 0x2
+PSS: 1200MHz power 16770 control 0x3 status 0x3
+PSS: 1900MHz power 23040 control 0x0 status 0x0
+PSS: 1700MHz power 21385 control 0x1 status 0x1
+PSS: 1400MHz power 18787 control 0x2 status 0x2
+PSS: 1200MHz power 16770 control 0x3 status 0x3
+PSS: 1900MHz power 23040 control 0x0 status 0x0
+PSS: 1700MHz power 21385 control 0x1 status 0x1
+PSS: 1400MHz power 18787 control 0x2 status 0x2
+PSS: 1200MHz power 16770 control 0x3 status 0x3
+PSS: 1900MHz power 23040 control 0x0 status 0x0
+PSS: 1700MHz power 21385 control 0x1 status 0x1
+PSS: 1400MHz power 18787 control 0x2 status 0x2
+PSS: 1200MHz power 16770 control 0x3 status 0x3
+PSS: 1900MHz power 23040 control 0x0 status 0x0
+l 0x1 status 0x1
+PSS: 1400MHz power 18787 control 0x2 status 0x2
+PSS: 1200MHz power 16770 control 0x3 status 0x3
+PSS: 1900MHz power 23040 control 0x0 status 0x0
+PSS: 1700MHz power 21385 control 0x1 status 0x1
+PSS: 1400MHz power 18787 control 0x2 status 0x2
+PSS: 1200MHz power 16770 control 0x3 status 0x3
+PSS: 1900MHz power 23040 control 0x0 status 0x0
+PSS: 1700MHz power 21385 control 0x1 status 0x1
+PSS: 1400MHz power 18787 control 0x2 status 0x2
+PSS: 1200MHz power 16770 control 0x3 status 0x3
+PSS: 1900MHz power 23040 control 0x0 status 0x0
+PSS: 1700MHz power 21385 control 0x1 status 0x1
+PSS: 1400MHz power 18787 control 0x2 status 0x2
+PSS: 1200MHz power 16770 control 0x3 status 0x3
+ACPI: added table 2/32, length now 44
+ACPI:    * MCFG
+ACPI:    * TCPA
+TCPA log created at bffa3000
+ACPI: added table 3/32, length now 48
+ACPI:    * MADT
+ACPI: added table 4/32, length now 52
+current = bffb6910
+ACPI:    * SRAT at bffb6910
+SRAT: lapic cpu_index=00, node_id=00, apic_id=00
+SRAT: lapic cpu_index=01, node_id=00, apic_id=01
+SRAT: lapic cpu_index=02, node_id=00, apic_id=02
+SRAT: lapic cpu_index=03, node_id=00, apic_id=03
+SRAT: lapic cpu_index=04, node_id=01, apic_id=04
+SRAT: lapic cpu_index=05, node_id=01, apic_id=05
+SRAT: lapic cpu_index=06, node_id=01, apic_id=06
+SRAT: lapic cpu_index=07, node_id=01, apic_id=07
+set_srat_mem: dev DOMAIN: 0000, res->index=0007 startk=00000000, sizek=00300000
+set_srat_mem: dev DOMAIN: 0000, res->index=0010 startk=00000000, sizek=00000280
+set_srat_mem: dev DOMAIN: 0000, res->index=0020 startk=00000300, sizek=002ffd00
+set_srat_mem: dev DOMAIN: 0000, res->index=0030 startk=00400000, sizek=00100000
+set_srat_mem: dev DOMAIN: 0000, res->index=0041 startk=00500000, sizek=00100000
+ACPI: added table 5/32, length now 56
+ACPI:   * SLIT at bffb6a88
+ACPI: added table 6/32, length now 60
+ACPI:    * HPET
+ACPI: added table 7/32, length now 64
+ACPI:    * SRAT at bffb6b00
+SRAT: lapic cpu_index=00, node_id=00, apic_id=00
+SRAT: lapic cpu_index=01, node_id=00, apic_id=01
+SRAT: lapic cpu_index=02, node_id=00, apic_id=02
+SRAT: lapic cpu_index=03, node_id=00, apic_id=03
+SRAT: lapic cpu_index=04, node_id=01, apic_id=04
+SRAT: lapic cpu_index=05, node_id=01, apic_id=05
+SRAT: lapic cpu_index=06, node_id=01, apic_id=06
+SRAT: lapic cpu_index=07, node_id=01, apic_id=07
+set_srat_mem: dev DOMAIN: 0000, res->index=0007 startk=00000000, sizek=00300000
+set_srat_mem: dev DOMAIN: 0000, res->index=0010 startk=00000000, sizek=00000280
+set_srat_mem: dev DOMAIN: 0000, res->index=0020 startk=00000300, sizek=002ffd00
+set_srat_mem: dev DOMAIN: 0000, res->index=0030 startk=00400000, sizek=00100000
+set_srat_mem: dev DOMAIN: 0000, res->index=0041 startk=00500000, sizek=00100000
+ACPI: added table 8/32, length now 68
+ACPI:   * SLIT at bffb6c78
+ACPI: added table 9/32, length now 72
+ACPI: done.
+ACPI tables: 15536 bytes.
+smbios_write_tables: bffa2000
+Root Device (ASUS KFSN4-DRE)
+CPU_CLUSTER: 0 (AMD FAM10 Root Complex)
+APIC: 00 (unknown)
+DOMAIN: 0000 (AMD FAM10 Root Complex)
+PCI: 00:18.0 (AMD FAM10 Northbridge)
+PCI: 00:00.0 (NVIDIA CK804 Southbridge)
+PCI: 00:01.0 (NVIDIA CK804 Southbridge)
+PNP: 002e.0 (Winbond W83627THG Super I/O)
+PNP: 002e.1 (Winbond W83627THG Super I/O)
+PNP: 002e.2 (Winbond W83627THG Super I/O)
+PNP: 002e.3 (Winbond W83627THG Super I/O)
+PNP: 002e.5 (Winbond W83627THG Super I/O)
+PNP: 002e.7 (Winbond W83627THG Super I/O)
+PNP: 002e.8 (Winbond W83627THG Super I/O)
+PNP: 002e.9 (Winbond W83627THG Super I/O)
+PNP: 002e.a (Winbond W83627THG Super I/O)
+PNP: 002e.b (Winbond W83627THG Super I/O)
+PCI: 00:01.1 (NVIDIA CK804 Southbridge)
+I2C: 01:50 (unknown)
+I2C: 01:51 (unknown)
+I2C: 01:52 (unknown)
+I2C: 01:53 (unknown)
+I2C: 01:54 (unknown)
+I2C: 01:55 (unknown)
+I2C: 01:56 (unknown)
+I2C: 01:57 (unknown)
+I2C: 01:2f (Nuvoton W83793 Hardware Monitor)
+PCI: 00:02.0 (NVIDIA CK804 Southbridge)
+PCI: 00:02.1 (NVIDIA CK804 Southbridge)
+PCI: 00:04.0 (NVIDIA CK804 Southbridge)
+PCI: 00:04.1 (NVIDIA CK804 Southbridge)
+PCI: 00:06.0 (NVIDIA CK804 Southbridge)
+PCI: 00:07.0 (NVIDIA CK804 Southbridge)
+PCI: 00:08.0 (NVIDIA CK804 Southbridge)
+PCI: 00:09.0 (NVIDIA CK804 Southbridge)
+PCI: 01:04.0 (NVIDIA CK804 Southbridge)
+PCI: 00:0a.0 (NVIDIA CK804 Southbridge)
+PCI: 00:0b.0 (NVIDIA CK804 Southbridge)
+PCI: 02:00.0 (NVIDIA CK804 Southbridge)
+PCI: 00:0c.0 (NVIDIA CK804 Southbridge)
+PCI: 03:00.0 (NVIDIA CK804 Southbridge)
+PCI: 00:0d.0 (NVIDIA CK804 Southbridge)
+PCI: 04:00.0 (NVIDIA CK804 Southbridge)
+PCI: 00:0e.0 (NVIDIA CK804 Southbridge)
+PCI: 00:0f.0 (NVIDIA CK804 Southbridge)
+PCI: 00:18.1 (AMD FAM10 Northbridge)
+PCI: 00:18.2 (AMD FAM10 Northbridge)
+PCI: 00:18.3 (AMD FAM10 Northbridge)
+PCI: 00:18.4 (AMD FAM10 Northbridge)
+PCI: 00:19.0 (AMD FAM10 Northbridge)
+PCI: 00:19.1 (AMD FAM10 Northbridge)
+PCI: 00:19.2 (AMD FAM10 Northbridge)
+PCI: 00:19.3 (AMD FAM10 Northbridge)
+PCI: 00:19.4 (AMD FAM10 Northbridge)
+APIC: 01 (unknown)
+APIC: 02 (unknown)
+APIC: 03 (unknown)
+APIC: 04 (unknown)
+APIC: 05 (unknown)
+APIC: 06 (unknown)
+APIC: 07 (unknown)
+SMBIOS tables: 553 bytes.
+Writing table forward entry at 0x00000500
+Wrote coreboot table at: 00000500, 0x10 bytes, checksum 9fe4
+Table forward entry ends at 0x00000528.
+... aligned to 0x00001000
+Writing coreboot table at 0xbff9a000
+rom_table_end = 0xbff9a000
+... aligned to 0xbffa0000
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+ 0. 0000000000000000-0000000000000fff: CONFIGURATION TABLES
+ 1. 0000000000001000-000000000009ffff: RAM
+ 2. 00000000000a0000-00000000000bffff: RESERVED
+ 3. 00000000000c0000-00000000bff99fff: RAM
+ 4. 00000000bff9a000-00000000bfffffff: CONFIGURATION TABLES
+ 5. 00000000c0000000-00000000cfffffff: RESERVED
+ 6. 0000000100000000-000000017fffffff: RAM
+CBFS @ 0 size ff8c0
+CBFS: Locating 'cmos_layout.bin'
+CBFS: Found @ offset 140 size a90
+Wrote coreboot table at: bff9a000, 0xc08 bytes, checksum 44e8
+coreboot table: 3104 bytes.
+IMD ROOT    0. bffff000 00001000
+IMD SMALL   1. bfffe000 00001000
+CAR GLOBALS 2. bfffb000 0000291c
+CONSOLE     3. bffdb000 00020000
+AMDMEM INFO 4. bffd9000 0000172c
+IRQ TABLE   5. bffd8000 00001000
+SMP TABLE   6. bffd7000 00001000
+ACPI        7. bffb3000 00024000
+54435041    8. bffa3000 00010000
+SMBIOS      9. bffa2000 00000800
+COREBOOT   10. bff9a000 00008000
+IMD small region:
+  IMD ROOT    0. bfffec00 00000400
+  USBDEBUG    1. bfffeba0 00000058
+  ROMSTAGE    2. bfffeb80 00000004
+  GDT         3. bfffe980 00000200
+BS: BS_WRITE_TABLES times (us): entry 0 run 760427 exit 0
+CBFS provider active.
+CBFS @ 0 size ff8c0
+CBFS: Locating 'fallback/payload'
+CBFS: Found @ offset 29c80 size 8f395
+'fallback/payload' located at offset: 29cb8 size: 8f395
+Loading segment from rom address 0xfff29cb8
+  code (compression=1)
+  New segment dstaddr 0x8200 memsize 0x17420 srcaddr 0xfff29d0c filesize 0x8215
+Loading segment from rom address 0xfff29cd4
+  code (compression=1)
+  New segment dstaddr 0x100000 memsize 0x2213f0 srcaddr 0xfff31f21 filesize 0x8712c
+Loading segment from rom address 0xfff29cf0
+  Entry Point 0x00008200
+Bounce Buffer at bfc79000, 3277244 bytes
+Loading Segment: addr: 0x0000000000008200 memsz: 0x0000000000017420 filesz: 0x0000000000008215
+lb: [0x0000000000100000, 0x00000000001fedcc)
+Post relocation: addr: 0x0000000000008200 memsz: 0x0000000000017420 filesz: 0x0000000000008215
+using LZMA
+[ 0x00008200, 00017ce3, 0x0001f620) <- fff29d0c
+Clearing Segment: addr: 0x0000000000017ce3 memsz: 0x000000000000793d
+dest 00008200, end 0001f620, bouncebuffer bfc79000
+Loading Segment: addr: 0x0000000000100000 memsz: 0x00000000002213f0 filesz: 0x000000000008712c
+lb: [0x0000000000100000, 0x00000000001fedcc)
+segment: [0x0000000000100000, 0x000000000018712c, 0x00000000003213f0)
+ bounce: [0x00000000bfc79000, 0x00000000bfd0012c, 0x00000000bfe9a3f0)
+Post relocation: addr: 0x00000000bfc79000 memsz: 0x00000000002213f0 filesz: 0x000000000008712c
+using LZMA
+[ 0xbfc79000, bfe9a3f0, 0xbfe9a3f0) <- fff31f21
+dest bfc79000, end bfe9a3f0, bouncebuffer bfc79000
+move suffix around: from bfd77dcc, to 1fedcc, amount: 122624
+Loaded segments
+BS: BS_PAYLOAD_LOAD times (us): entry 0 run 819203 exit 0
+Jumping to boot code at 00008200(bff9a000)
+CPU0: stack: 00139000 - 0013a000, lowest used address 00139ae0, stack used: 1312 bytes
+entry    = 0x00008200
+lb_start = 0x00100000
+lb_size  = 0x000fedcc
+buffer   = 0xbfc79000
+[H[J[1;1H[?25l[m[H[J[1;1H[2;32HFREE AS IN FREEDOM
+
+
+[m[4;2H+----------------------------------------------------------------------------+[5;2H|[5;79H|[6;2H|[6;79H|[7;2H|[7;79H|[8;2H|[8;79H|[9;2H|[9;79H|[10;2H|[10;79H|[11;2H|[11;79H|[12;2H|[12;79H|[13;2H|[13;79H|[14;2H|[14;79H|[15;2H|[15;79H|[16;2H|[16;79H|[17;2H+----------------------------------------------------------------------------+[m[18;2H[19;2H[m     Use the ^ and v keys to select which entry is highlighted.          
+
+      Press enter to boot the selected OS, `e' to edit the commands       
+
+      before booting or `c' for a command-line.                           [5;80H [7m[5;3H*Load Operating System                                                      [m[5;78H[m[m[6;3H Parse ISOLINUX menu (ahci0)                                                [m[6;78H[m[m[7;3H Parse ISOLINUX menu (USB)                                                  [m[7;78H[m[m[8;3H Parse ISOLINUX menu (CD/DVD)                                               [m[8;78H[m[m[9;3H Switch to grubtest.cfg                                                     [m[9;78H[m[m[10;3H Search for GRUB configuration (grub.cfg) outside of CBFS                   [m[10;78H[m[m[11;3H                                                                            [m[11;78H[m[m[12;3H                                                                            [m[12;78H[m[m[13;3H                                                                            [m[13;78H[m[m[14;3H                                                                            [m[14;78H[m[m[15;3H                                                                            [m[15;78H[m[m[16;3H                                                                            [m[16;78H[m[16;80H [5;78H[22;1H   The highlighted entry will be executed automatically in 1s.                 [5;78H[22;1H   The highlighted entry will be executed automatically in 0s.                 [5;78H[?25h[H[J[1;1H[H[J[1;1H  Booting `Load Operating System'
+
+
+
+  Failed to boot both default and fallback entries.
+
+
+Press any key to continue...
+
+[?25l[m[H[J[1;1H[2;32HFREE AS IN FREEDOM
+
+
+[m[4;2H+----------------------------------------------------------------------------+[5;2H|[5;79H|[6;2H|[6;79H|[7;2H|[7;79H|[8;2H|[8;79H|[9;2H|[9;79H|[10;2H|[10;79H|[11;2H|[11;79H|[12;2H|[12;79H|[13;2H|[13;79H|[14;2H|[14;79H|[15;2H|[15;79H|[16;2H|[16;79H|[17;2H+----------------------------------------------------------------------------+[m[18;2H[19;2H[m     Use the ^ and v keys to select which entry is highlighted.          
+
+      Press enter to boot the selected OS, `e' to edit the commands       
+
+      before booting or `c' for a command-line.                           [5;80H [7m[5;3H*Load Operating System                                                      [m[5;78H[m[m[6;3H Parse ISOLINUX menu (ahci0)                                                

@@ -1,0 +1,125 @@
+#!/usr/bin/env bash
+
+#
+#  helper script: build ROM images with SeaGRUB and put them in ./bin/
+#
+#	Copyright (C) 2014, 2015, 2016 Leah Rowe <info@minifree.org>
+#	Copyright (C) 2015 Klemens Nanni <contact@autoboot.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the working directory is the root
+# of git or release archive
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+printf "Building ROM images with the GRUB payload\n"
+
+# The GRUB files should be deleted first
+rm -f "coreboot/grub"*.{elf,cfg}
+rm -f "coreboot/"*/*/grub*.{elf,cfg}
+
+[ -d bin ] || mkdir "bin/"
+
+# Put GRUB payloads and config files
+# in the coreboot directory, ready for next step
+(
+cd "coreboot/"
+for romtype in txtmode vesafb; do
+	cd ../resources/utilities/grub-assemble
+	./gen.sh ${romtype}
+	rm -f "../../../coreboot/grub_${romtype}.elf"
+	mv "grub_${romtype}.elf" "../../../coreboot/"
+	cd "../../../coreboot"
+
+	# GRUB configuration files
+	for keylayout in ../resources/utilities/grub-assemble/keymap/original/*; do
+		keymap="${keylayout##*/}"
+		cat ../resources/grub/config/extra/{common,"${romtype}"}.cfg > "grub_${keymap}_${romtype}.cfg"
+		printf "keymap %s\n" "${keymap}" >> "grub_${keymap}_${romtype}.cfg"
+		cat ../resources/grub/config/menuentries/{common,"${romtype}"}.cfg >> "grub_${keymap}_${romtype}.cfg"
+		# grubtest.cfg should be able to switch back to grub.cfg
+		sed "s/grubtest.cfg/grub.cfg/" < "grub_${keymap}_${romtype}.cfg" > "grub_${keymap}_${romtype}_test.cfg"
+	done
+done
+)
+
+# Build ROM images for supported boards
+buildrom() {
+	board="$1"
+	if [ -f "resources/libreboot/config/grub/${board}/config" ]; then
+		./oldbuild roms withgrub_helper "${board}"
+	fi
+}
+
+if [ $# -gt 0 ]; then
+	for board in "${@}"; do
+		buildrom "${board}"
+	done
+else
+	for board in resources/libreboot/config/grub/*; do
+		buildrom "${board##*/}"
+	done
+fi
+
+# Needed on i945 systems for the bucts/dd trick (documented)
+# This enables the ROM to be flashed over the lenovo bios firmware
+for i945board in "x60" "t60"
+do
+	if [ -d "bin/grub/${i945board}/" ]; then
+		cd "bin/grub/${i945board}/"
+		for i945rom in *
+		do
+			dd if="${i945rom}" of=top64k.bin bs=1 skip=$[$(stat -c %s "${i945rom}") - 0x10000] count=64k
+			dd if=top64k.bin of="${i945rom}" bs=1 seek=$[$(stat -c %s "${i945rom}") - 0x20000] count=64k conv=notrunc
+			rm -f top64k.bin
+		done
+		cd "../../../"
+	fi
+done
+
+# Build the deblobbed descriptor+gbe regions for GM45/ICH9M targets.
+# Then put them in the ROM images.
+if [ -d "bin/grub/" ]; then
+	cd "bin/grub/"
+	for board in "x200" "r400" "t400" "t500" "w500"
+	do
+		for romsize in "4m" "8m" "16m"
+		do	
+			if [ -d "${board}_${romsize}b/" ]; then
+				cd "${board}_${romsize}b/"
+				if [ -f "../../../gm45macaddress" ]; then
+					../../../resources/utilities/ich9deblob/ich9gen --macaddress $(cat ../../../gm45macaddress)
+				else
+					../../../resources/utilities/ich9deblob/ich9gen
+				fi
+				for rom in *.rom
+				do
+					dd if="ich9fdgbe_${romsize}.bin" of="${rom}" bs=1 count=12k conv=notrunc
+				done
+				rm -f "ich9fd"*.bin "mk"*.[ch]
+				cd "../"
+			fi
+		done
+	done
+	cd ../../
+fi
+
+# The GRUB files are no longer needed
+rm -f "coreboot/"*.{elf,cfg}
+rm -f "coreboot/"*/*/*.{elf,cfg}
+
+printf "\n\n"

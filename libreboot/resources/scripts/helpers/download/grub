@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+#  helper script: Downloads GRUB and patches it.
+#
+#	Copyright (C) 2014, 2015, 2016 Leah Rowe <info@minifree.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the working directory is the
+# root of libreboot_src or libreboot git.
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+# Remove the old version that may still exist
+# ------------------------------------------------------------------------------
+
+printf "Downloading GRUB\n"
+
+rm -Rf "grub/"
+
+# Get latest GRUB
+# ------------------------------------------------------------------------------
+
+# download it using git
+git clone git://git.savannah.gnu.org/grub.git || git clone http://git.savannah.gnu.org/r/grub.git
+
+# modifications are required
+cd "grub/"
+
+# reset to known revision
+git reset --hard e54c99aaff5e5f6f5d3b06028506c57e66d8ef77
+
+# Apply patches
+# ------------------------------------------------------------------------------
+
+# Replace "GNU GRUB version" in GRUB screen with "FREE AS IN FREEDOM"
+git am "../resources/grub/patch/0001-grub-core-normal-main.c-Display-FREE-AS-IN-FREEDOM-n.patch"
+
+# Enable reproducible builds
+git am "../resources/grub/patch/reproducible/0001-mkstandalone-add-argument-fixed-time-to-override-mti.patch"
+git am "../resources/grub/patch/reproducible/0002-mkrescue-add-argument-fixed-time-to-get-reproducible.patch"
+git am "../resources/grub/patch/reproducible/0003-Makefile-use-FIXED_TIMESTAMP-for-mkstandalone-if-set.patch"
+
+cd "../"
+
+# Also download SeaBIOS, which we use with GRUB, to implement SeaGRUB
+./download seabios
+
+printf "\n\n"

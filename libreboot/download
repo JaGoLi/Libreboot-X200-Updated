@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+#  download script: Download the programs used in libreboot, that
+#                   aren't distributed in the git repository.
+#
+#	Copyright (C) 2014, 2015 Leah Rowe <info@minifree.org>
+#	Copyright (C) 2015 Klemens Nanni <contact@autoboot.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+download="resources/scripts/helpers/download"
+
+# echo "${programs##*/}" ; echo "${programs%/*}"
+programs="$(for program in ${download}/*; do printf "%s\n" "${program##*/}"; done)"
+
+noconfirm="0"
+
+help () {
+	printf "%s\n\n" "./download program(s) # programs are space separated, if specifing multiple programs"
+	printf "possible values for 'programs':\nall:\n%s\n\n" "${programs}"
+	printf "Example (download everything): ./download all\n"
+	printf "Example (download flashrom): ./download flashrom\n"
+	printf "Example (download coreboot): ./download coreboot\n"
+	printf "Example (download coreboot and flashrom): ./download coreboot flashrom\n"
+	printf "Example (lists all available downloadable components): ./download list\n"
+}
+
+if [ $# -lt 1 ]; then
+	printf "ERROR: download script: no argument given.\n"
+	help
+	exit 1
+fi
+
+if [ "${1}" = "--noconfirm" ] || [ "${1}" = "-y" ]; then
+	noconfirm="1"
+	shift 1
+fi
+
+case "${1}" in
+	all)
+		;;
+	list)
+		printf "possible values for 'programs':\nall\n%s\n\n" "${programs}"
+		exit 
+		;;
+	help)
+		help
+		exit 
+		;;
+	*)
+		for program in "${@}"; do
+			printf "%s" "${programs}\n" | grep -wq "${program}" || (printf "ERROR: Invalid program '%s'. See ./download help.\n" "${program}"; exit 1)
+		done
+		programs="${*}"
+		;;
+esac
+
+for program in ${programs}; do
+
+	if [ "${noconfirm}" = "0" ]; then
+		printf "Use \"./download --noconfirm\" or \"./download -y\" if you want to be rid of these confirmation dialogues.\n\n"
+		if [ -d "${program}/" ]; then
+            if [ "${program}" = "seabios" ]; then
+                # temporary hack. download grub also downloads seabios,
+                # which breaks automated build when running ./download all
+                # Later on, we'll delete the seabios download script
+                # and grub download script and replace both with
+                # a download seagrub script
+
+			    rm -Rf "${program:?}" && printf "Old %s directory deleted.\n\n" "${program}"
+            else
+			    printf "A %s/ directory already exists, delete it? [yN]: " "${program}"
+		    	read -r answer
+		    	if [ "${answer}" = "y" ]; then
+			    	rm -Rf "${program:?}" && printf "Old %s directory deleted.\n\n" "${program}"
+    			else
+	    			printf "%s directory not deleted, and therefore not replaced.\n" "${program}"
+		    		continue
+		    	fi
+            fi
+		fi
+	fi
+
+	"${download}/${program}"
+done

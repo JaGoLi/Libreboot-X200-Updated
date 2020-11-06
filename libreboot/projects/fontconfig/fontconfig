@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+arguments() {
+	project_arguments_targets "$project" "$@"
+}
+
+usage() {
+	project_usage_actions "$project"
+	project_usage_arguments "$project" "$@"
+}
+
+download() {
+	local repository="$project"
+
+	project_download_git "$project" \
+			     "$repository" \
+			     'https://anongit.freedesktop.org/git/fontconfig' \
+			     "$@"
+}
+
+download_check() {
+	local repository="$project"
+
+	project_download_check_git "$project" "$repository" "$@"
+}
+
+extract() {
+	local repository="$project"
+
+	project_extract "$project" "$@"
+}
+
+extract_check() {
+	local repository="$project"
+
+	project_extract_check "$project" "$@"
+}
+
+update() {
+	local repository="$project"
+
+	project_update_git "$project" "$repository" "$@"
+}
+
+update_check() {
+	local repository="$project"
+
+	project_update_check_git "$project" "$repository" "$@"
+}
+
+release() {
+	local repository="$project"
+
+	project_release_sources_git "$project" "$repository" "$@"
+}
+
+release_check() {
+	local repository="$project"
+
+	project_release_check_sources_git "$project" "$repository" "$@"
+}
+
+clean() {
+	project_clean "$project" "$@"
+}

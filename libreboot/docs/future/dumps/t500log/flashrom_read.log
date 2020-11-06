@@ -1,0 +1,123 @@
+flashrom v0.9.8-r1889 on Linux 3.13.0-39-lowlatency (i686)
+flashrom is free software, get the source code at http://www.flashrom.org
+
+flashrom was built with libpci 3.2.1, GCC 4.8.2, little endian
+Command line (7 args): flashrom -V -p internal:laptop=force_I_want_a_brick -r rom.bin -c MX25L3205D/MX25L3208D
+Calibrating delay loop... OS timer resolution is 1 usecs, 790M loops per second, 10 myus = 26 us, 100 myus = 100 us, 1000 myus = 1003 us, 10000 myus = 10018 us, 4 myus = 5 us, OK.
+Initializing internal programmer
+No coreboot table found.
+Using Internal DMI decoder.
+DMI string chassis-type: "Notebook"
+Laptop detected via DMI.
+DMI string system-manufacturer: "LENOVO"
+DMI string system-product-name: "224397G"
+DMI string system-version: "ThinkPad T500"
+DMI string baseboard-manufacturer: "LENOVO"
+DMI string baseboard-product-name: "224397G"
+DMI string baseboard-version: "Not Available"
+========================================================================
+WARNING! You seem to be running flashrom on an unsupported laptop.
+Laptops, notebooks and netbooks are difficult to support and we
+recommend to use the vendor flashing utility. The embedded controller
+(EC) in these machines often interacts badly with flashing.
+See the manpage and http://www.flashrom.org/Laptops for details.
+
+If flash is shared with the EC, erase is guaranteed to brick your laptop
+and write may brick your laptop.
+Read and probe may irritate your EC and cause fan failure, backlight
+failure and sudden poweroff.
+You have been warned.
+========================================================================
+Proceeding anyway because user forced us to.
+Found chipset "Intel ICH9M" with PCI ID 8086:2919.
+Enabling flash write... Root Complex Register Block address = 0xfed1c000
+GCS = 0x380461: BIOS Interface Lock-Down: enabled, Boot BIOS Straps: 0x1 (SPI)
+Top Swap: not enabled
+0xfff80000/0xffb80000 FWH IDSEL: 0x0
+0xfff00000/0xffb00000 FWH IDSEL: 0x0
+0xffe80000/0xffa80000 FWH IDSEL: 0x0
+0xffe00000/0xffa00000 FWH IDSEL: 0x0
+0xffd80000/0xff980000 FWH IDSEL: 0x0
+0xffd00000/0xff900000 FWH IDSEL: 0x0
+0xffc80000/0xff880000 FWH IDSEL: 0x0
+0xffc00000/0xff800000 FWH IDSEL: 0x0
+0xff700000/0xff300000 FWH IDSEL: 0x4
+0xff600000/0xff200000 FWH IDSEL: 0x5
+0xff500000/0xff100000 FWH IDSEL: 0x6
+0xff400000/0xff000000 FWH IDSEL: 0x7
+0xfff80000/0xffb80000 FWH decode enabled
+0xfff00000/0xffb00000 FWH decode enabled
+0xffe80000/0xffa80000 FWH decode enabled
+0xffe00000/0xffa00000 FWH decode enabled
+0xffd80000/0xff980000 FWH decode enabled
+0xffd00000/0xff900000 FWH decode enabled
+0xffc80000/0xff880000 FWH decode enabled
+0xffc00000/0xff800000 FWH decode enabled
+0xff700000/0xff300000 FWH decode disabled
+0xff600000/0xff200000 FWH decode disabled
+0xff500000/0xff100000 FWH decode disabled
+0xff400000/0xff000000 FWH decode disabled
+Maximum FWH chip size: 0x400000 bytes
+SPI Read Configuration: prefetching disabled, caching enabled, 
+BIOS_CNTL = 0x01: BIOS Lock Enable: disabled, BIOS Write Enable: enabled
+SPIBAR = 0xb7714000 + 0x3800
+0x04: 0xe008 (HSFS)
+HSFS: FDONE=0, FCERR=0, AEL=0, BERASE=1, SCIP=0, FDOPSS=1, FDV=1, FLOCKDN=1
+Warning: SPI Configuration Lockdown activated.
+Reading OPCODES... done
+0x06: 0x3f04 (HSFC)
+HSFC: FGO=0, FCYCLE=2, FDBC=63, SME=0
+0x50: 0x00001a1b (FRAP)
+BMWAG 0x00, BMRAG 0x00, BRWA 0x1a, BRRA 0x1b
+0x54: 0x00000000 FREG0: Warning: Flash Descriptor region (0x00000000-0x00000fff) is read-only.
+0x58: 0x03ff0200 FREG1: BIOS region (0x00200000-0x003fffff) is read-write.
+0x5C: 0x01f50001 FREG2: Warning: Management Engine region (0x00001000-0x001f5fff) is locked.
+0x60: 0x01f701f6 FREG3: Gigabit Ethernet region (0x001f6000-0x001f7fff) is read-write.
+0x64: 0x01ff01f8 FREG4: Platform Data region (0x001f8000-0x001fffff) is read-write.
+Not all flash regions are freely accessible by flashrom. This is most likely
+due to an active ME. Please see http://flashrom.org/ME for details.
+0x74: 0x9fff03e0 PR0: Warning: 0x003e0000-0x01ffffff is read-only.
+0x84: 0x81ff81f8 PR4: Warning: 0x001f8000-0x001fffff is locked.
+Writes have been disabled for safety reasons. You can enforce write
+support with the ich_spi_force programmer option, but you will most likely
+harm your hardware! If you force flashrom you will get no support if
+something breaks. On a few mainboards it is possible to enable write
+access by setting a jumper (see its documentation or the board itself).
+0x90: 0x04 (SSFS)
+SSFS: SCIP=0, FDONE=1, FCERR=0, AEL=0
+0x91: 0x004130 (SSFC)
+SSFC: SCGO=0, ACS=0, SPOP=0, COP=3, DBC=1, SME=0, SCF=0
+0x94: 0x5006     (PREOP)
+0x96: 0x143b     (OPTYPE)
+0x98: 0x05200302 (OPMENU)
+0x9C: 0x0601209f (OPMENU+4)
+0xA0: 0x00000000 (BBAR)
+0xC4: 0x00002005 (LVSCC)
+LVSCC: BES=0x1, WG=1, WSR=0, WEWS=0, EO=0x20, VCL=0
+0xC8: 0x00002005 (UVSCC)
+UVSCC: BES=0x1, WG=1, WSR=0, WEWS=0, EO=0x20
+0xD0: 0x00000000 (FPB)
+OK.
+The following protocols are supported: FWH, SPI.
+Probing for Macronix MX25L3205D/MX25L3208D, 4096 kB: probe_spi_rdid_generic: id1 0xc2, id2 0x2016
+Found Macronix flash chip "MX25L3205D/MX25L3208D" (4096 kB, SPI) mapped at physical address 0xffc00000.
+Chip status register is 0x00.
+Chip status register: Status Register Write Disable (SRWD, SRP, ...) is not set
+Chip status register: Bit 6 is not set
+Chip status register: Block Protect 3 (BP3) is not set
+Chip status register: Block Protect 2 (BP2) is not set
+Chip status register: Block Protect 1 (BP1) is not set
+Chip status register: Block Protect 0 (BP0) is not set
+Chip status register: Write Enable Latch (WEL) is not set
+Chip status register: Write In Progress (WIP/BUSY) is not set
+This chip may contain one-time programmable memory. flashrom cannot read
+and may never be able to write it, hence it may not be able to completely
+clone the contents of this chip (see man page for details).
+Reading flash... Transaction error!
+SSFS: SCIP=0, FDONE=1, FCERR=1, AEL=0
+SSFC: SCGO=0, ACS=0, SPOP=0, COP=1, DBC=63, SME=0, SCF=0
+Running OPCODE 0x03 failed at address 0x001000 (payload length was 64).
+Read operation failed!
+FAILED.
+Restoring MMIO space at 0xb77178a0
+Restoring PCI config space for 00:1f:0 reg 0xdc

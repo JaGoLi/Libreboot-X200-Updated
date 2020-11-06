@@ -1,0 +1,71 @@
+From fc2f65e964fb9636db35749579c47dde15599f57 Mon Sep 17 00:00:00 2001
+From: Paul Kocialkowski <contact@paulk.fr>
+Date: Mon, 10 Aug 2015 20:24:50 +0200
+Subject: [PATCH 2/4] Proper firmware index report for read-only boot path
+
+When booting from a read-only boot path, the active firmware to report is RO.
+This is detected with the lack of a vboot handoff pointer.
+
+Change-Id: I3b1b5823b4dde7bc4185abe2e29f5d056ef9f09c
+Signed-off-by: Paul Kocialkowski <contact@paulk.fr>
+---
+ src/vboot/crossystem/fdt.c | 2 +-
+ src/vboot/firmware_id.c    | 6 +++++-
+ src/vboot/firmware_id.h    | 1 +
+ 3 files changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/src/vboot/crossystem/fdt.c b/src/vboot/crossystem/fdt.c
+index 5cba178..45cad88 100644
+--- a/src/vboot/crossystem/fdt.c
++++ b/src/vboot/crossystem/fdt.c
+@@ -68,7 +68,7 @@ static int install_crossystem_data(DeviceTreeFixup *fixup, DeviceTree *tree)
+ 				nvstorage_flash_get_blob_size());
+ 	}
+ 
+-	int fw_index = vdat->firmware_index;
++	int fw_index = get_active_fw_index(vdat);
+ 	const char *fwid;
+ 	int fwid_size;
+ 
+diff --git a/src/vboot/firmware_id.c b/src/vboot/firmware_id.c
+index 82acf91..d625251 100644
+--- a/src/vboot/firmware_id.c
++++ b/src/vboot/firmware_id.c
+@@ -31,6 +31,7 @@ static struct fwid {
+ } fw_fmap_ops[] = {
+ 	{VDAT_RW_A, "RW_FWID_A", NULL, 0, "RW A: ID NOT FOUND"},
+ 	{VDAT_RW_B, "RW_FWID_B", NULL, 0, "RW B: ID NOT FOUND"},
++	{VDAT_RO, "RO_FRID", NULL, 0, "RO: ID NOT FOUND"},
+ 	{VDAT_RECOVERY, "RO_FRID", NULL, 0, "RO: ID NOT FOUND"},
+ };
+ 
+@@ -125,10 +126,13 @@ static VbSharedDataHeader *get_vdat(void)
+ 	return NULL;
+ }
+ 
+-static inline int get_active_fw_index(VbSharedDataHeader *vdat)
++int get_active_fw_index(VbSharedDataHeader *vdat)
+ {
+ 	int fw_index = VDAT_UNKNOWN;
+ 
++	if (lib_sysinfo.vboot_handoff == NULL)
++		return VDAT_RO;
++
+ 	if (vdat)
+ 		fw_index = vdat->firmware_index;
+ 
+diff --git a/src/vboot/firmware_id.h b/src/vboot/firmware_id.h
+index 181b2a1..71be302 100644
+--- a/src/vboot/firmware_id.h
++++ b/src/vboot/firmware_id.h
+@@ -44,6 +44,7 @@ int get_rwb_fw_size(void);
+  * Get firmware details for currently active fw type. It looks up vdat,
+  * identifies fw_index and returns appropriate id and size for that index.
+  */
++int get_active_fw_index(VbSharedDataHeader *vdat);
+ const char *get_active_fw_id(void);
+ int get_active_fw_size(void);
+ 
+-- 
+2.10.2
+

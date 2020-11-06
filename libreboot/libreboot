@@ -1,0 +1,271 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+# Copyright (C) 2017 Andrew Robbins <contact@andrewrobbins.info>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+GLOBIGNORE=".:.." # This enables the shell option 'dotglob' as well.
+shopt -s nullglob extglob
+
+libreboot_usage() {
+	local action
+	local target
+
+	printf '%s\n' "$executable [action] [target] [arguments]"
+
+	printf '\n%s\n' 'Generic project actions:'
+
+	for action in "${PROJECT_ACTIONS_GENERIC[@]}"; do
+		printf '%s\n' "  $action"
+	done
+
+	printf '\n%s\n' 'Virtual project actions:'
+	printf '%s\n'   '  sources'
+	printf '%s\n'   '  produce'
+	printf '%s\n'   '  test'
+
+	printf '\n%s\n' 'Project targets:'
+
+	for target in "$root/$PROJECTS"/*; do
+		if project_check "$target"; then
+			printf '%s\n' "  ${target##*/}"
+		fi
+	done
+
+	printf '\n%s\n' 'Generic tool actions:'
+
+	for action in "${TOOL_ACTIONS_GENERIC[@]}"; do
+		printf '%s\n' "  $action"
+	done
+
+	printf '\n%s\n' 'Tool targets:'
+
+	for target in "$root/$TOOLS"/*; do
+		if tool_check "$target"; then
+			printf '%s\n' "  ${target##*/}"
+		fi
+	done
+
+	printf '\n%s\n' 'Environment variables:'
+	printf '%s\n'   '  PROJECTS_FORCE - Projects to always perform actions for'
+	printf '%s\n'   '  TOOLS_FORCE - Tools to always perform actions for'
+	printf '%s\n'   '  RELEASE_KEY - GPG key to use for release'
+	printf '%s\n'   '  VBOOT_KEYS_PATH - Path to the vboot keys'
+	printf '%s\n'   '  LIBFAKETIME_PATH - Path to libfaketime'
+	printf '%s\n'   '  TASKS - Number of simultaneous tasks to run'
+	printf '%s\n'   '  VERSION - Version string to use'
+
+	printf '\n%s\n' 'Configuration files:'
+	printf '%s\n'   "  $BUILD_SYSTEM.conf - Environment variables configuration"
+}
+
+libreboot_project() {
+	action="$1"
+	shift
+	project="$1"
+	shift
+
+	case "$action" in
+		'sources')
+			if project_action_arguments 'extract' "$project" "$@"; then
+				return
+			else
+				printf 1>&2 '\n%s\n\n' 'Attempting to download instead...'
+				project_action_arguments 'download' "$project" "$@"
+			fi
+			;;
+		'produce')
+			for action in 'build' 'install' 'release'; do
+				project_action_arguments "$action" "$project" "$@"
+			done
+			;;
+		'test')
+			for action in "${PROJECT_ACTIONS[@]}"; do
+				project_action_arguments "$action" "$project" "$@"
+			done
+			;;
+		*)
+			if ! project_function_check "$project" "$action"; then
+				libreboot_usage
+				exit 1
+			elif [[ $action == usage ]]; then
+				project_action_usage "$project" "$@"
+			else
+				project_action_arguments "$action" "$project" "$@"
+			fi
+			;;
+	esac
+}
+
+libreboot_tool() {
+	action="$1"
+	shift
+	tool="$1"
+	shift
+
+	if ! tool_function_check "$tool" "$action"; then
+		libreboot_usage
+		exit 1
+	elif [[ "$action" == 'usage' ]]; then
+		tool_action "$action" "$tool" "$@"
+	else
+		tool_action_arguments_recursive "$action" "$tool" "$@"
+	fi
+}
+
+libreboot_setup() {
+	root="$(readlink -f "$(dirname "$0")")"
+	executable="$(basename "$0")"
+
+	libreboot_setup_include
+	libreboot_setup_tool_actions
+	libreboot_setup_project_actions
+
+	requirements tar sed gpg sha256sum git mmd mcopy grep mkfs.fat
+
+	libreboot_setup_variables
+}
+
+libreboot_setup_include() {
+	local libs_path="$root/libs"
+	local conf_path
+
+	source "$libs_path/project"
+	source "$libs_path/tool"
+	source "$libs_path/common"
+	source "$libs_path/git"
+
+	conf_path="$root/$BUILD_SYSTEM.conf"
+
+	if [[ -f "$conf_path" ]]; then
+		source "$conf_path"
+	fi
+}
+
+libreboot_setup_tool_actions() {
+	local ignore="${TOOL_ACTIONS_GENERIC_IGNORE_CHECK[*]}"
+
+	local -a tool_actions
+
+	for ((i=0, nogeneric=${#TOOL_ACTIONS_GENERIC[@]}; i<nogeneric; ++i)); do
+		tool_actions+=("${TOOL_ACTIONS_GENERIC[i]}")
+
+		if [[ "${TOOL_ACTIONS_GENERIC[i]}" == !(${ignore// /|}) ]]; then
+			tool_actions+=("${TOOL_ACTIONS_GENERIC[i]/%/_check}")
+		fi
+	done
+
+	TOOL_ACTIONS=("${TOOL_ACTIONS_HELPERS[@]}" "${tool_actions[@]}")
+}
+
+libreboot_setup_project_actions() {
+	local ignore="${PROJECT_ACTIONS_GENERIC_IGNORE_CHECK[*]}"
+
+	local -a project_actions
+
+	for ((i=0, nogeneric=${#PROJECT_ACTIONS_GENERIC[@]}; i<nogeneric; ++i)); do
+		project_actions+=("${PROJECT_ACTIONS_GENERIC[i]}")
+
+		if [[ "${PROJECT_ACTIONS_GENERIC[i]}" == !(${ignore// /|}) ]]; then
+			project_actions+=("${PROJECT_ACTIONS_GENERIC[i]/%/_check}")
+		fi
+	done
+
+	PROJECT_ACTIONS=("${PROJECT_ACTIONS_HELPERS[@]}" "${project_actions[@]}")
+}
+
+libreboot_setup_variables() {
+	local vboot_tools_path="$(project_install_path 'vboot' 'tools')"
+	local version_path="$root/$DOTVERSION"
+
+	if [[ -z "$VERSION" ]]; then
+		if git_check "$root"; then
+			VERSION="$BUILD_SYSTEM-$(git_describe "$root" 2> /dev/null || echo 'git')"
+		elif [[ -f "$version_path" ]]; then
+			VERSION="$(< "$version_path")"
+		else
+			VERSION="$BUILD_SYSTEM"
+		fi
+	fi
+
+	if [[ -d "$vboot_tools_path/devkeys/" ]]; then
+		VBOOT_KEYS_PATH="${VBOOT_KEYS_PATH:-$vboot_tools_path/devkeys/}"
+	fi
+
+	libreboot_setup_reproducible_builds_variables
+}
+
+libreboot_setup_reproducible_builds_variables() {
+	local epoch_path="$root/$DOTEPOCH"
+	local rnd_seed_path="$root/$DOTRNDSEED"
+
+	# Used by GCC, e.g., -frandom-seed="$RANDOM_SEED"
+	if [[ -z "$RANDOM_SEED" ]]; then
+		if [[ -f "$rnd_seed_path" ]]; then
+			RANDOM_SEED="$(< "$rnd_seed_path")"
+		else
+			RANDOM_SEED="$RANDOM" # True randomness is unnecessary
+		fi
+
+		export RANDOM_SEED
+	fi
+
+	# Also used by GCC, but as an environment variable
+	if [[ -z "$SOURCE_DATE_EPOCH" ]]; then
+		if git_check "$root"; then
+			SOURCE_DATE_EPOCH="$(git log -1 --format=%ct)"
+		elif [[ -f "$epoch_path" ]]; then
+			SOURCE_DATE_EPOCH="$(< "$epoch_path")"
+		else
+			SOURCE_DATE_EPOCH="$(date +%s)"
+		fi
+
+		export SOURCE_DATE_EPOCH
+	fi
+
+	# Relevant only when libfaketime path is given in $BUILD_SYSTEM.conf
+	if [[ -n "$LIBFAKETIME_PATH" ]]; then
+		BUILD_DATE_FMT="%Y-%m-%d %H:%M:%S"
+		BUILD_DATE="$(date -u -d "@$SOURCE_DATE_EPOCH" "+$BUILD_DATE_FMT" 2>/dev/null || date -u -r "$SOURCE_DATE_EPOCH" "+$BUILD_DATE_FMT" 2>/dev/null || date -u "+$BUILD_DATE_FMT")"
+		FAKETIME="@$BUILD_DATE"
+		LC_ALL='C.UTF-8'
+		LD_PRELOAD="$LIBFAKETIME_PATH"
+		TZ='UTC'
+
+		export BUILD_DATE_FMT BUILD_DATE FAKETIME LC_ALL LD_PRELOAD TZ
+	fi
+}
+
+libreboot() {
+	action="$1"
+	shift
+	target="$1"
+	shift
+
+	set -e
+
+	libreboot_setup "$@"
+
+	if project_check "$target"; then
+		libreboot_project "$action" "$target" "$@"
+	elif tool_check "$target"; then
+		libreboot_tool "$action" "$target" "$@"
+	else
+		libreboot_usage
+		exit 1
+	fi
+}
+
+libreboot "$@"

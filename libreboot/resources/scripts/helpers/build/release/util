@@ -1,0 +1,253 @@
+#!/usr/bin/env bash
+
+#
+#  helper script: generate the release archives
+#
+#	Copyright (C) 2014, 2015, 2016 Leah Rowe <info@minifree.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the current working directory when running
+# it is the root directory of the libreboot git repository clone.
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+arch="unknown"
+if [ "$(uname -i)" = "i686" ] || [ "$(uname -m)" = "i686" ]
+	then
+		arch="i686"
+		echo "Running on i686. ok."
+		sleep 2
+elif [ "$(uname -i)" = "x86_64" ] || [ "$(uname -m)" = "x86_64" ]
+	then
+		arch="x86_64"
+		echo "Running on x86_64. ok."
+		sleep 2
+else
+	echo "This script must be run on an i686 or x86_64 host. x86_64 is recommended."
+	exit 1
+fi
+
+if [ -f "version" ]; then
+	# _src release archive is being used
+	version="$(cat version)"
+	versiondate="$(cat versiondate)"
+else
+	# git repo is being used
+	version="$(git describe --tags HEAD)"
+	versiondate="$(git show -s --format=%ct)"
+fi
+versiondir="release/oldbuildsystem/${version}"
+distname="libreboot_${version}_util"
+distdir="${versiondir}/${distname}"
+
+printf "Creating utility archive (static executables)\n"
+
+# delete the old data
+rm -Rf "${distdir:?}/"
+rm -f "${distdir}.tar.xz"
+
+# this is where they will go
+mkdir -p "${distdir}/"
+
+# this has to be done before generating
+# the "version" file
+if [ ! -f "version" ]; then
+	# generate ChangeLog and NEWS files
+	rm -f "ChangeLog" "NEWS"
+	git log > "${distdir}/ChangeLog"
+	cp "${distdir}/ChangeLog" "${distdir}/NEWS"
+else
+	# building from release archive
+	cp "ChangeLog" "${distdir}/"
+	cp "NEWS" "${distdir}/"
+fi
+
+if [ -f "RELEASE" ]; then
+    rm -f "${distdir}/ChangeLog"
+    rm -f "${distdir}/NEWS"
+    cp "RELEASE" "${distdir}/ChangeLog"
+    cp "RELEASE" "${distdir}/NEWS"
+fi
+
+# include version information
+printf '%s\n' "${version}" >"${distdir}/version"
+# include version date information
+printf '%s\n' "${versiondate}" >"${distdir}/versiondate"
+
+# --------------
+# BUC.TS related
+# --------------
+# X60/T60: BUC.TS utility is needed to flash libreboot while Lenovo BIOS is running
+# Include it statically compiled
+cp -R "bucts" "bucts_/"
+# make it statically compile
+./oldbuild module bucts static
+mkdir -p "${distdir}/bucts/${arch}/"
+mv "bucts/bucts" "${distdir}/bucts/${arch}/"
+rm -Rf "bucts/"
+mv "bucts_/" "bucts/"
+
+# ----------------
+# Flashrom related
+# ----------------
+# Flashrom is used to install libreboot on supported targets
+# Include it statically compiled
+cp -R "flashrom/" "flashrom_/"
+# make it statically compile
+./oldbuild module flashrom static
+mkdir -p "${distdir}/flashrom/${arch}/"
+mv "flashrom/flashrom" "${distdir}/flashrom/${arch}/"
+mv "flashrom/flashrom_lenovobios_sst" "${distdir}/flashrom/${arch}/"
+mv "flashrom/flashrom_lenovobios_macronix" "${distdir}/flashrom/${arch}/"
+rm -Rf "flashrom/"
+mv "flashrom_/" "flashrom/"
+
+ # ----------------
+# cbfstool related
+# ----------------
+# build cbfstool, compiled (statically linked) and include the binary
+
+mkdir -p "${distdir}/cbfstool/${arch}/"
+
+cd "crossgcc/util/"
+cp -R "cbfstool" "cbfstool_/"
+cd "cbfstool/"
+sed -i '/.*fmd_scanner.o.*-Wno-unused-function$/ s/$/ -Wno-sign-compare/'  Makefile.inc # build fix for latest flex version
+make clean
+make SHARED=0 CC='gcc -static'
+
+mv "cbfstool" "../../../${distdir}/cbfstool/${arch}/"
+
+if [ "${arch}" = "x86_64" ]
+       then
+               # Now build 32-bit binaries
+               make clean
+               make SHARED=0 CC='gcc -static -m32'
+               mkdir "../../../${distdir}/cbfstool/i686"
+               mv "cbfstool" "../../../${distdir}/cbfstool/i686/"
+fi
+
+# cross-compile for ARM
+make clean
+make SHARED=0 CC='arm-linux-gnueabi-gcc -static'
+mkdir "../../../${distdir}/cbfstool/armv7l/"
+mv "cbfstool" "../../../${distdir}/cbfstool/armv7l/"
+
+cd ../
+rm -Rf "cbfstool/"
+mv "cbfstool_/" "cbfstool/"
+cd ../../
+
+
+# ----------------
+# ich9deblob related
+# ----------------
+# build ich9deblob, compiled (statically linked) and include the binary
+
+mkdir -p "${distdir}/ich9deblob/${arch}"
+
+cd "resources/utilities/"
+cp -R "ich9deblob" "ich9deblob_/"
+cd "ich9deblob/"
+make clean
+make SHARED=0 CC='gcc -static'
+
+mv "ich9deblob" "../../../${distdir}/ich9deblob/${arch}/"
+mv "ich9gen" "../../../${distdir}/ich9deblob/${arch}/"
+mv "demefactory" "../../../${distdir}/ich9deblob/${arch}/"
+
+if [ "${arch}" = "x86_64" ]
+	then
+		# Now build 32-bit binaries
+		make clean
+		make SHARED=0 CC='gcc -static -m32'
+		mkdir "../../../${distdir}/ich9deblob/i686/"
+		mv "ich9deblob" "../../../${distdir}/ich9deblob/i686/"
+		mv "ich9gen" "../../../${distdir}/ich9deblob/i686/"
+		mv "demefactory" "../../../${distdir}/ich9deblob/i686/"
+fi
+
+# cross-compile for ARM
+make clean
+make SHARED=0 CC='arm-linux-gnueabi-gcc -static'
+mkdir "../../../${distdir}/ich9deblob/armv7l"
+mv "ich9deblob" "../../../${distdir}/ich9deblob/armv7l/"
+mv "ich9gen" "../../../${distdir}/ich9deblob/armv7l/"
+mv "demefactory" "../../../${distdir}/ich9deblob/armv7l/"
+
+cd "../"
+rm -Rf "ich9deblob/"
+mv "ich9deblob_/" "ich9deblob/"
+cd "../../"
+
+# -----------------
+# nvramtool related
+# -----------------
+# build nvramtool, compiled (statically linked) and include the binary
+cd "crossgcc/util/"
+cp -R "nvramtool/" "nvramtool_/"
+cd "nvramtool/"
+make clean
+make SHARED=0 CC='gcc -static'
+
+mkdir -p "../../../${distdir}/nvramtool/${arch}/"
+
+mv "nvramtool" "../../../${distdir}/nvramtool/${arch}/"
+
+if [ "${arch}" = "x86_64" ]
+       then
+               # Now build 32-bit binaries
+               make clean
+               make SHARED=0 CC='gcc -static -m32'
+               mkdir "../../../${distdir}/nvramtool/i686/"
+               mv "nvramtool" "../../../${distdir}/nvramtool/i686/"
+fi
+
+cd "../"
+rm -Rf "nvramtool/"
+mv "nvramtool_/" "nvramtool/"
+cd "../../"
+
+# -------------
+# Miscellaneous
+# -------------
+
+# Flashing script
+cp "flash" "${distdir}/"
+
+# powertop script
+cp "resources/scripts/misc/powertop.trisquel7" "${distdir}/"
+
+# grubeditor.sh script
+cp "resources/scripts/misc/grubeditor.sh" "${distdir}/"
+  
+printf "\n\n"
+
+# ### Create the release tarballs
+# ----------------------------------------------------------------------------------------------------------------------------
+
+printf "Compressing %s/ into %s.tar.xz\n" "${distdir}" "${distdir}.tar.xz"
+# create lzma compressed util archive
+(cd "${versiondir}/" && tar -c "${distname}/" | xz -9e >"${distname}.tar.xz")
+
+printf "done\n\n"
+
+# ### Delete the uncompressed release directories
+# ----------------------------------------------------------------------------------------------------------------------------
+
+# The uncompressed archives are no longer needed
+rm -Rf "${distdir:?}/"

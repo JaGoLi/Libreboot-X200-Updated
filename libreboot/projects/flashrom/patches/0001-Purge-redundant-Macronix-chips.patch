@@ -1,0 +1,91 @@
+From 4a262ea16a10a6067d48d70a2195151dea9292c6 Mon Sep 17 00:00:00 2001
+From: Andrew Robbins <contact@andrewrobbins.info>
+Date: Fri, 2 Mar 2018 00:13:16 -0500
+Subject: [PATCH] Purge redundant Macronix chips
+
+Removing the redundant Macronix chips avoids the situation where X60
+owners have to specify their particular chip on the command line with
+flashrom's '--chip' flag.
+---
+ flashchips.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/flashchips.c b/flashchips.c
+index 1ab4986..7f85415 100644
+--- a/flashchips.c
++++ b/flashchips.c
+@@ -7595,7 +7595,7 @@ const struct flashchip flashchips[] = {
+ 		.name		= "MX25L1605A/MX25L1606E/MX25L1608E",
+ 		.bustype	= BUS_SPI,
+ 		.manufacture_id	= MACRONIX_ID,
+-		.model_id	= MACRONIX_MX25L1605,
++		.model_id	= 0xDEAD,
+ 		.total_size	= 2048,
+ 		.page_size	= 256,
+ 		/* OTP: 64B total; enter 0xB1, exit 0xC1 (MX25L1606E and MX25L1608E only) */
+@@ -7634,7 +7634,7 @@ const struct flashchip flashchips[] = {
+ 		.name		= "MX25L1605D/MX25L1608D/MX25L1673E",
+ 		.bustype	= BUS_SPI,
+ 		.manufacture_id	= MACRONIX_ID,
+-		.model_id	= MACRONIX_MX25L1605,
++		.model_id	= 0xDEAD,
+ 		.total_size	= 2048,
+ 		.page_size	= 256,
+ 		.feature_bits	= FEATURE_WRSR_WREN,
+@@ -7776,7 +7776,7 @@ const struct flashchip flashchips[] = {
+ 		.name		= "MX25L3205D/MX25L3208D",
+ 		.bustype	= BUS_SPI,
+ 		.manufacture_id	= MACRONIX_ID,
+-		.model_id	= MACRONIX_MX25L3205,
++		.model_id	= 0xDEAD,
+ 		.total_size	= 4096,
+ 		.page_size	= 256,
+ 		/* OTP: 64B total; enter 0xB1, exit 0xC1 */
+@@ -7812,7 +7812,7 @@ const struct flashchip flashchips[] = {
+ 		.name		= "MX25L3206E/MX25L3208E",
+ 		.bustype	= BUS_SPI,
+ 		.manufacture_id	= MACRONIX_ID,
+-		.model_id	= MACRONIX_MX25L3205,
++		.model_id	= 0xDEAD,
+ 		.total_size	= 4096,
+ 		.page_size	= 256,
+ 		/* OTP: 64B total; enter 0xB1, exit 0xC1 */
+@@ -7851,7 +7851,7 @@ const struct flashchip flashchips[] = {
+ 		.name		= "MX25L3273E",
+ 		.bustype	= BUS_SPI,
+ 		.manufacture_id	= MACRONIX_ID,
+-		.model_id	= MACRONIX_MX25L3205,
++		.model_id	= 0xDEAD,
+ 		.total_size	= 4096,
+ 		.page_size	= 256,
+ 		/* OTP: 64B total; enter 0xB1, exit 0xC1 */
+@@ -7962,7 +7962,7 @@ const struct flashchip flashchips[] = {
+ 		.name		= "MX25L6405D",
+ 		.bustype	= BUS_SPI,
+ 		.manufacture_id	= MACRONIX_ID,
+-		.model_id	= MACRONIX_MX25L6405,
++		.model_id	= 0xDEAD,
+ 		.total_size	= 8192,
+ 		.page_size	= 256,
+ 		/* OTP: 64B total; enter 0xB1, exit 0xC1 */
+@@ -7998,7 +7998,7 @@ const struct flashchip flashchips[] = {
+ 		.name		= "MX25L6406E/MX25L6408E",
+ 		.bustype	= BUS_SPI,
+ 		.manufacture_id	= MACRONIX_ID,
+-		.model_id	= MACRONIX_MX25L6405,
++		.model_id	= 0xDEAD,
+ 		.total_size	= 8192,
+ 		.page_size	= 256,
+ 		/* MX25L6406E supports SFDP */
+@@ -8038,7 +8038,7 @@ const struct flashchip flashchips[] = {
+ 		.name		= "MX25L6436E/MX25L6445E/MX25L6465E/MX25L6473E/MX25L6473F",
+ 		.bustype	= BUS_SPI,
+ 		.manufacture_id	= MACRONIX_ID,
+-		.model_id	= MACRONIX_MX25L6405,
++		.model_id	= 0xDEAD,
+ 		.total_size	= 8192,
+ 		.page_size	= 256,
+ 		/* supports SFDP */
+-- 
+1.9.1
+

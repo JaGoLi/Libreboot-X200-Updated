@@ -1,0 +1,182 @@
+<GNUtoo-irssi> I documented it
+<GNUtoo-irssi> but I should update the page
+<GNUtoo-irssi> somehow it works without any but one of my extra patches
+<GNUtoo-irssi> but it has 1 small issue
+<phcoder-1creen> GNUtoo-irssi: do you need review on those? I think that sth like it could save me countless external reflashs
+<GNUtoo-irssi> phcoder-1creen: well, most of them are unnecessary now
+<GNUtoo-irssi> 1 patch is usefull only for improving code readability of existing coreboot code
+<GNUtoo-irssi> 1 patch is only changing the reboot count of the fallback mecanism
+<GNUtoo-irssi> beside that I see nothing remaining
+<GNUtoo-irssi> but I can check again
+<GNUtoo-irssi> I have to do it now
+<GNUtoo-irssi> The documentation is on the wiki
+<GNUtoo-irssi> caveats:
+<GNUtoo-irssi> 1) sometimes the x60 reboots twice,
+<GNUtoo-irssi> for instance if you run poweroff, then let it power down, and as soon as it seems powered down, you press the power button
+<GNUtoo-irssi> in that case it will do a reset
+<GNUtoo-irssi> 2) suspend/resume and userspace needs some handling, I've systemd units for booting only, but not for suspend/resume
+<GNUtoo-irssi> but you can do it by hand
+<GNUtoo-irssi> config MAX_REBOOT_CNT
+<GNUtoo-irssi> <tab>int
+<GNUtoo-irssi> <tab>default 1
+<GNUtoo-irssi> that's what I added in src/mainboard/lenovo/x60/Kconfig
+<GNUtoo-irssi> before I had a patch to make it selectable it in Kconfig,
+<GNUtoo-irssi> that is to say the user enter the max reboot count he wants
+<GNUtoo-irssi> I think the global default is 3
+<GNUtoo-irssi> Then I've some other interesting patches
+<GNUtoo-irssi> I wonder if they're acceptable
+<GNUtoo-irssi> one patch is for adding etc/grub.cfg from Kconfig
+<GNUtoo-irssi> Use case: the user builds once, he do ./build/cbfstool ./build/coreboot.rom add -n etc/grub.cfg -f grub.cfg -t raw
+<GNUtoo-irssi> but he re-do make
+<GNUtoo-irssi> and forgett to re-add grub.cfg
+<GNUtoo-irssi> it's just a convenience
+<GNUtoo-irssi> (he could do it with a script too)
+<GNUtoo-irssi> *he/she
+<GNUtoo-irssi> I guess the user is a she in english?
+<GNUtoo-irssi> en french it's a he
+<GNUtoo-irssi> I've also a flashrom patch to submit
+<GNUtoo-irssi> phcoder-1creen: "it could save me countless external reflashs" => that was exactly my use case
+<GNUtoo-irssi> There are some other interesting stuff that could extend the use case:
+<GNUtoo-irssi> there is a flash log for the chromebooks
+<GNUtoo-irssi> example use case: you go to a conference in the USA, you are in the plane
+<GNUtoo-irssi> you then continue developing there, you reflash etc...
+<GNUtoo-irssi> but then you need the log of the failed boot somehow
+<GNUtoo-irssi> the flash log (which is in coreboot but require CONFIG_CHROMEOS or something like that) could help with that second use case
+<GNUtoo-irssi> Else the logs in RAM + a watchdog could also do the trick
+<GNUtoo-irssi> *hardware watchdog
+<GNUtoo-irssi> so that second approach of the second use case would just require some modifications related to cbmem
+<GNUtoo-irssi> they may already be there, because I'm way out of the loop
+<GNUtoo-irssi> I'll make a list of the interesting patches I have locally
+<GNUtoo-irssi> and look at gerrit too
+<GNUtoo-irssi> btw, is there some easy infrastructure work to do?
+<GNUtoo-irssi> like something that can be done on the side
+* ttyS3 has quit (Ping timeout: 264 seconds)
+<GNUtoo-irssi> The x60[s/t], T60(with intel GPUs), are mostly complete, the main issue remaining is merging that improved GPU init code
+<GNUtoo-irssi> fallback/ is mostly merged but that one patch I was talking about
+<GNUtoo-irssi> then I guess the ACPI part was merged
+<GNUtoo-irssi> I'm unsure about the IRDA
+<GNUtoo-irssi> I mostly test on x60t nowadays
+<GNUtoo-irssi> (my t60 has a nasty bug with ctrl+d, probably ec related)
+<GNUtoo-irssi> I've also to look about the security of the I/Os
+<GNUtoo-irssi> (like what's on the dock connector)
+<GNUtoo-irssi> there is also the license issue of the microcodes inside the headers
+<GNUtoo-irssi> I'll add all that in the wiki
+<phcoder-1creen> GNUtoo-irssi: did you test digitizer?
+<GNUtoo-irssi> yes
+<GNUtoo-irssi> works well with libreboot 6 beta3 patches on top of coreboot git
+<GNUtoo-irssi> I use it often
+<GNUtoo-irssi> with xournal mainly
+<GNUtoo-irssi> I've been in a local shop and I've found a compatilble wacom pen: it has:
+<GNUtoo-irssi> touch, button(right click), eraser
+<GNUtoo-irssi> all do work
+<GNUtoo-irssi> the pen is not the x60 pen, but it does work fine
+<phcoder-1creen> digitizer patches are already in
+<GNUtoo-irssi> The screen's directional keys the its middle key work
+<GNUtoo-irssi> yes
+<GNUtoo-irssi> I'll update soon
+<GNUtoo-irssi> I'll probably sumarize the patch I've left in the wiki
+<GNUtoo-irssi> and update that fallback page
+<GNUtoo-irssi> phcoder-1creen: is the IRDA supposed to work?
+<phcoder-1creen> GNUtoo-irssi: 5243
+<phcoder-1creen> T60, rght?
+* KidBeta has quit (Quit: My MacBook Pro has gone to sleep. ZZZzzz…)
+<GNUtoo-irssi> x60 and x60t
+<GNUtoo-irssi> oops
+<GNUtoo-irssi> x60t and t60
+<GNUtoo-irssi> I'll test them together, I was trying lirc instead directlyt
+<phcoder-1creen> 5242 for X60
+<GNUtoo-irssi> ok
+<GNUtoo-irssi> thanks
+<phcoder-1creen> GNUtoo-irssi: did you see x200 port?
+<GNUtoo-irssi> yes
+<GNUtoo-irssi> what CPU is it?
+<GNUtoo-irssi> and what chipset?
+<phcoder-1creen> gm45. Intel GPU
+<GNUtoo-irssi> ok
+<GNUtoo-irssi> I've looked at your new ports and related,
+<GNUtoo-irssi> it probably cover the chipset I have in my N71JQ
+<GNUtoo-irssi> but I probably don't have time to do the port anytime soon
+<phcoder-1creen> gm45 was already covered by rk9
+<GNUtoo-irssi> yes
+<GNUtoo-irssi> it's core 2 duo with the first AMT in the NICs, right?
+<GNUtoo-irssi> and 64bit?
+<phcoder-1creen> it's 64bit. I can't tell anything about AMT.
+<GNUtoo-irssi> so I guess that if someone unsolder his nic firmware flash, the AMT is gone?
+<GNUtoo-irssi> ok
+<GNUtoo-irssi> if so that's probably a good tradeoff
+<GNUtoo-irssi> you get more recent laptops at the cost of unsoldering or blanking the NIC's flash
+<phcoder-1creen> ME firmware is in the flash chip. There is information that on gm45 you can remove ME firmware without any consequences but I din't really try
+<GNUtoo-irssi> assuming it's like with the old i945 laptops
+<GNUtoo-irssi> ok, wow, nice
+<GNUtoo-irssi> how fast is it in between the T60's and the Nehalem's laptops(x201)
+<phcoder-1creen> roda rk9 runs without ME firmware AFACIT
+<GNUtoo-irssi> ok
+<GNUtoo-irssi> about roda and so on, there isn't a lot of infos on the rugged laptops
+<GNUtoo-irssi> I guess that nobody still test on them
+<phcoder-1creen> No. But the list of connectors they have is truly impressive. As is battery capacity and heaviness.
+<GNUtoo-irssi> indeed
+<GNUtoo-irssi> it probably has lot of interesting peripherals too, like GPS, 3g modem(how is it connected?) and so on
+<GNUtoo-irssi> for the heavyness, it's a way to make geeks become like rambo?
+<GNUtoo-irssi> s/geeks/geeks and nerds
+<phcoder-1creen> 3g modems are optional. I guess it's minipcie slot.
+<phcoder-1creen> BTW x200 has 3 minipcie slots
+<GNUtoo-irssi> wow
+<phcoder-1creen> (not counting exprecsscard)
+<GNUtoo-irssi> ok
+<GNUtoo-irssi> that permits to have 2 wifi cards...
+<phcoder-1creen> if driver can handle it, sure. When I tried with 2 intel cards, intel drivers and networkmanager got confused.
+<GNUtoo-irssi> (ath9k/ath5k have some difficulties when creating multiples interfaces when WPA is involved)
+<GNUtoo-irssi> ok
+<phcoder-1creen> 3rd minipcie was intended for UWB.
+<GNUtoo-irssi> well, I have multiples cards easily here
+<GNUtoo-irssi> I never had a problem with non-intel cards
+<phcoder-1creen> network manager will still get confused
+<GNUtoo-irssi> example: ath9k + ath9k_htc => both interfaces appear in kde's network manager GUI
+<GNUtoo-irssi> it was getting confused with intel cards and rfkill
+<GNUtoo-irssi> (and I lacked the fimrware of the intel cards...so that added to the confusion)
+<GNUtoo-irssi> Example use case: connect to 2 different AP on 2 different networks
+<phcoder-1creen> yes network manager and multiple cards and rfkill resultsin confusion
+<GNUtoo-irssi> my ath9k_htc is usb
+<GNUtoo-irssi> so no hardware rfkill
+<GNUtoo-irssi> btw, the mini-pcie connectors do export only pci?
+<GNUtoo-irssi> do they export usb, and sata?
+<GNUtoo-irssi> (and some other pins for rfkill, SIM card, and so on)
+
+
+
+
+
+
+
+<GNUtoo-irssi> ok
+<GNUtoo-irssi> well, I must update the instructions
+<GNUtoo-irssi> I was going trough the list of patches I had first
+<GNUtoo-irssi> yes
+<GNUtoo-irssi> but to a specific/personal page
+<vimuser> could you link me to the updated instructions? (when done)
+<GNUtoo-irssi> well, I'll update them first
+<GNUtoo-irssi> I was going trough my patches list before that
+<GNUtoo-irssi> so I'll do that now
+<vimuser> So I gather that you basically reset the counter yourself after you boot (after typing grub password)
+<vimuser> and so, if you boot and the counter is higher, you know if someone tried to use it
+<GNUtoo-irssi> yes, my systemd unit does it
+<GNUtoo-irssi> *resets it
+<GNUtoo-irssi> so it works like that:
+<GNUtoo-irssi> the bootblock switch from normal/ to fallback if the counter is > CONFIG_MAX_REBOOT_CNT
+<GNUtoo-irssi> if no normal/ is there it also switch to fallback/
+<GNUtoo-irssi> and then it increments the counter
+<GNUtoo-irssi> (it's badly explained by me but you get the idea)
+<GNUtoo-irssi> then my systemd units reset the counter to 0 once it's fully booted
+<GNUtoo-irssi> that way if it fails, let's say at booting any linux kernel, then the user won't have bricked the laptop
+<GNUtoo-irssi> (and the developer will have saved lot of time)
+<GNUtoo-irssi> the issue is that I didn't reset the counter at resume
+<GNUtoo-irssi> I should look how
+<GNUtoo-irssi> but at least that makes it developer friendly if the user don't have suspend-resume covered yet
+<GNUtoo-irssi> testing images is then a lot faster
+<GNUtoo-irssi> and for "production", only fallback/ populated, but with the mecanism in place
+<GNUtoo-irssi> that way he can test normal/ easily
+
+
+
+
+

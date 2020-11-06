@@ -1,0 +1,158 @@
+USB
+
+
+coreboot-4.0-7551-ge420139-dirty Wed Dec 10 16:34:05 GMT 2014 starting...
+running main(bist = 0)
+WARNING: Ignoring S4-assertion-width violation.
+Stepping B3
+2 CPU cores
+AMT enabled
+capable of DDR2 of 800 MHz or lower
+VT-d enabled
+GMCH: GS45, using high performance mode by default
+TXT enabled
+Render frequency: 533 MHz
+IGD enabled
+PCIe-to-GMCH enabled
+GMCH supports DDR3 with 1067 MT or less
+GMCH supports FSB with up to 1067 MHz
+SMBus controller enabled.
+0:50:ff
+2:51:b
+DDR mask 4, DDR 3
+Bank 1 populated:
+ Raw card type:    B
+ Row addr bits:   15
+ Col addr bits:   10
+ byte width:       1
+ page size:     1024
+ banks:            8
+ ranks:            1
+ tAAmin:    105
+ tCKmin:     12
+  Max clock: 666 MHz
+ CAS:       0x07e0
+DIMMs support 666 MHz, but chipset only runs at up to 533. Limiting...
+Trying CAS 7, tCK 15.
+Found compatible clock / CAS pair: 533 / 7.
+Timing values:
+ tCLK:   15
+ tRAS:   20
+ tRP:     7
+ tRCD:    7
+ tRFC:  104
+ tWR:     8
+ tRD:    11
+ tRRD:    4
+ tFAW:   20
+ tWL:     6
+Changing memory frequency: old 3, new 6.
+Setting IGD memory frequencies for VCO #1.
+Memory configured in single-channel mode.
+Memory map:
+TOM   =   128MB
+TOLUD =   128MB
+TOUUD =   128MB
+REMAP:   base  = 65535MB
+         limit =     0MB
+usedMEsize: 0MB
+Performing Jedec initialization at address 0x00000000.
+Final timings for group 0 on channel 1: 6.0.2.6.4
+Final timings for group 1 on channel 1: 6.0.2.6.4
+Final timings for group 2 on channel 1: 6.0.2.8.3
+Final timings for group 3 on channel 1: 6.0.2.8.6
+Lower bound for byte lane 0 on channel 1: 0.0
+Upper bound for byte lane 0 on channel 1: 10.4
+Final timings for byte lane 0 on channel 1: 5.2
+Lower bound for byte lane 1 on channel 1: 0.0
+Upper bound for byte lane 1 on channel 1: 11.2
+Final timings for byte lane 1 on channel 1: 5.5
+Lower bound for byte lane 2 on channel 1: 0.0
+Upper bound for byte lane 2 on channel 1: 10.5
+Final timings for byte lane 2 on channel 1: 5.2
+Lower bound for byte lane 3 on channel 1: 0.0
+Upper bound for byte lane 3 on channel 1: 9.7
+Final timings for byte lane 3 on channel 1: 4.7
+Timing overflow during read training.
+Read training failure: lower bound.
+USB
+
+
+coreboot-4.0-7551-ge420139-dirty Wed Dec 10 16:34:05 GMT 2014 starting...
+running main(bist = 0)
+Interrupted RAM init, reset required.
+USB
+
+
+coreboot-4.0-7551-ge420139-dirty Wed Dec 10 16:34:05 GMT 2014 starting...
+running main(bist = 0)
+Stepping B3
+2 CPU cores
+AMT enabled
+capable of DDR2 of 800 MHz or lower
+VT-d enabled
+GMCH: GS45, using high performance mode by default
+TXT enabled
+Render frequency: 533 MHz
+IGD enabled
+PCIe-to-GMCH enabled
+GMCH supports DDR3 with 1067 MT or less
+GMCH supports FSB with up to 1067 MHz
+SMBus controller enabled.
+0:50:ff
+2:51:b
+DDR mask 4, DDR 3
+Bank 1 populated:
+ Raw card type:    B
+ Row addr bits:   15
+ Col addr bits:   10
+ byte width:       1
+ page size:     1024
+ banks:            8
+ ranks:            1
+ tAAmin:    105
+ tCKmin:     12
+  Max clock: 666 MHz
+ CAS:       0x07e0
+DIMMs support 666 MHz, but chipset only runs at up to 533. Limiting...
+Trying CAS 7, tCK 15.
+Found compatible clock / CAS pair: 533 / 7.
+Timing values:
+ tCLK:   15
+ tRAS:   20
+ tRP:     7
+ tRCD:    7
+ tRFC:  104
+ tWR:     8
+ tRD:    11
+ tRRD:    4
+ tFAW:   20
+ tWL:     6
+Setting IGD memory frequencies for VCO #1.
+Memory configured in single-channel mode.
+Memory map:
+TOM   =   128MB
+TOLUD =   128MB
+TOUUD =   128MB
+REMAP:   base  = 65535MB
+         limit =     0MB
+usedMEsize: 0MB
+Performing Jedec initialization at address 0x00000000.
+Final timings for group 0 on channel 1: 6.0.2.7.6
+Final timings for group 1 on channel 1: 6.0.2.6.6
+Final timings for group 2 on channel 1: 6.0.2.8.7
+Final timings for group 3 on channel 1: 6.1.0.2.5
+Lower bound for byte lane 0 on channel 1: 0.0
+Upper bound for byte lane 0 on channel 1: 10.3
+Final timings for byte lane 0 on channel 1: 5.1
+Lower bound for byte lane 1 on channel 1: 0.0
+Upper bound for byte lane 1 on channel 1: 11.3
+Final timings for byte lane 1 on channel 1: 5.5
+Lower bound for byte lane 2 on channel 1: 0.0
+Upper bound for byte lane 2 on channel 1: 10.5
+Final timings for byte lane 2 on channel 1: 5.2
+Lower bound for byte lane 3 on channel 1: 0.0
+Upper bound for byte lane 3 on channel 1: 9.6
+Final timings for byte lane 3 on channel 1: 4.7
+Timing overflow during read training.
+Read training failure: lower bound.

@@ -1,0 +1,153 @@
+#!/usr/bin/env bash
+
+#  helper script: downloads coreboot and patches/deblobs it
+#
+#	Copyright (C) 2014, 2015, 2016 Leah Rowe <info@minifree.org>
+#	Copyright (C) 2015 Paul Kocialkowski <contact@paulk.fr>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the working directory is the
+# root of libreboot_src or libreboot git.
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+if [ -f "version" ]; then
+	# _src release archive is being used
+	version="libreboot-$(cat version)"
+else
+	# git repo is being used
+	version="libreboot-$(git describe --tags HEAD)"
+fi
+
+make_coreboot_src_directory() {
+    payload="${1}"
+    cbrevision="${2}"
+    vbootrevision="${3}"
+    firmwarepath="${4}" # libreboot_src/coreboot/
+(
+    cd "${firmwarepath}/"
+    # copy coreboot directory there
+    rm -Rf "${payload:?}/${cbrevision:?}/"
+    if [ ! -d "${payload}/" ]; then
+        mkdir -p "${payload}/"
+    fi
+    cp -R "coreboot/" "${payload}/${cbrevision}/"
+
+    # We need to reset that revision of coreboot to the specified revision
+    cd "${payload}/${cbrevision}/"
+    git reset --hard ${cbrevision}
+
+    if [ "${vbootrevision}" != "no_vboot_revision" ]; then
+        # reset vboot revision. in practise, we always use the same
+        # vboot revision on all boards that use a given coreboot revision
+        cd "3rdparty/vboot/"
+        git reset --hard ${vbootrevision}
+    fi
+)
+}
+
+printf "Downloading coreboot, patching coreboot and deblobbing coreboot\n"
+
+# This grabs current base used, and applies patches
+# This is also used to run the deblob scripts.
+
+# Remove the old version that may exist
+# ------------------------------------------------------------------------------
+
+rm -Rf "coreboot/"
+
+mkdir "coreboot/"
+
+cd "coreboot/"
+
+# Get latest coreboot:
+# ------------------------------------------------------------------------------
+
+# download it using git
+git clone https://review.coreboot.org/coreboot || git clone https://github.com/coreboot/coreboot.git
+
+# there are modifications required
+cd "coreboot/"
+
+# Define a common version (based on the libreboot version)
+# Most likely redundant, because the build system needs to update
+# this every time when building a ROM image anyway
+printf '%s\n' "${version}" >".coreboot-version"
+
+# vboot submodule is needed
+# ------------------------------------------------------------------------------
+
+git submodule update --init --checkout -- 3rdparty/vboot/
+
+# Create branches, with patches in each branch
+# Create separate coreboot source directories *for each board*
+# ------------------------------------------------------------------------------
+
+for payloads in ../../resources/libreboot/config/*; do
+
+	if [ ! -d "${payloads}/" ]; then
+		continue
+	fi
+
+	payload="${payloads##*/}"
+
+	for boardconfig in ../../resources/libreboot/config/${payload}/*; do
+
+		if [ ! -d "${boardconfig}/" ]; then
+			continue
+		fi
+
+		cbrevision=$(cat "${boardconfig}/cbrevision")
+		vbootrevision=$(cat "${boardconfig}/vbootrevision")
+
+        # the same vboot revision is always used for coreboot revision,
+        # so we don't need to wworry about checking for that here
+
+        if [ -d "../${cbrevision}/${cbrevision}" ]; then
+            continue
+            # the directory already exists, no need to recreate it
+        fi
+
+		make_coreboot_src_directory ${cbrevision} ${cbrevision} ${vbootrevision} ..
+	done
+done
+
+# go back to _src/coreboot/ (containing all coreboot directories)
+cd "../"
+# delete the gitted one (not needed anymore)
+rm -Rf "coreboot/"
+
+# Run coreboot-libre deblob scripts
+# ------------------------------------------------------------------------------
+
+printf "Deleting .git* in coreboot/ (history inside .git contains the blobs that were deleted)\n"
+rm -Rf */*/.git*
+rm -Rf */*/3rdparty/*/.git*
+
+# Delete crossgcc from non-crossgcc coreboot archives
+# (the build system will create symlinks later when building the ROM images)
+for payload in *; do
+	if [ "${payload##*/}" != "crossgcc" ]; then
+		rm -Rf ${payload:?}/*/util/crossgcc/
+	fi
+done
+cd "../"
+
+printf "Deblobbing coreboot\n"
+./resources/utilities/coreboot-libre/deblob
+
+printf "\n\n"

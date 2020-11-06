@@ -1,0 +1,144 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+arguments() {
+	project_arguments_targets "$project" "$@"
+}
+
+usage() {
+	project_usage_actions "$project"
+	project_usage_arguments "$project" "$@"
+}
+
+dependencies() {
+	project_dependencies "$project" "$@"
+}
+
+download() {
+	local repository=$project
+
+	project_download_git "$project" "$repository" "https://review.coreboot.org/coreboot https://github.com/coreboot/coreboot.git" "$@"
+}
+
+download_check() {
+	local repository=$project
+
+	project_download_check_git "$project" "$repository" "$@"
+}
+
+extract() {
+	project_extract "$project" "$@"
+}
+
+extract_check() {
+	project_extract_check "$project" "$@"
+}
+
+update() {
+	local repository=$project
+
+	project_update_git "$project" "$repository" "$@"
+}
+
+update_check() {
+	local repository=$project
+
+	project_update_check_git "$project" "$repository" "$@"
+}
+
+build() {
+	local board="$1"
+	shift
+
+	local repository=$project
+
+	project_sources_directory_missing_empty_error "$project" "$repository" "$board" "$@"
+
+	local sources_path=$(project_sources_path "$project" "$repository" "$board" "$@")
+	local build_path=$(project_build_path "$project" "$board" "$@")
+	local base_config_path=$(coreboot_config_path "$board" "$@")
+	local variant_config_path="$(coreboot_variant_config_path "$board" "$@")"
+
+	local arch=$(coreboot_arch "$board" "$@")
+
+	local crossgcc_build_path=$(project_build_path "crossgcc" "$arch")
+	local crossgcc_bin_path="$crossgcc_build_path/bin/"
+	local vboot_sources_path=$(project_sources_path "vboot" "vboot" "devices")
+
+	local -i base_config_line_count="$(wc -l < "$base_config_path")"
+	local -a base_config_overrides
+	local -a board_variant_config
+
+	# To only get overrides, trim out base config since
+	# we cannot skip it in project_file_contents_herit()
+	mapfile -t base_config_overrides \
+		< <(tail -n +$(($base_config_line_count+1)) \
+			< <(coreboot_config "$board" "$@") \
+			2>/dev/null)
+
+	if [[ -n "$variant_config_path" ]]; then
+		mapfile -t board_variant_config < "$variant_config_path"
+	fi
+
+	if git_project_check "$repository"
+	then
+		git_project_checkout "$project" "$repository" "$board" "$@"
+	fi
+
+	project_action_arguments "checkout" "vboot" "devices"
+
+	rm -f "$sources_path/.xcompile"
+
+	mkdir -p "$build_path"
+
+	make -C "$sources_path" obj="$build_path" DOTCONFIG="$build_path/.config" XGCCPATH="$crossgcc_bin_path" BUILD_TIMELESS=1 KERNELVERSION="$VERSION" KBUILD_DEFCONFIG="$base_config_path" "${board_variant_config[@]}" "${base_config_overrides[@]}" "defconfig"
+	make -C "$sources_path" obj="$build_path" DOTCONFIG="$build_path/.config" XGCCPATH="$crossgcc_bin_path" BUILD_TIMELESS=1 KERNELVERSION="$VERSION" VBOOT_SOURCE="$vboot_sources_path" "${board_variant_config[@]}" "${base_config_overrides[@]}" -j$TASKS
+
+	rm -f "$sources_path/.xcompile"
+}
+
+build_check() {
+	project_build_check "$project" "$@"
+}
+
+install() {
+	project_install "$project" "$@"
+}
+
+install_check() {
+	project_install_check "$project" "$@"
+}
+
+release() {
+	local repository=$project
+
+	project_release_install_archive "$project" "$IMAGES" "$@"
+
+	project_release_sources_git "$project" "$repository" "$@"
+}
+
+release_check() {
+	local repository=$project
+
+	project_release_install_archive_check "$project" "$IMAGES" "$@"
+
+	project_release_check_sources_git "$project" "$repository" "$@"
+}
+
+clean() {
+	project_clean "$project" "$@"
+}

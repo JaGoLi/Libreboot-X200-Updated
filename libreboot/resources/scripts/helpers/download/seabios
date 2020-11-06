@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+#
+#   Copyright (C) 2015, 2016 Leah Rowe <info@minifree.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the working directory is the
+# root of libreboot_src or libreboot git.
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+# Get SeaBIOS, revert to commit last used and apply patches.
+
+# Remove the old version that may still exist
+# ------------------------------------------------------------------------------
+
+printf "Downloading SeaBIOS\n"
+
+rm -rf "seabios/"
+
+# Get latest SeaBIOS
+# ------------------------------------------------------------------------------
+
+# download it using git
+git clone https://git.seabios.org/seabios.git seabios || \
+git clone https://review.coreboot.org/cgit/seabios.git/ seabios
+
+(
+# modifications are required
+cd "seabios/"
+
+# Reset to the last commit that was tested (we use stable releases for seabios)
+# ------------------------------------------------------------------------------
+
+git reset --hard 19fdcca467ad3436d68ef88899b4dcd78154a9c6
+)
+
+

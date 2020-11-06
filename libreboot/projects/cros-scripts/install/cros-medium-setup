@@ -1,0 +1,316 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+SYS_BLOCK_PATH="/sys/class/block"
+DEV_PATH="/dev"
+DEVICE="device"
+VENDOR="vendor"
+MODEL="model"
+NAME="name"
+KERNEL="kernel"
+IMG="img"
+KERNEL_MODULES="modules/lib"
+KERNEL_PARTITION_INDEX=1
+ROOTFS_PARTITION_INDEX=2
+
+# Size in blocks (512 kiB)
+GPT_SIZE=34
+KERNEL_SIZE=16384
+
+usage() {
+	printf 1>&2 '%s\n' "$executable [action] [storage] [rootfs tarball|kernel files] [medium]"
+
+	printf 1>&2 '\n%s\n' 'Actions:'
+	printf 1>&2 '%s\n' '  partitions - Setup partitions on storage'
+	printf 1>&2 '%s\n' '  rootfs - Install rootfs tarball to storage'
+	printf 1>&2 '%s\n' '  kernel - Install kernel files to storage'
+
+	usage_storage
+
+	printf 1>&2 '\n%s\n' 'Environment variables:'
+	printf 1>&2 '%s\n' '  KERNEL_PATH - Path to the kernel image'
+	printf 1>&2 '%s\n' '  VBOOT_TOOLS_PATH - Path to vboot tools'
+}
+
+usage_storage() {
+	printf 1>&2 '\n%s\n' 'Storage:'
+
+	local nodes=$( ls "$SYS_BLOCK_PATH" )
+	local node_path
+	local name
+
+	for node in $nodes
+	do
+		node_path="$DEV_PATH/$node"
+		if ! [ -b "$node_path" ]
+		then
+			continue
+		fi
+
+		name=$( storage_name "$node_path" )
+		if [ -z "$name" ]
+		then
+			continue
+		fi
+
+		printf 1>&2 '%s\n' "  $node_path - $name"
+	done
+}
+
+storage_affect_confirm() {
+	local storage_path=$1
+
+	local name=$( storage_name "$storage_path" )
+	local confirm
+
+	printf '%s\n' 'This is going to affect the following storage:'
+	printf '%s\n' "  $storage_path - $name"
+	printf '%s' 'Press enter to confirm: '
+
+	read confirm
+}
+
+storage_name() {
+	local storage_path=$1
+
+	local node=$( basename "$storage_path" )
+	local vendor_path="$SYS_BLOCK_PATH/$node/$DEVICE/$VENDOR"
+	local model_path="$SYS_BLOCK_PATH/$node/$DEVICE/$MODEL"
+	local name_path="$SYS_BLOCK_PATH/$node/$DEVICE/$NAME"
+	local vendor
+	local name
+
+	if [ -f "$model_path" ]
+	then
+		name=$( cat "$model_path" )
+	elif [ -f "$name_path" ]
+	then
+		name=$( cat "$name_path" )
+	else
+		return 0
+	fi
+
+	name=$( printf '%s\n' "$name" | sed -e "s/^[[:space:]]*//;s/[[:space:]]*$//" )
+
+	if [ -f "$vendor_path" ]
+	then
+		vendor=$( cat "$vendor_path" )
+		vendor=$( printf '%s\n' "$vendor" | sed -e "s/^[[:space:]]*//;s/[[:space:]]*$//" )
+
+		name="$vendor $name"
+	fi
+
+	printf '%s\n' "$name"
+}
+
+storage_partition_path() {
+	local storage_path=$1
+	local index=$2
+
+	storage_partition_path="$storage_path$index"
+
+	if ! [ -b "$storage_partition_path" ]
+	then
+		storage_partition_path="$storage_path""p$index"
+	fi
+
+	if ! [ -b "$storage_partition_path" ]
+	then
+		return 1
+	fi
+
+	printf '%s\n' "$storage_partition_path"
+}
+
+storage_partition_mount_path() {
+	local storage_partition_path=$1
+
+	local storage_partition_mount_path=$( udisksctl info -b "$storage_partition_path"  | grep "MountPoints" | sed "s/.*MountPoints:[[:space:]]*\(.*\)/\1/g" )
+
+	printf '%s\n' "$storage_partition_mount_path"
+}
+
+partitions() {
+	local storage_path=$1
+
+	local storage_rootfs_path
+	local partitions
+	local start
+
+	storage_affect_confirm "$storage_path"
+
+	partitions=$( mount | grep -P "^$storage_path" | sed "s/^\([^[:space:]]*\).*/\1/g" )
+
+	for partition in $partitions
+	do
+		# Partition may already be unmounted.
+		udisksctl unmount -b "$partition" || true
+	done
+
+	( printf '%s\n' "g" ; printf '%s\n' "w" ) | fdisk "$storage_path"
+
+	cgpt create "$storage_path"
+
+	start=$GPT_SIZE
+	size=$KERNEL_SIZE
+	cgpt add -b "$start" -s "$size" -P 1 -S 1 -t kernel -l kernel "$storage_path"
+
+	start=$(( $start + $size ))
+	size=$( cgpt show "$storage_path" | grep "Sec GPT table" | sed "s/[[:space:]]*\([0-9]*\).*/\1/g" )
+	size=$(( $size - $start ))
+	cgpt add -b "$start" -s "$size" -t rootfs -l rootfs "$storage_path"
+
+	blockdev --rereadpt "$storage_path" || partprobe "$storage_path"
+
+	storage_rootfs_path=$( storage_partition_path "$storage_path" "$ROOTFS_PARTITION_INDEX" )
+
+	mkfs.ext4 -F "$storage_rootfs_path"
+
+	printf '\n%s\n' "Setup partitions on storage $storage_path"
+}
+
+rootfs() {
+	local storage_path=$1
+	local rootfs_tarball_path=$2
+
+	local storage_rootfs_path=$( storage_partition_path "$storage_path" "$ROOTFS_PARTITION_INDEX" )
+	local storage_rootfs_mount_path
+
+	storage_affect_confirm "$storage_path"
+
+	# Partition may already be mounted.
+	udisksctl mount -b "$storage_rootfs_path" || true
+
+	storage_rootfs_mount_path=$( storage_partition_mount_path "$storage_rootfs_path" )
+
+	tar -xf "$rootfs_tarball_path" -ps -C "$storage_rootfs_mount_path"
+
+	udisksctl unmount -b "$storage_rootfs_path"
+
+	printf '\n%s\n' "Installed rootfs on storage $storage_path"
+}
+
+kernel() {
+	local storage_path=$1
+	local kernel_files_path=$2
+	local medium=$3
+
+	local storage_kernel_path=$( storage_partition_path "$storage_path" "$KERNEL_PARTITION_INDEX" )
+	local storage_rootfs_path=$( storage_partition_path "$storage_path" "$ROOTFS_PARTITION_INDEX" )
+	local kernel_image_path="$kernel_files_path/$KERNEL-$medium.$IMG"
+	local kernel_modules_path="$kernel_files_path/$KERNEL_MODULES"
+	local storage_rootfs_mount_path
+
+	storage_affect_confirm "$storage_path"
+
+	cat "$kernel_image_path" > "$storage_kernel_path"
+	sync
+
+	# Partition may already be mounted.
+	udisksctl mount -b "$storage_rootfs_path" || true
+
+	storage_rootfs_mount_path=$( storage_partition_mount_path "$storage_rootfs_path" )
+
+	rsync -a --keep-dirlinks "$kernel_modules_path" "$storage_rootfs_mount_path/"
+	sync
+
+	udisksctl unmount -b "$storage_rootfs_path"
+
+	printf '\n%s\n' "Installed kernel on storage $storage_path"
+}
+
+requirements() {
+	local requirement
+	local requirement_path
+
+	for requirement in "$@"
+	do
+		requirement_path=$( which "$requirement" || true )
+
+		if [ -z "$requirement_path" ]
+		then
+			printf 1>&2 '%s\n' "Missing requirement: $requirement"
+			exit 1
+		fi
+	done
+}
+
+setup() {
+	root=$(readlink -f "$( dirname "$0" )" )
+	executable=$( basename "$0" )
+
+	if [ -z "$KERNEL_PATH" ]
+	then
+		KERNEL_PATH=$root
+	fi
+
+	if ! [ -z "$VBOOT_TOOLS_PATH" ]
+	then
+		PATH="$PATH:$VBOOT_TOOLS_PATH"
+	fi
+}
+
+cros_medium_setup() {
+	local action=$1
+	local storage_path=$2
+	local rootfs_tarball_path=$3
+	local kernel_files_path=$3
+	local medium=$4
+
+	set -e
+
+	setup "$@"
+
+	if [ -z "$action" ] || [ -z "$storage_path" ]
+	then
+		usage
+		exit 1
+	fi
+
+	case $action in
+		"partitions")
+			requirements "udisksctl" "fdisk" "cgpt" "mkfs.ext4"
+			partitions "$storage_path"
+			;;
+		"rootfs")
+			if [ -z "$rootfs_tarball_path" ]
+			then
+				usage
+				exit 1
+			fi
+
+			requirements "udisksctl" "tar"
+			rootfs "$storage_path" "$rootfs_tarball_path"
+			;;
+		"kernel")
+			if [ -z "$kernel_files_path" ] || [ -z "$medium" ]
+			then
+				usage
+				exit 1
+			fi
+
+			requirements "udisksctl" "rsync"
+			kernel "$storage_path" "$kernel_files_path" "$medium"
+			;;
+		*)
+			usage
+			exit 1
+			;;
+	esac
+}
+
+cros_medium_setup "$@"

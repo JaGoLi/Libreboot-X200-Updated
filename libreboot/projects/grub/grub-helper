@@ -1,0 +1,324 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2017,2018 Andrew Robbins <contact@andrewrobbins.info>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ARCH='arch'
+CONFIG='config'
+FONTS='fonts'
+FONT_FILE='font-file'
+FONT_PROJECT='font-project'
+FORMAT='format'
+MODMIN='modules-minimal'
+PLATFORM='platform'
+PREFIX='prefix'
+SIZE='size'
+
+grub_arch() {
+	project_file_contents "$project" "$CONFIGS" "$ARCH" "$@"
+}
+
+grub_font_file() {
+	project_file_contents "$project" "$CONFIGS" "$FONT_FILE" "$@"
+}
+
+grub_font_project() {
+	project_file_contents "$project" "$CONFIGS" "$FONT_PROJECT" "$@"
+}
+
+grub_format() {
+	project_file_contents "$project" "$CONFIGS" "$FORMAT" "$@"
+}
+
+grub_platform() {
+	project_file_contents "$project" "$CONFIGS" "$PLATFORM" "$@"
+}
+
+grub_prefix() {
+	project_file_contents "$project" "$CONFIGS" "$PREFIX" "$@"
+}
+
+grub_size() {
+	project_file_contents "$project" "$CONFIGS" "$SIZE" "$@"
+}
+
+grub_config_path() {
+	project_file_path "$project" "$CONFIGS" "$CONFIG" "$@"
+}
+
+grub_modmin_path() {
+	project_file_path "$project" "$CONFIGS" "$MODMIN" "$@"
+}
+
+grub_bo_search() {
+	local pattern="$1"
+	local comparand="$2"
+
+	grep -Fbof <(grub_bo_dump "$pattern") <(grub_bo_dump "$comparand") | cut -d: -f1
+}
+
+grub_bo_dump() {
+	local file="$1"
+
+	od -An -t x1 -w16 -v "$file" | paste -sd '' | tr -d ' '
+}
+
+grub_bo() {
+	local pattern="$1"
+	local comparand="$2"
+
+	local nibble_offset="$(grub_bo_search "$pattern" "$comparand")"
+
+	if [[ -n "$nibble_offset" ]]; then
+		printf '0x%X\n' $((nibble_offset / 2))
+	else
+		return 1
+	fi
+}
+
+grub_blocklist_format() {
+	local blocklist="$1"
+	local byte
+
+	while read -N 2 byte; do
+		printf '%s' "\\x$byte"
+	done <<< "$blocklist"
+}
+
+grub_blocklist_generate() {
+	local -i byte_offset="$1"
+
+	printf '%04x' $((byte_offset / 512)) | tac -rs ..
+}
+
+grub_copy_modules() {
+	local grub_module_dir="$sources_path/grub-core"
+	local keep_dir="$build_path/$(grub_format "$target" "$@")"
+
+	mkdir -p "$keep_dir"
+
+	cp -a "$grub_module_dir"/*.@(mod|lst) "$keep_dir"
+}
+
+grub_build_font() {
+	local font_file="$(grub_font_file "$FONTS" "$@")"
+	local font_project="$(grub_font_project "$FONTS" "$@")"
+	local font_build_dir="$root/$BUILD/$font_project"
+
+	local grub_mkfont="$sources_path/grub-mkfont"
+
+	mkdir -p "$build_path/$FONTS"
+
+	"$grub_mkfont" --output="$build_path/$FONTS/${font_file%.*}.pf2" \
+			"$font_build_dir/$font_file"
+}
+
+grub_build_utils() {
+	(
+		local arch="$(grub_arch "$target" "$@")"
+		local platform="$(grub_platform "$target" "$@")"
+
+		cd "$sources_path" || return
+
+		if git_project_check "$repository"; then
+			./autogen.sh
+		fi
+
+		./configure --target="$arch" --with-platform="$platform"
+
+		make -j"$TASKS"
+	)
+}
+
+grub_build_layout() {
+	local raw_layout="${1##*/}"
+	local raw_layout_path="$1"
+	local keymap_out_path="$build_path/keymaps"
+	local grub_mklayout="$sources_path/grub-mklayout"
+	local grub_kbd_layout="$keymap_out_path/$raw_layout.gkb"
+
+	if ! [[ -e "$keymap_out_path" ]]; then
+		mkdir -p "$keymap_out_path"
+	elif ! [[ -d "$keymap_out_path" ]]; then
+		printf '\n%s\n' "Error: File $keymap_out_path is not a directory" 1>&2
+
+		return 1
+	fi
+
+	"$grub_mklayout" --output="$grub_kbd_layout" --input="$raw_layout_path"
+}
+
+grub_build_bootable_image() {
+	local arch="$(grub_arch "$target" "$@")"
+	local format="$(grub_format "$target" "$@")"
+	local prefix="$(grub_prefix "$target" "$@")"
+	local config_path="$(grub_config_path "$target" "$@")"
+	local modmin_path="$(grub_modmin_path "$target" "$@")"
+
+	local -a modmin=($(< "$modmin_path"))
+
+	local grub_mkimage="$sources_path/grub-mkimage"
+	local grub_module_dir="$sources_path/grub-core"
+
+	local grub_bootimg="$grub_module_dir/boot.img"
+	local grub_coreimg="$build_path/core.img"
+
+	"$grub_mkimage" \
+		--config="$config_path" \
+		--directory="$grub_module_dir" \
+		--output="$grub_coreimg" \
+		--format="$format" \
+		--prefix="$prefix" \
+		"${modmin[@]}"
+
+	cp -a "$grub_bootimg" "$build_path"
+}
+
+grub_build_floppy_image() {
+	local floppyimg="$build_path/floppy.img"
+	local format="$(grub_format "$target" "$@")"
+	local grub_module_dir="$sources_path/grub-core"
+	local size="$(grub_size "$target" "$@")"
+
+	local -a modules
+
+	for module in "$grub_module_dir"/*.mod; do
+		modules+=($module)
+	done
+
+	if ! grub_build_bootable_image "$@"; then
+		printf '\n%s\n\n' "Error: Failed to build a GRUB image" 1>&2
+
+		return 1
+	fi
+
+	# Pre-allocate a floppy-sized image with a FAT12 filesystem
+	# SeaBIOS requires floppy images to have a "correct" size
+	if ! [[ -e "$floppyimg" ]]; then
+		mkfs.fat -C -D 0x00 -F 12 -M 0xF9 -n SEAGRUB --invariant "$floppyimg" "$size"
+	else
+		printf '\n%s\n\n' "Error: File $floppyimg already exists!" 1>&2
+
+		return 1
+	fi
+
+	grub_floppy_image_mmd "$floppyimg" /boot /boot/grub "/boot/grub/$format"
+	grub_floppy_image_mcopy "$floppyimg" "/boot/grub/$format" "${modules[@]}"
+	grub_floppy_image_make_bootable "$floppyimg"
+}
+
+grub_build_standalone_image() {
+	local arch="$(grub_arch "$target" "$@")"
+	local format="$(grub_format "$target" "$@")"
+	local prefix="$(grub_prefix "$target" "$@")"
+	local config_path="$(grub_config_path "$target" "$@")"
+	local modmin_path="$(grub_modmin_path "$target" "$@")"
+
+	local -a modmin=($(< "$modmin_path"))
+
+	local grubimg="$build_path/grub2"
+
+	local grub_mkimage="$sources_path/grub-mkimage"
+	local grub_mkstandalone="$sources_path/grub-mkstandalone"
+	local grub_module_dir="$sources_path/grub-core"
+
+	"$grub_mkstandalone" \
+		--grub-mkimage="$grub_mkimage" \
+		--fonts='' \
+		--themes='' \
+		--locales='' \
+		--install-modules="${modmin[*]}" \
+		--directory="$grub_module_dir" \
+		--format="$format" \
+		--output="$grubimg" \
+		/boot/grub/grub.cfg="$config_path"
+}
+
+grub_floppy_image_mmd() {
+	local img="$1"
+	local -a dirs=("${@:2}")
+
+	if [[ -n "$img" ]]; then
+		mmd -i "$img" "${dirs[@]}"
+	else
+		return 1
+	fi
+}
+
+grub_floppy_image_mcopy() {
+	local img="$1"
+	local target="$2"
+	local -a files=("${@:3}")
+
+	if [[ -z "$img" ]]; then
+		return 1
+	elif [[ -z "${files[@]}" ]]; then
+		mcopy -i "$img" -pv "::$target"
+	else
+		mcopy -i "$img" -pQv "${files[@]}" "::$target"
+	fi
+}
+
+grub_floppy_image_make_bootable() {
+	local floppyimg="$1"
+	local bootimg="$build_path/boot.img"
+	local coreimg="$build_path/core.img"
+	local oem_name='\x4C\x49\x42\x52\x45\x20\x20\x20'
+
+	# write $floppyimg Bios Parameter Block to $bootimg first
+	dd if="$floppyimg" of="$bootimg" bs=1 skip=11 seek=11 count=51 conv=notrunc
+	dd if=<(printf "$oem_name") of="$bootimg" bs=1 seek=3 conv=notrunc
+	dd if=/dev/zero of="$floppyimg" count=1 conv=notrunc
+	dd if="$bootimg" of="$floppyimg" conv=notrunc
+
+	grub_floppy_image_mcopy "$floppyimg" /boot/grub "$bootimg"
+	grub_floppy_image_mcopy "$floppyimg" /boot/grub "$coreimg"
+
+	grub_floppy_image_update_blocklists "$coreimg" "$floppyimg"
+	rm -f "$bootimg" "$coreimg"
+}
+
+grub_floppy_image_update_blocklists() {
+	local coreimg="$1"
+	local floppyimg="$2"
+
+	local -i coreimg_offset="$(grub_bo "$coreimg" "$floppyimg")"
+	local -i coreimg_second_sector_offset=$((coreimg_offset + 0x200))
+
+	local -i boot_record_blocklist_offset=0x5C
+	local -i coreimg_blocklist_offset=$((coreimg_offset + 0x1F4))
+
+	# blocklists (little endian) describe the $coreimg_offset in sectors
+	local boot_record_blocklist="$(grub_blocklist_generate "$coreimg_offset")"
+	local coreimg_blocklist="$(grub_blocklist_generate "$coreimg_second_sector_offset")"
+
+	if [[ $coreimg_offset -gt 0 ]]; then
+		dd if=<(printf "$(grub_blocklist_format "$boot_record_blocklist")") \
+			of="$floppyimg" \
+			bs=1 \
+			seek="$boot_record_blocklist_offset" \
+			conv=notrunc
+
+		dd if=<(printf "$(grub_blocklist_format "$coreimg_blocklist")") \
+			of="$floppyimg" \
+			bs=1 \
+			seek="$coreimg_blocklist_offset" \
+			conv=notrunc
+	else
+		printf 1>&2 '%s\n' "Error: ${coreimg##*/} offset not found"
+
+		return 1
+	fi
+}

@@ -1,0 +1,4 @@
+COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
+P1COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
+  cmd = COMMAND_LIST_MARKER("badram", grub_cmd_badram, "ADDR1,MASK1[,ADDR2,MASK2[,...]]", "Declare memory regions as faulty (badram).")
+  cmd_cut = COMMAND_LIST_MARKER("cutmem", grub_cmd_cutmem, "FROM[K|M|G] TO[K|M|G]", "Remove any memory regions in specified range.")

@@ -1,0 +1,3 @@
+/resources/libreboot/patch/coreboot/2a3434757ef425dbdfedf1fc69e1a033a6e7310d/grub/x60/0001-NOTFORMERGE-ec-lenovo-h8-wlan-trackpoint-touchpad-bl.patch
+/resources/libreboot/patch/coreboot/2a3434757ef425dbdfedf1fc69e1a033a6e7310d/grub/x60/0001-i945-Enable-changing-VRAM-size.patch
+/resources/libreboot/patch/coreboot/2a3434757ef425dbdfedf1fc69e1a033a6e7310d/grub/x60/0004-model_6ex-enable-C2E-C4E-dynamic-lvl-2-cache.patch

@@ -1,0 +1,17 @@
+autoconf
+automake
+bdf-unifont
+bison
+device-mapper
+flex
+freetype2
+gcc
+gettext
+glibc
+libpciaccess
+libusb
+make
+pciutils
+python
+qemu
+sdl

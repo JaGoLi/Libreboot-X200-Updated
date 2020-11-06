@@ -1,0 +1,316 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+BUILD_SYSTEM="paper"
+
+SOURCES="sources"
+SYSTEMS="systems"
+IMAGES="images"
+TOOLS="tools"
+
+ARCHIVE="tar.xz"
+CHECKSUM="sha256sum"
+ASC="asc"
+
+usage() {
+	printf 1>&2 '%s\n' "$executable [action] [projects...]"
+
+	printf 1>&2 '\n%s\n' 'Actions:'
+	printf 1>&2 '%s\n' '  download - Download project files'
+	printf 1>&2 '%s\n' '  sources - Download project sources'
+	printf 1>&2 '%s\n' '  verify - Verify project files'
+	printf 1>&2 '%s\n' '  extract - Extract project files'
+	printf 1>&2 '%s\n' '  prepare - Download, verify and extract project files'
+
+	printf 1>&2 '\n%s\n' 'Environment variables:'
+	printf 1>&2 '%s\n' '  MACHINE - Machine architecture to use'
+	printf 1>&2 '%s\n' '  DOWNLOAD_URL - Base URL to download files from'
+}
+
+download() {
+	local project=$1
+
+	local ifs_save
+	local prefix
+	local directory
+	local path
+	local url
+
+	for prefix in "$SYSTEMS/$MACHINE" "$IMAGES" "$TOOLS/$MACHINE"
+	do
+		ifs_save=$IFS
+		IFS=$'-'
+
+		directory=""
+
+		for part in $project
+		do
+			if [ -z "$directory" ]
+			then
+				directory="$part"
+			else
+				directory="$directory-$part"
+			fi
+
+			path="$root/$prefix/$directory/$project.$ARCHIVE"
+			url="$DOWNLOAD_URL/$prefix/$directory/$project.$ARCHIVE"
+
+			if wget --quiet --spider "$url"
+			then
+				mkdir -p "$( dirname "$path" )"
+				wget -O "$path" "$url"
+				wget -O "$path.$CHECKSUM" "$url.$CHECKSUM"
+				wget -O "$path.$DSIG" "$url.$DSIG"
+
+				printf '\n%s\n' "Downloaded $project"
+
+				return 0
+			fi
+		done
+
+		IFS=$ifs_save
+	done
+
+	printf 1>&2 '%s\n' "Could not download $project from $DOWNLOAD_URL"
+	return 1
+}
+
+sources() {
+	local project=$1
+
+	local url="$DOWNLOAD_URL/$SOURCES/$project/$project.$ARCHIVE"
+	local path="$root/$SOURCES/$project/$project.$ARCHIVE"
+
+	if wget --quiet --spider "$url"
+	then
+		mkdir -p "$( dirname "$path" )"
+		wget -O "$path" "$url"
+		wget -O "$path.$CHECKSUM" "$url.$CHECKSUM"
+		wget -O "$path.$DSIG" "$url.$DSIG"
+
+		printf '\n%s\n' "Downloaded $project sources"
+	else
+		printf 1>&2 '%s\n' "Could not download $project sources from $DOWNLOAD_URL"
+		return 1
+	fi
+
+}
+
+verify() {
+	local project=$1
+
+	local checksum_path
+	local signature_path
+	local ifs_save
+	local prefix
+	local directory
+	local path
+
+	for prefix in "$SYSTEMS/$MACHINE" "$IMAGES" "$TOOLS/$MACHINE"
+	do
+		ifs_save=$IFS
+		IFS=$'-'
+
+		directory=""
+
+		for part in $project
+		do
+			if [ -z "$directory" ]
+			then
+				directory="$part"
+			else
+				directory="$directory-$part"
+			fi
+
+			path="$root/$prefix/$directory/$project.$ARCHIVE"
+
+			if ! [ -f "$path" ]
+			then
+				continue
+			fi
+
+			checksum_path="$path.$CHECKSUM"
+			signature_path="$path.$DSIG"
+
+			if [ -f "$checksum_path" ]
+			then
+				(
+					cd "$( dirname "$path" )"
+					sha256sum -c "$project.$ARCHIVE.$CHECKSUM"
+				)
+			else
+				printf 1>&2 '%s\n' "Could not verify $project checksum!"
+			fi
+
+			if [ -f "$signature_path" ]
+			then
+				gpg --armor --verify "$signature_path" "$path"
+			else
+				printf 1>&2 '%s\n' "Could not verify $project signature!"
+			fi
+
+			printf '\n%s\n' "Verified $project"
+
+			return 0
+		done
+
+		IFS=$ifs_save
+	done
+
+	printf 1>&2 '%s\n' "Could not verify $project"
+	return 1
+}
+
+extract() {
+	local project=$1
+
+	local extract_path
+	local ifs_save
+	local prefix
+	local directory
+	local path
+
+	for prefix in "$SYSTEMS/$MACHINE" "$IMAGES" "$TOOLS/$MACHINE"
+	do
+		ifs_save=$IFS
+		IFS=$'-'
+
+		directory=""
+
+		for part in $project
+		do
+			if [ -z "$directory" ]
+			then
+				directory="$part"
+			else
+				directory="$directory-$part"
+			fi
+
+			path="$root/$prefix/$directory/$project.$ARCHIVE"
+
+			if ! [ -f "$path" ]
+			then
+				continue
+			fi
+
+			if [ "$prefix" = "$SYSTEMS/$MACHINE" ]
+			then
+				printf '%s\n' "Skiping $project extract"
+				return 0
+			fi
+
+			extract_path=$( dirname "$path" )
+
+			tar -xf "$path" -ps -C "$extract_path"
+
+			printf '%s\n' "Extracted $project"
+
+			return 0
+		done
+
+		IFS=$ifs_save
+	done
+
+	printf 1>&2 '%s\n' "Could not extract $project"
+	return 1
+}
+
+requirements() {
+	local requirement
+	local requirement_path
+
+	for requirement in "$@"
+	do
+		requirement_path=$( which "$requirement" || true )
+
+		if [ -z "$requirement_path" ]
+		then
+			printf 1>&2 '%s\n' "Missing requirement: $requirement"
+			exit 1
+		fi
+	done
+}
+
+setup() {
+	root=$(readlink -f "$( dirname "$0" )" )
+	executable=$( basename "$0" )
+
+	if [ -z "$MACHINE" ]
+	then
+		MACHINE=$( uname -m )
+	fi
+
+	if [ -z "$DOWNLOAD_URL" ]
+	then
+		printf 1>&2 '%s\n' 'Missing download URL'
+		exit 1
+	fi
+}
+
+libreboot_release() {
+	local action=$1
+	shift
+
+	set -e
+
+	setup "$@"
+
+	if [ -z "$action" ]
+	then
+		usage
+		exit 1
+	fi
+
+	requirements "tar" "sha256sum" "gpg"
+
+	case $action in
+		"download")
+			for project in "$@"
+			do
+				download "$project"
+			done
+			;;
+		"sources")
+			for project in "$@"
+			do
+				sources "$project"
+			done
+			;;
+		"verify")
+			for project in "$@"
+			do
+				verify "$project"
+			done
+			;;
+		"extract")
+			for project in "$@"
+			do
+				extract "$project"
+			done
+			;;
+		"prepare")
+			for project in "$@"
+			do
+				download "$project"
+				verify "$project"
+				extract "$project"
+			done
+			;;
+	esac
+}
+
+libreboot_release "$@"

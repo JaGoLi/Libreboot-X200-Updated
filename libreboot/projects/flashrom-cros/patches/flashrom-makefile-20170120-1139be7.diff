@@ -1,0 +1,48 @@
+diff --git a/Makefile b/Makefile
+index a2f95cf..fcfce9b 100644
+--- a/Makefile
++++ b/Makefile
+@@ -35,7 +35,7 @@ PKG_CONFIG ?= pkg-config
+ WARNERROR ?= yes
+ 
+ ifneq ($(NOWARNERROR),yes)
+-CFLAGS += -Werror
++CFLAGS += 
+ endif
+ 
+ ifeq ($(CONFIG_STATIC),yes)
+@@ -354,7 +354,7 @@ CONFIG_BUSPIRATE_SPI ?= no
+ CONFIG_RAIDEN_DEBUG_SPI ?= no
+ 
+ # Enable Linux I2C for ChromeOS EC
+-CONFIG_LINUX_I2C ?= no
++CONFIG_LINUX_I2C ?= yes
+ 
+ CONFIG_LINUX_MTD ?= no
+ 
+@@ -401,6 +401,7 @@ PROGRAMMER_OBJS += ichspi.o ich_descriptors.o
+ else
+ ifeq ($(ARCH),arm)
+ PROGRAMMER_OBJS += cros_ec_i2c.o
++CONFIG_SATAMV := no
+ endif
+ NEED_PCI := yes
+ endif
+@@ -453,7 +454,7 @@ endif
+ 
+ ifeq ($(CONFIG_FT2232_SPI), yes)
+ FTDILIBS := $(shell $(PKG_CONFIG) --libs libftdi1 2>/dev/null ||	\
+-		    $(PKG_CONFIG) --libs libftdi 2>/dev/null || echo "-lftdi -lusb")
++		    $(PKG_CONFIG) --libs libftdi 2>/dev/null || echo "-lftdi -lusb-1.0")
+ FTDICFLAGS := $(shell $(PKG_CONFIG) --cflags libftdi1 2>/dev/null ||	\
+ 		      $(PKG_CONFIG) --cflags libftdi 2>/dev/null)
+ # This is a totally ugly hack.
+@@ -528,7 +529,7 @@ endif
+ 
+ ifeq ($(CONFIG_DEDIPROG), yes)
+ FEATURE_CFLAGS += -D'CONFIG_DEDIPROG=1'
+-FEATURE_LIBS += -lusb
++FEATURE_LIBS += -lusb-1.0
+ PROGRAMMER_OBJS += dediprog.o
+ endif
+ 

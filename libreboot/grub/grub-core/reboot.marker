@@ -1,0 +1,3 @@
+COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
+P1COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
+  cmd = COMMAND_LIST_MARKER("reboot", grub_cmd_reboot, 0, "Reboot the computer.")

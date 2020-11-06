@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+#  DEBLOB script: deblobs the version of coreboot used for this release.
+#
+#	Copyright (C) 2014, 2015, 2016 Leah Rowe <info@minifree.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the current working directory is the root
+# of the libreboot_src/ or git clone.
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+printf "Deleting blobs in coreboot\n"
+
+for payloads in resources/libreboot/config/*; do
+
+	if [ ! -d "${payloads}/" ]; then
+		continue
+	fi
+
+	payload="${payloads##*/}"
+
+	for boards in "${payloads}/"*; do
+
+		if [ ! -d "${boards}/" ]; then
+			continue
+		fi
+
+		board="${boards##*/}"
+		cbrevision="$(cat "resources/libreboot/config/${payload}/${board}/cbrevision")"
+        vbrevision="$(cat "resources/libreboot/config/${payload}/${board}/vbootrevision")"
+		boardpath="coreboot/${cbrevision}/${cbrevision}"
+
+		# deblob coreboot
+		for blob in $(cat "resources/utilities/coreboot-libre/blobs/coreboot/${cbrevision}/blobs.list"); do
+			rm -f "${boardpath}/${blob}"
+		done
+
+		# deblob 3rdparty
+		# only non-crossgcc archives have 3rdparty (vboot) present.
+		if [ "${payload}" != "crossgcc" ]; then
+			vbootrevision="$(cat "resources/libreboot/config/${payload}/${board}/vbootrevision")"
+			# deblob 3rdparty
+			for blob in $(cat "resources/utilities/coreboot-libre/blobs/vboot/${vbootrevision}/blobs.list"); do
+				rm -f "${boardpath}/${blob}"
+			done
+		fi
+
+	done
+done
+
+# Now also do the same for crossgcc coreboot
+for blob in $(cat "resources/utilities/coreboot-libre/blobs/coreboot/crossgcc/blobs.list"); do
+    rm -f "crossgcc/${blob}"
+done
+for blob in $(cat "resources/utilities/coreboot-libre/blobs/vboot/crossgcc/blobs.list"); do
+    rm -f "crossgcc/${blob}"
+done
+
+
+printf "\n\n"
+

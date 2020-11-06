@@ -1,0 +1,4 @@
+# NOTE: remove this when updating coreboot. This has been merged upstream
+printf "ThinkPad T500 (depends on T400 patch)\n"
+git am "../resources/libreboot/patch/misc/0008-lenovo-t500-Add-clone-of-Lenovo-T400.patch"
+# git fetch http://review.coreboot.org/coreboot refs/changes/45/10545/1 && git cherry-pick FETCH_HEAD

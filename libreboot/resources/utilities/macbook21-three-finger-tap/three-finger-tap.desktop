@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Exec=synclient TapButton3=2
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name=Three-finger tap
+Comment=Enable three-finger tap for middle click.
+Terminal=false

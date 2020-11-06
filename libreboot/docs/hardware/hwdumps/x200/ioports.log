@@ -1,0 +1,60 @@
+0000-0cf7 : PCI Bus 0000:00
+  0000-001f : dma1
+  0020-0021 : pic1
+  0040-0043 : timer0
+  0050-0053 : timer1
+  0060-0060 : keyboard
+  0062-0062 : EC data
+  0064-0064 : keyboard
+  0066-0066 : EC cmd
+  0070-0071 : rtc0
+  0080-008f : dma page reg
+  00a0-00a1 : pic2
+  00c0-00df : dma2
+  00f0-00ff : fpu
+  03c0-03df : vga+
+  0800-080f : pnp 00:01
+0cf8-0cff : PCI conf1
+0d00-ffff : PCI Bus 0000:00
+  1000-1003 : ACPI PM1a_EVT_BLK
+  1004-1005 : ACPI PM1a_CNT_BLK
+  1008-100b : ACPI PM_TMR
+  1010-1015 : ACPI CPU throttle
+  1020-102f : ACPI GPE0_BLK
+  1030-1033 : iTCO_wdt
+  1050-1050 : ACPI PM2_CNT_BLK
+  1060-107f : iTCO_wdt
+  1180-11ff : pnp 00:01
+  15e0-15ef : pnp 00:01
+  1600-167f : pnp 00:01
+  1680-169f : pnp 00:01
+  1800-1807 : 0000:00:02.0
+  1830-1837 : 0000:00:03.3
+    1830-1837 : serial
+  1838-183b : 0000:00:1f.2
+    1838-183b : ahci
+  183c-183f : 0000:00:1f.2
+    183c-183f : ahci
+  1840-185f : 0000:00:19.0
+  1860-187f : 0000:00:1a.0
+    1860-187f : uhci_hcd
+  1880-189f : 0000:00:1a.1
+    1880-189f : uhci_hcd
+  18a0-18bf : 0000:00:1a.2
+    18a0-18bf : uhci_hcd
+  18c0-18df : 0000:00:1d.0
+    18c0-18df : uhci_hcd
+  18e0-18ff : 0000:00:1d.1
+    18e0-18ff : uhci_hcd
+  1c00-1c1f : 0000:00:1d.2
+    1c00-1c1f : uhci_hcd
+  1c20-1c3f : 0000:00:1f.2
+    1c20-1c3f : ahci
+  1c40-1c47 : 0000:00:1f.2
+    1c40-1c47 : ahci
+  1c48-1c4f : 0000:00:1f.2
+    1c48-1c4f : ahci
+  1c60-1c7f : 0000:00:1f.3
+  2000-2fff : PCI Bus 0000:05
+  3000-3fff : PCI Bus 0000:02
+  4000-4fff : PCI Bus 0000:03

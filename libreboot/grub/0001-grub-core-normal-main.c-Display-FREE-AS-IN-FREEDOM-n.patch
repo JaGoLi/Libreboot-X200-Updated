@@ -1,0 +1,26 @@
+From 721f09ef24e1879667ac3469c17774450602b29e Mon Sep 17 00:00:00 2001
+From: Leah Rowe <info@minifree.org>
+Date: Sat, 14 Feb 2015 01:24:23 +0000
+Subject: [PATCH 01/10] grub-core/normal/main.c: Display "FREE AS IN FREEDOM",
+ not version
+
+---
+ grub-core/normal/main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/grub-core/normal/main.c b/grub-core/normal/main.c
+index 78a70a8..982bde3 100644
+--- a/grub-core/normal/main.c
++++ b/grub-core/normal/main.c
+@@ -208,7 +208,7 @@ grub_normal_init_page (struct grub_term_output *term,
+  
+   grub_term_cls (term);
+ 
+-  msg_formatted = grub_xasprintf (_("GNU GRUB  version %s"), PACKAGE_VERSION);
++  msg_formatted = grub_xasprintf("FREE AS IN FREEDOM");
+   if (!msg_formatted)
+     return;
+  
+-- 
+1.9.1
+

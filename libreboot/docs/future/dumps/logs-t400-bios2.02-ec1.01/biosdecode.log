@@ -1,0 +1,24 @@
+# biosdecode 2.12
+VPD present.
+	BIOS Build ID: 7UET56WW 
+	Box Serial Number: L3BLN3R
+	Motherboard Serial Number: VF26F91C27K
+	Machine Type/Model: 6475GE2
+SMBIOS 2.4 present.
+	Structure Table Length: 2469 bytes
+	Structure Table Address: 0x000E0010
+	Number Of Structures: 74
+	Maximum Structure Size: 120 bytes
+BIOS32 Service Directory present.
+	Revision: 0
+	Calling Interface Address: 0x000FDC80
+ACPI 2.0 present.
+	OEM Identifier: LENOVO
+	RSD Table 32-bit Address: 0xBCB6A54A
+	XSD Table 64-bit Address: 0x00000000BCB6A5B6
+PNP BIOS 1.0 present.
+	Event Notification: Not Supported
+	Real Mode 16-bit Code Address: E19B:1934
+	Real Mode 16-bit Data Address: 0040:0000
+	16-bit Protected Mode Code Address: 0x000F8AD1
+	16-bit Protected Mode Data Address: 0x00000400

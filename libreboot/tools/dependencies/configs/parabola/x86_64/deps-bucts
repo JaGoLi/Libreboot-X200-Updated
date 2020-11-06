@@ -1,0 +1,4 @@
+gcc
+make
+pciutils
+zlib

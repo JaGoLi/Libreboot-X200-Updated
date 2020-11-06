@@ -1,0 +1,38 @@
+From c98d8745d4dca650709e76269cf014e5ffbc1443 Mon Sep 17 00:00:00 2001
+From: Arthur Heymans <arthur@aheymans.xyz>
+Date: Tue, 9 Aug 2016 00:54:37 +0200
+Subject: [PATCH] set default vram to 256M
+
+Change-Id: Ife906c47f32493d9a647a4f12f25982623eba189
+---
+ src/mainboard/lenovo/t400/cmos.default | 2 +-
+ src/mainboard/lenovo/x200/cmos.default | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/mainboard/lenovo/t400/cmos.default b/src/mainboard/lenovo/t400/cmos.default
+index 5cf3e63..90d796f 100644
+--- a/src/mainboard/lenovo/t400/cmos.default
++++ b/src/mainboard/lenovo/t400/cmos.default
+@@ -14,4 +14,4 @@ power_management_beeps=Enable
+ low_battery_beep=Enable
+ sata_mode=AHCI
+ hybrid_graphics_mode=Integrated Only
+-gfx_uma_size=32M
+\ No newline at end of file
++gfx_uma_size=256M
+\ No newline at end of file
+diff --git a/src/mainboard/lenovo/x200/cmos.default b/src/mainboard/lenovo/x200/cmos.default
+index 1d7b420..ec7ab46 100644
+--- a/src/mainboard/lenovo/x200/cmos.default
++++ b/src/mainboard/lenovo/x200/cmos.default
+@@ -13,4 +13,4 @@ sticky_fn=Disable
+ power_management_beeps=Enable
+ low_battery_beep=Enable
+ sata_mode=AHCI
+-gfx_uma_size=32M
+\ No newline at end of file
++gfx_uma_size=256M
+\ No newline at end of file
+-- 
+2.9.2
+

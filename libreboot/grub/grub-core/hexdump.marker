@@ -1,0 +1,4 @@
+COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
+P1COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
+grub_extcmd_t EXTCOMMAND_LIST_MARKER(const char *name, grub_extcmd_func_t func, grub_command_flags_t flags, const char *summary, const char *description, const struct grub_arg_option *parser)
+  cmd = EXTCOMMAND_LIST_MARKER("hexdump", grub_cmd_hexdump, 0, "[OPTIONS] FILE_OR_DEVICE", "Show raw contents of a file or memory.", options)

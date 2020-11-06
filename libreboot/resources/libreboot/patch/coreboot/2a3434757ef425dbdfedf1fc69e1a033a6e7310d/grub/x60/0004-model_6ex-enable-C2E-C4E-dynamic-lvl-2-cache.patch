@@ -1,0 +1,50 @@
+From 483bbb3ec7965ca2416fda9e11687bcd655d078d Mon Sep 17 00:00:00 2001
+From: Arthur Heymans <arthur@aheymans.xyz>
+Date: Tue, 31 May 2016 16:51:59 +0200
+Subject: [PATCH] model_6ex: enable C2E, C4E, dynamic lvl 2 cache.
+
+Change-Id: Ie538d2145640c7b50ac0a0fa432d98ae2c4be060
+
+diff --git a/src/cpu/intel/model_6ex/model_6ex_init.c b/src/cpu/intel/model_6ex/model_6ex_init.c
+index 6fa6d3a..8ff276a 100644
+--- a/src/cpu/intel/model_6ex/model_6ex_init.c
++++ b/src/cpu/intel/model_6ex/model_6ex_init.c
+@@ -67,9 +67,10 @@ static void configure_c_states(void)
+ 
+ 	msr = rdmsr(MSR_PMG_CST_CONFIG_CONTROL);
+ 	msr.lo |= (1 << 15); // config lock until next reset.
++	msr.lo |= (1 << 14); // Deeper Sleep
+ 	msr.lo |= (1 << 10); // Enable I/O MWAIT redirection for C-States
+ 	msr.lo &= ~(1 << 9); // Issue a single stop grant cycle upon stpclk
+-	// TODO Do we want Deep C4 and  Dynamic L2 shrinking?
++	msr.lo |= (1 << 3); // Dynamic L2
+ 
+ 	/* Number of supported C-States */
+ 	msr.lo &= ~7;
+@@ -94,16 +95,20 @@ static void configure_misc(void)
+ 	msr_t msr;
+ 
+ 	msr = rdmsr(IA32_MISC_ENABLE);
+-	msr.lo |= (1 << 3); 	/* TM1 enable */
++	msr.lo |= (1 << 3);	/* TM1 enable */
+ 	msr.lo |= (1 << 13);	/* TM2 enable */
+ 	msr.lo |= (1 << 17);	/* Bidirectional PROCHOT# */
+ 
+ 	msr.lo |= (1 << 10);	/* FERR# multiplexing */
+ 
+-	// TODO: Only if  IA32_PLATFORM_ID[17] = 0 and IA32_PLATFORM_ID[50] = 1
+ 	msr.lo |= (1 << 16);	/* Enhanced SpeedStep Enable */
++	/* Enable C2E */
++	msr.lo |= (1 << 26);
++
++	/* Enable C4E */
++	msr.hi |= (1 << (32 - 32)); // C4E
++	msr.hi |= (1 << (33 - 32)); // Hard C4E
+ 
+-	// TODO Do we want Deep C4 and  Dynamic L2 shrinking?
+ 	wrmsr(IA32_MISC_ENABLE, msr);
+ 
+ 	msr.lo |= (1 << 20);	/* Lock Enhanced SpeedStep Enable */
+-- 
+2.8.3
+

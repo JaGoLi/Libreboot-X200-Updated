@@ -1,0 +1,50 @@
+From 78297c1fa4a158047e7bfa8bf0b3435fe498811d Mon Sep 17 00:00:00 2001
+From: Paul Kocialkowski <contact@paulk.fr>
+Date: Mon, 10 Aug 2015 22:59:50 +0200
+Subject: [PATCH 3/7] firmware: Hold key combination in developer mode
+
+This binds the Ctrl + H key combination to hold the developer mode screen.
+
+Change-Id: Ia76080eacd2e5e78b35b83d0f3783bfa5137794a
+Signed-off-by: Paul Kocialkowski <contact@paulk.fr>
+---
+ firmware/lib/vboot_api_kernel.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/firmware/lib/vboot_api_kernel.c b/firmware/lib/vboot_api_kernel.c
+index e465fc3..2e31f08 100644
+--- a/firmware/lib/vboot_api_kernel.c
++++ b/firmware/lib/vboot_api_kernel.c
+@@ -308,6 +308,7 @@ VbError_t VbBootDeveloper(VbCommonParams *cparams, LoadKernelParams *p)
+ 	uint32_t use_legacy = 0;
+ 	uint32_t default_boot = 0;
+ 	uint32_t ctrl_d_pressed = 0;
++	uint32_t hold = 0;
+ 
+ 	VbAudioContext *audio = 0;
+ 
+@@ -473,6 +474,12 @@ VbError_t VbBootDeveloper(VbCommonParams *cparams, LoadKernelParams *p)
+ 			ctrl_d_pressed = 1;
+ 			goto fallout;
+ 			break;
++		case 0x08:
++			/* Ctrl+H = hold */
++			VBDEBUG(("VbBootDeveloper() - "
++				 "hold developer mode screen\n"));
++			hold = 1;
++			break;
+ 		case 0x0c:
+ 			VBDEBUG(("VbBootDeveloper() - "
+ 				 "user pressed Ctrl+L; Try legacy boot\n"));
+@@ -523,7 +530,7 @@ VbError_t VbBootDeveloper(VbCommonParams *cparams, LoadKernelParams *p)
+ 			VbCheckDisplayKey(cparams, key, &vnc);
+ 			break;
+ 		}
+-	} while(VbAudioLooping(audio));
++	} while(hold || VbAudioLooping(audio));
+ 
+  fallout:
+ 
+-- 
+2.10.2
+

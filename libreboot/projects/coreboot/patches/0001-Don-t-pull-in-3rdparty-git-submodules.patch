@@ -1,0 +1,120 @@
+From 8b436fdcc99f111e17cd98da6d60a4d6977241e6 Mon Sep 17 00:00:00 2001
+From: Andrew Robbins <contact@andrewrobbins.info>
+Date: Fri, 7 Dec 2018 21:59:21 -0500
+Subject: [PATCH] Don't pull in 3rdparty git submodules
+
+Libreboot's build system uses separate git repositories for the
+third-party software.
+---
+ .gitmodules                   | 20 --------------------
+ 3rdparty/arm-trusted-firmware |  1 -
+ 3rdparty/blobs                |  1 -
+ 3rdparty/chromeec             |  1 -
+ 3rdparty/libgfxinit           |  1 -
+ 3rdparty/libhwbase            |  1 -
+ 3rdparty/vboot                |  1 -
+ Makefile.inc                  | 12 ------------
+ 8 files changed, 38 deletions(-)
+ delete mode 160000 3rdparty/arm-trusted-firmware
+ delete mode 160000 3rdparty/blobs
+ delete mode 160000 3rdparty/chromeec
+ delete mode 160000 3rdparty/libgfxinit
+ delete mode 160000 3rdparty/libhwbase
+ delete mode 160000 3rdparty/vboot
+
+diff --git a/.gitmodules b/.gitmodules
+index c3270e6..3a617c7 100644
+--- a/.gitmodules
++++ b/.gitmodules
+@@ -1,23 +1,3 @@
+-[submodule "3rdparty/blobs"]
+-	path = 3rdparty/blobs
+-	url = ../blobs.git
+-	update = none
+-	ignore = dirty
+ [submodule "util/nvidia-cbootimage"]
+ 	path = util/nvidia/cbootimage
+ 	url = ../nvidia-cbootimage.git
+-[submodule "vboot"]
+-	path = 3rdparty/vboot
+-	url = ../vboot.git
+-[submodule "arm-trusted-firmware"]
+-	path = 3rdparty/arm-trusted-firmware
+-	url = ../arm-trusted-firmware.git
+-[submodule "3rdparty/chromeec"]
+-	path = 3rdparty/chromeec
+-	url = ../chrome-ec.git
+-[submodule "libhwbase"]
+-	path = 3rdparty/libhwbase
+-	url = ../libhwbase.git
+-[submodule "libgfxinit"]
+-	path = 3rdparty/libgfxinit
+-	url = ../libgfxinit.git
+diff --git a/3rdparty/arm-trusted-firmware b/3rdparty/arm-trusted-firmware
+deleted file mode 160000
+index 693e278..0000000
+--- a/3rdparty/arm-trusted-firmware
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 693e278e308441d716f7f5116c43aa150955da31
+diff --git a/3rdparty/blobs b/3rdparty/blobs
+deleted file mode 160000
+index 372012e..0000000
+--- a/3rdparty/blobs
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 372012e8e1d0d01f3e77ff73b118665b41ff68b6
+diff --git a/3rdparty/chromeec b/3rdparty/chromeec
+deleted file mode 160000
+index 11bd4c0..0000000
+--- a/3rdparty/chromeec
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 11bd4c0f4d11357ab830982d7dec164813c886dd
+diff --git a/3rdparty/libgfxinit b/3rdparty/libgfxinit
+deleted file mode 160000
+index 718c79b..0000000
+--- a/3rdparty/libgfxinit
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 718c79bb0713b5b90c9cc44e03197dc777066e3d
+diff --git a/3rdparty/libhwbase b/3rdparty/libhwbase
+deleted file mode 160000
+index 637f2a4..0000000
+--- a/3rdparty/libhwbase
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 637f2a4f21ead8ccc45d5256834eb27ce72088db
+diff --git a/3rdparty/vboot b/3rdparty/vboot
+deleted file mode 160000
+index 392211f..0000000
+--- a/3rdparty/vboot
++++ /dev/null
+@@ -1 +0,0 @@
+-Subproject commit 392211f0358919d510179ad399d8f056180e652e
+diff --git a/Makefile.inc b/Makefile.inc
+index 3840505..da567de 100644
+--- a/Makefile.inc
++++ b/Makefile.inc
+@@ -188,18 +188,6 @@ ifeq ($(CONFIG_COVERAGE),y)
+ ramstage-c-ccopts += -fprofile-arcs -ftest-coverage
+ endif
+ 
+-ifneq ($(UPDATED_SUBMODULES),1)
+-# try to fetch non-optional submodules if the source is under git
+-forgetthis:=$(if $(GIT),$(shell git submodule update --init))
+-ifeq ($(CONFIG_USE_BLOBS),y)
+-# this is necessary because 3rdparty/blobs is update=none, and so is ignored
+-# unless explicitly requested and enabled through --checkout
+-forgetthis:=$(if $(GIT),$(shell git submodule update --init --checkout 3rdparty/blobs))
+-endif
+-UPDATED_SUBMODULES:=1
+-COREBOOT_EXPORTS += UPDATED_SUBMODULES
+-endif
+-
+ postcar-c-deps:=$$(OPTION_TABLE_H)
+ ramstage-c-deps:=$$(OPTION_TABLE_H)
+ romstage-c-deps:=$$(OPTION_TABLE_H)
+-- 
+2.7.4
+

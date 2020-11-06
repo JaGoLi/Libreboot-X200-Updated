@@ -1,0 +1,56 @@
+From 4560df9f84e342ef51cf071dccd01e3fb5838a37 Mon Sep 17 00:00:00 2001
+From: Paul Kocialkowski <contact@paulk.fr>
+Date: Mon, 10 Aug 2015 23:13:49 +0200
+Subject: [PATCH 4/7] firmware: Screen blank and wait at disabled USB boot
+ warning
+
+This blanks the screen before showing the disabled USB boot warning.
+It also waits for the user to press any key to come back to the developer mode
+screen.
+
+Change-Id: Ic23f1e0f8d269242a9b7af6941806951016e6eb4
+Signed-off-by: Paul Kocialkowski <contact@paulk.fr>
+---
+ firmware/lib/vboot_api_kernel.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/firmware/lib/vboot_api_kernel.c b/firmware/lib/vboot_api_kernel.c
+index 2e31f08..5cf45ec 100644
+--- a/firmware/lib/vboot_api_kernel.c
++++ b/firmware/lib/vboot_api_kernel.c
+@@ -376,6 +376,7 @@ VbError_t VbBootDeveloper(VbCommonParams *cparams, LoadKernelParams *p)
+ 		}
+ 	}
+ 
++developer_mode_screen:
+ 	/* Show the dev mode warning screen */
+ 	VbDisplayScreen(cparams, VB_SCREEN_DEVELOPER_WARNING, 0, &vnc);
+ 
+@@ -498,14 +499,23 @@ VbError_t VbBootDeveloper(VbCommonParams *cparams, LoadKernelParams *p)
+ 			if (!allow_usb) {
+ 				VBDEBUG(("VbBootDeveloper() - "
+ 					 "USB booting is disabled\n"));
++
++				VbDisplayScreen(cparams, VB_SCREEN_BLANK, 1,
++						&vnc);
++
+ 				VbExDisplayDebugInfo(
+ 					"WARNING: Booting from external media "
+ 					"(USB/SD) has not been enabled. Refer "
+ 					"to the developer-mode documentation "
+-					"for details.\n");
++					"for details.\n\n"
++					"Press any key to continue.\n\n");
+ 				VbExBeep(120, 400);
+ 				VbExSleepMs(120);
+ 				VbExBeep(120, 400);
++
++				while (!VbExKeyboardRead()) ;
++
++				goto developer_mode_screen;
+ 			} else {
+ 				/*
+ 				 * Clear the screen to show we get the Ctrl+U
+-- 
+2.10.2
+

@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+#  find blobs in coreboot
+#
+#	Copyright (C) 2014, 2015, 2016 Leah Rowe <info@minifree.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -e -u
+
+# This is used when updating the version of
+# coreboot that libreboot uses, to know what
+# new blobs have landed in coreboot
+
+# full deblob scripts based on linux-libre
+# will replace this script later on. For now, 
+# this will have to do.
+
+printf "Searching for blobs in coreboot\n"
+cp "deblob-check" "../../../coreboot/coreboot/"
+cd "../../../coreboot/coreboot/"
+
+chmod +x "deblob-check"
+find -type f | xargs ./deblob-check > "tocheck"
+rm -f "deblob-check"
+
+rm -f "../../resources/utilities/coreboot-libre/tocheck"
+mv "tocheck" "../../resources/utilities/coreboot-libre/"
+
+cd "../../resources/utilities/coreboot-libre/"
+
+printf "Done! open resources/utilities/coreboot-libre/tocheck in an editor\n"
+printf "This will contain the names of the files that you must decide whether they are blobs or not\n\n"

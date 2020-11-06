@@ -1,0 +1,3 @@
+COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
+P1COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
+    COMMAND_LIST_MARKER("search.file", grub_cmd_do_search, "NAME [VARIABLE] [HINTS]", "Search devices by file. If VARIABLE is specified, the first device found is set to a variable.")

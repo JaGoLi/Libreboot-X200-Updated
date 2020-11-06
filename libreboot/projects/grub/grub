@@ -1,0 +1,126 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+arguments() {
+	project_arguments_targets "$project" "$@"
+}
+
+dependencies() {
+	project_dependencies "$project" "$@"
+}
+
+usage() {
+	project_usage_actions "$project"
+	project_usage_arguments "$project" "$@"
+}
+
+download() {
+	local repository="$project"
+
+	project_download_git "$project" "$repository" 'https://git.savannah.gnu.org/r/grub.git' "$@"
+}
+
+download_check() {
+	local repository="$project"
+
+	project_download_check_git "$project" "$repository" "$@"
+}
+
+extract() {
+	project_extract "$project" "$@"
+}
+
+extract_check() {
+	project_extract_check "$project" "$@"
+}
+
+update() {
+	local repository="$project"
+
+	project_update_git "$project" "$repository" "$@"
+}
+
+update_check() {
+	local repository="$project"
+
+	project_update_check_git "$project" "$repository" "$@"
+}
+
+build() {
+	local target="$1"
+	local repository="$project"
+
+	project_sources_directory_missing_empty_error "$project" "$repository" "$@"
+
+	if git_project_check "$repository"; then
+		git_project_checkout "$project" "$repository" "$@"
+	fi
+
+	local project_path="$(project_path "$project")"
+	local sources_path="$(project_sources_path "$project" "$repository" "$@")"
+	local build_path="$(project_build_path "$project" "$@")"
+	local raw_keymap_path="$project_path/$CONFIGS/keymaps"
+
+	mkdir -p "$build_path"
+
+	grub_build_utils
+
+	if [[ "$target" == 'bios' ]]; then
+		grub_build_floppy_image
+	else
+		grub_build_standalone_image
+	fi
+
+	for raw_keymap in "$raw_keymap_path"/*; do
+		grub_build_layout "$raw_keymap"
+	done
+
+	grub_build_font
+	grub_copy_modules
+
+	make -C "$sources_path" distclean
+}
+
+build_check() {
+	project_build_check "$project" "$@"
+}
+
+install() {
+	project_install "$project" "$@"
+}
+
+install_check() {
+	project_install_check "$project" "$@"
+}
+
+release() {
+	local repository="$project"
+
+	project_release_install_archive "$project" "$IMAGES" "$@"
+	project_release_sources_git "$project" "$repository" "$@"
+}
+
+release_check() {
+	local repository="$project"
+
+	project_release_install_archive_check "$project" "$IMAGES" "$@"
+	project_release_check_sources_git "$project" "$repository" "$@"
+}
+
+clean() {
+	project_clean "$project" "$@"
+}

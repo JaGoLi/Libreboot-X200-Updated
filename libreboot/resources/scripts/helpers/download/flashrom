@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+#  helper script: downloads flashrom and patches it
+#
+#	Copyright (C) 2014, 2015 Leah Rowe <info@minifree.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the working directory is the
+# root of libreboot_src or libreboot git.
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+# Get flashrom at the last previously tested revision
+
+# Remove the old version that may still exist:
+# ------------------------------------------------------------------------------
+
+printf "Downloading flashrom\n"
+
+rm -Rf "flashrom/"
+
+# Get flashrom
+# ------------------------------------------------------------------------------
+
+# download it using git
+git clone https://github.com/stefanct/flashrom.git
+
+(
+cd "flashrom/"
+
+# reset to known revision
+git checkout v0.9.9
+git reset --hard
+
+# Apply patches
+# ------------------------------------------------------------------------------
+
+printf "Enabling whitelist for X200S, X200 Tablet, T400, T500, W500 and R400\n"
+git am "../resources/flashrom/patch/0001-New-laptops-whitelisted-ThinkPad-R400-and-ThinkPad-T.patch"
+
+printf "Enabling whitelist for Libiquity Taurinus X200\n"
+git am "../resources/flashrom/patch/0002-Add-whitelist-for-Taurinus-X200-laptop.patch"
+
+# Remove redundant definitions for the flash chips that
+# supported libreboot systems use. This removes the need
+# for the user to run with the "-c" argument on these systems
+printf "Patching flashchips.c to remove the redundant entries\n"
+git am "../resources/flashrom/patch/0003-purged-chips.patch"
+)
+
+printf "\n\n"

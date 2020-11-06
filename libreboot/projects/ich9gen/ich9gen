@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+arguments() {
+	project_arguments_targets "$project" "$@"
+}
+
+usage() {
+	project_usage_actions "$project"
+	project_usage_arguments "$project" "$@"
+}
+
+extract() {
+	local repository="$project"
+
+	project_extract "$project" "$@"
+}
+
+extract_check() {
+	local repository="$project"
+
+	project_extract_check "$project" "$@"
+}
+
+update() {
+	local repository="$project"
+
+	project_update_git "$project" "$repository" "$@"
+}
+
+update_check() {
+	local repository="$project"
+
+	project_update_check_git "$project" "$repository" "$@"
+}
+
+build() {
+	local repository="$project"
+
+	project_sources_directory_missing_empty_error "$project" "$repository" "$@"
+
+	if git_project_check "$repository"; then
+		git_project_checkout "$project" "$repository" "$@"
+	fi
+
+	local sources_path="$(project_sources_path "$project" "$repository" "$@")"
+	local build_path="$(project_build_path "$project" "$@")"
+
+	mkdir -p "$build_path"
+	make -C "$sources_path" -j"$TASKS" ich9gen
+
+	local macaddress="$(ich9gen_macaddress)"
+
+	cd "$build_path"
+
+	if [[ -n $macaddress ]]; then
+		"$sources_path"/ich9gen --macaddress "$macaddress"
+	else
+		"$sources_path"/ich9gen
+	fi
+
+	cp "$sources_path/ich9gen" "$build_path"
+	make -C "$sources_path" clean
+}
+
+build_check() {
+	project_build_check "$project" "$@"
+}
+
+install() {
+	project_install "$project" "$@"
+}
+
+install_check() {
+	project_install_check "$project" "$@"
+}
+
+release() {
+	project_release_install_archive "$project" "$TOOLS" "$@"
+	project_release_sources_archive_create "$project" "$@"
+}
+
+release_check() {
+	project_release_install_archive_check "$project" "$TOOLS" "$@"
+	project_release_sources_archive_exists_check "$project" "$@"
+}
+
+clean() {
+	project_clean "$project" "$@"
+}

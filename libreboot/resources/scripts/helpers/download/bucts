@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+#  helper script: downloads bucts and patches it
+#
+#	Copyright (C) 2014, 2015 Leah Rowe <info@minifree.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the working directory is the
+# root of libreboot_src or libreboot git.
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+# Get bucts and checkout last revision used
+
+# Remove the old version that may exist
+# ------------------------------------------------------------------------------
+
+printf "Downloading bucts\n"
+
+rm -Rf "bucts/"
+
+# Get bucts
+# ------------------------------------------------------------------------------
+
+# download it using git
+git clone https://notabug.org/libreboot/bucts.git
+
+# modifications are required
+cd "bucts/"
+
+# Reset to the last commit that was tested
+# ------------------------------------------------------------------------------
+
+printf "Patching bucts to not require git for building\n"
+git reset --hard dc27919d7a66a6e8685ce07c71aefa4f03ef7c07
+
+# Apply patches
+# ------------------------------------------------------------------------------
+
+git am "../resources/bucts/patch/0001-Makefile-don-t-use-git.patch"
+
+# we're done
+cd "../"
+
+printf "\n\n"

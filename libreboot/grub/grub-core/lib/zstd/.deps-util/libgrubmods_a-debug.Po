@@ -1,0 +1,4 @@
+grub-core/lib/zstd/libgrubmods_a-debug.o: grub-core/lib/zstd/debug.c \
+ /usr/include/stdc-predef.h grub-core/lib/zstd/debug.h
+/usr/include/stdc-predef.h:
+grub-core/lib/zstd/debug.h:

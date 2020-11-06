@@ -1,0 +1,7 @@
+lib/zstd/zstd_module-error_private.o: lib/zstd/error_private.c \
+ lib/zstd/error_private.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include/stddef.h \
+ lib/zstd/zstd_errors.h
+lib/zstd/error_private.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/include/stddef.h:
+lib/zstd/zstd_errors.h:

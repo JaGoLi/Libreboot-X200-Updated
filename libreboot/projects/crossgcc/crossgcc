@@ -1,0 +1,221 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+arguments() {
+	project_arguments_targets "$project" "$@"
+}
+
+usage() {
+	project_usage_actions "$project" "prefix"
+	project_usage_arguments "$project" "$@"
+}
+
+download() {
+	local repository="coreboot"
+
+	git_project_prepare "$project" "$repository" "$@"
+}
+
+download_check() {
+	local repository="coreboot"
+
+	git_project_prepare_check "$project" "$repository" "$@"
+}
+
+extract() {
+	local arguments=$@
+
+	local repository="coreboot"
+	local tarball
+
+	project_extract "$project" "$@"
+
+	crossgcc_tarballs "$@" | while read tarball
+	do
+		local tarball_sources_path=$(crossgcc_tarball_sources_path "$tarball")
+		local tarball_install_path=$(crossgcc_tarball_install_path "$tarball" "$@")
+		local tarball_install_directory_path=$(dirname "$tarball_install_path")
+
+		if [[ -f "$tarball_sources_path" ]] && ! [[ -f "$tarball_install_path" ]]
+		then
+			printf '%s\n' "Copying source archive $tarball for $project (with ${arguments:-no argument})"
+
+			mkdir -p "$tarball_install_directory_path"
+
+			file_verification_check "$tarball_sources_path"
+			cp "$tarball_sources_path" "$tarball_install_path"
+		fi
+	done
+}
+
+extract_check() {
+	local repository="coreboot"
+	local tarball
+
+	project_extract_check "$project" "$@"
+
+	crossgcc_tarballs "$@" | while read tarball
+	do
+		local tarball_install_path=$(crossgcc_tarball_install_path "$tarball" "$@")
+
+		test ! -f "$tarball_install_path"
+	done
+}
+
+update() {
+	local arguments=$@
+
+	local repository="coreboot"
+	local tarball
+
+	project_update_git $project $repository $arguments
+
+	crossgcc_tarballs "$@" | while read tarball
+	do
+		local tarball_sources_path=$(crossgcc_tarball_sources_path "$tarball")
+		local tarball_install_path=$(crossgcc_tarball_install_path "$tarball" "$@")
+		local tarball_install_directory_path=$(dirname "$tarball_install_path")
+
+		if [[ -f $tarball_sources_path ]]
+		then
+			printf '%s\n' "Copying source archive $tarball for $project (with ${arguments:-no argument})"
+
+			mkdir -p "$tarball_install_directory_path"
+
+			file_verification_check "$tarball_sources_path"
+			cp "$tarball_sources_path" "$tarball_install_path"
+		fi
+	done
+}
+
+update_check() {
+	local repository="coreboot"
+	local tarball
+
+	project_update_check_git "$project" "$repository" "$@"
+
+	crossgcc_tarballs "$@" | while read tarball
+	do
+		local tarball_sources_path=$(crossgcc_tarball_sources_path "$tarball" "$@")
+
+		test ! -f "$tarball_sources_path"
+	done
+}
+
+prefix() {
+	local arch=$1
+
+	local build_path=$(project_build_path "$project" "$@")
+
+	case $arch in
+		"arm")
+			printf '\n%s\n' "$build_path/bin/arm-eabi-"
+			;;
+		"i386")
+			printf '\n%s\n' "$build_path/bin/i386-elf-"
+			;;
+	esac
+}
+
+build() {
+	local arch=$1
+
+	local repository="coreboot"
+
+	project_sources_directory_missing_empty_error "$project" "$repository" "$@"
+
+	local sources_path=$(project_sources_path "$project" "$repository" "$@")
+	local build_path=$(project_build_path "$project" "$@")
+
+	if git_project_check "$repository"
+	then
+		git_project_checkout "$project" "$repository" "$@"
+	fi
+
+	mkdir -p "$build_path"
+
+	local bootstrap_flag
+
+	if ! crossgcc_same_major_version_test; then
+		printf '\n%s' 'GCC major versions differ.  Bootstrapping' 1>&2
+		printf '%s\n\n' ' to avoid potential build failure' 1>&2
+
+		bootstrap_flag='-b'
+	fi
+
+	make -C "$sources_path" $bootstrap_flag CPUS="$TASKS" DEST="$build_path" "crossgcc-$arch"
+}
+
+build_check() {
+	project_build_check "$project" "$@"
+}
+
+install() {
+	project_install "$project" "$@"
+}
+
+install_check() {
+	project_install_check "$project" "$@"
+}
+
+release() {
+	local arguments=$@
+
+	local repository="coreboot"
+	local tarball
+
+	project_release_install_archive "$project" "$TOOLS" "$@"
+
+	project_release_sources_git "$project" "$repository" "$@"
+
+	crossgcc_tarballs "$@" | while read tarball
+	do
+		local tarball_install_path=$(crossgcc_tarball_install_path "$tarball" "$@")
+		local tarball_release_path=$(crossgcc_tarball_release_path "$tarball" "$@")
+		local release_path=$(project_release_path "$project" "$SOURCES" "$@")
+
+		mkdir -p "$release_path"
+
+		if [[ -f "$tarball_install_path" ]] && ! [[ -f "$tarball_release_path" ]]
+		then
+			printf '%s\n' "Releasing source archive $tarball for $project (with ${arguments:-no argument})"
+
+			cp "$tarball_install_path" "$tarball_release_path"
+			file_verification_create "$tarball_release_path"
+		fi
+	done
+}
+
+release_check() {
+	local repository="coreboot"
+	local tarball
+
+	project_release_install_archive_check "$project" "$TOOLS" "$@"
+
+	project_release_check_sources_git "$project" "$repository" "$@"
+
+	crossgcc_tarballs "$@" | while read tarball
+	do
+		local tarball_release_path=$(crossgcc_tarball_release_path "$tarball" "$@")
+
+		test -f "$tarball_release_path"
+	done
+}
+
+clean() {
+	project_clean "$project" "$@"
+}

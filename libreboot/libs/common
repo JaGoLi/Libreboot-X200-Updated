@@ -1,0 +1,441 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+BUILD_SYSTEM="libreboot"
+
+PROJECTS="projects"
+SOURCES="sources"
+BUILD="build"
+INSTALL="install"
+RELEASE="release"
+SYSTEMS="systems"
+IMAGES="images"
+TOOLS="tools"
+
+CONFIGS="configs"
+PATCHES="patches"
+TARGETS="targets"
+REVISION="revision"
+VARIANTS="variants"
+BLOBS="blobs"
+BLOBS_IGNORE="blobs-ignore"
+BLOBS_DISCOVER="blobs-discover"
+DEPENDENCIES="dependencies"
+
+DOTEPOCH=".epoch"
+DOTRNDSEED=".rndseed"
+DOTVERSION=".version"
+DOTREVISION=".revision"
+DOTTARFILES=".tarfiles"
+ARCHIVE="tar.xz"
+CHECKSUM="sha256sum"
+DSIG="asc"
+
+CONFIG_SHELL="${CONFIG_SHELL:-$(which bash)}"
+EDITOR="${EDITOR:-$(which vi || true)}"
+TASKS="${TASKS:-1}"
+
+function_check() {
+	local function=$1
+
+	declare -f -F "$function" > /dev/null
+}
+
+variable_check() {
+	local variable=$1
+
+	test ! -z "${!variable}"
+}
+
+arguments_list() {
+	local argument
+
+	for argument in "$@"
+	do
+		printf '%s\n' "$argument"
+	done
+}
+
+download_wrapper() {
+	local download_dir="$1"
+	shift
+	local uris=($@)
+
+	local wget_options=(
+		'--config=/dev/null'
+		'--secure-protocol=PFS'
+		"--directory-prefix=$download_dir"
+		'--continue'
+		'--'
+	)
+
+	local curl_options=(
+		'-q'
+		'--continue-at -'
+		'--remote-name'
+		'--retry 20'
+		'--ssl'
+		'--tlsv1.2'
+		'--'
+	)
+
+	if hash wget > /dev/null 2>&1; then
+
+		wget "${wget_options[@]}" "${uris[@]}"
+
+	elif hash curl > /dev/null 2>&1; then
+		(
+			cd "$download_dir"
+
+			curl "${curl_options[@]}" "${uris[@]}"
+		)
+	else
+		printf '\n%s\n\n' 'Error: Neither wget nor curl were found' 1>&2
+
+		return 1
+	fi
+}
+
+diff_patch() {
+	local sources_path=$1
+	local patch_path=$2
+
+	patch -fd "$sources_path" -r - < "$patch_path"
+}
+
+diff_patch_check() {
+	local sources_path=$1
+	local patch_path=$2
+
+	patch -sfd "$sources_path" --dry-run < "$patch_path" > /dev/null 2>&1
+}
+
+path_wildcard_expand() {
+	local path=$@
+
+	# Evaluation fails with unescaped whitespaces.
+	path=$(printf '%s\n' "$path" | sed "s/ /\\\ /g")
+
+	eval "arguments_list "$path""
+}
+
+file_checksum_create() {
+	local path=$1
+
+	local checksum_path="$path.$CHECKSUM"
+	local name=$(basename "$path")
+	local directory_path=$(dirname "$path")
+
+	(
+		cd "$directory_path"
+		sha256sum "$name" > "$checksum_path"
+	)
+}
+
+file_checksum_check() {
+	local path=$1
+
+	local checksum_path="$path.$CHECKSUM"
+	local name=$(basename "$path")
+	local directory_path=$(dirname "$path")
+
+	if ! [[ -f "$checksum_path" ]]
+	then
+		printf 1>&2 '%s\n' 'Could not verify file checksum!'
+		return 1
+	fi
+
+	(
+		cd "$directory_path"
+		sha256sum -c "$checksum_path"
+	)
+}
+
+file_signature_create() {
+	local path=$1
+
+	local signature_path="$path.$DSIG"
+
+	if [[ -z "$RELEASE_KEY" ]]
+	then
+		return 0
+	fi
+
+	gpg --default-key "$RELEASE_KEY" --armor --output "$signature_path" --detach-sign --yes "$path"
+}
+
+file_signature_check() {
+	local path=$1
+
+	local signature_path="$path.$DSIG"
+
+	if ! [[ -f "$signature_path" ]]
+	then
+		printf 1>&2 '%s\n' 'Could not verify file signature!'
+		return 1
+	fi
+
+	gpg --armor --verify "$signature_path" "$path"
+}
+
+file_verification_create() {
+	local path=$1
+
+	file_checksum_create "$path"
+	file_signature_create "$path"
+}
+
+file_verification_check() {
+	local path=$1
+
+	file_checksum_check "$path"
+	file_signature_check "$path"
+}
+
+file_exists_check() {
+	local path=$1
+
+	test -f "$path"
+}
+
+directory_filled_check() {
+	local path=$1
+
+	if [[ -z "$(ls -A "$path" 2> /dev/null)" ]]
+	then
+		return 1
+	else
+		return 0
+	fi
+}
+
+archive_files_create() {
+	local source_path="$1"
+
+	local directory="$(basename "$source_path")"
+	local tarfiles_path="$source_path/$DOTTARFILES"
+	local revision_path="$source_path/$DOTREVISION"
+	local version_path="$source_path/$DOTVERSION"
+	local epoch_path="$source_path/$DOTEPOCH"
+	local rnd_seed_path="$source_path/$DOTRNDSEED"
+
+	# Files in "$tarfiles_path" are NUL terminated.
+	# `tr '\0' '\n'` for human-readable output.
+	if git_check "$source_path"; then
+		git_files "$source_path" > "$tarfiles_path"
+		printf '%s\0' "$DOTTARFILES" >> "$tarfiles_path"
+	else
+		find "$source_path" -print0 | env LC_ALL='C.UTF-8' sort -z | sed -z "1d;s,^$source_path/\\?,,;/^$DOTTARFILES\$/d" > "$tarfiles_path"
+	fi
+
+	for dotfile in "$revision_path" \
+			"$version_path" \
+			"$epoch_path" \
+			"$rnd_seed_path"
+	do
+		if [[ -f "$dotfile" ]]; then
+			printf '%s\0' ".${dotfile##*.}" >> "$tarfiles_path"
+		fi
+	done
+}
+
+archive_files_date() {
+	local source_path="$1"
+
+	local epoch_path="$source_path/$DOTEPOCH"
+
+	if [[ -n "$SOURCE_DATE_EPOCH" ]]; then
+		find "$source_path" -execdir touch --no-dereference --date="@$SOURCE_DATE_EPOCH" {} +
+	fi
+}
+
+archive_create() {
+	local archive_path="$1"
+	local source_path="$2"
+	local directory="$3"
+
+	local tarfiles_path="$source_path/$DOTTARFILES"
+	local directory_path="$(dirname "$archive_path")"
+
+	mkdir -p "$directory_path"
+
+	if [[ -z "$directory" ]]; then
+		directory="$(basename "$source_path")"
+	fi
+
+	archive_files_create "$source_path"
+	archive_files_date "$source_path"
+
+	local tar_options=(
+		--create
+		--xz
+		--file="$archive_path"
+		--files-from="$tarfiles_path"
+		--transform="s,^,$directory/,S"
+		--no-recursion
+		--warning=no-filename-with-nuls
+		--null
+		--owner=0
+		--group=0
+		--numeric-owner
+	)
+
+	(
+		cd "$source_path"
+		tar "${tar_options[@]}"
+	)
+}
+
+archive_extract() {
+	local archive_path="$1"
+	local destination_path="$2"
+
+	if [[ -z "$destination_path" ]]; then
+		destination_path="$(dirname "$archive_path")"
+	fi
+
+	tar -xf "$archive_path" -ps -C "$destination_path"
+}
+
+rootfs_files_create() {
+	local source_path="$1"
+
+	local directory="$(basename "$source_path")"
+	local tarfiles_path="$source_path/$DOTTARFILES"
+
+	# Files in "$tarfiles_path" are NUL terminated.
+	# `tr '\0' '\n'` for human-readable output.
+	execute_root find "$source_path" -print0 | env LC_ALL='C.UTF-8' sort -z | sed -z "1d;s,^$source_path/\\?,,;/^$DOTTARFILES\$/d" > "$tarfiles_path"
+}
+
+rootfs_files_date() {
+	local source_path="$1"
+
+	local epoch_path="$source_path/$DOTEPOCH"
+
+	if [[ -n "$SOURCE_DATE_EPOCH" ]]; then
+		execute_root find "$source_path" -execdir touch --no-dereference --date="@$SOURCE_DATE_EPOCH" {} +
+	fi
+}
+
+rootfs_create() {
+	local rootfs_path="$1"
+	local source_path="$2"
+	local directory="$3"
+
+	local tarfiles_path="$source_path/$DOTTARFILES"
+	local directory_path="$(dirname "$rootfs_path")"
+
+	mkdir -p "$directory_path"
+
+	if [[ -z "$directory" ]]; then
+		directory="$(basename "$source_path")"
+	fi
+
+	rootfs_files_create "$source_path"
+	rootfs_files_date "$source_path"
+
+	local tar_options=(
+		--create
+		--xz
+		--file="$rootfs_path"
+		--files-from="$tarfiles_path"
+		--no-recursion
+		--warning=no-filename-with-nuls
+		--null
+		--owner=0
+		--group=0
+		--numeric-owner
+	)
+
+	(
+		cd "$source_path"
+		execute_root tar "${tar_options[@]}"
+	)
+
+	execute_root chmod 644 "$rootfs_path"
+	execute_root chown "$USER:$USER" "$rootfs_path"
+}
+
+requirements() {
+	local requirement
+	local requirement_path
+
+	for requirement in "$@"
+	do
+		requirement_path=$(which "$requirement" || true)
+
+		if [[ -z "$requirement_path" ]]
+		then
+			printf 1>&2 '%s\n' "Missing requirement: $requirement"
+			exit 1
+		fi
+	done
+}
+
+requirements_root() {
+	local requirement
+	local requirement_path
+
+	for requirement in "$@"
+	do
+		# We need to keep stdout output to show the command.
+		requirement_path=$(execute_root which "$requirement" || true)
+
+		if [[ -z "$requirement_path" ]]
+		then
+			printf 1>&2 '%s\n' "Missing requirement: $requirement"
+			exit 1
+		fi
+	done
+}
+
+arguments_concat() {
+	local delimiter=$1
+	shift
+
+	local concat
+
+	for argument in "$@"
+	do
+		if [[ -n "$concat" ]]
+		then
+			concat="$concat""$delimiter""$argument"
+		else
+			concat="$argument"
+		fi
+	done
+
+	printf '%s\n' "$concat"
+}
+
+execute_root() {
+	local sudo=$(which sudo 2> /dev/null || true)
+	local arguments
+
+	printf 1>&2 '%s' 'Running command as root: '
+	printf 1>&2 '%b\n' "$*"
+
+	if [[ -n "$sudo" ]]
+	then
+		sudo "$@"
+	else
+		# Quote arguments for eval through su.
+		arguments=$(printf '%q ' "$@")
+		su -c "$arguments"
+	fi
+}

@@ -1,0 +1,17 @@
+autoconf
+automake
+bison
+flex
+gcc
+gettext
+libdevmapper-dev
+libfreetype6
+libfreetype6-dev
+libpciaccess0
+libpciaccess-dev
+libusb-1.0-0
+libusb-1.0-0-dev
+python
+qemu-system-x86
+ttf-unifont
+xorriso

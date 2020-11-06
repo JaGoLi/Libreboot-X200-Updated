@@ -1,0 +1,4 @@
+set root=(fd0)
+set prefix=($root)/boot/grub
+
+source (cbfsdisk)/fallback/grub.cfg

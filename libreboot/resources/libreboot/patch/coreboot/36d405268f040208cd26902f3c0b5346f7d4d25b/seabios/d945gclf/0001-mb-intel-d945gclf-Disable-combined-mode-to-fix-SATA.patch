@@ -1,0 +1,31 @@
+From b6b2f9a9775029305f88f927f93e95046594f9b9 Mon Sep 17 00:00:00 2001
+From: Arthur Heymans <arthur@aheymans.xyz>
+Date: Thu, 25 Aug 2016 09:24:15 +0200
+Subject: [PATCH] mb/intel/d945gclf: Disable combined mode to fix SATA
+
+Similarly to 2b2f465fcb1afe4960c613b8ca91e868c64592d4
+"mb/gigabyte/ga-g41m-es2l: Fix ACPI IRQ settings for SATA"
+SATA must function in "plain" mode because it does not work in
+"combined" mode.
+
+Tested on d945gclf
+
+Change-Id: I2e051a632a1341c4932cf86855006ae517dbf064
+Signed-off-by: Arthur Heymans <arthur@aheymans.xyz>
+
+diff --git a/src/mainboard/intel/d945gclf/devicetree.cb b/src/mainboard/intel/d945gclf/devicetree.cb
+index 823a240..aa8c441 100644
+--- a/src/mainboard/intel/d945gclf/devicetree.cb
++++ b/src/mainboard/intel/d945gclf/devicetree.cb
+@@ -45,7 +45,7 @@ chip northbridge/intel/i945
+ 			register "gpi13_routing" = "1"
+ 			register "gpe0_en" = "0x20000601"
+ 
+-                        register "ide_legacy_combined" = "0x1"
++                        register "ide_legacy_combined" = "0x0"
+                         register "ide_enable_primary" = "0x1"
+                         register "ide_enable_secondary" = "0x0"
+                         register "sata_ahci" = "0x0"
+-- 
+2.9.3
+

@@ -1,0 +1,93 @@
+#!/usr/bin/env bash
+
+#  helper script: builds flashrom source code
+#
+#	Copyright (C) 2014, 2015 Leah Rowe <info@minifree.org>
+#	Copyright (C) 2015 Klemens Nanni <contact@autoboot.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the working directory is the root
+# of git or release archive
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+if [ -z ${NPROC+x} ]; then
+    cores="$(nproc)"
+else
+    case ${NPROC} in
+        ''|*[!0-9]*)
+            printf "value '%s' for NPROC is invalid. non-numeric. Exiting.\n" "${NPROC}"
+            exit 1
+            ;;
+    esac
+    cores="${NPROC}"
+fi
+
+# Build "flashrom" (utility for flashing/dumping ROMs)
+# --------------------------------------------------------------------
+
+printf "Building flashrom\n"
+
+cd "flashrom/"
+
+make clean
+if (( $# != 1 )); then
+	make -j${cores}
+else
+	if [ "${1}" = "static" ]; then
+		make SHARED=0 CC='gcc -static' -j${cores} CONFIG_ENABLE_LIBUSB1_PROGRAMMERS=no
+	else
+		make -j${cores} CONFIG_ENABLE_LIBUSB1_PROGRAMMERS=no
+	fi
+fi
+
+mv "flashrom" "flashrom_normal"
+
+# build patched binaries for MX25L1605D and SST25VF016B flash chips
+# - these patches are needed for initial installation on an X60 or T60
+# - these patches are for people who have lenovo bios running
+for patchname in "lenovobios_macronix" "lenovobios_sst"
+do
+	# first remove the existing build
+	rm -f "flashrom_${patchname}"
+	
+	# backup the unpatched flashchips.c (it will be patched)
+	cp "flashchips.c" "flashchips.c_"
+	# patch flashchips.c
+	patch "flashchips.c" < "../resources/flashrom/patch/${patchname}.diff"
+	
+	make clean
+	if (( $# != 1 )); then
+		make -j${cores} CONFIG_ENABLE_LIBUSB1_PROGRAMMERS=no
+	else
+		if [ "${1}" = "static" ]; then
+			make SHARED=0 CC='gcc -static' -j${cores} CONFIG_ENABLE_LIBUSB1_PROGRAMMERS=no
+		else
+			make -j${cores} CONFIG_ENABLE_LIBUSB1_PROGRAMMERS=no
+		fi
+	fi
+	
+	# Rename the binary based on the patch name
+	mv "flashrom" "flashrom_${patchname}"
+	
+	# restore unpatched flashchips.c
+	rm -f "flashchips.c"
+	mv "flashchips.c_" "flashchips.c"
+done
+
+mv "flashrom_normal" "flashrom"
+
+cd "../"

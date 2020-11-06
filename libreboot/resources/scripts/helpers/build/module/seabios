@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+#  helper script: builds SeaBIOS source code
+#
+#	Copyright (C) 2015 Leah Rowe <info@minifree.org>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# This script assumes that the working directory is the root
+# of libreboot_src or git
+
+[ "x${DEBUG+set}" = 'xset' ] && set -v
+set -u -e
+
+# Build SeaBIOS
+# ---------------------------------------------------------------------
+
+printf "Building SeaBIOS\n"
+
+cd seabios/
+
+cp ../resources/seabios/config/config .config
+
+# clean it first
+[[ -f Makefile ]] && make clean
+
+# build SeaBIOS
+make
+
+mv "out/bios.bin.elf" ../
+
+printf "\n\n"
+
+rm -f .config
+
+make distclean
+
+cp ../resources/seabios/config/config_vga .config
+
+make
+rm -f .config
+
+mv out/bios.bin.elf out/bios.bin.vga.elf
+mv ../bios.bin.elf out/
+
+# done. go back to main directory
+cd ../
+
+# ------------------- DONE ----------------------

@@ -1,0 +1,13 @@
+diff --git a/deblob-check b/deblob-check
+index 1c50c0f..649a212 100755
+--- a/deblob-check
++++ b/deblob-check
+@@ -904,7 +904,7 @@ set_except () {
+   # blobna '\(f\|ht\)tp:[/]\([/]\+[^/ \n ]\+\)\+'
+ 
+   case $prefix$1 in
+-  */*linux*.tar* | */*kernel*.tar* | */*linux-*.*/*)
++  */*linux*.tar* | */*kernel*.tar* | */*linux-*.*/* | */*linux*/*)
+     # false alarms, contain source
+     # drivers/net/wan/wanxlfw.inc_shipped -> wanxlfw.S
+     accept 'static[ ]u8[ ]firmware\[\]=[{][\n]0x60,\(0x00,\)*0x16,\(0x00,\)*\([\n]\(0x[0-9A-F][0-9A-F],\)*\)*[\n]0x23,0xFC,0x00,0x00,0x00,0x01,0xFF,0xF9,0x00,0xD4,0x61,0x00,0x06,0x74,0x33,0xFC,\([\n]\(0x[0-9A-F][0-9A-F],\)*\)*0x00[\n][}][;]'

@@ -1,0 +1,13 @@
+grub2:grub2
+fonts/DejaVuSansMono.pf2:fonts/DejaVuSansMono.pf2
+keymaps/deqwertz.gkb:keymaps/deqwertz.gkb
+keymaps/esqwerty.gkb:keymaps/esqwerty.gkb
+keymaps/frazerty.gkb:keymaps/frazerty.gkb
+keymaps/frdvbepo.gkb:keymaps/frdvbepo.gkb
+keymaps/itqwerty.gkb:keymaps/itqwerty.gkb
+keymaps/jaqwerty.gkb:keymaps/jaqwerty.gkb
+keymaps/svqwerty.gkb:keymaps/svqwerty.gkb
+keymaps/ukdvorak.gkb:keymaps/ukdvorak.gkb
+keymaps/ukqwerty.gkb:keymaps/ukqwerty.gkb
+keymaps/usdvorak.gkb:keymaps/usdvorak.gkb
+keymaps/usqwerty.gkb:keymaps/usqwerty.gkb

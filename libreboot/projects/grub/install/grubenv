@@ -1,0 +1,17 @@
+# GRUB Environment Block
+color_highlight=black/white
+color_normal=white/black
+default=0
+gfxpayload=keep
+gfxterm_background=(cbfsdisk)/background.png
+gfxterm_font=(cbfsdisk)/fonts/dejavusansmono.pf2
+i_want_a_brick=
+keymap=(cbfsdisk)/keymaps/default.gkb
+lang=
+locale_dir=(cbfsdisk)/locale
+menu_color_highlight=black/white
+menu_color_normal=white/black
+pager=1
+timeout=1
+timeout_style=menu
+#############################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################################

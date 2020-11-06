@@ -1,0 +1,387 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+TOOL_ACTIONS_GENERIC=(usage update execute)
+TOOL_ACTIONS_GENERIC_IGNORE_CHECK=(usage update)
+TOOL_ACTIONS_HELPERS=(arguments)
+
+tool_include() {
+	local tool=$1
+
+	local tool_path=$(tool_path "$tool")
+
+	unset -f "${TOOL_ACTIONS[@]}"
+
+	source "$tool_path/$tool"
+
+	tool_helper_include "$tool"
+}
+
+tool_helper_include() {
+	local tool=$1
+
+	local tool_path=$(tool_path "$tool")
+	local include="$tool_path/$tool-helper"
+
+	if [[ -f "$include" ]]
+	then
+		source "$include"
+	fi
+}
+
+tool_check() {
+	local tool="${1##*/}"
+
+	local tool_path="$(tool_path "$tool")"
+
+	if ! [[ -f "$tool_path/$tool" ]]; then
+		return 1
+	fi
+}
+
+tool_function_check() {
+	local tool=$1
+	local function=$2
+
+	tool_include "$tool"
+
+	if ! function_check "$function"
+	then
+		return 1
+	fi
+
+	return 0
+}
+
+tool_action() {
+	local action=$1
+	shift
+	local tool=$1
+	shift
+	local arguments=$@
+
+	(
+		set +e
+
+		if ! tool_check "$tool"
+		then
+			printf 1>&2 '%s\n' "Tool $tool check failed"
+			return 1
+		fi
+
+		tool_action_check "$action" "$tool" "$@"
+
+		if [[ $? -eq 0 ]]
+		then
+			return 0
+		fi
+
+		tool_include "$tool"
+
+		if ! function_check "$action"
+		then
+			return 0
+		fi
+
+		printf '%s\n\n' "Tool $tool $action (with ${arguments:-no argument})"
+
+		(
+			set -e
+
+			"$action" "$@"
+		)
+
+		if [[ $? -ne 0 ]]
+		then
+			printf 1>&2 '\n%s\n' "Tool $tool $action (with ${arguments:-no argument}) failed"
+
+			return 1
+		else
+			printf '\n%s\n' "Tool $tool $action (with ${arguments:-no argument}) completed"
+		fi
+	)
+}
+
+tool_action_check() {
+	local action=$1
+	shift
+	local tool=$1
+	shift
+
+	(
+		set +e
+
+		if ! tool_check "$tool"
+		then
+			printf 1>&2 '%s\n' "Tool $tool check failed"
+			return 1
+		fi
+
+		tool_include "$tool"
+
+		if ! function_check "$action""_check"
+		then
+			return 1
+		fi
+
+		for tool_force in $TOOLS_FORCE
+		do
+			if [[ "$tool_force" = "$tool" ]]
+			then
+				return 1
+			fi
+		done
+
+		(
+			set -e
+			"$action""_check" "$@"
+		)
+	)
+}
+
+tool_action_helper() {
+	local helper=$1
+	shift
+	local tool=$1
+	shift
+
+	(
+		set +e
+
+		if ! tool_check "$tool"
+		then
+			printf 1>&2 '%s\n' "Tool $tool check failed"
+			return 1
+		fi
+
+		tool_include "$tool"
+
+		if ! function_check "$helper"
+		then
+			return 0
+		fi
+
+		(
+			set -e
+			"$helper" "$@"
+		)
+	)
+}
+
+tool_action_arguments_recursive() {
+	local action=$1
+	shift
+	local tool=$1
+	shift
+
+	local action_helper_arguments=$(tool_action_helper "arguments" "$tool" "$@")
+	local argument
+
+	if [[ $? -ne 0 ]] || [[ -z "$action_helper_arguments" ]]
+	then
+		tool_action "$action" "$tool" "$@"
+	else
+		printf '%s\n' "$action_helper_arguments" | while read argument
+		do
+			tool_action_arguments_recursive "$action" "$tool" "$@" "$argument"
+		done
+	fi
+}
+
+tool_arguments_targets() {
+	local tool="$1"
+	shift
+
+	local tool_path="$(tool_path "$tool")"
+	local targets_path="$tool_path/$CONFIGS"
+	local argument
+
+	for argument in "$@"; do
+		targets_path="$targets_path/$argument"
+	done
+
+	targets_path="$targets_path/$TARGETS"
+
+	if [[ -f "$targets_path" ]]; then
+		cat "$targets_path"
+	fi
+}
+
+tool_path() {
+	local tool=$1
+
+	local tool_path="$root/$TOOLS/$tool"
+
+	printf '%s\n' "$tool_path"
+}
+
+tool_sources_path() {
+	local tool=$1
+	shift
+
+	local path="$root/$TOOLS/$tool/$SOURCES"
+	local argument
+
+	for argument in "" "$@"
+	do
+		if [[ -n "$argument" ]]
+		then
+			path="$path/$argument"
+		fi
+
+		if directory_filled_check "$path"
+		then
+			printf '%s\n' "$path"
+			return
+		fi
+	done
+}
+
+tool_usage_actions() {
+	local tool=$1
+	shift
+
+	printf '\n%s\n' 'Generic actions:'
+
+	for action in "${TOOL_ACTIONS_GENERIC[@]}"
+	do
+		if function_check "$action"
+		then
+			printf '%s\n' "  $action"
+		fi
+	done
+
+	if [[ $# -gt 0 ]]
+	then
+		printf '\n%s\n' 'Specific actions:'
+
+		for action in "$@"
+		do
+			printf '%s\n' "  $action"
+		done
+	fi
+}
+
+tool_usage_arguments() {
+	local tool=$1
+	shift
+
+	printf '\n%s\n' 'Arguments:'
+
+	tool_usage_arguments_recursive "$tool" "  " "$@"
+}
+
+tool_usage_arguments_recursive() {
+	local tool=$1
+	shift
+	local spacing=$1
+	shift
+
+	local action_helper_arguments=$(tool_action_helper "arguments" "$tool" "$@")
+	local argument
+
+	if [[ -n "$action_helper_arguments" ]]
+	then
+		printf '%s\n' "$action_helper_arguments" | while read argument
+		do
+			printf '%s\n' "$spacing$argument"
+			tool_usage_arguments_recursive "$tool" "  $spacing" "$@" "$argument"
+		done
+	fi
+}
+
+tool_file_path() {
+	local tool=$1
+	shift
+	local directory=$1
+	shift
+	local file=$1
+	shift
+
+	local tool_path=$(tool_path "$tool")
+	local path="$tool_path/$directory"
+	local argument
+	local file_path
+
+	for argument in "" "$@"
+	do
+		if [[ -n "$argument" ]]
+		then
+			path="$path/$argument"
+		fi
+
+		if ! [[ -f "$path/$file" ]]
+		then
+			continue
+		fi
+
+		file_path="$path/$file"
+	done
+
+	if [[ -z "$file_path" ]]
+	then
+		return 1
+	fi
+
+	printf '%s\n' "$file_path"
+}
+
+tool_file_test() {
+	local file_path=$(tool_file_path "$@")
+
+	test -f "$file_path"
+}
+
+tool_file_contents() {
+	local file_path=$(tool_file_path "$@")
+
+	if [[ -f "$file_path" ]]
+	then
+		cat "$file_path"
+	fi
+}
+
+tool_file_contents_herit() {
+	local tool=$1
+	shift
+	local directory=$1
+	shift
+	local file=$1
+	shift
+
+	local tool_path=$(tool_path "$tool")
+	local path="$tool_path/$directory"
+	local argument
+	local file_path
+
+	for argument in "" "$@"
+	do
+		if [[ -n "$argument" ]]
+		then
+			path="$path/$argument"
+		fi
+
+		file_path="$path/$file"
+
+		if ! [[ -f "$file_path" ]]
+		then
+			continue
+		fi
+
+		cat "$file_path"
+	done
+}

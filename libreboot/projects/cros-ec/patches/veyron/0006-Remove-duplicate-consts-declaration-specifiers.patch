@@ -1,0 +1,63 @@
+From 48acbee142ed1712ecdd4e5338f2a2d46bfbb1f3 Mon Sep 17 00:00:00 2001
+From: Andrew Robbins <contact@andrewrobbins.info>
+Date: Thu, 15 Nov 2018 18:43:07 -0500
+Subject: [PATCH] Remove duplicate consts declaration specifiers
+
+---
+ util/comm-dev.c | 2 +-
+ util/ectool.c   | 2 +-
+ util/lbcc.c     | 6 +++---
+ 3 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/util/comm-dev.c b/util/comm-dev.c
+index cdbbbdf..0fb4027 100644
+--- a/util/comm-dev.c
++++ b/util/comm-dev.c
+@@ -23,7 +23,7 @@ static int fd = -1;
+ #define ARRAY_SIZE(t) (sizeof(t) / sizeof(t[0]))
+ #endif
+ 
+-static const char const *meanings[] = {
++static const char *meanings[] = {
+ 	"SUCCESS",
+ 	"INVALID_COMMAND",
+ 	"ERROR",
+diff --git a/util/ectool.c b/util/ectool.c
+index 9ba8de9..74e6366 100644
+--- a/util/ectool.c
++++ b/util/ectool.c
+@@ -5199,7 +5199,7 @@ static int cmd_tmp006cal_v1(int idx, int argc, char *argv[])
+ 	int i, rv, cmdsize;
+ 
+ 	/* Algorithm 1 parameter names */
+-	static const char const *alg1_pname[] = {
++	static const char *alg1_pname[] = {
+ 		"s0", "a1", "a2", "b0", "b1", "b2", "c2",
+ 		"d0", "d1", "ds", "e0", "e1",
+ 	};
+diff --git a/util/lbcc.c b/util/lbcc.c
+index b34b21e..eb8a7e1 100644
+--- a/util/lbcc.c
++++ b/util/lbcc.c
+@@ -81,15 +81,15 @@ static const int num_operands[] = {
+ 
+ #define OP(NAME, BYTES, MNEMONIC) MNEMONIC,
+ #include "lightbar_opcode_list.h"
+-static const char const *opcode_sym[] = {
++static const char *opcode_sym[] = {
+ 	LIGHTBAR_OPCODE_TABLE
+ };
+ #undef OP
+ 
+-static const char const *control_sym[] = {
++static const char *control_sym[] = {
+ 	"beg", "end", "phase", "<invalid>"
+ };
+-static const char const *color_sym[] = {
++static const char *color_sym[] = {
+ 	"r", "g", "b", "<invalid>"
+ };
+ 
+-- 
+2.7.4
+

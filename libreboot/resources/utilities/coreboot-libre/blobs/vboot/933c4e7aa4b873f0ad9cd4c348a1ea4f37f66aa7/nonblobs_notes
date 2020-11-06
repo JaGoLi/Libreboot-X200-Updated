@@ -1,0 +1,5 @@
+./3rdparty/vboot/tests/testcases/padding_test_vectors.inc
+It's not a blob, see tests/rsa_padding_test.h for explanation.
+
+The text in this file is CC-BY-SA 4.0 or higher. All contributions to it must
+be made under the same license.

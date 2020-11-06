@@ -1,0 +1,2 @@
+lib/zstd/zstd_module-debug.o: lib/zstd/debug.c lib/zstd/debug.h
+lib/zstd/debug.h:

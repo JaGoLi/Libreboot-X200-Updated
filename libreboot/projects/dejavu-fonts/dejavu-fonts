@@ -1,0 +1,128 @@
+#!/usr/bin/env bash
+
+# Copyright (C) 2016 Paul Kocialkowski <contact@paulk.fr>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+arguments() {
+	project_arguments_targets "$project" "$@"
+}
+
+dependencies() {
+	project_dependencies "$project" "$@"
+}
+
+usage() {
+	project_usage_actions "$project"
+	project_usage_arguments "$project" "$@"
+}
+
+download() {
+	local repository="$project"
+	local sources_path="$(project_sources_path "$project" "$repository" "$@")"
+	local ucd_version="$(dejavu_fonts_ucd_version "$UNICODE" "$@")"
+	local ucd_files_path="$(dejavu_fonts_ucd_files_path "$UNICODE" "$@")"
+
+	local -a download_list
+	local -a ucd_files
+
+	mapfile -t ucd_files < "$ucd_files_path"
+
+	for file in "${ucd_files[@]}"; do
+		download_list+=("https://www.unicode.org/Public/$ucd_version/ucd/$file")
+	done
+
+	project_download_git "$project" "$repository" https://github.com/dejavu-fonts/dejavu-fonts.git "$@"
+	download_wrapper "$sources_path/resources" "${download_list[@]}"
+
+	# Create a symlink to fontconfig's orthography files
+	ln -fs ../../fontconfig/fc-lang "$sources_path/resources/fc-lang"
+}
+
+download_check() {
+	local repository="$project"
+
+	project_download_check_git "$project" "$repository" "$@"
+}
+
+extract() {
+	local repository="$project"
+
+	project_extract "$project" "$@"
+}
+
+extract_check() {
+	local repository="$project"
+
+	project_extract_check "$project" "$@"
+}
+
+update() {
+	local repository="$project"
+
+	project_update_git "$project" "$repository" "$@"
+}
+
+update_check() {
+	local repository="$project"
+
+	project_update_check_git "$project" "$repository" "$@"
+}
+
+build() {
+	local repository="$project"
+
+	project_sources_directory_missing_empty_error "$project" "$repository" "$@"
+
+	if git_project_check "$repository"; then
+		git_project_checkout "$project" "$repository" "$@"
+	fi
+
+	local sources_path="$(project_sources_path "$project" "$repository" "$@")"
+	local build_path="$(project_build_path "$project" "$@")"
+
+	mkdir -p "$build_path"
+
+	make -C "$sources_path" -j"$TASKS"
+	cp "$sources_path/build"/[!.]*.ttf "$build_path"
+	make -C "$sources_path" clean
+}
+
+build_check() {
+	project_build_check "$project" "$@"
+}
+
+install() {
+	project_install "$project" "$@"
+}
+
+install_check() {
+	project_install_check "$project" "$@"
+}
+
+release() {
+	local repository="$project"
+
+	project_release_sources_git "$project" "$repository" "$@"
+}
+
+release_check() {
+	local repository="$project"
+
+	project_release_check_sources_git "$project" "$repository" "$@"
+}
+
+clean() {
+	project_clean "$project" "$@"
+}

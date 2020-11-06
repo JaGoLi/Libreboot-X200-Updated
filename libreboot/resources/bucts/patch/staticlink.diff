@@ -1,0 +1,13 @@
+diff --git a/Makefile b/Makefile
+index 68541e6..b8579eb 100644
+--- a/Makefile
++++ b/Makefile
+@@ -10,7 +10,7 @@ endif
+ all: bucts
+ 
+ bucts: $(OBJ)
+-	$(CC) -o $@ $(OBJ) $(LDFLAGS) -lpci
++	$(CC) -o $@ $(OBJ) $(LDFLAGS) -lpci -lz -static
+ 
+ %.o: %.c
+ 	$(CC) $(CFLAGS) -DVERSION='"$(VERSION)"' -c $<

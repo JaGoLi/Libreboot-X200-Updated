@@ -1,0 +1,88 @@
+From 63db6e96d846b8cab2df30afdccc6b6b18232e33 Mon Sep 17 00:00:00 2001
+From: Leah Rowe <info@minifree.org>
+Date: Mon, 13 Oct 2014 00:14:53 +0100
+Subject: [PATCH] NOTFORMERGE: ec/lenovo/h8:
+ wlan/trackpoint/touchpad/bluetooth/wwan
+
+Permanently enable them.
+
+Change-Id: Ic76ab9ab9c865f30312378e18af58bece6c3260a
+Signed-off-by: Leah Rowe <info@minifree.org>
+---
+ src/ec/lenovo/h8/h8.c     | 21 +++++++++++----------
+ src/ec/lenovo/pmh7/pmh7.c | 11 ++++-------
+ 2 files changed, 15 insertions(+), 17 deletions(-)
+
+diff --git a/src/ec/lenovo/h8/h8.c b/src/ec/lenovo/h8/h8.c
+index 943bdd4..32285ac 100644
+--- a/src/ec/lenovo/h8/h8.c
++++ b/src/ec/lenovo/h8/h8.c
+@@ -252,9 +252,11 @@ static void h8_enable(struct device *dev)
+ 
+ 	ec_write(H8_FAN_CONTROL, H8_FAN_CONTROL_AUTO);
+ 
+-	if (get_option(&val, "wlan") != CB_SUCCESS)
+-		val = 1;
+-	h8_wlan_enable(val);
++	// Permanently enable wifi
++	// Intel wifi could be a security risk because it uses firmware. Wlan chip has DMA
++	// and could leak data over a side-channel. Using another manufacturer is recommended.
++	// see http://libreboot.org/docs/index.html#recommended_wifi
++	h8_wlan_enable(1);
+ 
+ 	h8_trackpoint_enable(1);
+ 	h8_usb_power_enable(1);
+@@ -262,14 +264,13 @@ static void h8_enable(struct device *dev)
+ 	if (get_option(&val, "volume") == CB_SUCCESS && !acpi_is_wakeup_s3())
+ 		ec_write(H8_VOLUME_CONTROL, val);
+ 
+-	if (get_option(&val, "bluetooth") != CB_SUCCESS)
+-		val = 1;
+-	h8_bluetooth_enable(val);
+-
+-	if (get_option(&val, "wwan") != CB_SUCCESS)
+-		val = 1;
++	// Permanently enable bluetooth.
++	// NOTE: bluetooth is a potential security risk. Physical removal of the bluetooth module is recommended.
++	h8_bluetooth_enable(1);
+ 
+-	h8_wwan_enable(val);
++	// Permanently enable wwan.
++	// NOTE: wwan is a security risk (remove access plus DMA). Physical removal of both the wwan and sim card is recommended.
++	h8_wwan_enable(1);
+ 
+ 	if (conf->has_uwb) {
+ 		if (get_option(&val, "uwb") != CB_SUCCESS)
+diff --git a/src/ec/lenovo/pmh7/pmh7.c b/src/ec/lenovo/pmh7/pmh7.c
+index b2c3c08..1570cd6 100644
+--- a/src/ec/lenovo/pmh7/pmh7.c
++++ b/src/ec/lenovo/pmh7/pmh7.c
+@@ -102,7 +102,6 @@ static void enable_dev(struct device *dev)
+ {
+ 	struct ec_lenovo_pmh7_config *conf = dev->chip_info;
+ 	struct resource *resource;
+-	u8 val;
+ 
+ 	resource = new_resource(dev, EC_LENOVO_PMH7_INDEX);
+ 	resource->flags = IORESOURCE_IO | IORESOURCE_FIXED;
+@@ -114,13 +113,11 @@ static void enable_dev(struct device *dev)
+ 	pmh7_backlight_enable(conf->backlight_enable);
+ 	pmh7_dock_event_enable(conf->dock_event_enable);
+ 
+-	if (get_option(&val, "touchpad") != CB_SUCCESS)
+-		val = 1;
+-	pmh7_touchpad_enable(val);
++	// Permanently enable touchpad
++	pmh7_touchpad_enable(1);
+ 
+-	if (get_option(&val, "trackpoint") != CB_SUCCESS)
+-		val = 1;
+-	pmh7_trackpoint_enable(val);
++	// Permanently enable trackpoint
++	pmh7_trackpoint_enable(1);
+ }
+ 
+ struct chip_operations ec_lenovo_pmh7_ops = {
+-- 
+1.9.1
+

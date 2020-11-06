@@ -1,0 +1,25 @@
+From 05fde50f4991623525edb6b15340011af53cd31e Mon Sep 17 00:00:00 2001
+From: Paul Kocialkowski <contact@paulk.fr>
+Date: Sun, 20 Nov 2016 15:08:39 +0100
+Subject: [PATCH] Remove Werror flag
+
+Signed-off-by: Paul Kocialkowski <contact@paulk.fr>
+---
+ defs/c-Linux.mk | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/defs/c-Linux.mk b/defs/c-Linux.mk
+index c2c3129..4f1bbee 100644
+--- a/defs/c-Linux.mk
++++ b/defs/c-Linux.mk
+@@ -34,7 +34,6 @@ HOSTOS_CWARN	=				\
+ 	-Wdeclaration-after-statement		\
+ 	-Wdisabled-optimization			\
+ 	-Wempty-body				\
+-	-Werror					\
+ 	-Wextra					\
+ 	-Wfloat-equal				\
+ 	-Wformat				\
+-- 
+2.10.2
+

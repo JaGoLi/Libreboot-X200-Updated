@@ -1,0 +1,33 @@
+diff --git a/hwaccess.h b/hwaccess.h
+index 0299ecb..a6732c2 100644
+--- a/hwaccess.h
++++ b/hwaccess.h
+@@ -24,11 +24,9 @@
+ #ifndef __HWACCESS_H__
+ #define __HWACCESS_H__ 1
+ 
+-#if defined (__i386__) || defined (__x86_64__)
+-#if defined(__GLIBC__)
++#if defined (__i386__) || defined (__x86_64__) || defined(__arm__)
+ #include <sys/io.h>
+ #endif
+-#endif
+ 
+ #if NEED_PCI == 1
+ /*
+@@ -72,7 +70,6 @@
+ 
+ #if !defined (__FLASHROM_BIG_ENDIAN__) && !defined (__FLASHROM_LITTLE_ENDIAN__)
+ /* Nonstandard libc-specific macros for determining endianness. */
+-#if defined(__GLIBC__)
+ #include <endian.h>
+ #if BYTE_ORDER == LITTLE_ENDIAN
+ #define __FLASHROM_LITTLE_ENDIAN__ 1
+@@ -80,7 +77,6 @@
+ #define __FLASHROM_BIG_ENDIAN__ 1
+ #endif
+ #endif
+-#endif
+ 
+ #if !defined (__FLASHROM_BIG_ENDIAN__) && !defined (__FLASHROM_LITTLE_ENDIAN__)
+ #error Unable to determine endianness. Please add support for your arch or libc.

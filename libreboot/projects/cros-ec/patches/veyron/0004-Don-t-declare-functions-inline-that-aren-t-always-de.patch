@@ -1,0 +1,28 @@
+From 3515f1d744cbcdb37471e898277aa6b1ddd3d0ee Mon Sep 17 00:00:00 2001
+From: Paul Kocialkowski <contact@paulk.fr>
+Date: Wed, 20 Jul 2016 16:27:05 +0200
+Subject: [PATCH 4/6] Don't declare functions inline that aren't always defined
+ as such
+
+This is based on commit 960cf45b3ffe88e842c27145e7e646d63a89c371
+(Don't declare functions inline that aren't always defined as such)
+---
+ include/task.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/task.h b/include/task.h
+index cb96281..85d5b00 100644
+--- a/include/task.h
++++ b/include/task.h
+@@ -47,7 +47,7 @@ void interrupt_enable(void);
+ /**
+  * Return true if we are in interrupt context.
+  */
+-inline int in_interrupt_context(void);
++int in_interrupt_context(void);
+ 
+ /**
+  * Set a task event.
+-- 
+2.9.0
+
