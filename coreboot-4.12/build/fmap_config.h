@@ -1,0 +1,7 @@
+#ifndef FMAPTOOL_GENERATED_HEADER_H_
+#define FMAPTOOL_GENERATED_HEADER_H_
+
+#define FMAP_OFFSET 0xe00000
+#define FMAP_SIZE 0xb6
+
+#endif

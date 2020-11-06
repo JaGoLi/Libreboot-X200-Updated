@@ -1,0 +1,177 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -Os
+A -Wuninitialized
+A -Wall
+A -Werror
+A -Wstrict-aliasing
+A -Wshadow
+A --RTS=build/libgnat-x86_32/
+A -gnatp
+A -g
+A -fno-common
+A -fomit-frame-pointer
+A -ffunction-sections
+A -fdata-sections
+A -gnatwa
+A -gnatw.e
+A -gnatwe
+A -gnatwD
+A -gnatw.H
+A -gnatwH
+A -gnatwT
+A -gnatwU
+A -gnatw.U
+A -gnatw.W
+A -gnatw.Y
+A -gnatyN
+A -m32
+A -fuse-ld=bfd
+A -fno-stack-protector
+A -mtune=i386
+A -march=i386
+P FX
+
+RN
+RR NO_ACCESS_SUBPROGRAMS
+RR NO_ALLOCATORS
+RR NO_CALENDAR
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RR NO_DISPATCH
+RR NO_EXCEPTION_HANDLERS
+RR NO_FIXED_POINT
+RR NO_FLOATING_POINT
+RR NO_IO
+RV NO_IMPLICIT_CONDITIONALS
+RR NO_IMPLICIT_DYNAMIC_CODE
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_INITIALIZE_SCALARS
+RR NO_LOCAL_ALLOCATORS
+RR NO_RECURSION
+RR NO_SECONDARY_STACK
+RR NO_STREAMS
+RR NO_TASKING
+RR NO_UNCHECKED_ACCESS
+RR NO_UNCHECKED_DEALLOCATION
+RR STATIC_STORAGE_SIZE
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLEMENTATION_RESTRICTIONS
+RR NO_IMPLICIT_LOOPS
+RV NO_OBSOLESCENT_FEATURES
+RR NO_WIDE_CHARACTERS
+RV SPARK_05
+
+U hw.gfx.gma.pcode%b	hw-gfx-gma-pcode.adb	e5bdebbd NE OO PK IU
+W gnat%s		gnat.ads		gnat.ali
+W gnat.source_info%s	g-souinf.ads		g-souinf.ali
+W hw%s			hw.ads			hw.ali
+W hw.debug%s		hw-debug.adb		hw-debug.ali
+W hw.gfx%s		hw-gfx.ads		hw-gfx.ali
+W hw.gfx.gma%s		hw-gfx-gma.adb		hw-gfx-gma.ali
+W hw.gfx.gma.registers%s  hw-gfx-gma-registers.adb  hw-gfx-gma-registers.ali
+
+U hw.gfx.gma.pcode%s	hw-gfx-gma-pcode.ads	1d7d517e EE NE OO PK IU
+W hw%s			hw.ads			hw.ali
+W hw.gfx%s		hw-gfx.ads		hw-gfx.ali
+W hw.gfx.gma%s		hw-gfx-gma.adb		hw-gfx-gma.ali
+W hw.gfx.gma.registers%s  hw-gfx-gma-registers.adb  hw-gfx-gma-registers.ali
+
+D gnat.ads		20201106163848 fd2ad2f1 gnat%s
+D g-souinf.ads		20201106163848 7fd67a54 gnat.source_info%s
+D hw.ads		20200512103022 349e873c hw%s
+D hw-config.ads		20201106163848 3df8aafb hw.config%s
+D hw-debug.ads		20200512103022 1328ccd5 hw.debug%s
+D hw-gfx.ads		20200512103022 d263ba5b hw.gfx%s
+D hw-gfx-framebuffer_filler.ads  20200512103022 0b5937f9 hw.gfx.framebuffer_filler%s
+D hw-gfx-gma.ads	20200512103022 68ac5893 hw.gfx.gma%s
+D hw-gfx-gma-config.ads	20201106163848 2f16692c hw.gfx.gma.config%s
+D hw-gfx-gma-pcode.ads	20200512103022 04ca28f6 hw.gfx.gma.pcode%s
+D hw-gfx-gma-pcode.adb	20200512103022 fc9254d1 hw.gfx.gma.pcode%b
+D hw-gfx-gma-registers.ads  20200512103022 711b211b hw.gfx.gma.registers%s
+D hw-pci.ads		20200512103022 d2a0aee8 hw.pci%s
+D hw-port_io.ads	20200512103022 42e65734 hw.port_io%s
+D hw-time.ads		20200512103022 e7f4a790 hw.time%s
+D interfac.ads		20201106163848 8908571f interfaces%s
+D system.ads		20201106163848 21923ced system%s
+D s-unstyp.ads		20201106163848 9d58a4c0 system.unsigned_types%s
+D gnat.adc		20200512103022 00000000
+X 1 gnat.ads
+34K9*GNAT 37e9 11|15r6 42r37
+X 2 g-souinf.ads
+39K14*Source_Info 92e21 11|15w11 42r42
+68V13*Enclosing_Entity{string} 11|42s54
+X 3 hw.ads
+17K9*HW 91e7 10|15r6 17r17 26r44 60r5 11|17r6 18r6 20r5 22r14 38r16 96r16
+. 138r5
+34M12*Word32{16|68M9} 10|30r28 41r28 54r21 11|28r28 40r14 54r31 55r33 74r28
+. 88r28 128r21
+40M12*Word64{16|71M9} 10|31r28 42r28 43r28 44r28 55r21 11|29r28 30r28 38r19
+. 64r19 66r31 75r28 81r19 89r28 90r28 91r28 96r19 101r24 129r21
+41V13*Shift_Left=42:26{16|71M9} 11|66s19
+43V13*Shift_Right=44:26{16|71M9} 11|55s41
+X 5 hw-debug.ads
+16K12*Debug 41e13 11|17w9 42r21
+19U14*Put_Line 11|42s27
+X 6 hw-gfx.ads
+21K12*GFX 3|17k9 6|217e11 10|15r9 17r20 26r47 60r8 11|18r9 20r8 22r17 138r8
+X 8 hw-gfx-gma.ads
+22K16*GMA 6|21k12 8|298e15 10|15r13 17r24 26r51 60r12 11|18r13 20r12 22r21
+. 138r12
+25@7*State 10|26r55
+X 10 hw-gfx-gma-pcode.ads
+17K28*PCode 8|22k16 10|60l16 60e21 11|22b25 138l16 138t21
+26b4*Mailbox_Ready{boolean} 11|57m7 61m10
+29U14*Mailbox_Write 30>7 31>7 32>7 33>7 34<7 11|73b14 85l8 85t21 135s7
+30m7 MBox{3|34M12} 11|74b7 84r10
+31m7 Command{3|40M12} 11|75b7 84r16
+32b7 Wait_Ready{boolean} 11|76b7 84r36
+33b7 Wait_Ack{boolean} 11|77b7 84r48
+34b7 Success{boolean} 11|78b7 84m58
+40U14*Mailbox_Request 41>7 42>7 43>7 44>7 45>7 46>7 47<7 11|87b14 125l8 125t23
+41m7 MBox{3|34M12} 11|88b7 107r28
+42m7 Command{3|40M12} 11|89b7 108r28
+43m7 Reply_Mask{3|40M12} 11|90b7 114r33 114r58
+44m7 Reply{3|40M12} 11|91b7 114r48
+45i7 TOut_MS{natural} 11|92b7 98r54
+46b7 Wait_Ready{boolean} 11|93b7 110r44
+47b7 Success{boolean} 11|94b7 103m7 110r32 111m28 111r28 112r24 124m7 124r18
+53U14*Mailbox_Write 54>7 55>7 56>7 11|127b14 136l8 136t21
+54m7 MBox{3|34M12} 11|128b7 135r22
+55m7 Command{3|40M12} 11|129b7 135r28
+56b7 Wait_Ready{boolean} 11|130b7 135r37
+X 11 hw-gfx-gma-pcode.adb
+24N4 GT_MAILBOX_READY 48r39 56r26 60r39
+27U14 Mailbox_Write_Read 27b14 28>7 29>7 30<7 31>7 32>7 33<7 71l8 71t26 83s7
+. 106s10
+28m7 MBox{3|34M12} 56r46 107r13
+29m7 Command{3|40M12} 54r39 55r54 108r13
+30m7 Reply{3|40M12} 44m7 64m10 66m10 66r53 109r13
+31b7 Wait_Ready{boolean} 47r10 110r13
+32b7 Wait_Ack{boolean} 59r10
+33b7 Success{boolean} 45m7 48m68 48r68 49r17 60m68 60r68 61r27 111r13
+40m7 Data{3|34M12} 63m33 64r27 65m35 66r39
+81m7 Ignored_R{3|40M12} 84m25
+98m7 Timeout{15|19M9} 121r39
+99b7 Timed_Out{boolean} 116m13 119r20 121m10 124r39
+101m7 Received_Reply{3|40M12} 109m28 114r14
+133b7 Ignored_S{boolean} 135m56
+X 12 hw-gfx-gma-registers.ads
+19K28*Registers 10|15w17 45r39 11|18w17 20r16 92r39 12|1825e25
+726n7*GT_MAILBOX{36E9} 11|48r27 56r14 60r27
+727n7*GT_MAILBOX_DATA{36E9} 11|54r14 63r16 68r17
+728n7*GT_MAILBOX_DATA_1{36E9} 11|55r14 65r16 69r17
+1679N4*Default_Timeout_MS 10|45r49 11|92r49
+1693U14*Read 11|63s10 65s10
+1705U14*Write 11|54s7 55s7 56s7 68s10 69s10
+1747U14*Wait_Unset_Mask 11|48s10 60s10
+1752b7 Success{boolean} 11|48r57 60r57
+X 15 hw-time.ads
+15K12*Time 11|98r26 98r36 121r23 15|74e12
+19M9*T<16|71M9> 11|98r31
+31V13*MS_From_Now{19M9} 11|98s41
+65V13*Timed_Out{boolean} 11|121s28
+X 16 interfac.ads
+68M9*Unsigned_32
+71M9*Unsigned_64
+

@@ -1,0 +1,125 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -Os
+A -Wuninitialized
+A -Wall
+A -Werror
+A -Wstrict-aliasing
+A -Wshadow
+A --RTS=build/libgnat-x86_32/
+A -gnatp
+A -g
+A -fno-common
+A -fomit-frame-pointer
+A -ffunction-sections
+A -fdata-sections
+A -gnatwa
+A -gnatw.e
+A -gnatwe
+A -gnatwD
+A -gnatw.H
+A -gnatwH
+A -gnatwT
+A -gnatwU
+A -gnatw.U
+A -gnatw.W
+A -gnatw.Y
+A -gnatyN
+A -m32
+A -fuse-ld=bfd
+A -fno-stack-protector
+A -mtune=i386
+A -march=i386
+P FX
+
+RN
+RR NO_ACCESS_SUBPROGRAMS
+RR NO_ALLOCATORS
+RR NO_CALENDAR
+RR NO_DISPATCH
+RR NO_EXCEPTION_HANDLERS
+RR NO_FIXED_POINT
+RR NO_FLOATING_POINT
+RR NO_IO
+RR NO_IMPLICIT_DYNAMIC_CODE
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_INITIALIZE_SCALARS
+RR NO_LOCAL_ALLOCATORS
+RR NO_RECURSION
+RR NO_SECONDARY_STACK
+RR NO_STREAMS
+RR NO_TASKING
+RR NO_UNCHECKED_ACCESS
+RR NO_UNCHECKED_DEALLOCATION
+RR STATIC_STORAGE_SIZE
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLEMENTATION_RESTRICTIONS
+RR NO_IMPLICIT_LOOPS
+RV NO_OBSOLESCENT_FEATURES
+RR NO_WIDE_CHARACTERS
+RV SPARK_05
+
+U gma%b			gma.adb			f4bcc71d NE OO PK IU
+W hw%s			hw.ads			hw.ali
+W hw.gfx%s		hw-gfx.ads		hw-gfx.ali
+W hw.gfx.gma%s		hw-gfx-gma.adb		hw-gfx-gma.ali
+W hw.gfx.gma.display_probing%s  hw-gfx-gma-display_probing.adb  hw-gfx-gma-display_probing.ali
+
+U gma%s			gma.ads			b0c08193 EE NE OO PK IU
+W hw%s			hw.ads			hw.ali
+W hw.gfx%s		hw-gfx.ads		hw-gfx.ali
+W hw.gfx.edid%s		hw-gfx-edid.adb		hw-gfx-edid.ali
+W interfaces%s		interfac.ads		interfac.ali
+W interfaces.c%s	i-c.adb			i-c.ali
+
+D gma.ads		20200512103022 f34d3a16 gma%s
+D gma.adb		20200512103022 ff318b33 gma%b
+D hw.ads		20200512103022 349e873c hw%s
+D hw-config.ads		20201106163848 3df8aafb hw.config%s
+D hw-gfx.ads		20200512103022 d263ba5b hw.gfx%s
+D hw-gfx-edid.ads	20200512103022 99bc6e4c hw.gfx.edid%s
+D hw-gfx-framebuffer_filler.ads  20200512103022 0b5937f9 hw.gfx.framebuffer_filler%s
+D hw-gfx-gma.ads	20200512103022 68ac5893 hw.gfx.gma%s
+D hw-gfx-gma-display_probing.ads  20200512103022 906c2eab hw.gfx.gma.display_probing%s
+D hw-pci.ads		20200512103022 d2a0aee8 hw.pci%s
+D hw-port_io.ads	20200512103022 42e65734 hw.port_io%s
+D hw-time.ads		20200512103022 e7f4a790 hw.time%s
+D interfac.ads		20201106163848 8908571f interfaces%s
+D i-c.ads		20201106163848 da31d5c9 interfaces.c%s
+D system.ads		20201106163848 21923ced system%s
+D s-parame.ads		20201106163848 c706fdbb system.parameters%s
+D s-unstyp.ads		20201106163848 9d58a4c0 system.unsigned_types%s
+D gnat.adc		20200512103022 00000000
+X 1 gma.ads
+5K9*GMA 14l5 14e8 2|6b14 37l5 37t8
+7V13*read_edid{14|35I9} 8<7 9>7 2|8b13 35l8 35t17
+8a7 raw_edid{6|22A12} 2|9b7 19m10 27m16
+9i7 Port{14|35I9} 2|10b7 16r10 27r48
+X 2 gma.adb
+14b7 success{boolean} 23m47 23r47 25r13 27m55 29r13
+X 3 hw.ads
+17K9*HW 1|3r6 8r25 2|1r6 2r6 4r5 9r25 22r17 23r13 26r13 3|91e7
+21M12*Byte{13|62M9}
+89A9*Buffer(21M12)<integer>
+X 5 hw-gfx.ads
+21K12*GFX 1|3r9 8r28 2|1r9 2r9 4r8 9r28 22r20 23r16 26r16 5|217e11
+X 6 hw-gfx-edid.ads
+15K16*EDID 1|3w13 8r32 2|9r32 6|69e16
+22A12*Raw_EDID_Data{3|89A9}<integer> 1|8r37 2|9r37
+X 8 hw-gfx-gma.ads
+22K16*GMA 2|1w13 2r13 4r12 22r24 23r20 26r20 8|298e15
+63E12*Active_Port_Type{52E9} 2|16r22 16r44 17r25 17r47 27r26
+102U14*Initialize 2|23s24
+105b7 Success{boolean} 2|23r36
+112V13*Is_Initialized{boolean} 2|22s28
+X 9 hw-gfx-gma-display_probing.ads
+17K20*Display_Probing 2|2w17 26r24 9|40e31
+25U14*Read_EDID 2|26s40
+X 13 interfac.ads
+38K9*Interfaces 1|1r6 9r25 10r14 2|10r25 11r14 13r16 13|161e15
+62M9*Unsigned_8
+X 14 i-c.ads
+18K20*C 1|1w17 9r36 10r25 2|10r36 11r25 13r27 14|78e17
+35I9*int<integer> 1|9r38 10r27 2|10r38 11r27 13r29
+

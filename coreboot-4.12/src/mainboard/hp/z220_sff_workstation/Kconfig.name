@@ -1,0 +1,2 @@
+config BOARD_HP_Z220_SFF_WORKSTATION
+	bool "Z220 SFF Workstation"

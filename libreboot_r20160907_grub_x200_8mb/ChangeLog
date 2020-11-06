@@ -1,0 +1,123 @@
+GNU Libreboot 20160907
+
+For existing boards, there are no new board specific changes.
+
+This release adds one new mainboard to libreboot:
+* Intel D945GCLF desktop motherboard (thanks to Arthur Heymans)
+
+Other bugfixes:
+* Various improvements to the documentation
+* re-added "unset superusers" to the grub.cfg, which was needed for some users
+  depending on the distros that they used
+
+GNU Libreboot 20160902
+
+This is a bugfix release, based on 20160818. It contains no new board changes.
+The previous 20160818 release had build errors in the _src archive, and the
+_util archive was only source code.
+
+Changes compared to 20160818:
+* Fixed bug where ./build module coreboot always returned non-zero status
+* Fixed missing symlink of crossgcc when building from _src (thanks Arthur
+Heymans)
+* Fixed building with the depthcharge payload (ASUS C201)
+* Proper ChangeLog now, instead of pasted git log
+* Util archive is now binaries again (source code is in the _src archive)
+* Documentation is now in HTML format
+
+GNU Libreboot 20160818
+
+This is a brand GNU release. Libreboot joined the GNU project on 14 May 2016.
+This 18 August 2016 release is the first GNU release of libreboot.
+
+NEW BOARDS ADDED:
+* ASUS Chromebook C201 (ARM laptop) (thanks to Paul Kocialkowski)
+* Gigabyte GA-G41M-ES2L motherboard (desktop) (thanks to Damien Zammit)
+* Intel D510MO motherboard (desktop) (thanks to Damien Zammit)
+* ASUS KCMA-D8 motherboard (desktop) (thanks to Timothy Pearson)
+* ASUS KFSN4-DRE motherboard (server) (thanks to Timothy Pearson)
+* ASUS KGPE-D16 motherboard (server) (thanks to Timothy Pearson)
+
+For boards previously supported, many fixes from upstream have been merged.
+
+Other changes (compared to libreboot 20150518):
+(this is a summary. For more detailed change list, refer to the git log)
+
+256MiB VRAM allocated on GM45 (X200, T400, T500, R400) instead of 32MiB.
+This is an improvement over both Lenovo BIOS and Libreboot 20150518, allowing
+video decoding at 1080p to be smoother. (thanks Arthur Heymans)
+To clarify, GM45 video performance in libreboot 20160818 is better than on
+the original BIOS and the previous libreboot release.
+
+64MiB VRAM on i945 (X60, T60, MacBook2,1) now supported in coreboot-libre, and
+used by default (in the previous release, it was 8MiB allocated). Thanks to
+Arthur Heymans.
+
+Higher battery life on GM45 (X200, T400, T500, R400) due to higher cstates now
+being supported (thanks Arthur Heymans). C4 power states also supported.
+
+Text mode on GM45 (X200, T400, T500, R400) now works, making it possible to
+use MemTest86+ comfortably. (thanks to Nick High from coreboot)
+
+Dual channel LVDS displays on GM45 (T400, T500) are now automatically
+detected in coreboot-libre. (thanks Vladimir Serbinenko from coreboot)
+
+Partial fix in coreboot-libre for GRUB display on GM45, for dual channel
+LVDS higher resolution LCD panels (T400, T500). (thanks Arthur Heymans)
+
+Massively improved GRUB configuration, making it easier to boot more
+encrypted systems automatically, and generally a more useful menu for booting
+the system (thanks go to Klemens Nanni of the autoboot project).
+Libreboot now uses the grub.cfg provided by the installed GNU/Linux distribution
+automatically, if present, switching to that configuration. This is done across
+many partitions, where libreboot actively searches for a configuration file
+(also on LVM volumes and encrypted volumes). This should make libreboot more
+easy to use for non-technical users, without having to modify the GRUB
+configuration used in libreboot.
+
+Utilities archives is now source only. You will need to compile the packages
+in there (build scripts included, and a script for installing build dependencies
+in Trisquel 7). (binary utility archives are planned again in the next
+release, when the new build system is merged)
+
+SeaGRUB is now the default payload on all x86 boards. (SeaBIOS configured to
+load a compressed GRUB payload from CBFS immediately, without providing an
+interface in SeaBIOS. This way, GRUB is still used but now BIOS services are
+available, so you get the best of both worlds). Thanks go to Timothy Pearson
+of coreboot for this idea.
+
+crossgcc is now downloaded and built as a separate module to coreboot-libre,
+with a universal revision used to build all boards.
+
+Individual boards now have their own coreboot revision and patches, independently
+of each other board. This makes maintenance easier.
+
+Updated all utilities, and modules (coreboot, GRUB, etc) to newer versions,
+with various bugfixes and improvements upstream.
+
+RTC century byte issue now fixed on GM45 in coreboot-libre, so the date
+should now be correctly displayed when running the latest linux kernel, instead
+of seeing 1970-01-01 when you boot (thanks to Alexander Couzens from coreboot)
+
+Build system now uses multiple CPU cores when building, speeding up building
+for some people. Manually specifying how many cores are needed is also possible,
+for those using the build system in a chroot environment. (thanks go to
+Timothy Pearson from coreboot)
+
+In the build system (git repository), https:// is now used when cloning coreboot.
+http:// is used as a fallback for GRUB, if git:// fails.
+
+New payload, the depthcharge bootloader (free bootloader maintained by Google)
+for use on the ASUS Chromebook C201. (thanks go to Paul Kocialkowski)
+
+Various fixes to the ich9gen utility (e.g. flash component density is now
+set correctly in the descriptor, gbe-less descriptors now supported)
+
+The official documentation included in the release in provided in texinfo
+format, instead of HTML; this was one of the requirements for joining GNU.
+(the other requirement is a new build system, to comply with GNU standards,
+e.g. Makefiles, and common Makefile entries present in all GNU software. As of
+Libreboot 20160818, this new build system is not yet merged, but will be
+in the release afterwards)
+ChangeLog and NEWS files are included in the release, to comply with GNU
+standards (they are dumps of the git-log output)

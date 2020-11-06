@@ -1,0 +1,15 @@
+##
+##
+## SPDX-License-Identifier: GPL-2.0-only
+
+config CPU_QEMU_X86
+	bool
+	select ARCH_BOOTBLOCK_X86_32
+	select ARCH_VERSTAGE_X86_32
+	select ARCH_ROMSTAGE_X86_32
+	select ARCH_RAMSTAGE_X86_32
+	select SMP
+	select UDELAY_TSC
+	select TSC_MONOTONIC_TIMER
+	select UNKNOWN_TSC_RATE
+	select SMM_ASEG

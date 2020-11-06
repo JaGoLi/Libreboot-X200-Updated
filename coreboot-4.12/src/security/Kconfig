@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: GPL-2.0-only
+
+source "src/security/vboot/Kconfig"
+source "src/security/tpm/Kconfig"
+source "src/security/memory/Kconfig"
+source "src/security/intel/Kconfig"
+source "src/security/lockdown/Kconfig"

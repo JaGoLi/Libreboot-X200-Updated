@@ -1,0 +1,192 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -Os
+A -Wuninitialized
+A -Wall
+A -Werror
+A -Wstrict-aliasing
+A -Wshadow
+A --RTS=build/libgnat-x86_32/
+A -gnatp
+A -g
+A -fno-common
+A -fomit-frame-pointer
+A -ffunction-sections
+A -fdata-sections
+A -gnatwa
+A -gnatw.e
+A -gnatwe
+A -gnatwD
+A -gnatw.H
+A -gnatwH
+A -gnatwT
+A -gnatwU
+A -gnatw.U
+A -gnatw.W
+A -gnatw.Y
+A -gnatyN
+A -m32
+A -fuse-ld=bfd
+A -fno-stack-protector
+A -mtune=i386
+A -march=i386
+P FX
+
+RN
+RR NO_ACCESS_SUBPROGRAMS
+RR NO_ALLOCATORS
+RR NO_CALENDAR
+RR NO_DISPATCH
+RR NO_EXCEPTION_HANDLERS
+RR NO_FIXED_POINT
+RR NO_FLOATING_POINT
+RR NO_IO
+RR NO_IMPLICIT_DYNAMIC_CODE
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_INITIALIZE_SCALARS
+RR NO_LOCAL_ALLOCATORS
+RR NO_RECURSION
+RR NO_SECONDARY_STACK
+RR NO_STREAMS
+RR NO_TASKING
+RR NO_UNCHECKED_ACCESS
+RR NO_UNCHECKED_DEALLOCATION
+RR STATIC_STORAGE_SIZE
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLEMENTATION_RESTRICTIONS
+RR NO_IMPLICIT_LOOPS
+RV NO_OBSOLESCENT_FEATURES
+RR NO_WIDE_CHARACTERS
+RV SPARK_05
+
+U hw.gfx.gma.power_and_clocks%b  hw-gfx-gma-power_and_clocks.adb  bdecb33c NE OO PK IU
+W hw%s			hw.ads			hw.ali
+W hw.gfx%s		hw-gfx.ads		hw-gfx.ali
+W hw.gfx.gma%s		hw-gfx-gma.adb		hw-gfx-gma.ali
+W hw.gfx.gma.config%s	hw-gfx-gma-config.adb	hw-gfx-gma-config.ali
+W hw.gfx.gma.registers%s  hw-gfx-gma-registers.adb  hw-gfx-gma-registers.ali
+W hw.time%s		hw-time.adb		hw-time.ali
+
+U hw.gfx.gma.power_and_clocks%s  hw-gfx-gma-power_and_clocks.ads  a977eb73 EE NE OO PK IU
+W hw%s			hw.ads			hw.ali
+W hw.gfx%s		hw-gfx.ads		hw-gfx.ali
+W hw.gfx.gma%s		hw-gfx-gma.adb		hw-gfx-gma.ali
+W hw.gfx.gma.config_helpers%s  hw-gfx-gma-config_helpers.adb  hw-gfx-gma-config_helpers.ali
+
+D hw.ads		20200512103022 349e873c hw%s
+D hw-config.ads		20201106163848 3df8aafb hw.config%s
+D hw-gfx.ads		20200512103022 d263ba5b hw.gfx%s
+D hw-gfx-framebuffer_filler.ads  20200512103022 0b5937f9 hw.gfx.framebuffer_filler%s
+D hw-gfx-gma.ads	20200512103022 68ac5893 hw.gfx.gma%s
+D hw-gfx-gma-config.ads	20201106163848 2f16692c hw.gfx.gma.config%s
+D hw-gfx-gma-config_helpers.ads  20200512103022 da346c78 hw.gfx.gma.config_helpers%s
+D hw-gfx-gma-power_and_clocks.ads  20200512103022 1befdf98 hw.gfx.gma.power_and_clocks%s
+D hw-gfx-gma-power_and_clocks.adb  20200512103022 1ffa8303 hw.gfx.gma.power_and_clocks%b
+D hw-gfx-gma-registers.ads  20200512103022 711b211b hw.gfx.gma.registers%s
+D hw-pci.ads		20200512103022 d2a0aee8 hw.pci%s
+D hw-port_io.ads	20200512103022 42e65734 hw.port_io%s
+D hw-time.ads		20200512103022 e7f4a790 hw.time%s
+D interfac.ads		20201106163848 8908571f interfaces%s
+D system.ads		20201106163848 21923ced system%s
+D s-unstyp.ads		20201106163848 9d58a4c0 system.unsigned_types%s
+D gnat.adc		20200512103022 00000000
+X 1 hw.ads
+17K9*HW 91e7 8|15r6 17r17 42r5 9|16r6 17r6 18r6 20r14 81r16 154r5
+28M12*Word16{14|65M9} 9|81r19 88r15
+31V13*Shift_Right=32:26{14|65M9} 9|95s35 97s35
+34M12*Word32{14|68M9} 9|49r17 116r17
+49I12*Int64{14|54I9} 9|32r33 83r17 85r13
+54I12*Pos64{14|54I9} 9|30r40
+X 3 hw-gfx.ads
+21K12*GFX 1|17k9 3|217e11 8|15r9 17r20 42r8 9|17r9 18r9 20r17 154r8
+69I12*Frequency_Type{1|54I12} 9|23r33 24r33 25r33 26r33 27r33 28r33 114r45
+X 5 hw-gfx-gma.ads
+22K16*GMA 3|21k12 5|298e15 8|15r13 17r24 42r12 9|17r13 18r13 20r21 154r12
+94A9*Pipe_Configs(87R9)<93E9> 8|22r31 28r45 35r38 37r51 39r66 9|146r31
+211b4 PCI_Usable{boolean} 9|91r10
+213U14 PCI_Read16 9|93s10
+X 6 hw-gfx-gma-config.ads
+17K28*Config 516e22 9|17w17 52r10 79r37 94r13 102r21 105r13 136r15 139r7
+. 140r7 142r22 150r48
+66I12*CDClk_Range{3|69I12} 9|79r44 102r28 136r22
+91i4*CDClk{66I12} 9|139m14 150r55
+92i4*Max_CDClk{66I12} 9|140m14
+93i4*Raw_Clock{3|69I12} 9|142r29
+232V13*Has_GMCH_Mobile_VCO{boolean} 9|52s17 94s20 105s20
+X 7 hw-gfx-gma-config_helpers.ads
+18K28*Config_Helpers 91e30 8|15w17 9|150r7
+85U14*Limit_Dotclocks 9|150s22
+X 8 hw-gfx-gma-power_and_clocks.ads
+17K28*Power_And_Clocks 5|22k16 8|42l16 42e32 9|20b25 154l16 154t32
+19U14*Initialize 9|134b14 143l8 143t18
+21U14*Limit_Dotclocks 22=7 23<7 9|145b14 152l8 152t23
+22a7 Configs{5|94A9} 9|146b7 150m39
+23b7 CDClk_Switch{boolean} 9|147b7 151m7
+28U14*Update_CDClk 28=28
+28a28 Configs{5|94A9}
+29U14*Enable_CDClk
+31U14*Pre_All_Off
+33U14*Post_All_Off
+35U14*Power_Set_To 35>28
+35a28 Configs{5|94A9}
+37U14*Power_Up 37>24 37>37
+37a24 Old_Configs{5|94A9}
+37a37 New_Configs{5|94A9}
+39U14*Power_Down 39>26 39>39 39>52
+39a26 Old_Configs{5|94A9}
+39a39 Tmp_Configs{5|94A9}
+39a52 New_Configs{5|94A9}
+X 9 hw-gfx-gma-power_and_clocks.adb
+22N4 FSB_FREQ_SEL_MASK 122r34
+23i4 CLKCFG_FSB_400{3|69I12} 128r38
+24i4 CLKCFG_FSB_533{3|69I12} 124r38
+25i4 CLKCFG_FSB_667{3|69I12} 126r38
+26i4 CLKCFG_FSB_800{3|69I12} 125r38
+27i4 CLKCFG_FSB_1067{3|69I12} 123r38 129r38
+28i4 CLKCFG_FSB_1333{3|69I12} 127r38 130r38
+30A9 Div_Array(1|54I12)<integer> 32r55 34r27 35r27 36r27 37r27 38r59 41r28
+. 42r28 43r28 44r28 45r60 86r18
+32U14 Get_VCO 32b14 32<23 32<40 77l8 77t15 92s10
+32i23 VCO{1|49I12} 55m10 68m10
+32a40 Divisors{30A9} 64m10 75m10
+34a7 G45_3200{30A9} 39r10
+35a7 G45_4000{30A9} 39r20
+36a7 G45_4800{30A9} 39r40
+37a7 G45_5333{30A9} 39r30
+38a7 G45_Divs(30A9) 75r22
+41a7 GM45_2667{30A9} 46r63
+42a7 GM45_3200{30A9} 46r15
+43a7 GM45_4000{30A9} 46r31
+44a7 GM45_5333{30A9} 46r47
+45a7 GM45_Divs(30A9) 64r22
+49m7 HPLLVCO{1|34M12} 53m57 54r30 66m50 67r30
+50i7 VCO_Sel{natural} 54m10 56r18 64r33 67m10 69r18 75r32
+79U14 Get_CDClk 79b14 79<25 111l8 111t17 138s7
+79i25 CDClk{6|66I12} 103m10 106m13 108m13
+83i7 Tmp_Clk{1|49I12} 99m10 102r10 103r19
+85i7 VCO{1|49I12} 92m19 99r21
+86a7 Divisors{30A9} 92m24 99r27
+88m7 GCFGC{1|28M12} 93m22 95r48 97r48
+89i7 CDClk_Sel{natural} 95m13 97m13 99r37
+114U14 Get_Raw_Clock 114b14 114<29 132l8 132t21 142s7
+114i29 Raw_Clock{3|69I12} 123m25 124m25 125m25 126m25 127m25 128m25 129m25
+. 130m25
+116m7 CLK_CFG{1|34M12} 121m19 122r22
+117I12 Freq_Sel<integer> 122r12
+136i7 CDClk{6|66I12} 138m18 139r23 140r27
+X 10 hw-gfx-gma-registers.ads
+19K28*Registers 9|18w17 53r10 53r26 66r10 66r26 119r7 120r22 10|1825e25
+72n7*GMCH_CLKCFG{36E9} 9|120r32
+73n7*GMCH_HPLLVCO_MOBILE{36E9} 9|53r36
+74n7*GMCH_HPLLVCO{36E9} 9|66r36
+1693U14*Read 9|53s20 66s20 119s17
+1694e8 Register{1652E12} 9|120r10
+1695m8 Value{1|34M12} 9|121r10
+X 13 hw-time.ads
+15K12*Time 9|16w9 13|74e12
+X 14 interfac.ads
+54I9*Integer_64<long_long_integer>
+65M9*Unsigned_16
+68M9*Unsigned_32
+

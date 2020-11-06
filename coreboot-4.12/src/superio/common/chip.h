@@ -1,0 +1,10 @@
+/* SPDX-License-Identifier: GPL-2.0-only */
+
+#ifndef __SUPERIO_COMMON_CHIP_H__
+#define __SUPERIO_COMMON_CHIP_H__
+
+struct superio_common_config {
+	/* FIXME: Add enter conf/exit conf codes here for SSDT generation */
+};
+
+#endif /* __SUPERIO_COMMON_CHIP_H__ */

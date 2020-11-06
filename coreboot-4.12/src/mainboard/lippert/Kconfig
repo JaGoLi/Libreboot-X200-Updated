@@ -1,0 +1,20 @@
+if VENDOR_LIPPERT
+
+comment "was acquired by ADLINK"
+
+choice
+	prompt "Mainboard model"
+
+config LIPPERT_BOARDS_DISABLED
+	bool "Boards from vendor are disabled"
+
+source "src/mainboard/lippert/*/Kconfig.name"
+
+endchoice
+
+source "src/mainboard/lippert/*/Kconfig"
+
+config MAINBOARD_VENDOR
+	default "LiPPERT"
+
+endif # VENDOR_LIPPERT

@@ -1,0 +1,163 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -Os
+A -Wuninitialized
+A -Wall
+A -Werror
+A -Wstrict-aliasing
+A -Wshadow
+A --RTS=build/libgnat-x86_32/
+A -gnatp
+A -g
+A -fno-common
+A -fomit-frame-pointer
+A -ffunction-sections
+A -fdata-sections
+A -gnatwa
+A -gnatw.e
+A -gnatwe
+A -gnatwD
+A -gnatw.H
+A -gnatwH
+A -gnatwT
+A -gnatwU
+A -gnatw.U
+A -gnatw.W
+A -gnatw.Y
+A -gnatyN
+A -m32
+A -fuse-ld=bfd
+A -fno-stack-protector
+A -mtune=i386
+A -march=i386
+P FX
+
+RN
+RR NO_ACCESS_SUBPROGRAMS
+RR NO_ALLOCATORS
+RR NO_CALENDAR
+RR NO_DISPATCH
+RR NO_EXCEPTION_HANDLERS
+RR NO_FIXED_POINT
+RR NO_FLOATING_POINT
+RR NO_IO
+RR NO_IMPLICIT_DYNAMIC_CODE
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_INITIALIZE_SCALARS
+RR NO_LOCAL_ALLOCATORS
+RR NO_RECURSION
+RR NO_SECONDARY_STACK
+RR NO_STREAMS
+RR NO_TASKING
+RR NO_UNCHECKED_ACCESS
+RR NO_UNCHECKED_DEALLOCATION
+RR STATIC_STORAGE_SIZE
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLEMENTATION_RESTRICTIONS
+RR NO_IMPLICIT_LOOPS
+RV NO_OBSOLESCENT_FEATURES
+RR NO_WIDE_CHARACTERS
+
+U hw.gfx.gma.pch.sideband%b  hw-gfx-gma-pch-sideband.adb  780f6032 NE OO PK IU
+W hw%s			hw.ads			hw.ali
+W hw.gfx%s		hw-gfx.ads		hw-gfx.ali
+W hw.gfx.gma%s		hw-gfx-gma.adb		hw-gfx-gma.ali
+W hw.gfx.gma.pch%s	hw-gfx-gma-pch.ads	hw-gfx-gma-pch.ali
+W hw.gfx.gma.registers%s  hw-gfx-gma-registers.adb  hw-gfx-gma-registers.ali
+
+U hw.gfx.gma.pch.sideband%s  hw-gfx-gma-pch-sideband.ads  6e79b0ce EE NE OO PK IU
+W hw.gfx.gma.pch%s	hw-gfx-gma-pch.ads	hw-gfx-gma-pch.ali
+
+D hw.ads		20200512103022 349e873c hw%s
+D hw-config.ads		20201106163848 3df8aafb hw.config%s
+D hw-gfx.ads		20200512103022 d263ba5b hw.gfx%s
+D hw-gfx-framebuffer_filler.ads  20200512103022 0b5937f9 hw.gfx.framebuffer_filler%s
+D hw-gfx-gma.ads	20200512103022 68ac5893 hw.gfx.gma%s
+D hw-gfx-gma-config.ads	20201106163848 2f16692c hw.gfx.gma.config%s
+D hw-gfx-gma-pch.ads	20200512103022 e6dc1f0f hw.gfx.gma.pch%s
+D hw-gfx-gma-pch-sideband.ads  20200512103022 88a5afc1 hw.gfx.gma.pch.sideband%s
+D hw-gfx-gma-pch-sideband.adb  20200512103022 81b1eee8 hw.gfx.gma.pch.sideband%b
+D hw-gfx-gma-registers.ads  20200512103022 711b211b hw.gfx.gma.registers%s
+D hw-pci.ads		20200512103022 d2a0aee8 hw.pci%s
+D hw-port_io.ads	20200512103022 42e65734 hw.port_io%s
+D hw-time.ads		20200512103022 e7f4a790 hw.time%s
+D interfac.ads		20201106163848 8908571f interfaces%s
+D system.ads		20201106163848 21923ced system%s
+D s-unstyp.ads		20201106163848 9d58a4c0 system.unsigned_types%s
+D gnat.adc		20200512103022 00000000
+X 1 hw.ads
+17K9*HW 91e7 8|15r17 50r5 9|15r6 17r14 138r5
+34M12*Word32{14|68M9} 8|27r25 32r25 37r25 42r25 47r28 48r28 9|29r52 40r25
+. 73r25 107r25 109r15 118r25 120r15 129r28 130r28 132r15
+X 3 hw-gfx.ads
+21K12*GFX 1|17k9 3|217e11 8|15r20 50r8 9|15r9 17r17 138r8
+X 5 hw-gfx-gma.ads
+22K16*GMA 3|21k12 5|298e15 8|15r24 50r12 9|15r13 17r21 138r12
+X 7 hw-gfx-gma-pch.ads
+17K28*PCH 5|22k16 7|37e19 8|15r28 50r16 9|17r25 138r16
+X 8 hw-gfx-gma-pch-sideband.ads
+15K32*Sideband 7|17k28 8|50l20 50e28 9|17b29 138l20 138t28
+17E9*Destination_Type 17e49 25r25 30r25 35r25 40r25 45r28 9|38r25 71r25 105r25
+. 116r25 127r28
+17n30*SBI_ICLK{17E9} 9|51r17 87r17
+17n40*SBI_MPHY{17E9}
+19E9*Register_Type 22e21 26r25 31r25 36r25 41r25 46r28 9|29r34 39r25 72r25
+. 106r25 117r25 128r28
+20n7*SBI_SSCDIVINTPHASE6{19E9} 9|31r7
+21n7*SBI_SSCCTL6{19E9} 9|32r7
+22n7*SBI_SSCAUXDIV{19E9} 9|33r7
+24U14*Read 25>7 26>7 27<7 9|37b14 68l8 68t12 111s7 122s7 134s7
+25e7 Dest{17E9} 9|38b7 51r10
+26e7 Register{19E9} 9|39b7 49r37
+27m7 Value{1|34M12} 9|40b7 67m22
+29U14*Write 30>7 31>7 32>7 9|70b14 100l8 100t13 112s7 123s7 135s7
+30e7 Dest{17E9} 9|71b7 87r10
+31e7 Register{19E9} 9|72b7 82r37
+32m7 Value{1|34M12} 9|73b7 85r22
+34U14*Unset_Mask 35>7 36>7 37>7 9|104b14 113l8 113t18
+35e7 Dest{17E9} 9|105b7 111r13 112r14
+36e7 Register{19E9} 9|106b7 111r19 112r20
+37m7 Mask{1|34M12} 9|107b7 112r44
+39U14*Set_Mask 40>7 41>7 42>7 9|115b14 124l8 124t16
+40e7 Dest{17E9} 9|116b7 122r13 123r14
+41e7 Register{19E9} 9|117b7 122r19 123r20
+42m7 Mask{1|34M12} 9|118b7 123r39
+44U14*Unset_And_Set_Mask 45>7 46>7 47>7 48>7 9|126b14 136l8 136t26
+45e7 Dest{17E9} 9|127b7 134r13 135r14
+46e7 Register{19E9} 9|128b7 134r19 135r20
+47m7 Mask_Unset{1|34M12} 9|129b7 135r45
+48m7 Mask_Set{1|34M12} 9|130b7 135r60
+X 9 hw-gfx-gma-pch-sideband.adb
+19N4 SBI_CTL_DEST_ICLK 54r25 90r25
+20N4 SBI_CTL_DEST_MPHY 58r25 94r25
+21N4 SBI_CTL_OP_IORD 58r46
+22N4 SBI_CTL_OP_IOWR 94r46
+23N4 SBI_CTL_OP_CRRD 54r46
+24N4 SBI_CTL_OP_CRWR 90r46
+26N4 SBI_RESPONSE_FAIL
+27N4 SBI_BUSY 45r22 54r65 58r65 63r22 78r22 90r65 94r65 99r22
+29A9 Register_Array(1|34M12)<8|19E9> 30r29 30r47
+30a4 Register_Addr{29A9} 49r22 82r22
+109m7 Value{1|34M12} 111m29 112r30
+120m7 Value{1|34M12} 122m29 123r30
+132m7 Value{1|34M12} 134m29 135r31
+X 10 hw-gfx-gma-registers.ads
+19K28*Registers 9|15w17 43r7 44r22 47r7 48r22 52r10 53r25 56r10 57r25 61r7
+. 62r22 65r7 66r22 76r7 77r22 80r7 81r22 83r7 84r22 88r10 89r25 92r10 93r25
+. 97r7 98r22 10|1825e25
+599n7*SBI_ADDR{36E9} 9|48r32 81r32
+600n7*SBI_DATA{36E9} 9|66r32 84r32
+601n7*SBI_CTL_STAT{36E9} 9|44r32 53r35 57r35 62r32 77r32 89r35 93r35 98r32
+1693U14*Read 9|65s17
+1694e8 Register{1652E12} 9|66r10
+1695m8 Value{1|34M12} 9|67r10
+1705U14*Write 9|47s17 52s20 56s20 80s17 83s17 88s20 92s20
+1706e8 Register{1652E12} 9|48r10 53r13 57r13 81r10 84r10 89r13 93r13
+1707m8 Value{1|34M12} 9|49r10 54r13 58r13 82r10 85r10 90r13 94r13
+1753U14*Wait_Unset_Mask 9|43s17 61s17 76s17 97s17
+1754e7 Register{1652E12} 9|44r10 62r10 77r10 98r10
+1755m7 Mask{1|34M12} 9|45r10 63r10 78r10 99r10
+X 14 interfac.ads
+68M9*Unsigned_32
+

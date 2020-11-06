@@ -1,0 +1,106 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -Os
+A -Wuninitialized
+A -Wall
+A -Werror
+A -Wstrict-aliasing
+A -Wshadow
+A --RTS=build/libgnat-x86_32/
+A -gnatp
+A -g
+A -fno-common
+A -fomit-frame-pointer
+A -ffunction-sections
+A -fdata-sections
+A -gnatwa
+A -gnatw.e
+A -gnatwe
+A -gnatwD
+A -gnatw.H
+A -gnatwH
+A -gnatwT
+A -gnatwU
+A -gnatw.U
+A -gnatw.W
+A -gnatw.Y
+A -gnatyN
+A -m32
+A -fuse-ld=bfd
+A -fno-stack-protector
+A -mtune=i386
+A -march=i386
+P FX
+
+RN
+RR NO_ACCESS_SUBPROGRAMS
+RR NO_ALLOCATORS
+RR NO_CALENDAR
+RR NO_DISPATCH
+RR NO_EXCEPTION_HANDLERS
+RR NO_FIXED_POINT
+RR NO_FLOATING_POINT
+RR NO_IO
+RR NO_IMPLICIT_DYNAMIC_CODE
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_INITIALIZE_SCALARS
+RR NO_LOCAL_ALLOCATORS
+RR NO_RECURSION
+RR NO_SECONDARY_STACK
+RR NO_STREAMS
+RR NO_TASKING
+RR NO_UNCHECKED_ACCESS
+RR NO_UNCHECKED_DEALLOCATION
+RR STATIC_STORAGE_SIZE
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLEMENTATION_RESTRICTIONS
+RR NO_IMPLICIT_LOOPS
+RV NO_OBSOLESCENT_FEATURES
+RR NO_WIDE_CHARACTERS
+RV SPARK_05
+
+U hw.gfx.gma.pch%s	hw-gfx-gma-pch.ads	a1662eb0 NE OO PK IU
+W hw%s			hw.ads			hw.ali
+W hw.gfx%s		hw-gfx.ads		hw-gfx.ali
+W hw.gfx.gma%s		hw-gfx-gma.adb		hw-gfx-gma.ali
+W hw.gfx.gma.config%s	hw-gfx-gma-config.adb	hw-gfx-gma-config.ali
+
+D hw.ads		20200512103022 349e873c hw%s
+D hw-config.ads		20201106163848 3df8aafb hw.config%s
+D hw-gfx.ads		20200512103022 d263ba5b hw.gfx%s
+D hw-gfx-framebuffer_filler.ads  20200512103022 0b5937f9 hw.gfx.framebuffer_filler%s
+D hw-gfx-gma.ads	20200512103022 68ac5893 hw.gfx.gma%s
+D hw-gfx-gma-config.ads	20201106163848 2f16692c hw.gfx.gma.config%s
+D hw-gfx-gma-pch.ads	20200512103022 e6dc1f0f hw.gfx.gma.pch%s
+D hw-pci.ads		20200512103022 d2a0aee8 hw.pci%s
+D hw-port_io.ads	20200512103022 42e65734 hw.port_io%s
+D hw-time.ads		20200512103022 e7f4a790 hw.time%s
+D interfac.ads		20201106163848 8908571f interfaces%s
+D system.ads		20201106163848 21923ced system%s
+D s-unstyp.ads		20201106163848 9d58a4c0 system.unsigned_types%s
+D gnat.adc		20200512103022 00000000
+X 1 hw.ads
+17K9*HW 91e7 7|15r6 17r17 37r5
+34M12*Word32{11|68M9} 7|28r47 31r65
+35V13*Shift_Left=36:26{11|68M9} 7|33s24 34s24 35s24
+X 3 hw-gfx.ads
+21K12*GFX 1|17k9 3|217e11 7|15r9 17r20 37r8
+X 5 hw-gfx-gma.ads
+22K16*GMA 3|21k12 5|298e15 7|15r13 17r24 37r12
+X 6 hw-gfx-gma-config.ads
+17K28*Config 516e22 7|15w17 26r10 29r10
+219V13*Has_New_FDI_Sink{boolean} 7|26s17 29s17
+X 7 hw-gfx-gma-pch.ads
+17K28*PCH 5|22k16 7|37l16 37e19
+19E9*FDI_Port_Type 19e47 31r43
+19n27*FDI_A{19E9} 33r15
+19n34*FDI_B{19E9} 34r15
+19n41*FDI_C{19E9} 35r15
+25V13*PCH_TRANSCODER_SELECT_SHIFT{natural} 33s39 34s39 35s39
+28V13*PCH_TRANSCODER_SELECT_MASK{1|34M12}
+31V13*PCH_TRANSCODER_SELECT{1|34M12} 31>36
+31e36 Port{19E9} 32r12
+X 11 interfac.ads
+68M9*Unsigned_32
+
