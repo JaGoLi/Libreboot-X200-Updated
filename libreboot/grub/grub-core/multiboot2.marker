@@ -1,4 +1,0 @@
-COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
-P1COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
-    COMMAND_LIST_MARKER("multiboot2", grub_cmd_multiboot, 0, "Load a multiboot 2 kernel.")
-    COMMAND_LIST_MARKER("module2", grub_cmd_module, 0, "Load a multiboot 2 module.")

@@ -1,0 +1,117 @@
+# SPDX-License-Identifier: GPL-2.0-only
+
+source "src/security/tpm/tss/vendor/cr50/Kconfig"
+
+menu "Trusted Platform Module"
+
+config TPM1
+	bool
+	default y if MAINBOARD_HAS_TPM1 || USER_TPM1
+	depends on MAINBOARD_HAS_LPC_TPM || \
+		   MAINBOARD_HAS_I2C_TPM_GENERIC || \
+		   MAINBOARD_HAS_I2C_TPM_ATMEL
+
+config TPM2
+	bool
+	default y if MAINBOARD_HAS_TPM2 || USER_TPM2
+	depends on MAINBOARD_HAS_I2C_TPM_GENERIC || \
+		   MAINBOARD_HAS_LPC_TPM || \
+		   MAINBOARD_HAS_I2C_TPM_ATMEL || \
+		   MAINBOARD_HAS_I2C_TPM_CR50 || \
+		   MAINBOARD_HAS_SPI_TPM || \
+		   MAINBOARD_HAS_CRB_TPM
+
+config MAINBOARD_HAS_TPM1
+	bool
+
+config MAINBOARD_HAS_TPM2
+	bool
+
+if !MAINBOARD_HAS_TPM1 && !MAINBOARD_HAS_TPM2
+
+choice
+	prompt "Trusted Platform Module"
+	default USER_NO_TPM
+
+config USER_NO_TPM
+	bool "disabled"
+
+config USER_TPM1
+	bool "1.2"
+	depends on MAINBOARD_HAS_LPC_TPM || \
+		   MAINBOARD_HAS_I2C_TPM_GENERIC || \
+		   MAINBOARD_HAS_I2C_TPM_ATMEL
+	help
+		Enable this option to enable TPM 1.0 - 1.2 support in coreboot.
+
+		If unsure, say N.
+
+config USER_TPM2
+	bool "2.0"
+	depends on MAINBOARD_HAS_I2C_TPM_GENERIC || \
+		   MAINBOARD_HAS_LPC_TPM || \
+		   MAINBOARD_HAS_I2C_TPM_ATMEL || \
+		   MAINBOARD_HAS_I2C_TPM_CR50 || \
+		   MAINBOARD_HAS_SPI_TPM || \
+		   MAINBOARD_HAS_CRB_TPM
+	help
+		Enable this option to enable TPM 2.0 support in coreboot.
+
+		If unsure, say N.
+
+endchoice
+
+endif
+
+config TPM_DEACTIVATE
+	bool "Deactivate TPM"
+	default n
+	depends on !VBOOT
+	depends on TPM1
+	help
+	  Deactivate TPM by issuing deactivate command.
+
+config DEBUG_TPM
+	bool "Output verbose TPM debug messages"
+	default n
+	select DRIVER_TPM_DISPLAY_TIS_BYTES if I2C_TPM
+	depends on TPM1 || TPM2
+	help
+	  This option enables additional TPM related debug messages.
+
+config TPM_RDRESP_NEED_DELAY
+	bool "Enable Delay Workaround for TPM"
+	default n
+	depends on MAINBOARD_HAS_LPC_TPM
+	help
+	  Certain TPMs seem to need some delay when reading response
+	  to work around a race-condition-related issue, possibly
+	  caused by ill-programmed TPM firmware.
+
+config TPM_STARTUP_IGNORE_POSTINIT
+	bool
+	help
+	  Select this to ignore POSTINIT INVALID return codes on TPM
+	  startup. This is useful on platforms where a previous stage
+	  issued a TPM startup. Examples of use cases are Intel TXT
+	  or VBOOT on the Intel Arrandale processor, which issues a
+	  CPU-only reset during the romstage.
+
+config TPM_MEASURED_BOOT
+	bool "Enable Measured Boot"
+	default n
+	select VBOOT_LIB
+	depends on TPM1 || TPM2
+	depends on !VBOOT_RETURN_FROM_VERSTAGE
+	help
+	  Enables measured boot (experimental)
+
+config TPM_MEASURED_BOOT_RUNTIME_DATA
+	string "Runtime data whitelist"
+	default ""
+	depends on TPM_MEASURED_BOOT
+	help
+	  Runtime data whitelist of cbfs filenames. Needs to be a
+	  space delimited list
+
+endmenu # Trusted Platform Module (tpm)

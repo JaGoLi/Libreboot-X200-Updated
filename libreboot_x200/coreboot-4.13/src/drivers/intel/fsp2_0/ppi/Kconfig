@@ -1,0 +1,11 @@
+# SPDX-License-Identifier: GPL-2.0-only
+
+config FSP_USES_MP_SERVICES_PPI
+	bool
+	default n
+	depends on SOC_INTEL_COMMON_BLOCK_CPU_MPINIT
+	help
+	  This option allows SoC user to create MP service PPI for Intel
+	  FSP usage, coreboot will provide EFI_PEI_MP_SERVICES_PPI structure
+	  definitions along with all APIs as per EDK2 specification. Intel FSP
+	  will use this PPI to run CPU feature programming on APs.

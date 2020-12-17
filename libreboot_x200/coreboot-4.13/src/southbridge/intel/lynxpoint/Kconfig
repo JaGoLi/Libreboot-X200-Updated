@@ -1,0 +1,69 @@
+## SPDX-License-Identifier: GPL-2.0-only
+
+config SOUTHBRIDGE_INTEL_LYNXPOINT
+	bool
+
+if SOUTHBRIDGE_INTEL_LYNXPOINT
+
+config SOUTH_BRIDGE_OPTIONS # dummy
+	def_bool y
+	select ACPI_INTEL_HARDWARE_SLEEP_VALUES
+	select SOUTHBRIDGE_INTEL_COMMON_SMBUS
+	select SOUTHBRIDGE_INTEL_COMMON_EARLY_SMBUS
+	select SOUTHBRIDGE_INTEL_COMMON_SPI_ICH9
+	select SOUTHBRIDGE_INTEL_COMMON_ACPI_MADT
+	select SOUTHBRIDGE_INTEL_COMMON_FINALIZE
+	select SOUTHBRIDGE_INTEL_COMMON_PMCLIB
+	select SOUTHBRIDGE_INTEL_COMMON_PMBASE
+	select SOUTHBRIDGE_INTEL_COMMON_RTC
+	select SOUTHBRIDGE_INTEL_COMMON_RESET
+	select IOAPIC
+	select HAVE_SMI_HANDLER
+	select HAVE_USBDEBUG_OPTIONS
+	select USE_WATCHDOG_ON_BOOT
+	select PCIEXP_ASPM
+	select PCIEXP_COMMON_CLOCK
+	select INTEL_DESCRIPTOR_MODE_CAPABLE
+	select HAVE_EM100PRO_SPI_CONSOLE_SUPPORT
+	select RTC
+	select SOUTHBRIDGE_INTEL_COMMON_GPIO if !INTEL_LYNXPOINT_LP
+	select SOUTHBRIDGE_INTEL_COMMON_RCBA_PIRQ
+	select HAVE_INTEL_CHIPSET_LOCKDOWN
+	select HAVE_POWER_STATE_AFTER_FAILURE
+	select HAVE_POWER_STATE_PREVIOUS_AFTER_FAILURE
+	select SOUTHBRIDGE_INTEL_COMMON_WATCHDOG
+	select SOUTHBRIDGE_INTEL_COMMON_USB_DEBUG
+
+config INTEL_LYNXPOINT_LP
+	bool
+	default n
+	help
+	  Set this option to y for Lynxpont LP (Haswell ULT).
+
+config EHCI_BAR
+	hex
+	default 0xe8000000
+
+config SERIRQ_CONTINUOUS_MODE
+	bool
+	default n
+	help
+	  If you set this option to y, the serial IRQ machine will be
+	  operated in continuous mode.
+
+config HPET_MIN_TICKS
+	hex
+	default 0x80
+
+config FINALIZE_USB_ROUTE_XHCI
+	bool "Route all ports to XHCI controller in finalize step"
+	default y
+	help
+	  If you set this option to y, the USB ports will be routed
+	  to the XHCI controller during the finalize SMM callback.
+
+config PCIEXP_AER
+	bool
+	default y
+
+endif

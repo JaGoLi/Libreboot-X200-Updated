@@ -1,0 +1,18 @@
+=================== Release 50  ================================
+This Release Notes file covers these blobs:
+ * aop.mbn
+ * AOP_AAAAANAZO.elf
+
+Version : 000050
+
+Release Date : March, 2020
+
+Supported Silicon : SC7180
+
+aop.mbn is used to generate coreboot image.
+AOP_AAAAANAZO.elf is used for debugging purpose if needed.
+
+No special instructions, requirements or dependencies, files must be
+present in this folder to be pulled in during coreboot build
+
+Errata : Nothing to report

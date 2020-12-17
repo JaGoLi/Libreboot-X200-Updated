@@ -1,4 +1,0 @@
-COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
-P1COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
-  cmd_info = COMMAND_LIST_MARKER("zfsinfo", grub_cmd_zfsinfo, "DEVICE", "Print ZFS info about DEVICE.")
-  cmd_bootfs = COMMAND_LIST_MARKER("zfs-bootfs", grub_cmd_zfs_bootfs, "FILESYSTEM [VARIABLE]", "Print ZFS-BOOTFSOBJ or store it into VARIABLE")

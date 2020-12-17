@@ -1,0 +1,65 @@
+# SPDX-License-Identifier: GPL-2.0-only
+
+config CPU_AMD_AGESA
+	bool
+	default y if CPU_AMD_AGESA_FAMILY14
+	default y if CPU_AMD_AGESA_FAMILY15_TN
+	default y if CPU_AMD_AGESA_FAMILY16_KB
+	default n
+	select ARCH_ALL_STAGES_X86_32
+	select DRIVERS_AMD_PI
+	select TSC_SYNC_LFENCE
+	select UDELAY_LAPIC
+	select LAPIC_MONOTONIC_TIMER
+	select SPI_FLASH if HAVE_ACPI_RESUME
+	select SMM_ASEG
+	select SSE2
+	select ACPI_NO_SMI_GNVS
+
+if CPU_AMD_AGESA
+
+config UDELAY_LAPIC_FIXED_FSB
+	int
+	default 200
+
+# TODO: Sync these with definitions in AGESA vendorcode.
+# DCACHE_RAM_BASE must equal BSP_STACK_BASE_ADDR.
+# DCACHE_RAM_SIZE must equal BSP_STACK_SIZE.
+
+config DCACHE_RAM_BASE
+	hex
+	default 0x30000
+
+config DCACHE_RAM_SIZE
+	hex
+	default 0x10000
+
+config DCACHE_BSP_STACK_SIZE
+	hex
+	default 0x4000
+
+config C_ENV_BOOTBLOCK_SIZE
+	hex
+	default 0x8000
+
+config ENABLE_MRC_CACHE
+	bool "Use cached memory configuration"
+	default n
+	select SPI_FLASH
+	help
+	  Try to restore memory training results
+	  from non-volatile memory.
+
+config S3_DATA_POS
+	hex
+	default 0xFFFF0000
+
+config S3_DATA_SIZE
+	int
+	default 8192
+
+endif # CPU_AMD_AGESA
+
+source "src/cpu/amd/agesa/family14/Kconfig"
+source "src/cpu/amd/agesa/family15tn/Kconfig"
+source "src/cpu/amd/agesa/family16kb/Kconfig"

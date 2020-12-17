@@ -1,0 +1,143 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -Os
+A -Wuninitialized
+A -Wall
+A -Werror
+A -Wstrict-aliasing
+A -Wshadow
+A --RTS=build/libgnat-x86_32/
+A -gnatp
+A -g
+A -fno-common
+A -fomit-frame-pointer
+A -ffunction-sections
+A -fdata-sections
+A -gnatwa
+A -gnatw.e
+A -gnatwe
+A -gnatwD
+A -gnatw.H
+A -gnatwH
+A -gnatwT
+A -gnatwU
+A -gnatw.U
+A -gnatw.W
+A -gnatw.Y
+A -gnatyN
+A -m32
+A -fuse-ld=bfd
+A -fno-stack-protector
+A -mtune=i386
+A -march=i386
+P FX
+
+RN
+RR NO_ACCESS_SUBPROGRAMS
+RR NO_ALLOCATORS
+RR NO_CALENDAR
+RR NO_DISPATCH
+RR NO_EXCEPTION_HANDLERS
+RR NO_FIXED_POINT
+RR NO_FLOATING_POINT
+RR NO_IO
+RR NO_IMPLICIT_DYNAMIC_CODE
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_INITIALIZE_SCALARS
+RR NO_LOCAL_ALLOCATORS
+RR NO_RECURSION
+RR NO_SECONDARY_STACK
+RR NO_STREAMS
+RR NO_TASKING
+RR NO_UNCHECKED_ACCESS
+RR NO_UNCHECKED_DEALLOCATION
+RR STATIC_STORAGE_SIZE
+RV NO_IMPLEMENTATION_ASPECT_SPECIFICATIONS
+RV NO_IMPLEMENTATION_ATTRIBUTES
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLEMENTATION_RESTRICTIONS
+RR NO_IMPLICIT_LOOPS
+RV NO_OBSOLESCENT_FEATURES
+RR NO_WIDE_CHARACTERS
+RV SPARK_05
+
+U hw.port_io%b		hw-port_io.adb		edda6f07 NE OO PK IU
+W hw%s			hw.ads			hw.ali
+W system%s		system.ads		system.ali
+W system.machine_code%s	s-maccod.ads		s-maccod.ali
+
+U hw.port_io%s		hw-port_io.ads		7678d008 BN EE NE OO PK IU
+W hw%s			hw.ads			hw.ali
+
+D hw.ads		20201120120135 349e873c hw%s
+D hw-port_io.ads	20201120120135 42e65734 hw.port_io%s
+D hw-port_io.adb	20201120120135 81157f10 hw.port_io%b
+D interfac.ads		20201217160758 8908571f interfaces%s
+D system.ads		20201217160758 21923ced system%s
+D s-maccod.ads		20201217160758 0fbb7bce system.machine_code%s
+D gnat.adc		20201120120135 00000000
+X 1 hw.ads
+17K9*HW 91e7 2|15r9 62r5 3|18r14 70r5
+21M12*Byte{4|62M9}
+22M12*Word8{21M12} 2|22r31 42r46 3|37r47 38r31 61r49 62r46
+28M12*Word16{4|65M9} 2|28r31 48r46 3|40r47 41r31 64r49 65r46
+34M12*Word32{4|68M9} 2|35r31 55r46 3|43r47 44r31 67r49 68r46
+X 2 hw-port_io.ads
+15K12*Port_IO 1|17k9 2|62l8 62e15 3|18b17 70l8 70t15
+17@23*State 24r30 25r28 25r45 30r30 31r28 31r45 37r30 38r28 38r45 44r30 45r20
+. 50r30 51r20 57r30 58r20 3|20r23
+20M9*Port_Type 22r45 28r46 35r46 42r27 48r27 55r27 3|26r48 28r48 32r23 38r45
+. 41r46 44r46 50r31 52r31 56r23 62r27 65r27 68r27
+22U14*InB 22<19 22>38 3|38b14
+22m19 Value{1|22M12} 25r21 3|38b19
+22m38 Port{20M9} 25r39 3|38b38
+28U14*InW 28<19 28>39 3|41b14
+28m19 Value{1|28M12} 31r21 3|41b19
+28m39 Port{20M9} 31r39 3|41b39
+35U14*InL 35<19 35>39 3|44b14
+35m19 Value{1|34M12} 38r21 3|44b19
+35m39 Port{20M9} 38r39 3|44b39
+42U14*OutB 42>20 42>38 3|62b14
+42m20 Port{20M9} 45r31 3|62b20
+42m38 Value{1|22M12} 45r37 3|62b38
+48U14*OutW 48>20 48>38 3|65b14
+48m20 Port{20M9} 51r31 3|65b20
+48m38 Value{1|28M12} 51r37 3|65b38
+55U14*OutL 55>20 55>38 3|68b14
+55m20 Port{20M9} 58r31 3|68b20
+55m38 Value{1|34M12} 58r37 3|68b38
+X 3 hw-port_io.adb
+25+12 Word 26r35 28r35 33r23 37r39 40r39 43r39
+26u14 Port_In 26<23 26>41 28b14 35l8 35t15 37r30 40r30 43r30
+26*23 Value{25+12} 28b23 33m46 33r46
+26m41 Port{2|20M9} 28b41 32r50
+37U14 InB_Body[26] 28b14 38r64
+40U14 InW_Body[26] 28b14 41r65
+43U14 InL_Body[26] 28b14 44r65
+49+12 Word 50r50 52r50 57r23 61r41 64r41 67r41
+50u14 Port_Out 50>24 50>42 52b14 59l8 59t16 61r31 64r31 67r31
+50m24 Port{2|20M9} 52b24 56r50
+50*42 Value{49+12} 52b42 57r44
+61U14 OutB_Body[50] 52b14 62r61
+64U14 OutW_Body[50] 52b14 65r62
+67U14 OutL_Body[50] 52b14 68r62
+X 4 interfac.ads
+62M9*Unsigned_8
+65M9*Unsigned_16
+68M9*Unsigned_32
+X 5 system.ads
+43K9*System 3|15w6 16r6 30r7 54r7 5|175e11
+X 6 s-maccod.ads
+36K16*Machine_Code 3|16w13 30r14 54r14 6|130e24
+43I9*Asm_Input_Operand<integer>
+44I9*Asm_Output_Operand<integer>
+51A9*Asm_Input_Operand_List(43I9)<integer>
+68U14*Asm 3|54s27
+71a6 Inputs{51A9} 3|56r10
+73b6 Volatile{boolean} 3|58r10
+82U14*Asm 3|30s27
+84i6 Outputs{44I9} 3|33r10
+85i6 Inputs{43I9} 3|32r10
+87b6 Volatile{boolean} 3|34r10
+

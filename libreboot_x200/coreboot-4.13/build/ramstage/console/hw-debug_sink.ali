@@ -1,0 +1,102 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -Os
+A -Wuninitialized
+A -Wall
+A -Werror
+A -Wstrict-aliasing
+A -Wshadow
+A --RTS=build/libgnat-x86_32/
+A -gnatp
+A -g
+A -fno-common
+A -fomit-frame-pointer
+A -ffunction-sections
+A -fdata-sections
+A -gnatwa
+A -gnatw.e
+A -gnatwe
+A -gnatwD
+A -gnatw.H
+A -gnatwH
+A -gnatwT
+A -gnatwU
+A -gnatw.U
+A -gnatw.W
+A -gnatw.Y
+A -gnatyN
+A -m32
+A -fuse-ld=bfd
+A -fno-stack-protector
+A -mtune=i386
+A -march=i386
+P FX
+
+RN
+RR NO_ACCESS_SUBPROGRAMS
+RR NO_ALLOCATORS
+RR NO_CALENDAR
+RR NO_DISPATCH
+RR NO_EXCEPTION_HANDLERS
+RR NO_FIXED_POINT
+RR NO_FLOATING_POINT
+RR NO_IO
+RR NO_IMPLICIT_DYNAMIC_CODE
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_INITIALIZE_SCALARS
+RR NO_LOCAL_ALLOCATORS
+RR NO_RECURSION
+RR NO_SECONDARY_STACK
+RR NO_STREAMS
+RR NO_TASKING
+RR NO_UNCHECKED_ACCESS
+RR NO_UNCHECKED_DEALLOCATION
+RR STATIC_STORAGE_SIZE
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLEMENTATION_RESTRICTIONS
+RR NO_IMPLICIT_LOOPS
+RV NO_OBSOLESCENT_FEATURES
+RR NO_WIDE_CHARACTERS
+
+U hw.debug_sink%b	hw-debug_sink.adb	b0797d3f NE OO PK IU
+W hw%s			hw.ads			hw.ali
+W interfaces%s		interfac.ads		interfac.ali
+W interfaces.c%s	i-c.adb			i-c.ali
+
+U hw.debug_sink%s	hw-debug_sink.ads	1b7207ae EE NE OO PK IU
+W hw%s			hw.ads			hw.ali
+
+D hw.ads		20201120120135 349e873c hw%s
+D hw-debug_sink.ads	20201120120135 2fec8092 hw.debug_sink%s
+D hw-debug_sink.adb	20201120120135 020162ca hw.debug_sink%b
+D interfac.ads		20201217160758 8908571f interfaces%s
+D i-c.ads		20201217160758 9d949f67 interfaces.c%s
+D system.ads		20201217160758 21923ced system%s
+D s-parame.ads		20201217160758 c706fdbb system.parameters%s
+D gnat.adc		20201120120135 00000000
+X 1 hw.ads
+17K9*HW 91e7 2|3r9 11r5 3|7r14 40r5
+X 2 hw-debug_sink.ads
+3K12*Debug_Sink 1|17k9 2|11l8 11e18 3|7b17 40l8 40t18
+5U14*Put 5>19 3|19b14 26l8 26t11
+5a19 Item{string} 3|19b19 22r21 23r49
+7U14*Put_Char 7>24 3|28b14 33l8 33t16 37s7
+7e24 Item{character} 3|28b24 31r46
+9U14*New_Line 3|35b14 38l8 38t16
+X 3 hw-debug_sink.adb
+9V13 console_log_level{5|35I9} 10>7 12b<c,console_log_level>22 21s10 30s10
+10i7 msg_level{5|35I9}
+14N4 Msg_Level_BIOS_DEBUG 21r29 30r29
+16U14 console_tx_byte 16>31 17b<c,console_tx_byte>22 23s13 31s10
+16e31 chr{5|69E9}
+22i14 Idx{integer} 23r55
+X 4 interfac.ads
+38K9*Interfaces 3|3r6 5r10 10r19 11r14 16r37 23r30 31r27 4|161e15
+X 5 i-c.ads
+18K20*C 3|3w17 5r21 10r30 11r25 16r48 23r41 31r38 5|81e17
+35I9*int<integer> 3|5r23 10r32 11r27
+69E9*char<character> 3|16r50
+73V13*To_C{69E9} 3|23s43 31s40
+

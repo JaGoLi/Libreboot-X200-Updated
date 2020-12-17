@@ -1,0 +1,26 @@
+
+=================== Release 00359 ================================
+This Release Notes file covers these blobs:
+ * dcb.bin
+ * Pmic.bin
+ * QcLib.elf
+
+Version : 00359
+
+Release Date : September 19, 2019
+
+Supported Silicon : SC7180
+
+No special instructions, requirements or dependencies, files must be
+present in this folder to be pulled in during coreboot build
+
+Changes since last version :
+ * Perform SoC
+ * PMIC initialization
+ * DDR initialization
+
+Errata : Nothing to report
+
+Toolchain Version : LLVM 6.0.0
+
+ABI Info : see qclib-interface.txt
