@@ -27,4 +27,11 @@ Below is an example on how to make the change. It assumes that one is already at
 The rom with the changed macaddress will be generated with the prefix `newmac_`, so in this case the rom to flash will be `newmac_x200.rom`
 
 # Building from source
-In order to make changes more efficently, I automated the entire build process for these images. This has the added side-benefit of allowing people to easily build the images for themselves if they have security concerns about downloading the binaries directly.
+In order to make changes more efficently, I automated the entire build process for these images. This has the added side-benefit of allowing people to easily build the images for themselves if they have security concerns about downloading the binaries directly. The process is all done through the script `build.sh` that is under 100 lines in length and easily-readable.
+
+In order to build, simply download the script inside an empty directory and select the size of the rom as the first argument, such as `8mb` and then select the **free** version or the **microcode** version by passing the title as a second argument. An example is given below:<br>
+1. `mkdir x200_build && cd x200_build`
+2. `wget https://github.com/JaGoLi/Libreboot-X200-Updated/raw/main/build.sh`
+3. `./build.sh 8mb free`
+
+The subsequent rom will be titled `x200_8mb_free.rom` and it will be placed inside the newly-created `roms` folder.
