@@ -1,0 +1,23 @@
+## SPDX-License-Identifier: GPL-2.0-only
+
+config CPU_QEMU_X86
+	bool
+	select UDELAY_TSC
+	select TSC_MONOTONIC_TIMER
+	select UNKNOWN_TSC_RATE
+	select SMM_ASEG
+
+if CPU_QEMU_X86
+
+config CPU_QEMU_X86_64
+	bool "Experimental 64bit support"
+	select ARCH_ALL_STAGES_X86_64
+	select ARCH_POSTCAR_X86_64
+
+config CPU_QEMU_X86_32
+	bool
+	default n if CPU_QEMU_X86_64
+	default y
+	select ARCH_ALL_STAGES_X86_32
+	select ARCH_POSTCAR_X86_32
+endif

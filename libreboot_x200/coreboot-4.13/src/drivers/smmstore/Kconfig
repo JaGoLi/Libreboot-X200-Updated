@@ -1,0 +1,50 @@
+## SPDX-License-Identifier: GPL-2.0-only
+
+config SMMSTORE
+	bool "Support for flash based, SMM mediated data store"
+	depends on BOOT_DEVICE_SUPPORTS_WRITES && HAVE_SMI_HANDLER
+	default y if PAYLOAD_TIANOCORE
+	select SPI_FLASH_SMM if BOOT_DEVICE_SPI_FLASH_RW_NOMMAP
+
+config SMMSTORE_V2
+	bool "Use version 2 of SMMSTORE API"
+	depends on SMMSTORE
+	default n
+	help
+	  Version 2 of SMMSTORE allows secure communication with SMM and
+	  makes no assumptions on the structure of the data stored within.
+	  It splits the store into chunks to allows fault tolerant writes.
+
+	  By using version 2 you cannot make use of software that expects
+	  a version 1 SMMSTORE.
+
+config SMMSTORE_IN_CBFS
+	bool
+	default n
+	help
+	  Select this if you want to add an SMMSTORE region to a
+	  cbfsfile in a cbfs FMAP region
+
+if SMMSTORE
+config SMMSTORE_REGION
+	string "fmap region in which SMM store file is kept" if SMMSTORE_IN_CBFS
+	default "RW_LEGACY" if CHROMEOS && SMMSTORE_IN_CBFS
+	default "COREBOOT" if SMMSTORE_IN_CBFS
+	default "SMMSTORE"
+
+config SMMSTORE_FILENAME
+	string "SMM store file name" if SMMSTORE_IN_CBFS
+	default "smm_store"
+
+config SMMSTORE_SIZE
+	hex "size of the SMMSTORE FMAP region"
+	depends on !SMMSTORE_IN_CBFS
+	default 0x40000
+	help
+	  Sets the size of the default SMMSTORE FMAP region.
+	  If using an UEFI payload, note that UEFI specifies at least 64K.
+	  The current implementation of SMMSTORE is append only, so until
+	  garbage collection is implemented it is better to set this to
+	  a rather large value.
+
+endif

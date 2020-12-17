@@ -1,0 +1,51 @@
+# SPDX-License-Identifier: GPL-2.0-only
+
+# Generic ITE romstage driver - Just enough UART initialisation code for
+# romstage.
+config SUPERIO_ITE_COMMON_PRE_RAM
+	bool
+
+# Generic ITE environment controller driver
+config SUPERIO_ITE_ENV_CTRL
+	bool
+
+if SUPERIO_ITE_ENV_CTRL
+
+config SUPERIO_ITE_ENV_CTRL_FAN16_CONFIG
+	bool
+	help
+	  Enable extended, 16-bit wide tacho counters.
+
+config SUPERIO_ITE_ENV_CTRL_8BIT_PWM
+	bool
+	help
+	  PWM duty cycles are set in 8-bit registers (instead of 7 bit).
+
+config SUPERIO_ITE_ENV_CTRL_PWM_FREQ2
+	bool
+	help
+	  The second FAN controller has a separate frequency setting.
+
+config SUPERIO_ITE_ENV_CTRL_NO_ONOFF
+	bool
+	help
+	  FAN controller always works in SmartGuardian mode.
+
+config SUPERIO_ITE_ENV_CTRL_5FANS
+	bool
+	help
+	  ITE FAN controller has 5 independent outputs.
+
+config SUPERIO_ITE_ENV_CTRL_7BIT_SLOPE_REG
+	bool
+	help
+	  Slope PWM registers have no separate BIT6 and are set directly by
+	  7-bit values instead.
+
+config SUPERIO_ITE_ENV_CTRL_EXT_ANY_TMPIN
+	bool
+	help
+	  Temperature can be read to any TMPIN from an external sensor via SST/PECI
+	  (instead of TMPIN3 only).
+
+endif

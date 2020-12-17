@@ -1,3 +1,0 @@
-int PARTTOOL_LIST_MARKER(const char *part_name,
-  activate_table_handle = PARTTOOL_LIST_MARKER ("msdos",
-  type_table_handle = PARTTOOL_LIST_MARKER ("msdos",

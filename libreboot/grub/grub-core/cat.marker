@@ -1,6 +1,0 @@
-INPUT_TERMINAL_LIST_MARKER(const char *name __attribute__ ((unused)), grub_term_input_t term)
-OUTPUT_TERMINAL_LIST_MARKER(const char *name __attribute__ ((unused)), grub_term_output_t term)
-COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
-P1COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
-grub_extcmd_t EXTCOMMAND_LIST_MARKER(const char *name, grub_extcmd_func_t func, grub_command_flags_t flags, const char *summary, const char *description, const struct grub_arg_option *parser)
-  cmd = EXTCOMMAND_LIST_MARKER("cat", grub_cmd_cat, 0, "FILE", "Show the contents of a file.", options)

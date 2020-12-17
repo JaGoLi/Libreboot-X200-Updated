@@ -1,4 +1,0 @@
-COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
-P1COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
-grub_extcmd_t EXTCOMMAND_LIST_MARKER(const char *name, grub_extcmd_func_t func, grub_command_flags_t flags, const char *summary, const char *description, const struct grub_arg_option *parser)
-    EXTCOMMAND_LIST_MARKER("search", grub_cmd_search, GRUB_COMMAND_FLAG_EXTRACTOR | GRUB_COMMAND_ACCEPT_DASH, "[-f|-l|-u|-s|-n] [--hint HINT [--hint HINT] ...]" " NAME", "Search devices by file, filesystem label" " or filesystem UUID." " If --set is specified, the first device found is" " set to a variable. If no variable name is" " specified, `root' is used.", options)

@@ -1,3 +1,0 @@
-  PARTMAP_LIST_MARKER (&grub_bsdlabel_partition_map);
-  PARTMAP_LIST_MARKER (&grub_netbsdlabel_partition_map);
-  PARTMAP_LIST_MARKER (&grub_openbsdlabel_partition_map);

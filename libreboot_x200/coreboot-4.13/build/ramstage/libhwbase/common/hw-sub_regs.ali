@@ -1,0 +1,81 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -Os
+A -Wuninitialized
+A -Wall
+A -Werror
+A -Wstrict-aliasing
+A -Wshadow
+A --RTS=build/libgnat-x86_32/
+A -gnatp
+A -g
+A -fno-common
+A -fomit-frame-pointer
+A -ffunction-sections
+A -fdata-sections
+A -gnatwa
+A -gnatw.e
+A -gnatwe
+A -gnatwD
+A -gnatw.H
+A -gnatwH
+A -gnatwT
+A -gnatwU
+A -gnatw.U
+A -gnatw.W
+A -gnatw.Y
+A -gnatyN
+A -m32
+A -fuse-ld=bfd
+A -fno-stack-protector
+A -mtune=i386
+A -march=i386
+P FX
+
+RN
+RR NO_ACCESS_SUBPROGRAMS
+RR NO_ALLOCATORS
+RR NO_CALENDAR
+RR NO_DISPATCH
+RR NO_EXCEPTION_HANDLERS
+RR NO_FIXED_POINT
+RR NO_FLOATING_POINT
+RR NO_IO
+RR NO_IMPLICIT_DYNAMIC_CODE
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_INITIALIZE_SCALARS
+RR NO_LOCAL_ALLOCATORS
+RR NO_RECURSION
+RR NO_SECONDARY_STACK
+RR NO_STREAMS
+RR NO_TASKING
+RR NO_UNCHECKED_ACCESS
+RR NO_UNCHECKED_DEALLOCATION
+RR STATIC_STORAGE_SIZE
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLEMENTATION_RESTRICTIONS
+RR NO_IMPLICIT_LOOPS
+RV NO_OBSOLESCENT_FEATURES
+RR NO_WIDE_CHARACTERS
+RV SPARK_05
+
+U hw.sub_regs%s		hw-sub_regs.ads		ab5919c7 NE OO PK GE IU
+W hw%s			hw.ads			hw.ali
+
+D hw.ads		20201120120135 349e873c hw%s
+D hw-sub_regs.ads	20201120120135 9fc79efb hw.sub_regs%s
+D interfac.ads		20201217160758 8908571f interfaces%s
+D system.ads		20201217160758 21923ced system%s
+D gnat.adc		20201120120135 00000000
+X 1 hw.ads
+17K9*HW 91e7 2|17r9 27r5
+X 2 hw-sub_regs.ads
+16E9 Index_T 25r27
+17k12*Sub_Regs 1|17k9 2|16z9 27l8 27e16
+19R9*T 23e14 25r39
+20i7 Byte_Offset{natural}
+21i7 MSB{natural}
+22i7 LSB{natural}
+25A9*Array_T(19R9)<16E9>
+

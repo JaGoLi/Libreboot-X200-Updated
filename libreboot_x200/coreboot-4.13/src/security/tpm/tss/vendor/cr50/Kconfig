@@ -1,0 +1,22 @@
+# SPDX-License-Identifier: GPL-2.0-only
+
+config TPM_CR50
+	bool
+	default y if MAINBOARD_HAS_I2C_TPM_CR50 || MAINBOARD_HAS_SPI_TPM_CR50
+
+if TPM_CR50
+
+config POWER_OFF_ON_CR50_UPDATE
+	bool
+	default y if ARCH_X86
+	help
+	  Power off machine while waiting for CR50 update to take effect.
+
+config CR50_USE_LONG_INTERRUPT_PULSES
+	bool
+	default n
+	help
+	  Whether to request longer interrupt pulses using Cr50 BOARD_CFG register.
+	  If the Cr50 firmware is too old, it will not be able to honor the request.
+
+endif

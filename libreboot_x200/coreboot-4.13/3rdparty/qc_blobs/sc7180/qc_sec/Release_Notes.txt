@@ -1,0 +1,19 @@
+
+=================== Release 00359 ================================
+This Release Notes file covers these blobs:
+ * qc_sec.mbn
+
+Version : 00008
+
+Release Date : May 27, 2020
+
+Supported Silicon : SC7180
+
+No special instructions, requirements or dependencies, files must be
+present in this folder to be pulled in during coreboot build
+
+Changes since last version :
+ * Perform SoC
+
+Errata : Nothing to report
+

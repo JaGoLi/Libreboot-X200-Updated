@@ -1,6 +1,0 @@
-COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
-P1COMMAND_LIST_MARKER(const char *name, grub_command_func_t func, const char *summary, const char *description)
-grub_extcmd_t EXTCOMMAND_LIST_MARKER(const char *name, grub_extcmd_func_t func, grub_command_flags_t flags, const char *summary, const char *description, const struct grub_arg_option *parser)
-    EXTCOMMAND_LIST_MARKER("load_env", grub_cmd_load_env, 0, "[-f FILE] [-s|--skip-sig] [variable_name_to_whitelist] [...]", "Load variables from environment block file.", options)
-    EXTCOMMAND_LIST_MARKER("list_env", grub_cmd_list_env, 0, "[-f FILE]", "List variables from environment block file.", options)
-    EXTCOMMAND_LIST_MARKER("save_env", grub_cmd_save_env, 0, "[-f FILE] variable_name [...]", "Save variables to environment block file.", options)

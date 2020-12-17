@@ -1,0 +1,19 @@
+
+=================== Release 00025 ================================
+This Release Notes file covers these blobs:
+ * i2c_fw.bin
+ * spi_fw.bin
+ * uart_fw.bin
+
+Version : 00025
+
+Release Date : May 22, 2020
+
+Supported Silicon : SC7180
+
+No special instructions, requirements or dependencies, files must be
+present in this folder to be pulled in during coreboot build
+
+Changes since last version : N/A
+
+Errata : Nothing to report
