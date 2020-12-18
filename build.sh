@@ -33,9 +33,9 @@ cp grub_vesafb.elf ../../../../coreboot-4.13/payload.elf
 
 ##Get grub background and config
 cd ../../../../coreboot-4.13
-wget https://github.com/JaGoLi/libreboot-resources/archive/libreboot_res1.tar.gz
-tar -xvf libreboot_res1.tar.gz
-mv libreboot-resources-libreboot_res1/* .
+wget https://github.com/JaGoLi/libreboot-resources/archive/libreboot_res2.tar.gz
+tar -xvf libreboot_res2.tar.gz
+mv libreboot-resources-libreboot_res2/* .
 
 ##Get coreboot configuration
 wget https://github.com/JaGoLi/libreboot-x200-configs/archive/release1.tar.gz
