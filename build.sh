@@ -23,7 +23,7 @@ cd grub
 patch -p1 < 0001-grub-core-normal-main.c-Display-FREE-AS-IN-FREEDOM-n.patch
 ./bootstrap
 ./configure --with-platform=coreboot
-make
+make -j`nproc`
 sudo make install
 
 ##Generate grub elf
@@ -45,17 +45,20 @@ cp 'libreboot-x200-configs-release1/gbe-ich9m.set' util/bincfg
 
 ##Compile utilities
 cd util/cbfstool
+make -j`nproc`
 sudo make install
 
 cd ../nvramtool
+make -j`nproc`
 sudo make install
 
 cd ../ifdtool
+make -j`nproc`
 sudo make install
 
 ##Generate descriptor and gbe rom
 cd ../bincfg
-make
+make -j`nproc`
 make gen-ifd-x200
 make gen-gbe-ich9m
 mkdir -p ../../3rdparty/blobs/mainboard/lenovo/x200
@@ -65,7 +68,7 @@ cp flashregion_3_gbe.bin ../../3rdparty/blobs/mainboard/lenovo/x200/gbe.bin
 ## Compile Coreboot
 cd ../..
 make crossgcc-i386 CPUS=$(nproc)
-make
+make -j`nproc`
 
 ## Add files to rom
 cp build/coreboot.rom x200.rom
