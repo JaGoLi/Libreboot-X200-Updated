@@ -1,4 +1,4 @@
-/home/jason/release1/libreboot_x200/coreboot-4.13/util/vboot_lib/cgpt/cgpt_show.o: \
+/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/vboot_lib/cgpt/cgpt_show.o: \
  cgpt/cgpt_show.c cgpt/cgpt.h cgpt/cgpt_endian.h \
  firmware/lib/cgptlib/include/cgptlib.h \
  firmware/2lib/include/2sysincludes.h firmware/include/gpt_misc.h \

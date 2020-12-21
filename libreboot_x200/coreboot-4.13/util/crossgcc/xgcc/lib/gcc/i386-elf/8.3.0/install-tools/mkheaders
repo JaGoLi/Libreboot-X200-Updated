@@ -53,7 +53,7 @@ if [ x$1 != x ] ; then
   prefix=$1
   shift
 else
-  prefix=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc
+  prefix=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc
 fi
 
 # Allow for alternate isysroot in which to find headers
@@ -68,7 +68,7 @@ fi
 exec_prefix=${prefix}
 # Directory in which to put the directories used by the compiler.
 libdir=${exec_prefix}/lib
-libexecdir=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib
+libexecdir=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib
 # Directory in which the compiler finds libraries, etc.
 libsubdir=${libdir}/gcc/${target_noncanonical}/${version}
 # Directory in which the compiler finds executables

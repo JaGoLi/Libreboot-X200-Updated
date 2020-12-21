@@ -151,7 +151,7 @@ package body ramstage_adamain is
    --   libgfxinit/common/hw-gfx-gma-pch-transcoder.o
    --   libgfxinit/common/hw-gfx-gma-pch-vga.o
    --   -L./
-   --   -L/home/jason/release1/libreboot_x200/coreboot-4.13/build/libgnat-x86_32/adalib/
+   --   -L/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/build/libgnat-x86_32/adalib/
    --   -static
    --   -lgnat
 --  END Object file/option list   

@@ -1,4 +1,4 @@
-# This image was built using coreboot 4.13-5c186c6777c9438ff4681929c9c25c98dee28bef
+# This image was built using coreboot 641f8512-dirty
 CONFIG_USE_OPTION_TABLE=y
 CONFIG_STATIC_OPTION_TABLE=y
 # CONFIG_USE_BLOBS is not set

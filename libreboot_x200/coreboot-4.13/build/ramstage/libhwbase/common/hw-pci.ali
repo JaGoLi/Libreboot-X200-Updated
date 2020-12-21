@@ -65,8 +65,8 @@ W hw%s			hw.ads			hw.ali
 
 D hw.ads		20201120120135 349e873c hw%s
 D hw-pci.ads		20201120120135 d2a0aee8 hw.pci%s
-D interfac.ads		20201217160758 8908571f interfaces%s
-D system.ads		20201217160758 21923ced system%s
+D interfac.ads		20201221020549 8908571f interfaces%s
+D system.ads		20201221020549 21923ced system%s
 D gnat.adc		20201120120135 00000000
 X 1 hw.ads
 17K9*HW 91e7 2|15r9 53r13 61r5

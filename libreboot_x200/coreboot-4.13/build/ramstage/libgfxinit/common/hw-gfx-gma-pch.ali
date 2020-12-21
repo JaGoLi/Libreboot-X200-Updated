@@ -67,18 +67,18 @@ W hw.gfx.gma%s		hw-gfx-gma.adb		hw-gfx-gma.ali
 W hw.gfx.gma.config%s	hw-gfx-gma-config.adb	hw-gfx-gma-config.ali
 
 D hw.ads		20201120120135 349e873c hw%s
-D hw-config.ads		20201217161209 3df8aafb hw.config%s
+D hw-config.ads		20201221020719 3df8aafb hw.config%s
 D hw-gfx.ads		20201120120135 d263ba5b hw.gfx%s
 D hw-gfx-framebuffer_filler.ads  20201120120135 0b5937f9 hw.gfx.framebuffer_filler%s
 D hw-gfx-gma.ads	20201120120135 68ac5893 hw.gfx.gma%s
-D hw-gfx-gma-config.ads	20201217161209 bc0b0f32 hw.gfx.gma.config%s
+D hw-gfx-gma-config.ads	20201221020719 bc0b0f32 hw.gfx.gma.config%s
 D hw-gfx-gma-pch.ads	20201120120135 e6dc1f0f hw.gfx.gma.pch%s
 D hw-pci.ads		20201120120135 d2a0aee8 hw.pci%s
 D hw-port_io.ads	20201120120135 42e65734 hw.port_io%s
 D hw-time.ads		20201120120135 9808c5a0 hw.time%s
-D interfac.ads		20201217160758 8908571f interfaces%s
-D system.ads		20201217160758 21923ced system%s
-D s-unstyp.ads		20201217160758 9d58a4c0 system.unsigned_types%s
+D interfac.ads		20201221020549 8908571f interfaces%s
+D system.ads		20201221020549 21923ced system%s
+D s-unstyp.ads		20201221020549 9d58a4c0 system.unsigned_types%s
 D gnat.adc		20201120120135 00000000
 X 1 hw.ads
 17K9*HW 91e7 7|15r6 17r17 37r5

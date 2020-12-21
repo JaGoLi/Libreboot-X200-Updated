@@ -1,0 +1,15 @@
+cbfs.o: cbfs.c cbfs.h coreboot_tables.h common.h
+cmos_lowlevel.o: cmos_lowlevel.c common.h cmos_lowlevel.h layout.h \
+ coreboot_tables.h
+cmos_ops.o: cmos_ops.c common.h cmos_ops.h layout.h coreboot_tables.h \
+ cmos_lowlevel.h
+common.o: common.c common.h
+compute_ip_checksum.o: compute_ip_checksum.c ip_checksum.h
+hexdump.o: hexdump.c hexdump.h
+input_file.o: input_file.c common.h input_file.h layout.h \
+ coreboot_tables.h cmos_ops.h cmos_lowlevel.h reg_expr.h
+layout.o: layout.c common.h layout.h coreboot_tables.h cmos_lowlevel.h
+lbtable.o: lbtable.c common.h coreboot_tables.h ip_checksum.h lbtable.h \
+ layout.h cmos_lowlevel.h hexdump.h cbfs.h
+reg_expr.o: reg_expr.c common.h reg_expr.h
+win32mmap.o: win32mmap.c common.h

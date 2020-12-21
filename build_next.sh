@@ -6,7 +6,7 @@ cd libreboot_x200/coreboot-4.13
 cp libreboot-x200-configs-release1/config_${1}_${2} .config
 
 ## Compile Coreboot
-make
+make -j`nproc`
 
 ## Add files to rom
 cp build/coreboot.rom x200.rom

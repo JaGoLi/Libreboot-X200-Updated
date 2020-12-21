@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib'
+libdir='/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib'

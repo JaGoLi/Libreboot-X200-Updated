@@ -79,15 +79,15 @@ W hw.gfx%s		hw-gfx.ads		hw-gfx.ali
 W hw.gfx.gma%s		hw-gfx-gma.adb		hw-gfx-gma.ali
 W hw.gfx.i2c%s		hw-gfx-i2c.ads		hw-gfx-i2c.ali
 
-D gnat.ads		20201217160758 fd2ad2f1 gnat%s
-D g-souinf.ads		20201217160758 7fd67a54 gnat.source_info%s
+D gnat.ads		20201221020549 fd2ad2f1 gnat%s
+D g-souinf.ads		20201221020549 7fd67a54 gnat.source_info%s
 D hw.ads		20201120120135 349e873c hw%s
-D hw-config.ads		20201217161209 3df8aafb hw.config%s
+D hw-config.ads		20201221020719 3df8aafb hw.config%s
 D hw-debug.ads		20201120120135 1328ccd5 hw.debug%s
 D hw-gfx.ads		20201120120135 d263ba5b hw.gfx%s
 D hw-gfx-framebuffer_filler.ads  20201120120135 0b5937f9 hw.gfx.framebuffer_filler%s
 D hw-gfx-gma.ads	20201120120135 68ac5893 hw.gfx.gma%s
-D hw-gfx-gma-config.ads	20201217161209 bc0b0f32 hw.gfx.gma.config%s
+D hw-gfx-gma-config.ads	20201221020719 bc0b0f32 hw.gfx.gma.config%s
 D hw-gfx-gma-i2c.ads	20201120120135 dc3da378 hw.gfx.gma.i2c%s
 D hw-gfx-gma-i2c.adb	20201120120135 53119437 hw.gfx.gma.i2c%b
 D hw-gfx-gma-registers.ads  20201120120135 711b211b hw.gfx.gma.registers%s
@@ -95,9 +95,9 @@ D hw-gfx-i2c.ads	20201120120135 e54ab4f7 hw.gfx.i2c%s
 D hw-pci.ads		20201120120135 d2a0aee8 hw.pci%s
 D hw-port_io.ads	20201120120135 42e65734 hw.port_io%s
 D hw-time.ads		20201120120135 9808c5a0 hw.time%s
-D interfac.ads		20201217160758 8908571f interfaces%s
-D system.ads		20201217160758 21923ced system%s
-D s-unstyp.ads		20201217160758 9d58a4c0 system.unsigned_types%s
+D interfac.ads		20201221020549 8908571f interfaces%s
+D system.ads		20201221020549 21923ced system%s
+D s-unstyp.ads		20201221020549 9d58a4c0 system.unsigned_types%s
 D gnat.adc		20201120120135 00000000
 X 1 gnat.ads
 34K9*GNAT 37e9 11|19r6 136r37 161r37 190r37 217r37

@@ -511,7 +511,7 @@ platforms.**
 Why is the latest AMD hardware unsupported in libreboot? {#amd}
 ----------------------------------------------------------------------------
 
-It is extremely unlikely that any post-2013 AMD hardware will ever be
+It is extremely unlikely that any modern AMD hardware will ever be
 supported in libreboot, due to severe security and freedom issues; so
 severe, that *the libreboot project recommends avoiding all modern AMD
 hardware. If you have an AMD based system affected by the problems
@@ -528,12 +528,13 @@ This is basically AMD's own version of the [Intel Management
 Engine](#intelme). It has all of the same basic security and freedom
 issues, although the implementation is wildly different.
 
-The Platform Security Processor (PSP) is built in on all Family 16h +
-systems (basically anything post-2013), and controls the main x86 core
-startup. PSP firmware is cryptographically signed with a strong key
-similar to the Intel ME. If the PSP firmware is not present, or if the
-AMD signing key is not present, the x86 cores will not be released from
-reset, rendering the system inoperable.
+The Platform Security Processor (PSP) is built in on the AMD CPUs whose
+[architecture](https://en.wikipedia.org/wiki/List_of_AMD_CPU_microarchitectures) is Late Family 16h (Puma), Zen 17h or later (and also on
+the AMD GPUs which are GCN 5th gen (Vega) or later). On the CPUs, a PSP
+controls the main x86 core startup. PSP firmware is cryptographically
+signed with a strong key similar to the Intel ME. If the PSP firmware
+is not present, or if the AMD signing key is not present, the x86 cores
+will not be released from reset, rendering the system inoperable.
 
 The PSP is an ARM core with TrustZone technology, built onto the main
 CPU die. As such, it has the ability to hide its own program code,
@@ -606,7 +607,10 @@ AMD seemed like it was on the right track in 2011 when it started
 cooperating with and releasing source code for several critical
 components to the coreboot project. It was not to be. For so-called
 economic reasons, they decided that it was not worth the time to invest
-in the coreboot project anymore.
+in the coreboot project anymore. Unfortunately they haven't even shared
+the source code of AGESA library for a Family 15h Steamroller/Excavator
+architectures (which, like the earlier fam15h Bulldozer/Piledriver, do
+not have a PSP) and released it to a coreboot project only as a binary.
 
 For a company to go from being so good, to so bad, in just 3 years,
 shows that something is seriously wrong with AMD. Like Intel, they do
@@ -627,11 +631,11 @@ security.
 What *can* I use, then? {#whatcaniuse}
 -------------------------
 
-Libreboot has support for fam15h AMD hardware (~2012 gen) and some
-older Intel platforms like Napa, Montevina, Eagle Lake, Lakeport (2004-2006).
-We also have support for some
-ARM chipsets (rk3288). On the Intel side, we're also interested in some
-of the chipsets that use Atom CPUs (rebranded from older chipsets,
+Libreboot has support for AMD hardware of Family 15h (Bulldozer or
+Piledriver, ~2012 gen) and some older Intel platforms like Napa,
+Montevina, Eagle Lake, Lakeport (2004-2006). We also have support for
+some ARM chipsets (rk3288). On the Intel side, we're also interested in
+some of the chipsets that use Atom CPUs (rebranded from older chipsets,
 mostly using ich7-based southbridges).
 
 Will libreboot work on a ThinkPad T400 or T500 with an ATI GPU?

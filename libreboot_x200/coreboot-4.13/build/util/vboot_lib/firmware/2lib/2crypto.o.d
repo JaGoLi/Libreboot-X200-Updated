@@ -1,4 +1,4 @@
-/home/jason/release1/libreboot_x200/coreboot-4.13/build/util/vboot_lib/firmware/2lib/2crypto.o: \
+/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/build/util/vboot_lib/firmware/2lib/2crypto.o: \
  firmware/2lib/2crypto.c firmware/2lib/include/2common.h \
  firmware/2lib/include/2api.h firmware/2lib/include/2constants.h \
  firmware/2lib/include/2crypto.h firmware/2lib/include/2sysincludes.h \

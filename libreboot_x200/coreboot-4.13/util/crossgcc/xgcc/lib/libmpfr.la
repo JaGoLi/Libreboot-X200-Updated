@@ -17,7 +17,7 @@ old_library='libmpfr.a'
 inherited_linker_flags=''
 
 # Libraries that this one depends upon.
-dependency_libs=' -L/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/libgmp.la'
+dependency_libs=' -L/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/libgmp.la'
 
 # Names of additional weak libraries provided by this library
 weak_library_names=''
@@ -38,4 +38,4 @@ dlopen=''
 dlpreopen=''
 
 # Directory that this library needs to be installed in:
-libdir='/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib'
+libdir='/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib'

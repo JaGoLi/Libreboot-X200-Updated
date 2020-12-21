@@ -1,4 +1,4 @@
-/home/jason/release1/libreboot_x200/coreboot-4.13/util/vboot_lib/futility/dump_kernel_config_lib.o: \
+/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/vboot_lib/futility/dump_kernel_config_lib.o: \
  futility/dump_kernel_config_lib.c futility/futility.h \
  firmware/2lib/include/2common.h firmware/2lib/include/2api.h \
  firmware/2lib/include/2constants.h firmware/2lib/include/2crypto.h \

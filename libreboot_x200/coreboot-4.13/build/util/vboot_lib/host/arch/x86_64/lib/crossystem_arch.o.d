@@ -1,4 +1,4 @@
-/home/jason/release1/libreboot_x200/coreboot-4.13/build/util/vboot_lib/host/arch/x86_64/lib/crossystem_arch.o: \
+/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/build/util/vboot_lib/host/arch/x86_64/lib/crossystem_arch.o: \
  host/arch/x86_64/lib/crossystem_arch.c \
  host/lib/include/crossystem_arch.h firmware/2lib/include/2sysincludes.h \
  firmware/2lib/include/2api.h firmware/2lib/include/2constants.h \

@@ -7,7 +7,7 @@ OUTPUT_FORMAT("elf32-iamcu", "elf32-iamcu",
 	      "elf32-iamcu")
 OUTPUT_ARCH(iamcu)
 ENTRY(_start)
-SEARCH_DIR("/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/i386-elf/lib");
+SEARCH_DIR("/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/i386-elf/lib");
 SECTIONS
 {
   /* Read-only sections, merged into text segment: */

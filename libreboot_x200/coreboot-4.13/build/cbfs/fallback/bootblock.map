@@ -245,12 +245,12 @@ ffff4010 T pci_mmconf
 ffff4104 T addrspace_32bit
 ffff4190 T coreboot_build
 ffff41ad T coreboot_extra_version
-ffff41c0 T coreboot_version
-ffff41f0 T _eprogram
-ffff41f0 T _etext
+ffff41b0 T coreboot_version
+ffff41c0 T _eprogram
+ffff41c0 T _etext
 ffff8000 A _car_mtrr_mask
-ffffff2d R __id_start
-ffffff2d r ver
+ffffff4c R __id_start
+ffffff4c r ver
 ffffff5b r vendor
 ffffff62 r part
 ffffff80 R __id_end

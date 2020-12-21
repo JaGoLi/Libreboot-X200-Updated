@@ -72,10 +72,10 @@ D hw.ads		20201120120135 349e873c hw%s
 D hw-time.ads		20201120120135 9808c5a0 hw.time%s
 D hw-time-timer.ads	20201120120135 a64ec4d2 hw.time.timer%s
 D hw-time-timer.adb	20201120120135 5460a366 hw.time.timer%b
-D interfac.ads		20201217160758 8908571f interfaces%s
-D i-c.ads		20201217160758 9d949f67 interfaces.c%s
-D system.ads		20201217160758 21923ced system%s
-D s-parame.ads		20201217160758 c706fdbb system.parameters%s
+D interfac.ads		20201221020549 8908571f interfaces%s
+D i-c.ads		20201221020549 9d949f67 interfaces.c%s
+D system.ads		20201221020549 21923ced system%s
+D s-parame.ads		20201221020549 c706fdbb system.parameters%s
 D gnat.adc		20201120120135 00000000
 X 1 hw.ads
 17K9*HW 91e7 3|15r17 18r39 20r39 42r5 4|5r14 35r5

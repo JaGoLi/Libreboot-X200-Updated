@@ -1,13 +1,13 @@
 # platform agnostic and host tools
-XGCCPATH:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/
-IASL:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/iasl
+XGCCPATH:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/
+IASL:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/iasl
 HOSTCC?=gcc
 HOSTCXX?=g++
 CPUS?=8
 
 ###########################################################################
 # arm
-# TARCH_SEARCH=  /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/armv7-a-eabi- armv7-a-eabi- armv7-a-linux-gnu- armv7-a-linux- armv7-a- armv7-a-linux-gnueabi- /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/armv7a-eabi- armv7a-eabi- armv7a-linux-gnu- armv7a-linux- armv7a- armv7a-linux-gnueabi- /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/arm-eabi- arm-eabi- arm-linux-gnu- arm-linux- arm- arm-linux-gnueabi-
+# TARCH_SEARCH=  /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/armv7-a-eabi- armv7-a-eabi- armv7-a-linux-gnu- armv7-a-linux- armv7-a- armv7-a-linux-gnueabi- /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/armv7a-eabi- armv7a-eabi- armv7a-linux-gnu- armv7a-linux- armv7a- armv7a-linux-gnueabi- /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/arm-eabi- arm-eabi- arm-linux-gnu- arm-linux- arm- arm-linux-gnueabi-
 # elf32-littlearm toolchain ()
 ARCH_SUPPORTED+=arm
 SUBARCH_SUPPORTED+=arm armv4 armv7 armv7_m armv7_r
@@ -64,7 +64,7 @@ CROSS_COMPILE_arm:=invalid
 
 ###########################################################################
 # arm64
-# TARCH_SEARCH=  /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/aarch64-elf- aarch64-elf- aarch64-linux-gnu- aarch64-linux- aarch64- aarch64-linux-gnueabi-
+# TARCH_SEARCH=  /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/aarch64-elf- aarch64-elf- aarch64-linux-gnu- aarch64-linux- aarch64- aarch64-linux-gnueabi-
 # elf64-littleaarch64 toolchain ()
 ARCH_SUPPORTED+=arm64
 SUBARCH_SUPPORTED+=arm64 armv8_64
@@ -121,7 +121,7 @@ CROSS_COMPILE_arm64:=invalid
 
 ###########################################################################
 # riscv
-# TARCH_SEARCH=  /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/riscv64-elf- riscv64-elf- riscv64-linux-gnu- riscv64-linux- riscv64- riscv64-linux-gnueabi- /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/riscv-elf- riscv-elf- riscv-linux-gnu- riscv-linux- riscv- riscv-linux-gnueabi-
+# TARCH_SEARCH=  /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/riscv64-elf- riscv64-elf- riscv64-linux-gnu- riscv64-linux- riscv64- riscv64-linux-gnueabi- /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/riscv-elf- riscv-elf- riscv-linux-gnu- riscv-linux- riscv- riscv-linux-gnueabi-
 # elf64-littleriscv toolchain ()
 ARCH_SUPPORTED+=riscv
 SUBARCH_SUPPORTED+=riscv
@@ -178,7 +178,7 @@ CROSS_COMPILE_riscv:=invalid
 
 ###########################################################################
 # x64
-# TARCH_SEARCH=  /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/x86_64-elf- x86_64-elf- x86_64-linux-gnu- x86_64-linux- x86_64- x86_64-linux-gnueabi-
+# TARCH_SEARCH=  /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/x86_64-elf- x86_64-elf- x86_64-linux-gnu- x86_64-linux- x86_64- x86_64-linux-gnueabi-
 # elf64-x86-64 toolchain (gcc)
 ARCH_SUPPORTED+=x86_64
 SUBARCH_SUPPORTED+=x86_64
@@ -236,28 +236,28 @@ CROSS_COMPILE_x86_64:=
 
 ###########################################################################
 # x86
-# TARCH_SEARCH=  /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf- i386-elf- i386-linux-gnu- i386-linux- i386- i386-linux-gnueabi- /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/x86_64-elf- x86_64-elf- x86_64-linux-gnu- x86_64-linux- x86_64- x86_64-linux-gnueabi-
-# elf32-i386 toolchain (/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-gcc)
+# TARCH_SEARCH=  /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf- i386-elf- i386-linux-gnu- i386-linux- i386- i386-linux-gnueabi- /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/x86_64-elf- x86_64-elf- x86_64-linux-gnu- x86_64-linux- x86_64- x86_64-linux-gnueabi-
+# elf32-i386 toolchain (/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-gcc)
 ARCH_SUPPORTED+=x86_32
 SUBARCH_SUPPORTED+=x86_32
 
 # GCC
-GCC_CC_x86_32:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-gcc
+GCC_CC_x86_32:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-gcc
 GCC_CFLAGS_x86_32:= -Wno-address-of-packed-member  -m32  -fuse-ld=bfd -fno-stack-protector -Wl,--build-id=none
 # Generally available for GCC's cc1:
 GCC_CFLAGS_x86_32+=-fno-delete-null-pointer-checks -Wlogical-op
 GCC_ADAFLAGS_x86_32:= -m32  -fuse-ld=bfd -fno-stack-protector -Wl,--build-id=none
-GCC_COMPILER_RT_x86_32:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a
+GCC_COMPILER_RT_x86_32:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a
 GCC_COMPILER_RT_FLAGS_x86_32:=--wrap __divdi3 --wrap __udivdi3 --wrap __moddi3 --wrap __umoddi3
 
 # Clang
 CLANG_CC_x86_32:=clang
-CLANG_CFLAGS_x86_32:=-target i386-elf  -ccc-gcc-name /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-gcc
+CLANG_CFLAGS_x86_32:=-target i386-elf  -ccc-gcc-name /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-gcc
 CLANG_CFLAGS_x86_32+=-Qunused-arguments -m32
 # tone down clang compiler warnings
 CLANG_CFLAGS_x86_32+=-Wno-unused-variable -Wno-unused-function -Wno-tautological-compare
 CLANG_CFLAGS_x86_32+=-Wno-shift-overflow -Wno-address-of-packed-member -Wno-initializer-overrides
-CLANG_COMPILER_RT_x86_32:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a
+CLANG_COMPILER_RT_x86_32:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a
 CLANG_COMPILER_RT_FLAGS_x86_32:=
 
 # GCC/Clang Common
@@ -279,27 +279,27 @@ else
 	CFLAGS_x86_32 += -march=i686
 endif
 
-CPP_x86_32:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-cpp
-AS_x86_32:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-as 
-LD_x86_32:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-ld.bfd 
+CPP_x86_32:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-cpp
+AS_x86_32:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-as 
+LD_x86_32:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-ld.bfd 
 ifeq ($(CONFIG_COMPILER_GCC)$(CONFIG_LP_COMPILER_GCC),y)
-	NM_x86_32:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-gcc-nm
-	AR_x86_32:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-gcc-ar
+	NM_x86_32:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-gcc-nm
+	AR_x86_32:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-gcc-ar
 else
-	NM_x86_32:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-nm
-	AR_x86_32:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-ar
+	NM_x86_32:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-nm
+	AR_x86_32:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-ar
 endif
-OBJCOPY_x86_32:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-objcopy
-OBJDUMP_x86_32:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-objdump
-READELF_x86_32:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-readelf
-STRIP_x86_32:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-strip
-GNATBIND_x86_32:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-gnatbind
-CROSS_COMPILE_x86_32:=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-
+OBJCOPY_x86_32:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-objcopy
+OBJDUMP_x86_32:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-objdump
+READELF_x86_32:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-readelf
+STRIP_x86_32:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-strip
+GNATBIND_x86_32:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-gnatbind
+CROSS_COMPILE_x86_32:=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/i386-elf-
 
 
 ###########################################################################
 # ppc64
-# TARCH_SEARCH=  /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/powerpc64-linux-gnu- powerpc64-linux-gnu- powerpc64-linux-gnu- powerpc64-linux- powerpc64- powerpc64-linux-gnueabi-
+# TARCH_SEARCH=  /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/bin/powerpc64-linux-gnu- powerpc64-linux-gnu- powerpc64-linux-gnu- powerpc64-linux- powerpc64- powerpc64-linux-gnueabi-
 # elf64-powerpc toolchain ()
 ARCH_SUPPORTED+=ppc64
 SUBARCH_SUPPORTED+=ppc64

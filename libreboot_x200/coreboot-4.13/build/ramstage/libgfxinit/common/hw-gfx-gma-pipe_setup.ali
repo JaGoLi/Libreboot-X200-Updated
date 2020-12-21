@@ -80,15 +80,15 @@ W hw.gfx.gma.config%s	hw-gfx-gma-config.adb	hw-gfx-gma-config.ali
 W hw.gfx.gma.config_helpers%s  hw-gfx-gma-config_helpers.adb  hw-gfx-gma-config_helpers.ali
 W hw.gfx.gma.registers%s  hw-gfx-gma-registers.adb  hw-gfx-gma-registers.ali
 
-D gnat.ads		20201217160758 fd2ad2f1 gnat%s
-D g-souinf.ads		20201217160758 7fd67a54 gnat.source_info%s
+D gnat.ads		20201221020549 fd2ad2f1 gnat%s
+D g-souinf.ads		20201221020549 7fd67a54 gnat.source_info%s
 D hw.ads		20201120120135 349e873c hw%s
-D hw-config.ads		20201217161209 3df8aafb hw.config%s
+D hw-config.ads		20201221020719 3df8aafb hw.config%s
 D hw-debug.ads		20201120120135 1328ccd5 hw.debug%s
 D hw-gfx.ads		20201120120135 d263ba5b hw.gfx%s
 D hw-gfx-framebuffer_filler.ads  20201120120135 0b5937f9 hw.gfx.framebuffer_filler%s
 D hw-gfx-gma.ads	20201120120135 68ac5893 hw.gfx.gma%s
-D hw-gfx-gma-config.ads	20201217161209 bc0b0f32 hw.gfx.gma.config%s
+D hw-gfx-gma-config.ads	20201221020719 bc0b0f32 hw.gfx.gma.config%s
 D hw-gfx-gma-config_helpers.ads  20201120120135 da346c78 hw.gfx.gma.config_helpers%s
 D hw-gfx-gma-pipe_setup.ads  20201120120135 571db1b9 hw.gfx.gma.pipe_setup%s
 D hw-gfx-gma-pipe_setup.adb  20201120120135 c571b1b8 hw.gfx.gma.pipe_setup%b
@@ -98,10 +98,10 @@ D hw-pci.ads		20201120120135 d2a0aee8 hw.pci%s
 D hw-port_io.ads	20201120120135 42e65734 hw.port_io%s
 D hw-port_io.adb	20201120120135 81157f10 hw.port_io%b
 D hw-time.ads		20201120120135 9808c5a0 hw.time%s
-D interfac.ads		20201217160758 8908571f interfaces%s
-D system.ads		20201217160758 21923ced system%s
-D s-maccod.ads		20201217160758 0fbb7bce system.machine_code%s
-D s-unstyp.ads		20201217160758 9d58a4c0 system.unsigned_types%s
+D interfac.ads		20201221020549 8908571f interfaces%s
+D system.ads		20201221020549 21923ced system%s
+D s-maccod.ads		20201221020549 0fbb7bce system.machine_code%s
+D s-unstyp.ads		20201221020549 9d58a4c0 system.unsigned_types%s
 D gnat.adc		20201120120135 00000000
 X 1 gnat.ads
 34K9*GNAT 37e9 12|16r6 217r37 298r37 681r37 697r37 734r37 757r37

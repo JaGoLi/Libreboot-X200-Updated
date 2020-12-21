@@ -1,4 +1,4 @@
-prefix=/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc
+prefix=/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

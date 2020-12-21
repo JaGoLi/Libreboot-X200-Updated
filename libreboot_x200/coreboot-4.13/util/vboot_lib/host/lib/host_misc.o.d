@@ -1,4 +1,4 @@
-/home/jason/release1/libreboot_x200/coreboot-4.13/util/vboot_lib/host/lib/host_misc.o: \
+/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/vboot_lib/host/lib/host_misc.o: \
  host/lib/host_misc.c host/lib/include/host_common.h \
  host/lib/include/host_key.h firmware/2lib/include/2crypto.h \
  firmware/2lib/include/2sysincludes.h \

@@ -73,8 +73,8 @@ D hw-mmio_range.ads	20201120120135 db989a0e hw.mmio_range%s
 D hw-mmio_regs.ads	20201120120135 889702d8 hw.mmio_regs%s
 D hw-mmio_regs.adb	20201120120135 77edae1e hw.mmio_regs%b
 D hw-sub_regs.ads	20201120120135 9fc79efb hw.sub_regs%s
-D interfac.ads		20201217160758 8908571f interfaces%s
-D system.ads		20201217160758 21923ced system%s
+D interfac.ads		20201221020549 8908571f interfaces%s
+D system.ads		20201221020549 21923ced system%s
 D gnat.adc		20201120120135 00000000
 X 1 hw.ads
 17K9*HW 91e7 3|15r6 16r6 18r10 27r9 128r5 4|15r14 93r5

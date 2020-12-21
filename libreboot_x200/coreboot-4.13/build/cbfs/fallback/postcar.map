@@ -1,14 +1,14 @@
 Archive member included to satisfy reference by file (symbol)
 
-/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
+/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
                               build/postcar/lib/gcc.o (__divdi3)
-/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
+/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
                               build/postcar/lib/gcc.o (__moddi3)
-/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
+/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
                               build/postcar/lib/gcc.o (__udivdi3)
-/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
+/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
                               build/postcar/lib/gcc.o (__umoddi3)
-/home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
+/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
                               build/postcar/console/vtxprintf.o (__udivmoddi4)
 
 Discarded input sections
@@ -207,8 +207,8 @@ Discarded input sections
  .debug_aranges
                 0x0000000000000000       0x18 build/postcar/mainboard/lenovo/x200/static.o
  .debug_line    0x0000000000000000      0x203 build/postcar/mainboard/lenovo/x200/static.o
- .debug_str     0x0000000000000000     0x141a build/postcar/mainboard/lenovo/x200/static.o
- .comment       0x0000000000000000       0x24 build/postcar/mainboard/lenovo/x200/static.o
+ .debug_str     0x0000000000000000     0x1420 build/postcar/mainboard/lenovo/x200/static.o
+ .comment       0x0000000000000000       0x36 build/postcar/mainboard/lenovo/x200/static.o
  .text          0x0000000000000000        0x0 build/postcar/acpi/acpi_pm.o
  .data          0x0000000000000000        0x0 build/postcar/acpi/acpi_pm.o
  .bss           0x0000000000000000        0x0 build/postcar/acpi/acpi_pm.o
@@ -230,8 +230,8 @@ Discarded input sections
                 0x0000000000000000       0x30 build/postcar/acpi/acpi_pm.o
  .debug_ranges  0x0000000000000000       0x38 build/postcar/acpi/acpi_pm.o
  .debug_line    0x0000000000000000      0x179 build/postcar/acpi/acpi_pm.o
- .debug_str     0x0000000000000000      0xe1f build/postcar/acpi/acpi_pm.o
- .comment       0x0000000000000000       0x24 build/postcar/acpi/acpi_pm.o
+ .debug_str     0x0000000000000000      0xe25 build/postcar/acpi/acpi_pm.o
+ .comment       0x0000000000000000       0x36 build/postcar/acpi/acpi_pm.o
  .eh_frame      0x0000000000000000       0x7c build/postcar/acpi/acpi_pm.o
  .text          0x0000000000000000        0x0 build/postcar/arch/x86/boot.o
  .data          0x0000000000000000        0x0 build/postcar/arch/x86/boot.o
@@ -240,7 +240,7 @@ Discarded input sections
                 0x0000000000000000       0x4f build/postcar/arch/x86/boot.o
  .text.payload_arch_usable_ram_quirk
                 0x0000000000000000       0x53 build/postcar/arch/x86/boot.o
- .comment       0x0000000000000000       0x24 build/postcar/arch/x86/boot.o
+ .comment       0x0000000000000000       0x36 build/postcar/arch/x86/boot.o
  .eh_frame      0x0000000000000000       0x68 build/postcar/arch/x86/boot.o
  .text          0x0000000000000000        0x0 build/postcar/arch/x86/cf9_reset.o
  .data          0x0000000000000000        0x0 build/postcar/arch/x86/cf9_reset.o
@@ -251,7 +251,7 @@ Discarded input sections
                 0x0000000000000000       0x1e build/postcar/arch/x86/cf9_reset.o
  .rodata.__func__.1307
                 0x0000000000000000        0xb build/postcar/arch/x86/cf9_reset.o
- .comment       0x0000000000000000       0x24 build/postcar/arch/x86/cf9_reset.o
+ .comment       0x0000000000000000       0x36 build/postcar/arch/x86/cf9_reset.o
  .eh_frame      0x0000000000000000       0x80 build/postcar/arch/x86/cf9_reset.o
  .text          0x0000000000000000        0x0 build/postcar/arch/x86/cpu_common.o
  .data          0x0000000000000000        0x0 build/postcar/arch/x86/cpu_common.o
@@ -275,8 +275,8 @@ Discarded input sections
                 0x0000000000000000       0x48 build/postcar/arch/x86/cpu_common.o
  .debug_ranges  0x0000000000000000       0x98 build/postcar/arch/x86/cpu_common.o
  .debug_line    0x0000000000000000      0x210 build/postcar/arch/x86/cpu_common.o
- .debug_str     0x0000000000000000      0x315 build/postcar/arch/x86/cpu_common.o
- .comment       0x0000000000000000       0x24 build/postcar/arch/x86/cpu_common.o
+ .debug_str     0x0000000000000000      0x31b build/postcar/arch/x86/cpu_common.o
+ .comment       0x0000000000000000       0x36 build/postcar/arch/x86/cpu_common.o
  .eh_frame      0x0000000000000000       0xb8 build/postcar/arch/x86/cpu_common.o
  .data          0x0000000000000000        0x0 build/postcar/arch/x86/exit_car.o
  .bss           0x0000000000000000        0x0 build/postcar/arch/x86/exit_car.o
@@ -285,50 +285,50 @@ Discarded input sections
  .text          0x0000000000000000        0x0 build/postcar/arch/x86/memcpy.o
  .data          0x0000000000000000        0x0 build/postcar/arch/x86/memcpy.o
  .bss           0x0000000000000000        0x0 build/postcar/arch/x86/memcpy.o
- .comment       0x0000000000000000       0x24 build/postcar/arch/x86/memcpy.o
+ .comment       0x0000000000000000       0x36 build/postcar/arch/x86/memcpy.o
  .eh_frame      0x0000000000000000       0x3c build/postcar/arch/x86/memcpy.o
  .text          0x0000000000000000        0x0 build/postcar/arch/x86/memmove.o
  .data          0x0000000000000000        0x0 build/postcar/arch/x86/memmove.o
  .bss           0x0000000000000000        0x0 build/postcar/arch/x86/memmove.o
- .comment       0x0000000000000000       0x24 build/postcar/arch/x86/memmove.o
+ .comment       0x0000000000000000       0x36 build/postcar/arch/x86/memmove.o
  .eh_frame      0x0000000000000000       0x50 build/postcar/arch/x86/memmove.o
  .text          0x0000000000000000        0x0 build/postcar/arch/x86/memset.o
  .data          0x0000000000000000        0x0 build/postcar/arch/x86/memset.o
  .bss           0x0000000000000000        0x0 build/postcar/arch/x86/memset.o
- .comment       0x0000000000000000       0x24 build/postcar/arch/x86/memset.o
+ .comment       0x0000000000000000       0x36 build/postcar/arch/x86/memset.o
  .eh_frame      0x0000000000000000       0x3c build/postcar/arch/x86/memset.o
  .text          0x0000000000000000        0x0 build/postcar/arch/x86/mmap_boot.o
  .data          0x0000000000000000        0x0 build/postcar/arch/x86/mmap_boot.o
  .bss           0x0000000000000000        0x0 build/postcar/arch/x86/mmap_boot.o
- .comment       0x0000000000000000       0x24 build/postcar/arch/x86/mmap_boot.o
+ .comment       0x0000000000000000       0x36 build/postcar/arch/x86/mmap_boot.o
  .eh_frame      0x0000000000000000       0x2c build/postcar/arch/x86/mmap_boot.o
  .text          0x0000000000000000        0x0 build/postcar/arch/x86/post.o
  .data          0x0000000000000000        0x0 build/postcar/arch/x86/post.o
  .bss           0x0000000000000000        0x0 build/postcar/arch/x86/post.o
- .comment       0x0000000000000000       0x24 build/postcar/arch/x86/post.o
+ .comment       0x0000000000000000       0x36 build/postcar/arch/x86/post.o
  .eh_frame      0x0000000000000000       0x2c build/postcar/arch/x86/post.o
  .text          0x0000000000000000        0x0 build/postcar/arch/x86/postcar.o
  .data          0x0000000000000000        0x0 build/postcar/arch/x86/postcar.o
  .bss           0x0000000000000000        0x0 build/postcar/arch/x86/postcar.o
- .comment       0x0000000000000000       0x24 build/postcar/arch/x86/postcar.o
+ .comment       0x0000000000000000       0x36 build/postcar/arch/x86/postcar.o
  .eh_frame      0x0000000000000000       0x58 build/postcar/arch/x86/postcar.o
  .text          0x0000000000000000        0x0 build/postcar/arch/x86/timestamp.o
  .data          0x0000000000000000        0x0 build/postcar/arch/x86/timestamp.o
  .bss           0x0000000000000000        0x0 build/postcar/arch/x86/timestamp.o
  .text.timestamp_tick_freq_mhz
                 0x0000000000000000        0x5 build/postcar/arch/x86/timestamp.o
- .comment       0x0000000000000000       0x24 build/postcar/arch/x86/timestamp.o
+ .comment       0x0000000000000000       0x36 build/postcar/arch/x86/timestamp.o
  .eh_frame      0x0000000000000000       0x58 build/postcar/arch/x86/timestamp.o
  .text          0x0000000000000000        0x0 build/postcar/commonlib/bsd/cbfs_private.o
  .data          0x0000000000000000        0x0 build/postcar/commonlib/bsd/cbfs_private.o
  .bss           0x0000000000000000        0x0 build/postcar/commonlib/bsd/cbfs_private.o
- .comment       0x0000000000000000       0x24 build/postcar/commonlib/bsd/cbfs_private.o
+ .comment       0x0000000000000000       0x36 build/postcar/commonlib/bsd/cbfs_private.o
  .eh_frame      0x0000000000000000      0x1f0 build/postcar/commonlib/bsd/cbfs_private.o
  .text          0x0000000000000000        0x0 build/postcar/commonlib/bsd/lz4_wrapper.o
  .data          0x0000000000000000        0x0 build/postcar/commonlib/bsd/lz4_wrapper.o
  .bss           0x0000000000000000        0x0 build/postcar/commonlib/bsd/lz4_wrapper.o
  .text.ulz4f    0x0000000000000000       0x1a build/postcar/commonlib/bsd/lz4_wrapper.o
- .comment       0x0000000000000000       0x24 build/postcar/commonlib/bsd/lz4_wrapper.o
+ .comment       0x0000000000000000       0x36 build/postcar/commonlib/bsd/lz4_wrapper.o
  .eh_frame      0x0000000000000000       0xf4 build/postcar/commonlib/bsd/lz4_wrapper.o
  .text          0x0000000000000000        0x0 build/postcar/commonlib/cbfs.o
  .data          0x0000000000000000        0x0 build/postcar/commonlib/cbfs.o
@@ -343,7 +343,7 @@ Discarded input sections
                 0x0000000000000000       0x8b build/postcar/commonlib/cbfs.o
  .text.cbfs_vb2_hash_contents
                 0x0000000000000000      0x115 build/postcar/commonlib/cbfs.o
- .comment       0x0000000000000000       0x24 build/postcar/commonlib/cbfs.o
+ .comment       0x0000000000000000       0x36 build/postcar/commonlib/cbfs.o
  .eh_frame      0x0000000000000000      0x370 build/postcar/commonlib/cbfs.o
  .text          0x0000000000000000        0x0 build/postcar/commonlib/iobuf.o
  .data          0x0000000000000000        0x0 build/postcar/commonlib/iobuf.o
@@ -435,8 +435,8 @@ Discarded input sections
                 0x0000000000000000      0x148 build/postcar/commonlib/iobuf.o
  .debug_ranges  0x0000000000000000      0x900 build/postcar/commonlib/iobuf.o
  .debug_line    0x0000000000000000     0x1102 build/postcar/commonlib/iobuf.o
- .debug_str     0x0000000000000000      0x68d build/postcar/commonlib/iobuf.o
- .comment       0x0000000000000000       0x24 build/postcar/commonlib/iobuf.o
+ .debug_str     0x0000000000000000      0x693 build/postcar/commonlib/iobuf.o
+ .comment       0x0000000000000000       0x36 build/postcar/commonlib/iobuf.o
  .eh_frame      0x0000000000000000      0x590 build/postcar/commonlib/iobuf.o
  .text          0x0000000000000000        0x0 build/postcar/commonlib/mem_pool.o
  .data          0x0000000000000000        0x0 build/postcar/commonlib/mem_pool.o
@@ -452,8 +452,8 @@ Discarded input sections
                 0x0000000000000000       0x28 build/postcar/commonlib/mem_pool.o
  .debug_ranges  0x0000000000000000       0x18 build/postcar/commonlib/mem_pool.o
  .debug_line    0x0000000000000000      0x115 build/postcar/commonlib/mem_pool.o
- .debug_str     0x0000000000000000      0x22d build/postcar/commonlib/mem_pool.o
- .comment       0x0000000000000000       0x24 build/postcar/commonlib/mem_pool.o
+ .debug_str     0x0000000000000000      0x233 build/postcar/commonlib/mem_pool.o
+ .comment       0x0000000000000000       0x36 build/postcar/commonlib/mem_pool.o
  .eh_frame      0x0000000000000000       0x50 build/postcar/commonlib/mem_pool.o
  .text          0x0000000000000000        0x0 build/postcar/commonlib/region.o
  .data          0x0000000000000000        0x0 build/postcar/commonlib/region.o
@@ -510,31 +510,31 @@ Discarded input sections
                 0x0000000000000000       0x14 build/postcar/commonlib/region.o
  .rodata.mem_rdev_rw_ops
                 0x0000000000000000       0x14 build/postcar/commonlib/region.o
- .comment       0x0000000000000000       0x24 build/postcar/commonlib/region.o
+ .comment       0x0000000000000000       0x36 build/postcar/commonlib/region.o
  .eh_frame      0x0000000000000000      0x5b0 build/postcar/commonlib/region.o
  .text          0x0000000000000000        0x0 build/postcar/console/console.o
  .data          0x0000000000000000        0x0 build/postcar/console/console.o
  .bss           0x0000000000000000        0x0 build/postcar/console/console.o
  .text.console_write_line
                 0x0000000000000000       0x2d build/postcar/console/console.o
- .comment       0x0000000000000000       0x24 build/postcar/console/console.o
+ .comment       0x0000000000000000       0x36 build/postcar/console/console.o
  .eh_frame      0x0000000000000000       0x88 build/postcar/console/console.o
  .text          0x0000000000000000        0x0 build/postcar/console/die.o
  .data          0x0000000000000000        0x0 build/postcar/console/die.o
  .bss           0x0000000000000000        0x0 build/postcar/console/die.o
- .comment       0x0000000000000000       0x24 build/postcar/console/die.o
+ .comment       0x0000000000000000       0x36 build/postcar/console/die.o
  .eh_frame      0x0000000000000000       0x4c build/postcar/console/die.o
  .text          0x0000000000000000        0x0 build/postcar/console/init.o
  .data          0x0000000000000000        0x0 build/postcar/console/init.o
  .bss           0x0000000000000000        0x0 build/postcar/console/init.o
- .comment       0x0000000000000000       0x24 build/postcar/console/init.o
+ .comment       0x0000000000000000       0x36 build/postcar/console/init.o
  .eh_frame      0x0000000000000000       0x64 build/postcar/console/init.o
  .text          0x0000000000000000        0x0 build/postcar/console/post.o
  .data          0x0000000000000000        0x0 build/postcar/console/post.o
  .bss           0x0000000000000000        0x0 build/postcar/console/post.o
  .text.arch_post_code
                 0x0000000000000000        0x1 build/postcar/console/post.o
- .comment       0x0000000000000000       0x24 build/postcar/console/post.o
+ .comment       0x0000000000000000       0x36 build/postcar/console/post.o
  .eh_frame      0x0000000000000000       0x64 build/postcar/console/post.o
  .text          0x0000000000000000        0x0 build/postcar/console/printk.o
  .data          0x0000000000000000        0x0 build/postcar/console/printk.o
@@ -543,7 +543,7 @@ Discarded input sections
                 0x0000000000000000       0x10 build/postcar/console/printk.o
  .text.do_putchar
                 0x0000000000000000       0x31 build/postcar/console/printk.o
- .comment       0x0000000000000000       0x24 build/postcar/console/printk.o
+ .comment       0x0000000000000000       0x36 build/postcar/console/printk.o
  .eh_frame      0x0000000000000000      0x16c build/postcar/console/printk.o
  .text          0x0000000000000000        0x0 build/postcar/console/vsprintf.o
  .data          0x0000000000000000        0x0 build/postcar/console/vsprintf.o
@@ -561,13 +561,13 @@ Discarded input sections
                 0x0000000000000000       0x30 build/postcar/console/vsprintf.o
  .debug_ranges  0x0000000000000000       0x20 build/postcar/console/vsprintf.o
  .debug_line    0x0000000000000000      0x161 build/postcar/console/vsprintf.o
- .debug_str     0x0000000000000000      0x20e build/postcar/console/vsprintf.o
- .comment       0x0000000000000000       0x24 build/postcar/console/vsprintf.o
+ .debug_str     0x0000000000000000      0x214 build/postcar/console/vsprintf.o
+ .comment       0x0000000000000000       0x36 build/postcar/console/vsprintf.o
  .eh_frame      0x0000000000000000       0x80 build/postcar/console/vsprintf.o
  .text          0x0000000000000000        0x0 build/postcar/console/vtxprintf.o
  .data          0x0000000000000000        0x0 build/postcar/console/vtxprintf.o
  .bss           0x0000000000000000        0x0 build/postcar/console/vtxprintf.o
- .comment       0x0000000000000000       0x24 build/postcar/console/vtxprintf.o
+ .comment       0x0000000000000000       0x36 build/postcar/console/vtxprintf.o
  .eh_frame      0x0000000000000000      0x25c build/postcar/console/vtxprintf.o
  .data          0x0000000000000000        0x0 build/postcar/cpu/intel/car/p4-netburst/exit_car.o
  .bss           0x0000000000000000        0x0 build/postcar/cpu/intel/car/p4-netburst/exit_car.o
@@ -580,17 +580,17 @@ Discarded input sections
                 0x0000000000000000       0x20 build/postcar/cpu/intel/common/fsb.o
  .text.get_ia32_fsb_x3
                 0x0000000000000000       0x37 build/postcar/cpu/intel/common/fsb.o
- .comment       0x0000000000000000       0x24 build/postcar/cpu/intel/common/fsb.o
+ .comment       0x0000000000000000       0x36 build/postcar/cpu/intel/common/fsb.o
  .eh_frame      0x0000000000000000       0xb8 build/postcar/cpu/intel/common/fsb.o
  .text          0x0000000000000000        0x0 build/postcar/cpu/x86/lapic/boot_cpu.o
  .data          0x0000000000000000        0x0 build/postcar/cpu/x86/lapic/boot_cpu.o
  .bss           0x0000000000000000        0x0 build/postcar/cpu/x86/lapic/boot_cpu.o
- .comment       0x0000000000000000       0x24 build/postcar/cpu/x86/lapic/boot_cpu.o
+ .comment       0x0000000000000000       0x36 build/postcar/cpu/x86/lapic/boot_cpu.o
  .eh_frame      0x0000000000000000       0x2c build/postcar/cpu/x86/lapic/boot_cpu.o
  .text          0x0000000000000000        0x0 build/postcar/cpu/x86/mtrr/debug.o
  .data          0x0000000000000000        0x0 build/postcar/cpu/x86/mtrr/debug.o
  .bss           0x0000000000000000        0x0 build/postcar/cpu/x86/mtrr/debug.o
- .comment       0x0000000000000000       0x24 build/postcar/cpu/x86/mtrr/debug.o
+ .comment       0x0000000000000000       0x36 build/postcar/cpu/x86/mtrr/debug.o
  .eh_frame      0x0000000000000000       0x2c build/postcar/cpu/x86/mtrr/debug.o
  .text          0x0000000000000000        0x0 build/postcar/cpu/x86/pae/pgtbl.o
  .data          0x0000000000000000        0x0 build/postcar/cpu/x86/pae/pgtbl.o
@@ -632,8 +632,8 @@ Discarded input sections
                 0x0000000000000000       0x68 build/postcar/cpu/x86/pae/pgtbl.o
  .debug_ranges  0x0000000000000000      0x1e8 build/postcar/cpu/x86/pae/pgtbl.o
  .debug_line    0x0000000000000000      0x830 build/postcar/cpu/x86/pae/pgtbl.o
- .debug_str     0x0000000000000000      0x923 build/postcar/cpu/x86/pae/pgtbl.o
- .comment       0x0000000000000000       0x24 build/postcar/cpu/x86/pae/pgtbl.o
+ .debug_str     0x0000000000000000      0x929 build/postcar/cpu/x86/pae/pgtbl.o
+ .comment       0x0000000000000000       0x36 build/postcar/cpu/x86/pae/pgtbl.o
  .eh_frame      0x0000000000000000      0x240 build/postcar/cpu/x86/pae/pgtbl.o
  .text          0x0000000000000000        0x0 build/postcar/cpu/x86/smm/tseg_region.o
  .data          0x0000000000000000        0x0 build/postcar/cpu/x86/smm/tseg_region.o
@@ -642,7 +642,7 @@ Discarded input sections
                 0x0000000000000000       0x47 build/postcar/cpu/x86/smm/tseg_region.o
  .text.smm_list_regions
                 0x0000000000000000       0x7e build/postcar/cpu/x86/smm/tseg_region.o
- .comment       0x0000000000000000       0x24 build/postcar/cpu/x86/smm/tseg_region.o
+ .comment       0x0000000000000000       0x36 build/postcar/cpu/x86/smm/tseg_region.o
  .eh_frame      0x0000000000000000      0x134 build/postcar/cpu/x86/smm/tseg_region.o
  .text          0x0000000000000000        0x0 build/postcar/cpu/x86/tsc/delay_tsc.o
  .data          0x0000000000000000        0x0 build/postcar/cpu/x86/tsc/delay_tsc.o
@@ -650,7 +650,7 @@ Discarded input sections
  .text.init_timer
                 0x0000000000000000        0x5 build/postcar/cpu/x86/tsc/delay_tsc.o
  .text.udelay   0x0000000000000000       0x50 build/postcar/cpu/x86/tsc/delay_tsc.o
- .comment       0x0000000000000000       0x24 build/postcar/cpu/x86/tsc/delay_tsc.o
+ .comment       0x0000000000000000       0x36 build/postcar/cpu/x86/tsc/delay_tsc.o
  .eh_frame      0x0000000000000000       0xac build/postcar/cpu/x86/tsc/delay_tsc.o
  .text          0x0000000000000000        0x0 build/postcar/device/device_const.o
  .data          0x0000000000000000        0x0 build/postcar/device/device_const.o
@@ -708,8 +708,8 @@ Discarded input sections
                 0x0000000000000000       0xa0 build/postcar/device/device_const.o
  .debug_ranges  0x0000000000000000       0xc8 build/postcar/device/device_const.o
  .debug_line    0x0000000000000000      0x554 build/postcar/device/device_const.o
- .debug_str     0x0000000000000000      0xb3b build/postcar/device/device_const.o
- .comment       0x0000000000000000       0x24 build/postcar/device/device_const.o
+ .debug_str     0x0000000000000000      0xb41 build/postcar/device/device_const.o
+ .comment       0x0000000000000000       0x36 build/postcar/device/device_const.o
  .eh_frame      0x0000000000000000      0x2b0 build/postcar/device/device_const.o
  .text          0x0000000000000000        0x0 build/postcar/device/pci_early.o
  .data          0x0000000000000000        0x0 build/postcar/device/pci_early.o
@@ -733,8 +733,8 @@ Discarded input sections
                 0x0000000000000000       0x48 build/postcar/device/pci_early.o
  .debug_ranges  0x0000000000000000      0x508 build/postcar/device/pci_early.o
  .debug_line    0x0000000000000000      0x5bc build/postcar/device/pci_early.o
- .debug_str     0x0000000000000000      0xb3b build/postcar/device/pci_early.o
- .comment       0x0000000000000000       0x24 build/postcar/device/pci_early.o
+ .debug_str     0x0000000000000000      0xb41 build/postcar/device/pci_early.o
+ .comment       0x0000000000000000       0x36 build/postcar/device/pci_early.o
  .eh_frame      0x0000000000000000       0xe8 build/postcar/device/pci_early.o
  .text          0x0000000000000000        0x0 build/postcar/device/pci_ops.o
  .data          0x0000000000000000        0x0 build/postcar/device/pci_ops.o
@@ -749,7 +749,7 @@ Discarded input sections
                 0x0000000000000000        0xd build/postcar/device/pci_ops.o
  .text.pci_dev_is_wake_source
                 0x0000000000000000       0x7a build/postcar/device/pci_ops.o
- .comment       0x0000000000000000       0x24 build/postcar/device/pci_ops.o
+ .comment       0x0000000000000000       0x36 build/postcar/device/pci_ops.o
  .eh_frame      0x0000000000000000       0xb0 build/postcar/device/pci_ops.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/pc80/pc/i8254.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/pc80/pc/i8254.o
@@ -765,8 +765,8 @@ Discarded input sections
                 0x0000000000000000       0x28 build/postcar/drivers/pc80/pc/i8254.o
  .debug_ranges  0x0000000000000000       0x78 build/postcar/drivers/pc80/pc/i8254.o
  .debug_line    0x0000000000000000      0x238 build/postcar/drivers/pc80/pc/i8254.o
- .debug_str     0x0000000000000000      0x268 build/postcar/drivers/pc80/pc/i8254.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/pc80/pc/i8254.o
+ .debug_str     0x0000000000000000      0x26e build/postcar/drivers/pc80/pc/i8254.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/pc80/pc/i8254.o
  .eh_frame      0x0000000000000000       0x5c build/postcar/drivers/pc80/pc/i8254.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/pc80/rtc/mc146818rtc.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/pc80/rtc/mc146818rtc.o
@@ -795,7 +795,7 @@ Discarded input sections
  .text.rtc_get  0x0000000000000000       0xd7 build/postcar/drivers/pc80/rtc/mc146818rtc.o
  .text.set_boot_successful
                 0x0000000000000000       0x16 build/postcar/drivers/pc80/rtc/mc146818rtc.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/pc80/rtc/mc146818rtc.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/pc80/rtc/mc146818rtc.o
  .eh_frame      0x0000000000000000      0x1e0 build/postcar/drivers/pc80/rtc/mc146818rtc.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/pc80/rtc/mc146818rtc_boot.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/pc80/rtc/mc146818rtc_boot.o
@@ -813,8 +813,8 @@ Discarded input sections
                 0x0000000000000000       0x28 build/postcar/drivers/pc80/rtc/mc146818rtc_boot.o
  .debug_ranges  0x0000000000000000      0x130 build/postcar/drivers/pc80/rtc/mc146818rtc_boot.o
  .debug_line    0x0000000000000000      0x350 build/postcar/drivers/pc80/rtc/mc146818rtc_boot.o
- .debug_str     0x0000000000000000      0x2f8 build/postcar/drivers/pc80/rtc/mc146818rtc_boot.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/pc80/rtc/mc146818rtc_boot.o
+ .debug_str     0x0000000000000000      0x2fe build/postcar/drivers/pc80/rtc/mc146818rtc_boot.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/pc80/rtc/mc146818rtc_boot.o
  .eh_frame      0x0000000000000000       0x60 build/postcar/drivers/pc80/rtc/mc146818rtc_boot.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/pc80/rtc/option.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/pc80/rtc/option.o
@@ -835,7 +835,7 @@ Discarded input sections
                 0x0000000000000000        0xd build/postcar/drivers/pc80/rtc/option.o
  .text.sanitize_cmos
                 0x0000000000000000       0x6a build/postcar/drivers/pc80/rtc/option.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/pc80/rtc/option.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/pc80/rtc/option.o
  .eh_frame      0x0000000000000000      0x2d4 build/postcar/drivers/pc80/rtc/option.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/spi/adesto.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/spi/adesto.o
@@ -849,8 +849,8 @@ Discarded input sections
  .debug_aranges
                 0x0000000000000000       0x18 build/postcar/drivers/spi/adesto.o
  .debug_line    0x0000000000000000       0xc1 build/postcar/drivers/spi/adesto.o
- .debug_str     0x0000000000000000      0x818 build/postcar/drivers/spi/adesto.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/spi/adesto.o
+ .debug_str     0x0000000000000000      0x81e build/postcar/drivers/spi/adesto.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/spi/adesto.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/spi/amic.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/spi/amic.o
  .bss           0x0000000000000000        0x0 build/postcar/drivers/spi/amic.o
@@ -863,8 +863,8 @@ Discarded input sections
  .debug_aranges
                 0x0000000000000000       0x18 build/postcar/drivers/spi/amic.o
  .debug_line    0x0000000000000000       0xbf build/postcar/drivers/spi/amic.o
- .debug_str     0x0000000000000000      0x816 build/postcar/drivers/spi/amic.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/spi/amic.o
+ .debug_str     0x0000000000000000      0x81c build/postcar/drivers/spi/amic.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/spi/amic.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/spi/atmel.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/spi/atmel.o
  .bss           0x0000000000000000        0x0 build/postcar/drivers/spi/atmel.o
@@ -877,8 +877,8 @@ Discarded input sections
  .debug_aranges
                 0x0000000000000000       0x18 build/postcar/drivers/spi/atmel.o
  .debug_line    0x0000000000000000       0xc0 build/postcar/drivers/spi/atmel.o
- .debug_str     0x0000000000000000      0x817 build/postcar/drivers/spi/atmel.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/spi/atmel.o
+ .debug_str     0x0000000000000000      0x81d build/postcar/drivers/spi/atmel.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/spi/atmel.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/spi/bitbang.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/spi/bitbang.o
  .bss           0x0000000000000000        0x0 build/postcar/drivers/spi/bitbang.o
@@ -895,8 +895,8 @@ Discarded input sections
                 0x0000000000000000       0x30 build/postcar/drivers/spi/bitbang.o
  .debug_ranges  0x0000000000000000       0x38 build/postcar/drivers/spi/bitbang.o
  .debug_line    0x0000000000000000      0x16f build/postcar/drivers/spi/bitbang.o
- .debug_str     0x0000000000000000      0x28b build/postcar/drivers/spi/bitbang.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/spi/bitbang.o
+ .debug_str     0x0000000000000000      0x291 build/postcar/drivers/spi/bitbang.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/spi/bitbang.o
  .eh_frame      0x0000000000000000       0xbc build/postcar/drivers/spi/bitbang.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/spi/boot_device_rw_nommap.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/spi/boot_device_rw_nommap.o
@@ -931,8 +931,8 @@ Discarded input sections
                 0x0000000000000000       0x50 build/postcar/drivers/spi/boot_device_rw_nommap.o
  .debug_ranges  0x0000000000000000       0xa0 build/postcar/drivers/spi/boot_device_rw_nommap.o
  .debug_line    0x0000000000000000      0x29c build/postcar/drivers/spi/boot_device_rw_nommap.o
- .debug_str     0x0000000000000000      0x755 build/postcar/drivers/spi/boot_device_rw_nommap.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/spi/boot_device_rw_nommap.o
+ .debug_str     0x0000000000000000      0x75b build/postcar/drivers/spi/boot_device_rw_nommap.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/spi/boot_device_rw_nommap.o
  .eh_frame      0x0000000000000000      0x14c build/postcar/drivers/spi/boot_device_rw_nommap.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/spi/eon.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/spi/eon.o
@@ -946,8 +946,8 @@ Discarded input sections
  .debug_aranges
                 0x0000000000000000       0x18 build/postcar/drivers/spi/eon.o
  .debug_line    0x0000000000000000       0xbe build/postcar/drivers/spi/eon.o
- .debug_str     0x0000000000000000      0x815 build/postcar/drivers/spi/eon.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/spi/eon.o
+ .debug_str     0x0000000000000000      0x81b build/postcar/drivers/spi/eon.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/spi/eon.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/spi/gigadevice.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/spi/gigadevice.o
  .bss           0x0000000000000000        0x0 build/postcar/drivers/spi/gigadevice.o
@@ -960,8 +960,8 @@ Discarded input sections
  .debug_aranges
                 0x0000000000000000       0x18 build/postcar/drivers/spi/gigadevice.o
  .debug_line    0x0000000000000000       0xc5 build/postcar/drivers/spi/gigadevice.o
- .debug_str     0x0000000000000000      0x81c build/postcar/drivers/spi/gigadevice.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/spi/gigadevice.o
+ .debug_str     0x0000000000000000      0x822 build/postcar/drivers/spi/gigadevice.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/spi/gigadevice.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/spi/macronix.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/spi/macronix.o
  .bss           0x0000000000000000        0x0 build/postcar/drivers/spi/macronix.o
@@ -974,8 +974,8 @@ Discarded input sections
  .debug_aranges
                 0x0000000000000000       0x18 build/postcar/drivers/spi/macronix.o
  .debug_line    0x0000000000000000       0xc3 build/postcar/drivers/spi/macronix.o
- .debug_str     0x0000000000000000      0x81a build/postcar/drivers/spi/macronix.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/spi/macronix.o
+ .debug_str     0x0000000000000000      0x820 build/postcar/drivers/spi/macronix.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/spi/macronix.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/spi/spansion.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/spi/spansion.o
  .bss           0x0000000000000000        0x0 build/postcar/drivers/spi/spansion.o
@@ -996,8 +996,8 @@ Discarded input sections
  .debug_aranges
                 0x0000000000000000       0x18 build/postcar/drivers/spi/spansion.o
  .debug_line    0x0000000000000000       0xc3 build/postcar/drivers/spi/spansion.o
- .debug_str     0x0000000000000000      0x842 build/postcar/drivers/spi/spansion.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/spi/spansion.o
+ .debug_str     0x0000000000000000      0x848 build/postcar/drivers/spi/spansion.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/spi/spansion.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/spi/spi-generic.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/spi/spi-generic.o
  .bss           0x0000000000000000        0x0 build/postcar/drivers/spi/spi-generic.o
@@ -1024,8 +1024,8 @@ Discarded input sections
                 0x0000000000000000       0x50 build/postcar/drivers/spi/spi-generic.o
  .debug_ranges  0x0000000000000000       0x68 build/postcar/drivers/spi/spi-generic.o
  .debug_line    0x0000000000000000      0x381 build/postcar/drivers/spi/spi-generic.o
- .debug_str     0x0000000000000000      0x55d build/postcar/drivers/spi/spi-generic.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/spi/spi-generic.o
+ .debug_str     0x0000000000000000      0x563 build/postcar/drivers/spi/spi-generic.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/spi/spi-generic.o
  .eh_frame      0x0000000000000000      0x160 build/postcar/drivers/spi/spi-generic.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/spi/spi_flash.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/spi/spi_flash.o
@@ -1109,8 +1109,8 @@ Discarded input sections
                 0x0000000000000000       0xc8 build/postcar/drivers/spi/spi_flash.o
  .debug_ranges  0x0000000000000000      0x168 build/postcar/drivers/spi/spi_flash.o
  .debug_line    0x0000000000000000      0xc73 build/postcar/drivers/spi/spi_flash.o
- .debug_str     0x0000000000000000     0x10ab build/postcar/drivers/spi/spi_flash.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/spi/spi_flash.o
+ .debug_str     0x0000000000000000     0x10b1 build/postcar/drivers/spi/spi_flash.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/spi/spi_flash.o
  .eh_frame      0x0000000000000000      0x70c build/postcar/drivers/spi/spi_flash.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/spi/sst.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/spi/sst.o
@@ -1146,8 +1146,8 @@ Discarded input sections
                 0x0000000000000000       0x38 build/postcar/drivers/spi/sst.o
  .debug_ranges  0x0000000000000000       0x40 build/postcar/drivers/spi/sst.o
  .debug_line    0x0000000000000000      0x36a build/postcar/drivers/spi/sst.o
- .debug_str     0x0000000000000000      0x915 build/postcar/drivers/spi/sst.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/spi/sst.o
+ .debug_str     0x0000000000000000      0x91b build/postcar/drivers/spi/sst.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/spi/sst.o
  .eh_frame      0x0000000000000000      0x1c4 build/postcar/drivers/spi/sst.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/spi/stmicro.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/spi/stmicro.o
@@ -1176,8 +1176,8 @@ Discarded input sections
                 0x0000000000000000       0x20 build/postcar/drivers/spi/stmicro.o
  .debug_ranges  0x0000000000000000       0x10 build/postcar/drivers/spi/stmicro.o
  .debug_line    0x0000000000000000      0x111 build/postcar/drivers/spi/stmicro.o
- .debug_str     0x0000000000000000      0x88d build/postcar/drivers/spi/stmicro.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/spi/stmicro.o
+ .debug_str     0x0000000000000000      0x893 build/postcar/drivers/spi/stmicro.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/spi/stmicro.o
  .eh_frame      0x0000000000000000       0x48 build/postcar/drivers/spi/stmicro.o
  .text          0x0000000000000000        0x0 build/postcar/drivers/spi/winbond.o
  .data          0x0000000000000000        0x0 build/postcar/drivers/spi/winbond.o
@@ -1205,8 +1205,8 @@ Discarded input sections
                 0x0000000000000000       0x28 build/postcar/drivers/spi/winbond.o
  .debug_ranges  0x0000000000000000      0x110 build/postcar/drivers/spi/winbond.o
  .debug_line    0x0000000000000000      0x5dc build/postcar/drivers/spi/winbond.o
- .debug_str     0x0000000000000000      0x9d4 build/postcar/drivers/spi/winbond.o
- .comment       0x0000000000000000       0x24 build/postcar/drivers/spi/winbond.o
+ .debug_str     0x0000000000000000      0x9da build/postcar/drivers/spi/winbond.o
+ .comment       0x0000000000000000       0x36 build/postcar/drivers/spi/winbond.o
  .eh_frame      0x0000000000000000      0x188 build/postcar/drivers/spi/winbond.o
  .text          0x0000000000000000        0x0 build/postcar/ec/lenovo/h8/sense.o
  .data          0x0000000000000000        0x0 build/postcar/ec/lenovo/h8/sense.o
@@ -1224,8 +1224,8 @@ Discarded input sections
                 0x0000000000000000       0x28 build/postcar/ec/lenovo/h8/sense.o
  .debug_ranges  0x0000000000000000       0x40 build/postcar/ec/lenovo/h8/sense.o
  .debug_line    0x0000000000000000      0x11f build/postcar/ec/lenovo/h8/sense.o
- .debug_str     0x0000000000000000      0x861 build/postcar/ec/lenovo/h8/sense.o
- .comment       0x0000000000000000       0x24 build/postcar/ec/lenovo/h8/sense.o
+ .debug_str     0x0000000000000000      0x867 build/postcar/ec/lenovo/h8/sense.o
+ .comment       0x0000000000000000       0x36 build/postcar/ec/lenovo/h8/sense.o
  .eh_frame      0x0000000000000000       0x60 build/postcar/ec/lenovo/h8/sense.o
  .text          0x0000000000000000        0x0 build/postcar/lib/boot_device.o
  .data          0x0000000000000000        0x0 build/postcar/lib/boot_device.o
@@ -1234,7 +1234,7 @@ Discarded input sections
                 0x0000000000000000        0x4 build/postcar/lib/boot_device.o
  .text.boot_device_rw_subregion
                 0x0000000000000000       0x32 build/postcar/lib/boot_device.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/boot_device.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/boot_device.o
  .eh_frame      0x0000000000000000       0xa0 build/postcar/lib/boot_device.o
  .text          0x0000000000000000        0x0 build/postcar/lib/bootmode.o
  .data          0x0000000000000000        0x0 build/postcar/lib/bootmode.o
@@ -1253,8 +1253,8 @@ Discarded input sections
                 0x0000000000000000       0x30 build/postcar/lib/bootmode.o
  .debug_ranges  0x0000000000000000       0x20 build/postcar/lib/bootmode.o
  .debug_line    0x0000000000000000      0x119 build/postcar/lib/bootmode.o
- .debug_str     0x0000000000000000      0x71e build/postcar/lib/bootmode.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/bootmode.o
+ .debug_str     0x0000000000000000      0x724 build/postcar/lib/bootmode.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/bootmode.o
  .eh_frame      0x0000000000000000       0x54 build/postcar/lib/bootmode.o
  .text          0x0000000000000000        0x0 build/postcar/lib/cbfs.o
  .data          0x0000000000000000        0x0 build/postcar/lib/cbfs.o
@@ -1278,17 +1278,17 @@ Discarded input sections
                 0x0000000000000000       0x7a build/postcar/lib/cbfs.o
  .text.cbfs_boot_load_file
                 0x0000000000000000       0x7b build/postcar/lib/cbfs.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/cbfs.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/cbfs.o
  .eh_frame      0x0000000000000000      0x404 build/postcar/lib/cbfs.o
  .text          0x0000000000000000        0x0 build/postcar/lib/cbmem_common.o
  .data          0x0000000000000000        0x0 build/postcar/lib/cbmem_common.o
  .bss           0x0000000000000000        0x0 build/postcar/lib/cbmem_common.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/cbmem_common.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/cbmem_common.o
  .eh_frame      0x0000000000000000       0x44 build/postcar/lib/cbmem_common.o
  .text          0x0000000000000000        0x0 build/postcar/lib/cbmem_console.o
  .data          0x0000000000000000        0x0 build/postcar/lib/cbmem_console.o
  .bss           0x0000000000000000        0x0 build/postcar/lib/cbmem_console.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/cbmem_console.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/cbmem_console.o
  .eh_frame      0x0000000000000000       0xb4 build/postcar/lib/cbmem_console.o
  .text          0x0000000000000000        0x0 build/postcar/lib/crc_byte.o
  .data          0x0000000000000000        0x0 build/postcar/lib/crc_byte.o
@@ -1306,8 +1306,8 @@ Discarded input sections
                 0x0000000000000000       0x30 build/postcar/lib/crc_byte.o
  .debug_ranges  0x0000000000000000       0x20 build/postcar/lib/crc_byte.o
  .debug_line    0x0000000000000000      0x135 build/postcar/lib/crc_byte.o
- .debug_str     0x0000000000000000      0x21e build/postcar/lib/crc_byte.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/crc_byte.o
+ .debug_str     0x0000000000000000      0x224 build/postcar/lib/crc_byte.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/crc_byte.o
  .eh_frame      0x0000000000000000       0x54 build/postcar/lib/crc_byte.o
  .text          0x0000000000000000        0x0 build/postcar/lib/delay.o
  .data          0x0000000000000000        0x0 build/postcar/lib/delay.o
@@ -1321,8 +1321,8 @@ Discarded input sections
                 0x0000000000000000       0x28 build/postcar/lib/delay.o
  .debug_ranges  0x0000000000000000       0x18 build/postcar/lib/delay.o
  .debug_line    0x0000000000000000       0xd3 build/postcar/lib/delay.o
- .debug_str     0x0000000000000000      0x1e5 build/postcar/lib/delay.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/delay.o
+ .debug_str     0x0000000000000000      0x1eb build/postcar/lib/delay.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/delay.o
  .eh_frame      0x0000000000000000       0x70 build/postcar/lib/delay.o
  .text          0x0000000000000000        0x0 build/postcar/lib/ext_stage_cache.o
  .data          0x0000000000000000        0x0 build/postcar/lib/ext_stage_cache.o
@@ -1335,7 +1335,7 @@ Discarded input sections
                 0x0000000000000000       0x26 build/postcar/lib/ext_stage_cache.o
  .text.stage_cache_get_raw
                 0x0000000000000000       0x6f build/postcar/lib/ext_stage_cache.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/ext_stage_cache.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/ext_stage_cache.o
  .eh_frame      0x0000000000000000      0x2bc build/postcar/lib/ext_stage_cache.o
  .text          0x0000000000000000        0x0 build/postcar/lib/fmap.o
  .data          0x0000000000000000        0x0 build/postcar/lib/fmap.o
@@ -1352,7 +1352,7 @@ Discarded input sections
                 0x0000000000000000       0x42 build/postcar/lib/fmap.o
  .text.fmap_overwrite_area
                 0x0000000000000000       0x52 build/postcar/lib/fmap.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/fmap.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/fmap.o
  .eh_frame      0x0000000000000000      0x358 build/postcar/lib/fmap.o
  .text          0x0000000000000000        0x0 build/postcar/lib/gcc.o
  .data          0x0000000000000000        0x0 build/postcar/lib/gcc.o
@@ -1363,12 +1363,12 @@ Discarded input sections
                 0x0000000000000000        0x5 build/postcar/lib/gcc.o
  .text.__wrap___umoddi3
                 0x0000000000000000        0x5 build/postcar/lib/gcc.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/gcc.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/gcc.o
  .eh_frame      0x0000000000000000       0x68 build/postcar/lib/gcc.o
  .text          0x0000000000000000        0x0 build/postcar/lib/halt.o
  .data          0x0000000000000000        0x0 build/postcar/lib/halt.o
  .bss           0x0000000000000000        0x0 build/postcar/lib/halt.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/halt.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/halt.o
  .eh_frame      0x0000000000000000       0x2c build/postcar/lib/halt.o
  .text          0x0000000000000000        0x0 build/postcar/lib/hexdump.o
  .data          0x0000000000000000        0x0 build/postcar/lib/hexdump.o
@@ -1387,8 +1387,8 @@ Discarded input sections
                 0x0000000000000000       0x28 build/postcar/lib/hexdump.o
  .debug_ranges  0x0000000000000000       0x18 build/postcar/lib/hexdump.o
  .debug_line    0x0000000000000000      0x20c build/postcar/lib/hexdump.o
- .debug_str     0x0000000000000000      0x260 build/postcar/lib/hexdump.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/hexdump.o
+ .debug_str     0x0000000000000000      0x266 build/postcar/lib/hexdump.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/hexdump.o
  .eh_frame      0x0000000000000000      0x124 build/postcar/lib/hexdump.o
  .text          0x0000000000000000        0x0 build/postcar/lib/imd.o
  .data          0x0000000000000000        0x0 build/postcar/lib/imd.o
@@ -1417,7 +1417,7 @@ Discarded input sections
                 0x0000000000000000       0x35 build/postcar/lib/imd.o
  .text.imd_cursor_next
                 0x0000000000000000       0x3e build/postcar/lib/imd.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/imd.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/imd.o
  .eh_frame      0x0000000000000000      0x464 build/postcar/lib/imd.o
  .text          0x0000000000000000        0x0 build/postcar/lib/imd_cbmem.o
  .data          0x0000000000000000        0x0 build/postcar/lib/imd_cbmem.o
@@ -1440,7 +1440,7 @@ Discarded input sections
                 0x0000000000000000       0x42 build/postcar/lib/imd_cbmem.o
  .text.cbmem_add_records_to_cbtable
                 0x0000000000000000       0x98 build/postcar/lib/imd_cbmem.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/imd_cbmem.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/imd_cbmem.o
  .eh_frame      0x0000000000000000      0x300 build/postcar/lib/imd_cbmem.o
  .text          0x0000000000000000        0x0 build/postcar/lib/libgcc.o
  .data          0x0000000000000000        0x0 build/postcar/lib/libgcc.o
@@ -1450,17 +1450,17 @@ Discarded input sections
  .debug_aranges
                 0x0000000000000000       0x18 build/postcar/lib/libgcc.o
  .debug_line    0x0000000000000000       0x35 build/postcar/lib/libgcc.o
- .debug_str     0x0000000000000000      0x1da build/postcar/lib/libgcc.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/libgcc.o
+ .debug_str     0x0000000000000000      0x1e0 build/postcar/lib/libgcc.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/libgcc.o
  .text          0x0000000000000000        0x0 build/postcar/lib/lzma.o
  .data          0x0000000000000000        0x0 build/postcar/lib/lzma.o
  .bss           0x0000000000000000        0x0 build/postcar/lib/lzma.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/lzma.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/lzma.o
  .eh_frame      0x0000000000000000       0xb4 build/postcar/lib/lzma.o
  .text          0x0000000000000000        0x0 build/postcar/lib/lzmadecode.o
  .data          0x0000000000000000        0x0 build/postcar/lib/lzmadecode.o
  .bss           0x0000000000000000        0x0 build/postcar/lib/lzmadecode.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/lzmadecode.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/lzmadecode.o
  .eh_frame      0x0000000000000000       0x6c build/postcar/lib/lzmadecode.o
  .text          0x0000000000000000        0x0 build/postcar/lib/memchr.o
  .data          0x0000000000000000        0x0 build/postcar/lib/memchr.o
@@ -1473,13 +1473,13 @@ Discarded input sections
                 0x0000000000000000       0x20 build/postcar/lib/memchr.o
  .debug_ranges  0x0000000000000000       0x10 build/postcar/lib/memchr.o
  .debug_line    0x0000000000000000       0x7a build/postcar/lib/memchr.o
- .debug_str     0x0000000000000000      0x194 build/postcar/lib/memchr.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/memchr.o
+ .debug_str     0x0000000000000000      0x19a build/postcar/lib/memchr.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/memchr.o
  .eh_frame      0x0000000000000000       0x2c build/postcar/lib/memchr.o
  .text          0x0000000000000000        0x0 build/postcar/lib/memcmp.o
  .data          0x0000000000000000        0x0 build/postcar/lib/memcmp.o
  .bss           0x0000000000000000        0x0 build/postcar/lib/memcmp.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/memcmp.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/memcmp.o
  .eh_frame      0x0000000000000000       0x34 build/postcar/lib/memcmp.o
  .text          0x0000000000000000        0x0 build/postcar/lib/prog_loaders.o
  .data          0x0000000000000000        0x0 build/postcar/lib/prog_loaders.o
@@ -1488,17 +1488,17 @@ Discarded input sections
                 0x0000000000000000       0x2b build/postcar/lib/prog_loaders.o
  .text.run_romstage
                 0x0000000000000000       0x82 build/postcar/lib/prog_loaders.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/prog_loaders.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/prog_loaders.o
  .eh_frame      0x0000000000000000      0x164 build/postcar/lib/prog_loaders.o
  .text          0x0000000000000000        0x0 build/postcar/lib/prog_ops.o
  .data          0x0000000000000000        0x0 build/postcar/lib/prog_ops.o
  .bss           0x0000000000000000        0x0 build/postcar/lib/prog_ops.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/prog_ops.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/prog_ops.o
  .eh_frame      0x0000000000000000       0xb4 build/postcar/lib/prog_ops.o
  .text          0x0000000000000000        0x0 build/postcar/lib/reset.o
  .data          0x0000000000000000        0x0 build/postcar/lib/reset.o
  .bss           0x0000000000000000        0x0 build/postcar/lib/reset.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/reset.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/reset.o
  .eh_frame      0x0000000000000000       0x38 build/postcar/lib/reset.o
  .text          0x0000000000000000        0x0 build/postcar/lib/rmodule.o
  .data          0x0000000000000000        0x0 build/postcar/lib/rmodule.o
@@ -1509,7 +1509,7 @@ Discarded input sections
                 0x0000000000000000        0xe build/postcar/lib/rmodule.o
  .text.rmodule_load_alignment
                 0x0000000000000000        0x6 build/postcar/lib/rmodule.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/rmodule.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/rmodule.o
  .eh_frame      0x0000000000000000      0x22c build/postcar/lib/rmodule.o
  .text          0x0000000000000000        0x0 build/postcar/lib/romstage_handoff.o
  .data          0x0000000000000000        0x0 build/postcar/lib/romstage_handoff.o
@@ -1518,7 +1518,7 @@ Discarded input sections
                 0x0000000000000000       0x27 build/postcar/lib/romstage_handoff.o
  .text.romstage_handoff_init
                 0x0000000000000000       0x62 build/postcar/lib/romstage_handoff.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/romstage_handoff.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/romstage_handoff.o
  .eh_frame      0x0000000000000000       0x8c build/postcar/lib/romstage_handoff.o
  .text          0x0000000000000000        0x0 build/postcar/lib/string.o
  .data          0x0000000000000000        0x0 build/postcar/lib/string.o
@@ -1542,7 +1542,7 @@ Discarded input sections
  .text.atol     0x0000000000000000       0x4d build/postcar/lib/string.o
  .bss.strtok_ptr.1417
                 0x0000000000000000        0x4 build/postcar/lib/string.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/string.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/string.o
  .eh_frame      0x0000000000000000      0x228 build/postcar/lib/string.o
  .text          0x0000000000000000        0x0 build/postcar/lib/timestamp.o
  .data          0x0000000000000000        0x0 build/postcar/lib/timestamp.o
@@ -1557,7 +1557,7 @@ Discarded input sections
                 0x0000000000000000       0x38 build/postcar/lib/timestamp.o
  .text.timestamp_tick_freq_mhz
                 0x0000000000000000        0x6 build/postcar/lib/timestamp.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/timestamp.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/timestamp.o
  .eh_frame      0x0000000000000000      0x1a4 build/postcar/lib/timestamp.o
  .text          0x0000000000000000        0x0 build/postcar/lib/version.o
  .data          0x0000000000000000        0x0 build/postcar/lib/version.o
@@ -1580,7 +1580,7 @@ Discarded input sections
                 0x0000000000000000        0xe build/postcar/lib/version.o
  .rodata.mainboard_vendor
                 0x0000000000000000        0x7 build/postcar/lib/version.o
- .comment       0x0000000000000000       0x24 build/postcar/lib/version.o
+ .comment       0x0000000000000000       0x36 build/postcar/lib/version.o
  .text          0x0000000000000000        0x0 build/postcar/northbridge/intel/gm45/memmap.o
  .data          0x0000000000000000        0x0 build/postcar/northbridge/intel/gm45/memmap.o
  .bss           0x0000000000000000        0x0 build/postcar/northbridge/intel/gm45/memmap.o
@@ -1588,7 +1588,7 @@ Discarded input sections
                 0x0000000000000000       0x11 build/postcar/northbridge/intel/gm45/memmap.o
  .text.fill_postcar_frame
                 0x0000000000000000       0x50 build/postcar/northbridge/intel/gm45/memmap.o
- .comment       0x0000000000000000       0x24 build/postcar/northbridge/intel/gm45/memmap.o
+ .comment       0x0000000000000000       0x36 build/postcar/northbridge/intel/gm45/memmap.o
  .eh_frame      0x0000000000000000      0x140 build/postcar/northbridge/intel/gm45/memmap.o
  .text          0x0000000000000000        0x0 build/postcar/security/memory/memory.o
  .data          0x0000000000000000        0x0 build/postcar/security/memory/memory.o
@@ -1601,8 +1601,8 @@ Discarded input sections
                 0x0000000000000000       0x20 build/postcar/security/memory/memory.o
  .debug_ranges  0x0000000000000000       0x10 build/postcar/security/memory/memory.o
  .debug_line    0x0000000000000000       0x7c build/postcar/security/memory/memory.o
- .debug_str     0x0000000000000000      0x207 build/postcar/security/memory/memory.o
- .comment       0x0000000000000000       0x24 build/postcar/security/memory/memory.o
+ .debug_str     0x0000000000000000      0x20d build/postcar/security/memory/memory.o
+ .comment       0x0000000000000000       0x36 build/postcar/security/memory/memory.o
  .eh_frame      0x0000000000000000       0x2c build/postcar/security/memory/memory.o
  .text          0x0000000000000000        0x0 build/postcar/southbridge/intel/common/pmbase.o
  .data          0x0000000000000000        0x0 build/postcar/southbridge/intel/common/pmbase.o
@@ -1634,13 +1634,13 @@ Discarded input sections
                 0x0000000000000000       0x58 build/postcar/southbridge/intel/common/pmbase.o
  .debug_ranges  0x0000000000000000      0x108 build/postcar/southbridge/intel/common/pmbase.o
  .debug_line    0x0000000000000000      0x52c build/postcar/southbridge/intel/common/pmbase.o
- .debug_str     0x0000000000000000      0xb24 build/postcar/southbridge/intel/common/pmbase.o
- .comment       0x0000000000000000       0x24 build/postcar/southbridge/intel/common/pmbase.o
+ .debug_str     0x0000000000000000      0xb2a build/postcar/southbridge/intel/common/pmbase.o
+ .comment       0x0000000000000000       0x36 build/postcar/southbridge/intel/common/pmbase.o
  .eh_frame      0x0000000000000000      0x174 build/postcar/southbridge/intel/common/pmbase.o
  .text          0x0000000000000000        0x0 build/postcar/southbridge/intel/common/reset.o
  .data          0x0000000000000000        0x0 build/postcar/southbridge/intel/common/reset.o
  .bss           0x0000000000000000        0x0 build/postcar/southbridge/intel/common/reset.o
- .comment       0x0000000000000000       0x24 build/postcar/southbridge/intel/common/reset.o
+ .comment       0x0000000000000000       0x36 build/postcar/southbridge/intel/common/reset.o
  .eh_frame      0x0000000000000000       0x2c build/postcar/southbridge/intel/common/reset.o
  .text          0x0000000000000000        0x0 build/postcar/southbridge/intel/common/rtc.o
  .data          0x0000000000000000        0x0 build/postcar/southbridge/intel/common/rtc.o
@@ -1660,8 +1660,8 @@ Discarded input sections
                 0x0000000000000000       0x30 build/postcar/southbridge/intel/common/rtc.o
  .debug_ranges  0x0000000000000000       0x98 build/postcar/southbridge/intel/common/rtc.o
  .debug_line    0x0000000000000000      0x25a build/postcar/southbridge/intel/common/rtc.o
- .debug_str     0x0000000000000000      0x9f3 build/postcar/southbridge/intel/common/rtc.o
- .comment       0x0000000000000000       0x24 build/postcar/southbridge/intel/common/rtc.o
+ .debug_str     0x0000000000000000      0x9f9 build/postcar/southbridge/intel/common/rtc.o
+ .comment       0x0000000000000000       0x36 build/postcar/southbridge/intel/common/rtc.o
  .eh_frame      0x0000000000000000       0x6c build/postcar/southbridge/intel/common/rtc.o
  .text          0x0000000000000000        0x0 build/postcar/southbridge/intel/common/spi.o
  .data          0x0000000000000000        0x0 build/postcar/southbridge/intel/common/spi.o
@@ -1731,56 +1731,56 @@ Discarded input sections
                 0x0000000000000000       0x88 build/postcar/southbridge/intel/common/spi.o
  .debug_ranges  0x0000000000000000      0x508 build/postcar/southbridge/intel/common/spi.o
  .debug_line    0x0000000000000000     0x145a build/postcar/southbridge/intel/common/spi.o
- .debug_str     0x0000000000000000     0x16d6 build/postcar/southbridge/intel/common/spi.o
- .comment       0x0000000000000000       0x24 build/postcar/southbridge/intel/common/spi.o
+ .debug_str     0x0000000000000000     0x16dc build/postcar/southbridge/intel/common/spi.o
+ .comment       0x0000000000000000       0x36 build/postcar/southbridge/intel/common/spi.o
  .eh_frame      0x0000000000000000      0x470 build/postcar/southbridge/intel/common/spi.o
- .text          0x0000000000000000      0x14b /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
- .data          0x0000000000000000        0x0 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
- .bss           0x0000000000000000        0x0 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
- .debug_info    0x0000000000000000      0xc01 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
- .debug_abbrev  0x0000000000000000      0x255 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
- .debug_loc     0x0000000000000000      0x3b0 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
+ .text          0x0000000000000000      0x14b /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
+ .data          0x0000000000000000        0x0 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
+ .bss           0x0000000000000000        0x0 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
+ .debug_info    0x0000000000000000      0xc01 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
+ .debug_abbrev  0x0000000000000000      0x255 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
+ .debug_loc     0x0000000000000000      0x3b0 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
  .debug_aranges
-                0x0000000000000000       0x20 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
- .debug_ranges  0x0000000000000000       0x20 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
- .debug_line    0x0000000000000000      0x248 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
- .debug_str     0x0000000000000000      0xb58 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
- .comment       0x0000000000000000       0x24 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
- .eh_frame      0x0000000000000000       0x58 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
- .text          0x0000000000000000      0x17e /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
- .data          0x0000000000000000        0x0 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
- .bss           0x0000000000000000        0x0 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
- .debug_info    0x0000000000000000      0xc01 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
- .debug_abbrev  0x0000000000000000      0x255 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
- .debug_loc     0x0000000000000000      0x48d /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
+                0x0000000000000000       0x20 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
+ .debug_ranges  0x0000000000000000       0x20 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
+ .debug_line    0x0000000000000000      0x248 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
+ .debug_str     0x0000000000000000      0xb5e /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
+ .comment       0x0000000000000000       0x36 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
+ .eh_frame      0x0000000000000000       0x58 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_divdi3.o)
+ .text          0x0000000000000000      0x17e /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
+ .data          0x0000000000000000        0x0 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
+ .bss           0x0000000000000000        0x0 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
+ .debug_info    0x0000000000000000      0xc01 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
+ .debug_abbrev  0x0000000000000000      0x255 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
+ .debug_loc     0x0000000000000000      0x48d /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
  .debug_aranges
-                0x0000000000000000       0x20 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
- .debug_ranges  0x0000000000000000       0x20 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
- .debug_line    0x0000000000000000      0x282 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
- .debug_str     0x0000000000000000      0xb58 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
- .comment       0x0000000000000000       0x24 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
- .eh_frame      0x0000000000000000       0x58 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
- .data          0x0000000000000000        0x0 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
- .bss           0x0000000000000000        0x0 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
- .comment       0x0000000000000000       0x24 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
- .eh_frame      0x0000000000000000       0x84 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
- .text          0x0000000000000000      0x11a /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
- .data          0x0000000000000000        0x0 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
- .bss           0x0000000000000000        0x0 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
- .debug_info    0x0000000000000000      0xbd2 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
- .debug_abbrev  0x0000000000000000      0x24c /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
- .debug_loc     0x0000000000000000      0x774 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
+                0x0000000000000000       0x20 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
+ .debug_ranges  0x0000000000000000       0x20 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
+ .debug_line    0x0000000000000000      0x282 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
+ .debug_str     0x0000000000000000      0xb5e /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
+ .comment       0x0000000000000000       0x36 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
+ .eh_frame      0x0000000000000000       0x58 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_moddi3.o)
+ .data          0x0000000000000000        0x0 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
+ .bss           0x0000000000000000        0x0 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
+ .comment       0x0000000000000000       0x36 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
+ .eh_frame      0x0000000000000000       0x84 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
+ .text          0x0000000000000000      0x11a /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
+ .data          0x0000000000000000        0x0 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
+ .bss           0x0000000000000000        0x0 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
+ .debug_info    0x0000000000000000      0xbd2 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
+ .debug_abbrev  0x0000000000000000      0x24c /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
+ .debug_loc     0x0000000000000000      0x774 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
  .debug_aranges
-                0x0000000000000000       0x20 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
- .debug_ranges  0x0000000000000000       0x30 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
- .debug_line    0x0000000000000000      0x250 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
- .debug_str     0x0000000000000000      0xb59 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
- .comment       0x0000000000000000       0x24 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
- .eh_frame      0x0000000000000000       0x9c /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
- .data          0x0000000000000000        0x0 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
- .bss           0x0000000000000000        0x0 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
- .comment       0x0000000000000000       0x24 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
- .eh_frame      0x0000000000000000       0x70 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
+                0x0000000000000000       0x20 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
+ .debug_ranges  0x0000000000000000       0x30 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
+ .debug_line    0x0000000000000000      0x250 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
+ .debug_str     0x0000000000000000      0xb5f /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
+ .comment       0x0000000000000000       0x36 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
+ .eh_frame      0x0000000000000000       0x9c /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_umoddi3.o)
+ .data          0x0000000000000000        0x0 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
+ .bss           0x0000000000000000        0x0 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
+ .comment       0x0000000000000000       0x36 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
+ .eh_frame      0x0000000000000000       0x70 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
 
 Memory Configuration
 
@@ -1879,7 +1879,7 @@ LOAD build/postcar/southbridge/intel/common/pmbase.o
 LOAD build/postcar/southbridge/intel/common/reset.o
 LOAD build/postcar/southbridge/intel/common/rtc.o
 LOAD build/postcar/southbridge/intel/common/spi.o
-LOAD /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a
+LOAD /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a
 END GROUP
                 0x0000000000000001                _ = ASSERT ((. <= 0x2000000), postcar overlaps the previous region!)
                 0x0000000002000000                . = 0x2000000
@@ -1887,7 +1887,7 @@ END GROUP
                 0x0000000002100000                _epostcar = (_postcar + 0x100000)
                 0x0000000000000001                _ = ASSERT (((_eprogram - _program) <= 0x100000), Aftercar exceeded its allotted size! (1M))
 
-.text           0x0000000002000000     0x4cb0
+.text           0x0000000002000000     0x4c88
                 0x0000000002000000                _program = .
                 0x0000000002000000                _text = .
  *(.text._start)
@@ -1900,10 +1900,10 @@ END GROUP
                 0x0000000002000088                gdtptr
  .text          0x00000000020000b0       0x28 build/postcar/cpu/intel/car/p4-netburst/exit_car.o
                 0x00000000020000b0                chipset_teardown_car
- .text          0x00000000020000d8       0xff /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
+ .text          0x00000000020000d8       0xff /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
                 0x00000000020000d8                __udivdi3
  *fill*         0x00000000020001d7        0x1 
- .text          0x00000000020001d8      0x1d9 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
+ .text          0x00000000020001d8      0x1d9 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
                 0x00000000020001d8                __udivmoddi4
  *(.text.*)
  .text.arch_prog_run
@@ -2401,58 +2401,58 @@ END GROUP
  .rodata.coreboot_extra_version
                 0x0000000002004bb5        0x1 build/postcar/lib/version.o
                 0x0000000002004bb5                coreboot_extra_version
- *fill*         0x0000000002004bb6        0xa 
+ *fill*         0x0000000002004bb6        0x2 
  .rodata.coreboot_version
-                0x0000000002004bc0       0x2e build/postcar/lib/version.o
-                0x0000000002004bc0                coreboot_version
+                0x0000000002004bb8        0xf build/postcar/lib/version.o
+                0x0000000002004bb8                coreboot_version
  .rodata.decode_igd_memory_size.str1.1
-                0x0000000002004bee       0x29 build/postcar/northbridge/intel/gm45/memmap.o
+                0x0000000002004bc7       0x29 build/postcar/northbridge/intel/gm45/memmap.o
  .rodata.decode_igd_gtt_size.str1.1
-                0x0000000002004c17       0x2b build/postcar/northbridge/intel/gm45/memmap.o
- *fill*         0x0000000002004c42        0x2 
+                0x0000000002004bf0       0x2b build/postcar/northbridge/intel/gm45/memmap.o
+ *fill*         0x0000000002004c1b        0x1 
  .rodata.decode_igd_gtt_size
-                0x0000000002004c44       0x30 build/postcar/northbridge/intel/gm45/memmap.o
+                0x0000000002004c1c       0x30 build/postcar/northbridge/intel/gm45/memmap.o
  .rodata.decode_tseg_size.str1.1
-                0x0000000002004c74       0x13 build/postcar/northbridge/intel/gm45/memmap.o
- *fill*         0x0000000002004c87        0x1 
+                0x0000000002004c4c       0x13 build/postcar/northbridge/intel/gm45/memmap.o
+ *fill*         0x0000000002004c5f        0x1 
  .rodata.CSWTCH.1
-                0x0000000002004c88        0x6 build/postcar/northbridge/intel/gm45/memmap.o
- *fill*         0x0000000002004c8e        0x2 
+                0x0000000002004c60        0x6 build/postcar/northbridge/intel/gm45/memmap.o
+ *fill*         0x0000000002004c66        0x2 
  .rodata.ggc2uma.4074
-                0x0000000002004c90       0x1c build/postcar/northbridge/intel/gm45/memmap.o
-                0x0000000002004cb0                . = ALIGN (0x8)
- *fill*         0x0000000002004cac        0x4 
-                0x0000000002004cb0                _etext = .
+                0x0000000002004c68       0x1c build/postcar/northbridge/intel/gm45/memmap.o
+                0x0000000002004c88                . = ALIGN (0x8)
+ *fill*         0x0000000002004c84        0x4 
+                0x0000000002004c88                _etext = .
 
-.iplt           0x0000000002004cb0        0x0
- .iplt          0x0000000002004cb0        0x0 build/postcar/mainboard/lenovo/x200/static.o
+.iplt           0x0000000002004c88        0x0
+ .iplt          0x0000000002004c88        0x0 build/postcar/mainboard/lenovo/x200/static.o
 
-.rel.dyn        0x0000000002004cb0        0x0
- .rel.got       0x0000000002004cb0        0x0 build/postcar/mainboard/lenovo/x200/static.o
- .rel.iplt      0x0000000002004cb0        0x0 build/postcar/mainboard/lenovo/x200/static.o
+.rel.dyn        0x0000000002004c88        0x0
+ .rel.got       0x0000000002004c88        0x0 build/postcar/mainboard/lenovo/x200/static.o
+ .rel.iplt      0x0000000002004c88        0x0 build/postcar/mainboard/lenovo/x200/static.o
  .rel.text.startup.main
-                0x0000000002004cb0        0x0 build/postcar/mainboard/lenovo/x200/static.o
- .rel.text.die  0x0000000002004cb0        0x0 build/postcar/mainboard/lenovo/x200/static.o
+                0x0000000002004c88        0x0 build/postcar/mainboard/lenovo/x200/static.o
+ .rel.text.die  0x0000000002004c88        0x0 build/postcar/mainboard/lenovo/x200/static.o
  .rel.text.post_code
-                0x0000000002004cb0        0x0 build/postcar/mainboard/lenovo/x200/static.o
+                0x0000000002004c88        0x0 build/postcar/mainboard/lenovo/x200/static.o
  .rel.text.boot_device_ro_subregion
-                0x0000000002004cb0        0x0 build/postcar/mainboard/lenovo/x200/static.o
+                0x0000000002004c88        0x0 build/postcar/mainboard/lenovo/x200/static.o
  .rel.text.cbfs_boot_region_device
-                0x0000000002004cb0        0x0 build/postcar/mainboard/lenovo/x200/static.o
+                0x0000000002004c88        0x0 build/postcar/mainboard/lenovo/x200/static.o
  .rel.text.cbmem_run_init_hooks
-                0x0000000002004cb0        0x0 build/postcar/mainboard/lenovo/x200/static.o
+                0x0000000002004c88        0x0 build/postcar/mainboard/lenovo/x200/static.o
  .rel.text.find_fmap_directory
-                0x0000000002004cb0        0x0 build/postcar/mainboard/lenovo/x200/static.o
+                0x0000000002004c88        0x0 build/postcar/mainboard/lenovo/x200/static.o
  .rel.text.prog_locate
-                0x0000000002004cb0        0x0 build/postcar/mainboard/lenovo/x200/static.o
+                0x0000000002004c88        0x0 build/postcar/mainboard/lenovo/x200/static.o
  .rel.text.prog_segment_loaded
-                0x0000000002004cb0        0x0 build/postcar/mainboard/lenovo/x200/static.o
+                0x0000000002004c88        0x0 build/postcar/mainboard/lenovo/x200/static.o
  .rel.text.prog_run
-                0x0000000002004cb0        0x0 build/postcar/mainboard/lenovo/x200/static.o
+                0x0000000002004c88        0x0 build/postcar/mainboard/lenovo/x200/static.o
 
-.data           0x0000000002004cb0       0x20
+.data           0x0000000002004c88       0x48
                 0x0000000002004cc0                . = ALIGN (0x40)
- *fill*         0x0000000002004cb0       0x10 
+ *fill*         0x0000000002004c88       0x38 
                 0x0000000002004cc0                _data = .
                 0x0000000002004cc0                _rmodule_params = .
  *(.module_parameters)
@@ -2591,8 +2591,8 @@ OUTPUT(build/cbfs/fallback/postcar.debug elf32-i386)
  .debug_info    0x000000000001a2f8      0x1e0 build/postcar/lib/version.o
  .debug_info    0x000000000001a4d8     0x1414 build/postcar/northbridge/intel/gm45/memmap.o
  .debug_info    0x000000000001b8ec       0x52 build/postcar/southbridge/intel/common/reset.o
- .debug_info    0x000000000001b93e      0xbc3 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
- .debug_info    0x000000000001c501      0xb08 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
+ .debug_info    0x000000000001b93e      0xbc3 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
+ .debug_info    0x000000000001c501      0xb08 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
 
 .debug_abbrev   0x0000000000000000     0x6d18
  .debug_abbrev  0x0000000000000000      0x1a3 build/postcar/arch/x86/boot.o
@@ -2648,8 +2648,8 @@ OUTPUT(build/cbfs/fallback/postcar.debug elf32-i386)
  .debug_abbrev  0x0000000000006496       0x85 build/postcar/lib/version.o
  .debug_abbrev  0x000000000000651b      0x38e build/postcar/northbridge/intel/gm45/memmap.o
  .debug_abbrev  0x00000000000068a9       0x4e build/postcar/southbridge/intel/common/reset.o
- .debug_abbrev  0x00000000000068f7      0x23a /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
- .debug_abbrev  0x0000000000006b31      0x1e7 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
+ .debug_abbrev  0x00000000000068f7      0x23a /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
+ .debug_abbrev  0x0000000000006b31      0x1e7 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
 
 .debug_loc      0x0000000000000000     0xbe33
  .debug_loc     0x0000000000000000       0x3c build/postcar/arch/x86/boot.o
@@ -2693,8 +2693,8 @@ OUTPUT(build/cbfs/fallback/postcar.debug elf32-i386)
  .debug_loc     0x000000000000a3c5      0x6ee build/postcar/lib/string.o
  .debug_loc     0x000000000000aab3      0x291 build/postcar/lib/timestamp.o
  .debug_loc     0x000000000000ad44      0x34a build/postcar/northbridge/intel/gm45/memmap.o
- .debug_loc     0x000000000000b08e      0x79c /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
- .debug_loc     0x000000000000b82a      0x609 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
+ .debug_loc     0x000000000000b08e      0x79c /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
+ .debug_loc     0x000000000000b82a      0x609 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
 
 .debug_aranges  0x0000000000000000      0xd70
  .debug_aranges
@@ -2804,9 +2804,9 @@ OUTPUT(build/cbfs/fallback/postcar.debug elf32-i386)
  .debug_aranges
                 0x0000000000000d10       0x20 build/postcar/southbridge/intel/common/reset.o
  .debug_aranges
-                0x0000000000000d30       0x20 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
+                0x0000000000000d30       0x20 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
  .debug_aranges
-                0x0000000000000d50       0x20 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
+                0x0000000000000d50       0x20 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
 
 .debug_ranges   0x0000000000000000     0x20f8
  .debug_ranges  0x0000000000000000       0x18 build/postcar/arch/x86/boot.o
@@ -2858,8 +2858,8 @@ OUTPUT(build/cbfs/fallback/postcar.debug elf32-i386)
  .debug_ranges  0x0000000000001e18      0x130 build/postcar/lib/timestamp.o
  .debug_ranges  0x0000000000001f48      0x158 build/postcar/northbridge/intel/gm45/memmap.o
  .debug_ranges  0x00000000000020a0       0x10 build/postcar/southbridge/intel/common/reset.o
- .debug_ranges  0x00000000000020b0       0x28 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
- .debug_ranges  0x00000000000020d8       0x20 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
+ .debug_ranges  0x00000000000020b0       0x28 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
+ .debug_ranges  0x00000000000020d8       0x20 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
 
 .debug_line     0x0000000000000000     0xaf18
  .debug_line    0x0000000000000000      0x150 build/postcar/arch/x86/boot.o
@@ -2915,116 +2915,116 @@ OUTPUT(build/cbfs/fallback/postcar.debug elf32-i386)
  .debug_line    0x000000000000a575       0x4b build/postcar/lib/version.o
  .debug_line    0x000000000000a5c0      0x43e build/postcar/northbridge/intel/gm45/memmap.o
  .debug_line    0x000000000000a9fe       0x82 build/postcar/southbridge/intel/common/reset.o
- .debug_line    0x000000000000aa80      0x214 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
- .debug_line    0x000000000000ac94      0x284 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
+ .debug_line    0x000000000000aa80      0x214 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
+ .debug_line    0x000000000000ac94      0x284 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
 
-.debug_str      0x0000000000000000     0x7d95
- .debug_str     0x0000000000000000      0x5c6 build/postcar/arch/x86/boot.o
-                                        0x6a3 (size before relaxing)
- .debug_str     0x00000000000005c6       0x99 build/postcar/arch/x86/cf9_reset.o
+.debug_str      0x0000000000000000     0x7da1
+ .debug_str     0x0000000000000000      0x5cc build/postcar/arch/x86/boot.o
+                                        0x6a9 (size before relaxing)
+ .debug_str     0x00000000000005cc       0x99 build/postcar/arch/x86/cf9_reset.o
+                                        0x29d (size before relaxing)
+ .debug_str     0x0000000000000665       0x24 build/postcar/arch/x86/exit_car.o
+                                         0x5c (size before relaxing)
+ .debug_str     0x0000000000000689       0x18 build/postcar/arch/x86/gdt_init.o
+                                         0x5c (size before relaxing)
+ .debug_str     0x00000000000006a1       0x22 build/postcar/arch/x86/memcpy.o
+                                        0x1f8 (size before relaxing)
+ .debug_str     0x00000000000006c3       0x1f build/postcar/arch/x86/memmove.o
+                                        0x1fa (size before relaxing)
+ .debug_str     0x00000000000006e2       0x2d build/postcar/arch/x86/memset.o
+                                        0x20c (size before relaxing)
+ .debug_str     0x000000000000070f       0x3b build/postcar/arch/x86/mmap_boot.o
+                                        0x2d4 (size before relaxing)
+ .debug_str     0x000000000000074a      0x58f build/postcar/arch/x86/post.o
+                                        0x847 (size before relaxing)
+ .debug_str     0x0000000000000cd9      0x8ea build/postcar/arch/x86/postcar.o
+                                        0xbbd (size before relaxing)
+ .debug_str     0x00000000000015c3       0x92 build/postcar/arch/x86/timestamp.o
+                                        0x28d (size before relaxing)
+ .debug_str     0x0000000000001655      0x4d1 build/postcar/commonlib/bsd/cbfs_private.o
+                                        0x7d6 (size before relaxing)
+ .debug_str     0x0000000000001b26      0x2fa build/postcar/commonlib/bsd/lz4_wrapper.o
+                                        0x544 (size before relaxing)
+ .debug_str     0x0000000000001e20     0x2649 build/postcar/commonlib/cbfs.o
+                                       0x2b27 (size before relaxing)
+ .debug_str     0x0000000000004469      0x376 build/postcar/commonlib/region.o
+                                        0x6d1 (size before relaxing)
+ .debug_str     0x00000000000047df      0x1e5 build/postcar/console/console.o
+                                        0x410 (size before relaxing)
+ .debug_str     0x00000000000049c4       0x3a build/postcar/console/die.o
+                                        0x21b (size before relaxing)
+ .debug_str     0x00000000000049fe      0x27f build/postcar/console/init.o
+                                        0xc60 (size before relaxing)
+ .debug_str     0x0000000000004c7d       0x22 build/postcar/console/post.o
+                                        0x218 (size before relaxing)
+ .debug_str     0x0000000000004c9f      0x150 build/postcar/console/printk.o
+                                        0x40e (size before relaxing)
+ .debug_str     0x0000000000004def       0x6a build/postcar/console/vtxprintf.o
                                         0x297 (size before relaxing)
- .debug_str     0x000000000000065f       0x24 build/postcar/arch/x86/exit_car.o
-                                         0x56 (size before relaxing)
- .debug_str     0x0000000000000683       0x18 build/postcar/arch/x86/gdt_init.o
-                                         0x56 (size before relaxing)
- .debug_str     0x000000000000069b       0x22 build/postcar/arch/x86/memcpy.o
-                                        0x1f2 (size before relaxing)
- .debug_str     0x00000000000006bd       0x1f build/postcar/arch/x86/memmove.o
-                                        0x1f4 (size before relaxing)
- .debug_str     0x00000000000006dc       0x2d build/postcar/arch/x86/memset.o
-                                        0x206 (size before relaxing)
- .debug_str     0x0000000000000709       0x3b build/postcar/arch/x86/mmap_boot.o
-                                        0x2ce (size before relaxing)
- .debug_str     0x0000000000000744      0x58f build/postcar/arch/x86/post.o
-                                        0x841 (size before relaxing)
- .debug_str     0x0000000000000cd3      0x8ea build/postcar/arch/x86/postcar.o
-                                        0xbb7 (size before relaxing)
- .debug_str     0x00000000000015bd       0x92 build/postcar/arch/x86/timestamp.o
-                                        0x287 (size before relaxing)
- .debug_str     0x000000000000164f      0x4d1 build/postcar/commonlib/bsd/cbfs_private.o
-                                        0x7d0 (size before relaxing)
- .debug_str     0x0000000000001b20      0x2fa build/postcar/commonlib/bsd/lz4_wrapper.o
-                                        0x53e (size before relaxing)
- .debug_str     0x0000000000001e1a     0x2649 build/postcar/commonlib/cbfs.o
-                                       0x2b21 (size before relaxing)
- .debug_str     0x0000000000004463      0x376 build/postcar/commonlib/region.o
-                                        0x6cb (size before relaxing)
- .debug_str     0x00000000000047d9      0x1e5 build/postcar/console/console.o
-                                        0x40a (size before relaxing)
- .debug_str     0x00000000000049be       0x3a build/postcar/console/die.o
-                                        0x215 (size before relaxing)
- .debug_str     0x00000000000049f8      0x27f build/postcar/console/init.o
-                                        0xc5a (size before relaxing)
- .debug_str     0x0000000000004c77       0x22 build/postcar/console/post.o
-                                        0x212 (size before relaxing)
- .debug_str     0x0000000000004c99      0x150 build/postcar/console/printk.o
-                                        0x408 (size before relaxing)
- .debug_str     0x0000000000004de9       0x6a build/postcar/console/vtxprintf.o
-                                        0x291 (size before relaxing)
- .debug_str     0x0000000000004e53       0x29 build/postcar/cpu/intel/car/p4-netburst/exit_car.o
-                                         0x67 (size before relaxing)
- .debug_str     0x0000000000004e7c       0xe7 build/postcar/cpu/intel/common/fsb.o
-                                        0x308 (size before relaxing)
- .debug_str     0x0000000000004f63       0x1d build/postcar/cpu/x86/lapic/boot_cpu.o
-                                        0x213 (size before relaxing)
- .debug_str     0x0000000000004f80       0x6a build/postcar/cpu/x86/mtrr/debug.o
-                                        0x261 (size before relaxing)
- .debug_str     0x0000000000004fea       0xea build/postcar/cpu/x86/smm/tseg_region.o
-                                        0x3bb (size before relaxing)
- .debug_str     0x00000000000050d4       0xe1 build/postcar/cpu/x86/tsc/delay_tsc.o
-                                        0x336 (size before relaxing)
- .debug_str     0x00000000000051b5      0x13c build/postcar/device/pci_ops.o
-                                        0xa38 (size before relaxing)
- .debug_str     0x00000000000052f1      0x195 build/postcar/drivers/pc80/rtc/mc146818rtc.o
-                                        0xb53 (size before relaxing)
- .debug_str     0x0000000000005486      0x4ff build/postcar/drivers/pc80/rtc/option.o
-                                        0xb05 (size before relaxing)
- .debug_str     0x0000000000005985       0xd1 build/postcar/lib/boot_device.o
-                                        0x386 (size before relaxing)
- .debug_str     0x0000000000005a56      0x236 build/postcar/lib/cbfs.o
-                                       0x1440 (size before relaxing)
- .debug_str     0x0000000000005c8c       0x59 build/postcar/lib/cbmem_common.o
-                                        0x511 (size before relaxing)
- .debug_str     0x0000000000005ce5      0x11e build/postcar/lib/cbmem_console.o
-                                        0x636 (size before relaxing)
- .debug_str     0x0000000000005e03      0x1c4 build/postcar/lib/ext_stage_cache.o
-                                        0x65d (size before relaxing)
- .debug_str     0x0000000000005fc7      0x1dc build/postcar/lib/fmap.o
-                                        0x917 (size before relaxing)
- .debug_str     0x00000000000061a3       0x92 build/postcar/lib/gcc.o
-                                        0x25b (size before relaxing)
- .debug_str     0x0000000000006235        0xf build/postcar/lib/halt.o
-                                        0x146 (size before relaxing)
- .debug_str     0x0000000000006244      0x356 build/postcar/lib/imd.o
-                                        0x6aa (size before relaxing)
- .debug_str     0x000000000000659a      0x2a1 build/postcar/lib/imd_cbmem.o
-                                        0xa04 (size before relaxing)
- .debug_str     0x000000000000683b       0xaa build/postcar/lib/lzma.o
-                                        0x2e1 (size before relaxing)
- .debug_str     0x00000000000068e5      0x14e build/postcar/lib/lzmadecode.o
-                                        0x3cb (size before relaxing)
- .debug_str     0x0000000000006a33       0x1b build/postcar/lib/memcmp.o
-                                        0x1ab (size before relaxing)
- .debug_str     0x0000000000006a4e      0x116 build/postcar/lib/prog_loaders.o
-                                       0x119d (size before relaxing)
- .debug_str     0x0000000000006b64       0x51 build/postcar/lib/prog_ops.o
-                                        0x3f5 (size before relaxing)
- .debug_str     0x0000000000006bb5       0x1f build/postcar/lib/reset.o
-                                        0x240 (size before relaxing)
- .debug_str     0x0000000000006bd4      0x2ae build/postcar/lib/rmodule.o
-                                        0x7b7 (size before relaxing)
- .debug_str     0x0000000000006e82       0x7c build/postcar/lib/romstage_handoff.o
-                                        0x2c2 (size before relaxing)
- .debug_str     0x0000000000006efe       0xd1 build/postcar/lib/string.o
-                                        0x2df (size before relaxing)
- .debug_str     0x0000000000006fcf      0x198 build/postcar/lib/timestamp.o
-                                        0xff2 (size before relaxing)
- .debug_str     0x0000000000007167       0x12 build/postcar/lib/version.o
-                                        0x28c (size before relaxing)
- .debug_str     0x0000000000007179      0x1b4 build/postcar/northbridge/intel/gm45/memmap.o
-                                        0xbb3 (size before relaxing)
- .debug_str     0x000000000000732d       0x25 build/postcar/southbridge/intel/common/reset.o
-                                        0x173 (size before relaxing)
- .debug_str     0x0000000000007352      0xa43 /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
+ .debug_str     0x0000000000004e59       0x29 build/postcar/cpu/intel/car/p4-netburst/exit_car.o
+                                         0x6d (size before relaxing)
+ .debug_str     0x0000000000004e82       0xe7 build/postcar/cpu/intel/common/fsb.o
+                                        0x30e (size before relaxing)
+ .debug_str     0x0000000000004f69       0x1d build/postcar/cpu/x86/lapic/boot_cpu.o
+                                        0x219 (size before relaxing)
+ .debug_str     0x0000000000004f86       0x6a build/postcar/cpu/x86/mtrr/debug.o
+                                        0x267 (size before relaxing)
+ .debug_str     0x0000000000004ff0       0xea build/postcar/cpu/x86/smm/tseg_region.o
+                                        0x3c1 (size before relaxing)
+ .debug_str     0x00000000000050da       0xe1 build/postcar/cpu/x86/tsc/delay_tsc.o
+                                        0x33c (size before relaxing)
+ .debug_str     0x00000000000051bb      0x13c build/postcar/device/pci_ops.o
+                                        0xa3e (size before relaxing)
+ .debug_str     0x00000000000052f7      0x195 build/postcar/drivers/pc80/rtc/mc146818rtc.o
                                         0xb59 (size before relaxing)
- .debug_str     0x0000000000007d95      0xb4f /home/jason/release1/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)
+ .debug_str     0x000000000000548c      0x4ff build/postcar/drivers/pc80/rtc/option.o
+                                        0xb0b (size before relaxing)
+ .debug_str     0x000000000000598b       0xd1 build/postcar/lib/boot_device.o
+                                        0x38c (size before relaxing)
+ .debug_str     0x0000000000005a5c      0x236 build/postcar/lib/cbfs.o
+                                       0x1446 (size before relaxing)
+ .debug_str     0x0000000000005c92       0x59 build/postcar/lib/cbmem_common.o
+                                        0x517 (size before relaxing)
+ .debug_str     0x0000000000005ceb      0x11e build/postcar/lib/cbmem_console.o
+                                        0x63c (size before relaxing)
+ .debug_str     0x0000000000005e09      0x1c4 build/postcar/lib/ext_stage_cache.o
+                                        0x663 (size before relaxing)
+ .debug_str     0x0000000000005fcd      0x1dc build/postcar/lib/fmap.o
+                                        0x91d (size before relaxing)
+ .debug_str     0x00000000000061a9       0x92 build/postcar/lib/gcc.o
+                                        0x261 (size before relaxing)
+ .debug_str     0x000000000000623b        0xf build/postcar/lib/halt.o
+                                        0x14c (size before relaxing)
+ .debug_str     0x000000000000624a      0x356 build/postcar/lib/imd.o
+                                        0x6b0 (size before relaxing)
+ .debug_str     0x00000000000065a0      0x2a1 build/postcar/lib/imd_cbmem.o
+                                        0xa0a (size before relaxing)
+ .debug_str     0x0000000000006841       0xaa build/postcar/lib/lzma.o
+                                        0x2e7 (size before relaxing)
+ .debug_str     0x00000000000068eb      0x14e build/postcar/lib/lzmadecode.o
+                                        0x3d1 (size before relaxing)
+ .debug_str     0x0000000000006a39       0x1b build/postcar/lib/memcmp.o
+                                        0x1b1 (size before relaxing)
+ .debug_str     0x0000000000006a54      0x116 build/postcar/lib/prog_loaders.o
+                                       0x11a3 (size before relaxing)
+ .debug_str     0x0000000000006b6a       0x51 build/postcar/lib/prog_ops.o
+                                        0x3fb (size before relaxing)
+ .debug_str     0x0000000000006bbb       0x1f build/postcar/lib/reset.o
+                                        0x246 (size before relaxing)
+ .debug_str     0x0000000000006bda      0x2ae build/postcar/lib/rmodule.o
+                                        0x7bd (size before relaxing)
+ .debug_str     0x0000000000006e88       0x7c build/postcar/lib/romstage_handoff.o
+                                        0x2c8 (size before relaxing)
+ .debug_str     0x0000000000006f04       0xd1 build/postcar/lib/string.o
+                                        0x2e5 (size before relaxing)
+ .debug_str     0x0000000000006fd5      0x198 build/postcar/lib/timestamp.o
+                                        0xff8 (size before relaxing)
+ .debug_str     0x000000000000716d       0x12 build/postcar/lib/version.o
+                                        0x292 (size before relaxing)
+ .debug_str     0x000000000000717f      0x1b4 build/postcar/northbridge/intel/gm45/memmap.o
+                                        0xbb9 (size before relaxing)
+ .debug_str     0x0000000000007333       0x25 build/postcar/southbridge/intel/common/reset.o
+                                        0x179 (size before relaxing)
+ .debug_str     0x0000000000007358      0xa49 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivdi3.o)
+                                        0xb5f (size before relaxing)
+ .debug_str     0x0000000000007da1      0xb55 /home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/util/crossgcc/xgcc/lib/gcc/i386-elf/8.3.0/libgcc.a(_udivmoddi4.o)

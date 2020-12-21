@@ -1,4 +1,4 @@
-/home/jason/release1/libreboot_x200/coreboot-4.13/build/util/vboot_lib/firmware/2lib/2hmac.o: \
+/home/jason/libreboot-repo/libreboot_x200/coreboot-4.13/build/util/vboot_lib/firmware/2lib/2hmac.o: \
  firmware/2lib/2hmac.c firmware/2lib/include/2hmac.h \
  firmware/2lib/include/2crypto.h firmware/2lib/include/2sysincludes.h \
  firmware/2lib/include/2sha.h firmware/2lib/include/2return_codes.h \
