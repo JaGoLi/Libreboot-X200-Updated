@@ -1,0 +1,5 @@
+config SOC_AMD_COMMON_BLOCK_HDA
+	bool
+	help
+	  Select this option to use AMD common High Definition Audio
+	  driver support.

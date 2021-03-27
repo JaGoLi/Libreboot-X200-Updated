@@ -1,16 +1,17 @@
-#! /bin/env bash
+#! /usr/bin/env bash
 ## Copy template file
-cd libreboot_x200/coreboot-4.13
-cp 'libreboot-x200-configs-release1/gbe-ich9m.set' util/bincfg
+cd libreboot_x200/coreboot
+cp 'libreboot-x200-configs-release2/gbe-ich9m.set' util/bincfg
 
 ## Install ifdtool on system
 cd util/ifdtool
+make -j`nproc`
 sudo make install
 
 ## Go to bincfg and make changes
 cd ../bincfg
 make clean
-make
+make -j`nproc`
 
 sed -i "6s/0x00/0x${2}/" 'gbe-ich9m.set'
 sed -i "7s/0x4c/0x${3}/" 'gbe-ich9m.set'

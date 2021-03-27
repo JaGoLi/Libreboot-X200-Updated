@@ -1,0 +1,7 @@
+** Build from MediaTek Internal **
+
+# 2020.11.05
+1. Add 4266Mbps suspend/resume support.
+
+# 2020.08.01
+1. Add DRAM suspend/DVFS support.

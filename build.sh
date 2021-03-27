@@ -1,4 +1,4 @@
-#! /bin/env bash
+#! /usr/bin/env bash
 ## Create directory and cd
 mkdir libreboot_x200 
 cd libreboot_x200

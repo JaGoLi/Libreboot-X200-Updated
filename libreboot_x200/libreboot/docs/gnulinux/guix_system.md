@@ -185,7 +185,13 @@ Mount the respective filesystem under the current system.
 
 `mount LABEL=fsname /mnt`
 
-Create a swap file and make it readable cum writable only by root.
+Create a btrfs-supported NOCOW swap file with no compression and make it readable cum writable only by root.
+
+`touch /mnt/swapfile`
+
+`chattr +C /mnt/swapfile`
+
+`btrfs property set /mnt/swapfile compression none`
 
 `dd if=/dev/zero of=/mnt/swapfile bs=1MiB count=2048`
 

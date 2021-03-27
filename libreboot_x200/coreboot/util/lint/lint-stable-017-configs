@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+#
+# SPDX-License-Identifier: GPL-2.0-only
+
+# DESCR: Check that saved config files are miniconfigs
+
+LC_ALL=C export LC_ALL
+
+SYMBOLS='CONFIG_ARCH_\|CONFIG_MAINBOARD_HAS_'
+
+# Use git grep if the code is in a git repo, otherwise use grep.
+if [ -n "$(command -v git)" ] && \
+	[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]
+then
+	GREP="git grep -l"
+else
+	GREP="grep -rl"
+fi
+
+#look for a couple of things that should only be set by select keywords
+for file in \
+	$($GREP "$SYMBOLS" configs) ; do \
+		echo "Error: $file seems to be a full config"; \
+	done

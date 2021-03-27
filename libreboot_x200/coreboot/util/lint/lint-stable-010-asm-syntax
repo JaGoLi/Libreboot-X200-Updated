@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+#
+# SPDX-License-Identifier: GPL-2.0-only
+
+# DESCR: Check that we use a single assembler syntax
+
+LC_ALL=C export LC_ALL
+git grep -n "\.\(att\|intel\)_syntax\>" | grep -v '\.patch:'

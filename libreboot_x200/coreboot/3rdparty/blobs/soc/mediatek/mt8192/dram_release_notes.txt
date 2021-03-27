@@ -1,0 +1,31 @@
+# 2020.12.01
+
+1. A local build and incompatible with previous versions.
+   Header version = 5.
+2. Include changes:
+
+CL:*3438249 dramc: MT8192: Add discrete DDR support
+
+# 2020.11.05
+
+1. A local build and incompatible with previous versions.
+   Header version = 4.
+2. Include changes:
+
+CL:*3398084 dramc: MT8192: add max freq flag
+
+# 2020.09.16
+
+1. Built from Chrome OS 13473.0.2020_09_16_2253.
+2. Include changes:
+
+eed9075 dramc: MT8192: Use clear data rate log format
+c57d520 dramc: MT8192: Adjust vcore voltage to correct value for DDR calibration
+a3651f6 pmic: MT6359: Allow to modify VGPU11 voltage
+bdff3f3 dramc: MT8192: Update the output message for easy debug
+824f1e0 dramc: MT8192: Load correct emi setting by the ddr geometry
+f488694 dramc: MT8192: Save the dramc params result after calibration
+adab87d dramc: MT8192: Update the dramc param struct
+3a1c53e dramc: MT8192: Update the dram control drivers
+a87ece6 dramc: MT8192: Add RX gating fast calibration flow
+c112bf9 dramc: MT8192: Add DRAM full calibration blob source code

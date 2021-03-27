@@ -1,0 +1,222 @@
+# Copyright 2020 The Chromium OS Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+menuconfig PLATFORM_EC
+	bool "Enable building code from the platform/ec Zephyr module"
+	imply PRINTK
+	imply SHELL
+	help
+	  The platform/ec Zephyr module allows some code from the
+	  existing Chrome OS EC project to be "shimmed" into Zephyr.
+
+if PLATFORM_EC
+
+rsource "Kconfig.battery"
+rsource "Kconfig.powerseq"
+rsource "Kconfig.tasks"
+
+# Below is a hack to use CONFIG_ZEPHYR in platform/ec code before
+# config.h has been included.  There is some tricky ordering in some
+# header files that we cannot use config.h (e.g., common.h and
+# compile_time_macros.h), as many board.h and config_chip.h files
+# use these macros, and thus would be included by an include of
+# config.h.  We work around this by initially defining CONFIG_ZEPHYR
+# in Kconfig as an invisible symbol (it should always be enabled).
+# Then, once config.h gets included, it subsequently gets undef'ed by
+# config.h, and then redefined by config_chip.h in the Zephyr shim.
+config ZEPHYR
+	bool
+	default y
+	help
+	  This should always be enabled.  It's a workaround for
+	  config.h not being available in some headers.
+
+# Define PLATFORM_EC_... options to enable EC features. Each Kconfig should be
+# matched by a line in zephyr/shim/include/config_chip.h which #defines the
+# corresponding EC CONFIG if this Kconfig is enabled.
+#
+# Please keep these in alphabetical order
+
+config PLATFORM_EC_CBI
+	bool "Enable the CBI EEPROM module"
+	depends on PLATFORM_EC_I2C
+	help
+	  Enables various CBI accessors and host and console commands. One must
+	  specify both I2C_PORT_EEPROM and I2C_ADDR_EEPROM_FLAGS to the CBI
+	  EEPROM's i2c port and 7-bit i2c address.
+
+menuconfig PLATFORM_EC_ESPI
+	bool "Enable eSPI compatibility in platform/ec"
+	depends on ESPI && AP
+	default y
+	help
+	  Enable eSPI shim layer.
+
+if PLATFORM_EC_ESPI
+
+config PLATFORM_EC_ESPI_VW_SLP_S3
+	bool "SLP_S3 is an eSPI virtual wire instead of a GPIO"
+	help
+	  For power sequencing, use an eSPI virtual wire instead of
+	  defining GPIO_PCH_SLP_S3 in gpio_map.h.
+
+config PLATFORM_EC_ESPI_VW_SLP_S4
+	bool "SLP_S4 is an eSPI virtual wire instead of a GPIO"
+	help
+	  For power sequencing, use an eSPI virtual wire instead of
+	  defining GPIO_PCH_SLP_S4 in gpio_map.h.
+
+endif # PLATFORM_EC_ESPI
+
+config PLATFORM_EC_EXTPOWER_GPIO
+	bool "Enable the GPIO-based external power detection module"
+	depends on PLATFORM_EC_HOOKS && PLATFORM_EC_HOSTCMD
+	help
+	  Enable shimming the extpower_gpio module, which provides
+	  GPIO-based external power presence detection features.  The
+	  project should define a GPIO pin named GPIO_AC_PRESENT, with
+	  extpower_interrupt configured as the handler in gpio_map.h.
+
+menuconfig PLATFORM_EC_KEYBOARD
+	bool "Enable keyboard support"
+	default y
+	help
+	  Enable compilation of support for scanning a keyboard and providing
+	  the resulting input to the AP over the host interface. This consists
+	  of a keyboard-scanning task which provides key scans via it calling
+	  keyboard_state_changed() (for i8042) or its client calling
+	  keyboard_scan_get_state() (for MKBP). This implies HAS_TASK_KEYSCAN.
+
+if PLATFORM_EC_KEYBOARD
+
+config TASK_KEYSCAN_STACK_SIZE
+	hex "keyscan task stack size"
+	default 0x200
+	help
+	  The size of the keyboard scan task stack.
+
+choice "Protocol select"
+	prompt "Select the keyboard protocol to use"
+
+config PLATFORM_EC_KEYBOARD_PROTOCOL_8042
+	bool "i8042"
+	help
+	  Use the i8042 protocol to communicate with the AP. This dates from the
+	  Intel 8042 keyboard controller chip released in 1976. It uses two-way
+	  communication via a few 8-bit registers, allowing key codes to be
+	  sent to the AP when keys are pressed and released.
+
+	  See here for docs: https://wiki.osdev.org/%228042%22_PS/2_Controller
+
+endchoice # PLATFORM_EC_KEYBOARD
+
+config PLATFORM_EC_KEYBOARD_COL2_INVERTED
+	bool "A mechanism for passing KSO2 to H1 which inverts the signal."
+	help
+	  This option enables a mechanism for passing the column 2
+	  to H1 which inverts the signal. The signal passing through H1
+	  adds more delay. Need a larger delay value. Otherwise, pressing
+	  Refresh key will also trigger T key, which is in the next scanning
+	  column line. See http://b/156007029.
+
+config PLATFORM_EC_CONSOLE_CMD_KEYBOARD_8042
+	bool "Enable the keyboard commands"
+	default y if PLATFORM_EC_KEYBOARD_PROTOCOL_8042
+	help
+	  Enable the '8042' command, which includes the following subcommands:
+
+	    codeset	- Get/set keyboard codeset
+	    ctrlram	- Get/set keyboard controller RAM
+	    internal    - Show internal information
+	    kbd		- Print or toggle keyboard info
+	    kblog	- Print or toggle keyboard event log (current disabled)
+	    typematic	- Get/set typematic delays
+
+endif # PLATFORM_EC_KEYBOARD
+
+config PLATFORM_EC_HOOKS
+	bool "Enable hooks and deferred compatibility shim"
+	default y
+	help
+	  Enable translation of DECLARE_DEFERRED and
+	  hook_call_deferred to Zephyr's work queues, and a compatible
+	  DECLARE_HOOK implementation.
+
+config PLATFORM_EC_I2C
+	bool "Enable the EC i2c module"
+	default y
+	help
+	  Enable compilation of the EC i2c module. Once enabled, it will be
+	  possible to make calls using the old platform/ec i2c APIs defined
+	  in include/i2c.h and implemented in common/i2c_master.c. Doing so
+	  should make shimming other platform/ec modules which rely on i2c
+	  communication "just work" without requiring any further code changes.
+
+menuconfig PLATFORM_EC_HOSTCMD
+	bool "Enable host commands shim"
+	default y if AP
+	help
+	  Enable the host commands shim in platform/ec.
+
+if PLATFORM_EC_HOSTCMD
+
+config TASK_HOSTCMD_STACK_SIZE
+	hex "hostcmd task stack size"
+	default 0x200
+	help
+	  The size of the host command task stack.
+
+endif # PLATFORM_EC_HOSTCMD
+
+config PLATFORM_EC_LID_SWITCH
+	bool "Enable the lid switch module"
+	help
+	  Enable shimming the lid switch implementation and related
+	  commands in platform/ec.  This requires a GPIO named
+	  GPIO_LID_OPEN to be defined in gpio_map.h.
+
+config PLATFORM_EC_PORT80
+	bool "Enable the port80 module"
+	default y if AP_X86 && PLATFORM_EC_POWERSEQ
+	help
+	  Enable the port80 module, which will buffer calls to port_80_write and
+	  occasionally print when there's new writes.
+
+config PLATFORM_EC_POWER_BUTTON
+	bool "Enable the power button module"
+	depends on PLATFORM_EC_HOSTCMD
+	help
+	  Enable shimming the power button implementation and related
+	  commands in platform/ec.  This requires a GPIO named
+	  GPIO_POWER_BUTTON_L in gpio_map.h.
+
+menuconfig PLATFORM_EC_TIMER
+	bool "Enable the EC timer module"
+	default y
+	help
+	  Enable compilation of the EC timer module
+
+if PLATFORM_EC_TIMER
+
+config PLATFORM_EC_TIMER_CMD_GETTIME
+	bool "Enable the gettime command"
+	default y
+	help
+	  Enable the "gettime" command
+
+config PLATFORM_EC_TIMER_CMD_TIMERINFO
+	bool "Enable the timerinfo command"
+	default y
+	help
+	  Enable the "timerinfo" command
+
+config PLATFORM_EC_TIMER_CMD_WAITMS
+	bool "Enable the waitms command"
+	default y
+	help
+	  Enable the "waitms" command
+
+endif # PLATFORM_EC_TIMER
+
+endif # PLATFORM_EC

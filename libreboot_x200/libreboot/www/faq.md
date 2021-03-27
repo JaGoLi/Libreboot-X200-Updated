@@ -12,6 +12,35 @@ Is the Libreboot project still active?
 Yes! The [git repository](https://notabug.org/libreboot/libreboot) shows all of
 the work that we're currently doing. Libreboot is quite active.
 
+Do not use CH341A!
+------------------
+
+NOR flashes on all current osboot and libreboot systems run on 3.3v logic.
+The ch341a has SPI flashing capabilities and it has 3.3v by default for the
+VCC line but data lines (e.g. MISO/MOSI) are 5v. This can very easily damage
+your SPI flash; it may still work afterwards, and you can use your machine,
+but the reliability of it is now tainted.
+
+These ch341a programmers are unfortunately very popular. DO NOT use it unless
+you have fixed the issue. You CAN fix it so that the data lines are 3.3v, if
+you follow the notes here:
+
+<https://www.eevblog.com/forum/repair/ch341a-serial-memory-programmer-power-supply-fix/>
+
+A much nicer tool to use is an STM32 Blue Pill (basically similar to an
+arduino but with an STM32 microcontroller), with stm32-vserprog installed.
+Information about this will be available at a later date.
+
+In practise, most people will not fix their ch341a and instead just risk it,
+so no documentation will be provided for ch341a on this website. It is best
+to discourage use of that device.
+
+In case it's not clear:
+
+Please do not buy the ch341a! It is incorrectly engineered for the purpose of
+ROM flashing on systems with 3.3v SPI (which is most coreboot systems). DO NOT
+USE IT!
+
 So when is the next version of Libreboot coming out?
 -------------------------------------------------------
 
@@ -1196,7 +1225,7 @@ Where can I learn more about electronics
     Both series of videos are mandatory regardless of your soldering skill.
     * [Basic Soldering](https://www.youtube.com/watch?v=vIT4ra6Mo0s&list=PL926EC0F1F93C1837)
     * [Rework and Repair](https://www.youtube.com/watch?v=HKX-GBe_lUI&list=PL958FF32927823D12)
-* [edX course on basics of electronics](https://www.edx.org/course/circuits-and-electronics-1-basic-circuit-analysis)  
+* [edX course on basics of electronics](https://www.edx.org/course/circuits-and-electronics-1-basic-circuit-analysi-2)  
     In most countries contents of this course is covered during
     middle and high school. It will also serve well to refresh your memory
     if you haven't used that knowledge ever since.

@@ -1,0 +1,22 @@
+config SOC_AMD_COMMON_BLOCK_LPC
+	bool
+	help
+	  Select this option to use the traditional LPC-ISA bridge at D14F3.
+
+config PROVIDES_ROM_SHARING
+	bool
+	help
+	  Select this option if the LPC bridge supports ROM sharing.
+
+config SOC_AMD_COMMON_BLOCK_HAS_ESPI
+	bool
+	help
+	  Select this option if platform supports eSPI using D14F3 configuration
+	  registers.
+
+config SOC_AMD_COMMON_BLOCK_USE_ESPI
+	bool
+	depends on SOC_AMD_COMMON_BLOCK_HAS_ESPI
+	help
+	  Select this option if mainboard uses eSPI instead of LPC (if supported
+	  by platform).

@@ -1,0 +1,7 @@
+** Build from MediaTek Internal **
+
+# 2020.11.11
+1. SPM suspend can turn 26M clock off when system goes into suspend.
+
+# 2020.07
+1. Support SPM suspend at the end of system suspend.

@@ -1,0 +1,4 @@
+** Build from MediaTek Internal **
+
+# 2020.11.19
+1. Add SSPM firmware.

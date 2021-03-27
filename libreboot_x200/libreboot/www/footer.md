@@ -5,4 +5,6 @@
 [Authors](/contrib.md)                      --
 [Conduct Guidelines](/conduct.md)           --
 [Governance](/management.md)                --
-[Peers Community](https://peers.community/)
+[Peers Community](https://peers.community/) --
+[Donate](/donate.md)
+[Buy preinstalled](/suppliers.md)

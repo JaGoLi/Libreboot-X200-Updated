@@ -1,16 +1,31 @@
 ---
 title: Installing Debian or Devuan GNU+Linux with full disk encryption (including /boot)
+x-toc-enable: true
 ...
 
 This guide is written for the Debian distribution, but it should also
-work for Devuan with the net installer.
+work for Devuan with the net installer. Other Debian based GNU+Linux
+distributions may also work, using these instructions.
 
-Gigabyte GA-G41M-ES2L
-=====================
+If booting in legacy VGA textmode
+=================================
 
-To boot the Trisquel net installer, make sure to specify fb=false on the linux
+Text mode is when you start in a low resolution text console. In Libreboot, you
+can tell because there will be no background graphic in the GRUB menu and the
+text will look like it has been upscaled from a lower resolution.
+
+To boot the Debian net installer, make sure to specify fb=false on the linux
 kernel parameters in GRUB. This will boot the installer in text mode instead
-of using a framebuffer.
+of using a framebuffer. By default, the netinstaller will try to switch to a
+high resolution framebuffer. Due to lack of INT10H video BIOS services and mode
+switching support in Libreboot (for video), this will fail.
+
+Libreboot starts in either text mode or VESA framebuffer mode. When you boot a
+Linux kernel, on any supported Libreboot target, the Linux kernel video driver
+for your hardware is handling everything on its own without help from BIOS/UEFI
+but during early init (or in textmode installers like Debian netinst) it will
+not use those drivers and will instead rely on whatever your boot firmware
+provides.
 
 Moving on...
 ============
@@ -23,11 +38,11 @@ inside the flash chip. In context, this means that installing
 distributions and managing them is handled slightly differently compared
 to traditional BIOS systems.
 
-On most systems, the /boot partition has to be left unencrypted while
+On most systems, the `/boot/` partition has to be left unencrypted while
 the others are encrypted. This is so that GRUB, and therefore the
 kernel, can be loaded and executed since the firmware can't open a LUKS
 volume. Not so with libreboot! Since GRUB is already included directly
-as a payload, even /boot can be encrypted. This protects /boot from
+as a payload, even `/boot/` can be encrypted. This protects /boot from
 tampering by someone with physical access to the system.
 
 This guide is written for Debian net installer. You can download the ISO
@@ -129,7 +144,7 @@ Kernel
 ======
 
 Installation will ask what kernel you want to use. linux-generic is
-fine.
+fine, but you can choose whatever you want here.
 
 Tasksel
 =======
@@ -160,20 +175,88 @@ select something else. It's up to you.)
 Install the GRUB boot loader to the master boot record
 ======================================================
 
-Choose 'Yes'. It will fail, but don't worry. Then at the main menu,
-choose 'Continue without a bootloader'. You could also choose 'No'.
-Choice is irrelevant here.
+Choose 'No', and then it will still ask you what HDD to install GRUB on. Select
+your HDD/SSD in the list it provides.
 
-*Don't forget to have grub-coreboot package installed, even though installing grub to MBR is irrelevant
-on libreboot system, grub tools are still needed to eg. generate config (`grub-mkconfig`)*
+The installer will provide GRUB on your HDD/SSD, but not try to install it to
+an MBR section. However, the `/boot/grub/grub.cfg` on your system will be
+maintained automatically by `apt-get` when handling kernel packages.
 
 Clock UTC
 =========
 
 Just say 'Yes'.
 
+**At this point, your Debian system is installed. Shut down when the installer
+tells you to.**
+
+LUKSv2 incompatibility
+======================
+
+When using libreboot version 20160907 with newer Debian versions, you *must*
+downgrade LUKSv2 to LUKSv1. See
+[debian's cryptsetup-team page for instructions](https://cryptsetup-team.pages.debian.net/cryptsetup/encrypted-boot.html#downgrading-luks2-to-luks1).
+
+By default, newer versions of Debian use LUKSv2 which is technically superior
+to LUKSv1. However, LUKSv1 is still acceptable security-wise but lacks newer
+features in LUKSv2.
+
+Libreboot 20160907 has an old version of GRUB, which lacks LUKSv2 support. If
+you're using the Debian netinst it won't have cryptsetup in it, as mentioned on
+that page. You can download Parabola GNU+Linux here:
+
+64-bit ISO: <https://redirector.parabola.nu/iso/x86_64-systemd-cli-2020.09/parabola-x86_64-systemd-cli-2020.09-netinstall.iso>
+
+32-bit ISO (X60, T60): <https://redirector.parabola.nu/iso/i686-systemd-cli-2020.09/parabola-i686-systemd-cli-2020.09-netinstall.iso>
+
+Parabola is useful in general, not just for installing Parabola, but as a general
+purpose live CD for use as a `rescue system` since it contains virtually all of
+the software that you will need for this purpose. In this instance, we will
+use `cryptsetup` in Parabola to downgrade the LUKS version on your encrypted
+*Debian* installation. Parabola is a version of *Arch Linux* that *excludes*
+proprietary software, and it is endorsed by the Free Software Foundation.
+
+dd it to a USB drive (use `lsblk` command in GNU+Linux to know which one it is), e.g.:
+
+    sudo dd if=parabola-x86_64-systemd-cli-2020.09-netinstall.iso of=/dev/sdX bs=8M conv=notrunc; sync
+
+Replace `sdX` with the name that is correct on your system.
+
+Now boot with the USB stick inserted, and press C to access the GRUB terminal.
+Type these commands into the GRUB terminal for the 64-bit ISO (NOTE: each command
+is one line below, and each command is separated by a blank line):
+
+    set root='usb0'
+
+    linux /parabola/boot/x86_64/vmlinuz parabolaisobasedir=parabola parabolaisolabel=PARA_202009
+
+    initrd /parabola/boot/x86_64/parabolaiso.img
+
+    boot
+
+Or for 32-bit ISO:
+
+    set root='usb0'
+
+    linux /parabola/boot/i686/vmlinuz parabolaisobasedir=parabola parabolaisolabel=PARA_202009
+
+    initrd /parabola/boot/i686/parabolaiso.img
+
+    boot
+
+When you've booted the live Parabola ISO, select language and it drops you to
+a shell. Use the `lsblk` command in that shell to figure out what is your
+encrypted partition and follow the above Debian guide to downgrade your LUKSv2
+partition to LUKSv1.
+
+After you've done that, it should boot.
+
 Booting your system
 ===================
+
+If you didn't install GRUB during the net installation process, don't worry.
+You can boot your installed system manually, using the *terminal* in GRUB on
+your boot flash (the version that Libreboot gives you).
 
 At this point, you will have finished the installation. At your GRUB
 payload, press C to get to the command line, and enter:
@@ -184,6 +267,14 @@ payload, press C to get to the command line, and enter:
     grub> initrd /initrd.img
     grub> boot
 
+**If you did install GRUB, ignore the above. Just select the default `Load
+Operating System` menu option and it should fully boot into your system.**
+
+When you type your encryption passphrase in GRUB, it will seem like the process
+has stalled. The same will be true when you load your linux kernel in Debian.
+Just be patient and it will boot. If you see errors, just press enter to skip
+them until you see the Debian GRUB menu.
+
 ecryptfs
 ========
 
@@ -192,7 +283,7 @@ this section.
 
 Immediately after logging in, do that:
 
-    $ sudo ecryptfs-unwrap-passphrase
+    sudo ecryptfs-unwrap-passphrase
 
 This will be needed in the future if you ever need to recover your home
 directory from another system, so write it down and keep the note
@@ -200,7 +291,9 @@ somewhere secret. Ideally, you should memorize it and then burn the note
 (or not even write it down, and memorize it still)>
 
 Generate distro's grub.cfg
-======================
+==========================
+
+**If `/boot/grub/grub.cfg` already exists, ignore this step.**
 
 Now you need to set it up so that the system will automatically boot,
 without having to type a bunch of commands.
@@ -221,13 +314,6 @@ generate grub.cfg using following command:
 
 [Refer to this guide](grub_hardening.md) for further guidance on
 hardening your GRUB configuration, for security purposes.
-
-LUKSv2 incompatibility
-======================
-
-When using libreboot version 20160907 and older it may be necessary to
-downgrade LUKSv2 to LUKSv1. See
-[debian's cryptsetup-team page to learn how to downgrade](https://cryptsetup-team.pages.debian.net/cryptsetup/encrypted-boot.html#downgrading-luks2-to-luks1).
 
 Troubleshooting
 ===============
@@ -316,7 +402,7 @@ problems. Removing that worked around the issue.
       Does write ultra high speed  CD-RW media
       Does not write ultra high speed+ CD-RW media
 
-Copyright © 2014, 2015, 2016 Leah Rowe <info@minifree.org>\
+Copyright © 2014, 2015, 2016, 2020 Leah Rowe <info@minifree.org>\
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License Version 1.3 or any later

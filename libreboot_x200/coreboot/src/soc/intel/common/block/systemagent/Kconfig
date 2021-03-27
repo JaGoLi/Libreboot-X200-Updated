@@ -1,0 +1,26 @@
+config SOC_INTEL_COMMON_BLOCK_SA
+	bool
+	help
+	  Intel Processor common System Agent support
+
+if SOC_INTEL_COMMON_BLOCK_SA
+
+config MMCONF_BASE_ADDRESS
+	default 0xe0000000
+
+config MMCONF_BUS_NUMBER
+	default 256
+
+config SA_ENABLE_IMR
+	bool
+	default n
+	help
+	  This option allows you to add the isolated memory ranges (IMRs).
+
+config SA_ENABLE_DPR
+	bool
+	default n
+	help
+	  This option allows you to add the DMA Protected Range (DPR).
+
+endif

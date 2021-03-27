@@ -6,27 +6,20 @@ If we forgot to mention you here, let us know and we'll add you. (or if
 you don't want to be mentioned, let us know and we'll remove your
 entry)
 
-<div class="warning">
-This is a test warning tag put in the Markdown file. It'll be removed once
-swiftgeek catches on that I've added this here :P
-We were discussing how to add warnings in parts of libreboot documentation.
-Like for example warning people NOT to use 5V SPI flashers on 3.3v laptops!
-</div>
-
 Alyssa Rosenzweig
 -----------------
 
 Switched the website to use markdown in lieu of handwritten HTML and custom
 PHP. Additionally assisted with [booting
 Linux](https://blog.rosenzweig.io/blobless-linux-on-the-pi.md) on the Raspberry
-Pi without blobs. Current sysadmin and assists with project management.
+Pi without blobs. **Former libreboot project maintainer.**
 
 Andrew Robbins
 --------------
 
 Works on large parts of Libreboot's build system and related documentation.
 Andrew joined the Libreboot project as part of core management on 4 June 2017.
-IRC nick `and_who` on #libreboot IRC.
+IRC nick `and_who` on #libreboot IRC. **Current libreboot project maintainer.**
 
 Arthur Heymans
 --------------
@@ -36,7 +29,7 @@ states to work correctly on GM45 laptops. This was a long-standing issue
 before Athur's contribution. Arthur also fixed VRAM size on i945 on
 GM45 systems, allowing maximum VRAM allocation for the onboard GPUs on
 these systems, another longstanding issue in libreboot. Contact **apvh**
-in the \#libreboot IRC channel.
+in the \#libreboot IRC channel. **Former libreboot project maintainer**.
 
 Damien Zammit
 -------------
@@ -44,7 +37,8 @@ Damien Zammit
 Maintains the Gigabyte GA-G41M-ES2L coreboot port, which is integrated
 in libreboot. Also works on other hardware for the benefit of the
 libreboot project. Contact **damo22** on the freenode IRC network. This
-person's website is [zammit.org](http://www.zammit.org/).
+person's website is [zammit.org](http://www.zammit.org/). **Former libreboot
+project maintainer.**
 
 Denis Carikli
 -------------
@@ -79,6 +73,8 @@ Leah is also responsible for [vimuser.org](https://vimuser.org/)
 (personal website) and [transit.org.uk](https://transit.org.uk/)
 (support group for transgender people).
 
+**Current libreboot project maintainer**
+
 Marcus Moeller
 --------------
 
@@ -89,7 +85,8 @@ Patrick "P. J." McDermott
 
 Patrick also did a lot of research and wrote the libreboot FAQ section
 relating to the [Intel Management Engine](../faq.md#intelme), in addition
-to making several improvements to the build system in libreboot.
+to making several improvements to the build system in libreboot. **Former
+libreboot project maintainer.**
 
 Paul Kocialkowski
 -----------------
@@ -97,7 +94,8 @@ Paul Kocialkowski
 Ported the ARM (Rockchip RK3288 SoC) based *Chromebook* laptops to
 libreboot. Also one of the main [Replicant](http://www.replicant.us/)
 developers. Contact Paul on the libreboot IRC channel by the alias
-**paulk** or **paulk-&lt;hostname&gt;** (hostname is variable).
+**paulk** or **paulk-&lt;hostname&gt;** (hostname is variable). **Former
+libreboot project maintainer.**
 
 Paul Menzel
 -----------
@@ -128,7 +126,7 @@ Swift Geek
 ----------
 
 Contributed a patch for ich9gen to generate 16MiB descriptors. Contact
-**swiftgeek** in the IRC channel.
+**swiftgeek** in the IRC channel. **Current libreboot project maintainer.**
 
 Timothy Pearson
 ---------------

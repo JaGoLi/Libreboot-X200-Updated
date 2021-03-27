@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+#
+# SPDX-License-Identifier: GPL-2.0-only
+
+# DESCR: Check for illegal characters in filename
+
+LC_ALL=C export LC_ALL
+
+# Skip check if git isn't available
+if [ -n "$(command -v git)" ] && \
+	[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]
+then
+	git ls-files | grep "[^A-Za-z0-9/_\.-]"
+fi

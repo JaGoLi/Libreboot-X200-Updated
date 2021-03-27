@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+#
+# SPDX-License-Identifier: GPL-2.0-only
+
+# DESCR: Check that variables have fully qualified types
+
+LC_ALL=C export LC_ALL
+
+INCLUDED_DIRS='^src/\|^util/\|payloads/libpayload\|payloads/coreinfo'
+EXCLUDED_DIRS='^src/vendorcode\|cbfstool/lzma\|cbfstool/lz4'
+INCLUDED_FILES='\.[ch]:'
+
+# Use git grep if the code is in a git repo, otherwise use grep.
+if [ -n "$(command -v git)" ] && \
+	[ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]
+then
+	GREP_FILES="git grep -n"
+else
+	GREP_FILES="grep -rn"
+fi
+
+${GREP_FILES} 'unsigned[[:space:]]' | \
+	grep "$INCLUDED_DIRS" | \
+	grep -v "$EXCLUDED_DIRS" | \
+	grep "$INCLUDED_FILES" | \
+	grep -v 'unsigned[[:space:]]*int\|unsigned[[:space:]]*long\|unsigned[[:space:]]*char\|unsigned[[:space:]]*short' | \
+	grep -v ':[[:space:]]*/\*\|:[[:space:]]*\*'

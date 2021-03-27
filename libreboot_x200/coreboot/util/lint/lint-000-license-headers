@@ -1,0 +1,125 @@
+#!/usr/bin/env sh
+#
+# SPDX-License-Identifier: GPL-2.0-only
+
+# DESCR: Check that files in have valid license headers
+# $1 is an optional command line parameter containing directories to check
+
+# regex list of files and directories to exclude from the search
+HEADER_EXCLUDED="\
+^src/commonlib/bsd/lz4.c.inc\$|\
+^src/cpu/x86/16bit/entry16.inc\$|\
+^src/device/oprom/x86emu/|\
+^src/device/oprom/include/x86emu/|\
+^src/device/oprom/yabel/|\
+^src/drivers/net/ne2k.c\$|\
+^src/drivers/xgi/common/initdef.h\$|\
+^src/drivers/xgi/common/vstruct.h\$|\
+^src/lib/gnat/|\
+^src/lib/lzmadecode.[ch]\$|\
+^src/lib/stack.c\$|\
+^src/vendorcode/|\
+^util/amdtools/example_input/|\
+^util/cbfstool/lzma/|\
+^util/cbfstool/lz4/|\
+^util/kconfig/|\
+Kconfig|\
+\<COPYING\>|\
+\<LICENSE\>|\
+\<README\>|\
+Changelog|\
+AUTHORS|\
+TODO|\
+EXAMPLE|\
+NEWS|\
+ChangeLog|\
+Dockerfile|\
+\.in$|\
+\.[18]$|\
+\.md$|\
+\.wiki$|\
+\.xxdump$|\
+\.spec$|\
+\.txt$|\
+\.jpg$|\
+\.cksum$|\
+\.bin$|\
+\.vbt$|\
+\.hex$|\
+\.patch$|\
+_shipped$|\
+/microcode-[^/]*.h$|\
+/sdram-.*\.inc$|\
+Makefile\.inc|\
+\.fmd|\
+\.cb|\
+\.cfg$|\
+\.spd|\
+config|\
+cmos\.layout|\
+cmos\.default\
+"
+
+#space separated list of directories to test
+if [ "$1" = "" ]; then
+	HEADER_DIRS="src util"
+else
+	HEADER_DIRS="$1"
+fi
+
+LC_ALL=C export LC_ALL
+
+#get initial list from git, removing HEADER_EXCLUDED files.
+#make a copy to check for the old style header later.
+headerlist=$(git ls-files $HEADER_DIRS | egrep -v "($HEADER_EXCLUDED)")
+
+#update headerlist by removing files that match the license string
+check_for_license() {
+	if [ -n "$headerlist" ] && [ -z "$2" ]; then
+		headerlist="$(grep -iL "$1" $headerlist 2>/dev/null)"
+	elif [ -n "$headerlist" ]; then
+		p1list="$(grep -il "$1" $headerlist 2>/dev/null)"
+		p2list="$(grep -il "$2" $headerlist 2>/dev/null)"
+
+		# Make list of files that were in both previous lists
+		pbothlist="$(echo $p1list $p2list | tr ' ' "\n" | \
+			sort | uniq -d)"
+
+		# Remove all files that were in both of the previous lists
+		# Note that this is unstable if we ever get any filenames
+		# with spaces.
+		headerlist="$(echo $headerlist $pbothlist | tr ' ' "\n" | \
+			sort | uniq -u)"
+	fi
+}
+
+#search the files for license headers
+check_for_license 'SPDX-License-Identifier: Apache-2.0'
+check_for_license 'SPDX-License-Identifier: BSD-2-Clause'
+check_for_license 'SPDX-License-Identifier: BSD-3-Clause'
+check_for_license 'SPDX-License-Identifier: GPL-2.0-only'
+check_for_license 'SPDX-License-Identifier: GPL-2.0-or-later'
+check_for_license 'SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note'
+check_for_license 'SPDX-License-Identifier: GPL-3.0-only'
+check_for_license 'SPDX-License-Identifier: GPL-3.0-or-later'
+check_for_license 'SPDX-License-Identifier: HPND'
+check_for_license 'SPDX-License-Identifier: HPND-sell-variant'
+check_for_license 'SPDX-License-Identifier: ISC'
+check_for_license 'SPDX-License-Identifier: MIT'
+check_for_license 'SPDX-License-Identifier: X11'
+
+# This is 4 clause ("with advertising") but the University of Berkeley
+# declared that 4th clause void, see
+# ftp://ftp.cs.berkeley.edu/pub/4bsd/README.Impt.License.Change
+# With this, BSD-4-Clause-UC becomes GPLv2 compatible, and so SPDX doesn't
+# differentiate between this license with or without advertising.
+check_for_license 'SPDX-License-Identifier: BSD-4-Clause-UC'
+
+for file in $headerlist; do
+	# Verify the file exists, and has content that requires a header
+	# This assumes that a file that has 4 lines or fewer is not notable
+	# enough to require a license.
+	if [ -f "$file" ] && [ "$(wc -l < "$file")" -gt 4 ]; then
+		echo "$file has no recognized SPDX identifier."
+	fi
+done

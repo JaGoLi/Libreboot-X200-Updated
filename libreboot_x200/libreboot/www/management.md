@@ -29,9 +29,6 @@ In alphabetical order:
 
 - Andrew Robbins is a core developer. IRC nick **and\_who**, email
   [andrew@libreboot.org](mailto:andrew@libreboot.org)
-- Paul Kocialkowski is a core developer. IRC nick **paulk-X** 
-  (**X** is variable, and changes over time), email
-  [paul@libreboot.org](mailto:paul@libreboot.org)
 - Leah Rowe is a core developer (and project founder). IRC nick
   **unoccupied**, email [leah@libreboot.org](mailto:leah@libreboot.org)
 - Swift Geek is a core developer. IRC nick **swiftgeek**, email

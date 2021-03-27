@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+#
+# SPDX-License-Identifier: GPL-2.0-only
+
+# DESCR: Run clang-format on white-listed directories
+
+LC_ALL=C export LC_ALL
+
+# until we require this by default, we need a list of opted-in directories
+if [ ! -f .clang-format-scope ]; then
+	exit 0
+fi
+
+files_to_check=$(git log HEAD~..HEAD --format= --name-only $(cat .clang-format-scope) |grep "\.[ch]$")
+
+# nothing to do
+if [ -z "$files_to_check" ]; then
+	exit 0
+fi
+
+if [ $(clang-format $files_to_check | wc -l) -gt 0 ]; then
+	if [ "$(git diff --no-prefix HEAD~..HEAD -- $files_to_check | clang-format-diff)" != "" ]; then
+		echo "Coding style mismatch. The following patch fixes it:"
+		git diff --no-prefix HEAD~..HEAD -- $files_to_check | clang-format-diff
+		exit 0
+	fi
+fi

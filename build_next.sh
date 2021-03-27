@@ -1,4 +1,4 @@
-#! /bin/env bash
+#! /usr/bin/env bash
 ## Create directory and cd
 cd libreboot_x200/coreboot
 

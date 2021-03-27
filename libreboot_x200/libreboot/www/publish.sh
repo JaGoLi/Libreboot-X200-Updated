@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
+# Copyright (C) 2017,2021 Leah Rowe <info@minifree.org>
 # Copyright (C) 2017 Alyssa Rosenzweig <alyssa@rosenzweig.io>
-# Copyright (C) 2017 Leah Rowe <info@minifree.org>
 # Copyright (C) 2017 Michael Reed <michael@michaelreed.io>
 #
 # This program is free software: you can redistribute it and/or modify
@@ -28,8 +28,10 @@ cat "$1" > "$TMPFILE"
 OPTS="-T Libreboot"
 
 if [[ $FILE == "index" || $FILE == "./index" ]]; then
+        TEMPLATE="template.homepage.html"
         OPTS="--css /headercenter.css"
 else
+        TEMPLATE="template.html"
         if [[ $FILE == *suppliers ]]
         then
             RETURN=""
@@ -41,13 +43,9 @@ else
                 DEST="./"
             fi
 
-            RETURN="<strong><a href='/git.html#editing-the-website-and-documentation-wiki-style'>Edit this page</a></strong> -- <a href='$DEST'>Back to previous index</a>"
+            RETURN=""
             OPTS="-T Libreboot"
         fi
-fi
-
-if [[ $FILE = *suppliers ]]; then
-        printf '\n%s\n' "<strong><a href=\"/git.html#editing-the-website-and-documentation-wiki-style\">Edit this page</a></strong> -- <a href=\"../\">Back to previous page</a>" >> "$TMPFILE"
 fi
 
 if [[ $FILE != "./docs/fdl-1.3" && $FILE != "docs/fdl-1.3" &&
@@ -62,14 +60,14 @@ sed -i -e 's/\.md\(#[a-zA-Z0-9_-]*\)\?\([])]*\)/.html\1\2/g' "$TMPFILE"
 TOC=$(grep -q "^x-toc-enable: true$" "$TMPFILE" && printf '%s\n' "--toc --toc-depth=2") || TOC=""
 
 # work around heterogenous pandoc versions
-SMART=$(pandoc -v | grep -q '2\.0' || printf '%s\n' "--smart") || SMART=""
+SMART=$(pandoc -v | grep -q '2\.0' || printf '%s\n' "-f markdown+smart -t html") || SMART=""
 
 # chuck through pandoc
 #
 # $OPTS must not be quoted, otherwise pandoc interprets '--css /headercenter.css'
 # as one argument, when it is actually two.
 pandoc $TOC $SMART "$TMPFILE" -s --css /global.css $OPTS \
-        --template template.html --metadata return="$RETURN" > "$FILE.html"
+        --template ${TEMPLATE} --metadata return="$RETURN" > "$FILE.html"
 
 # generate section title anchors as [link]
 sed -i -e 's_^<h\([123]\) id="\(.*\)">\(.*\)</h\1>_<div class="h"><h\1 id="\2">\3</h\1><a aria-hidden="true" href="#\2">[link]</a></div>_' "$FILE.html"

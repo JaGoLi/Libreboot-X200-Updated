@@ -1,7 +1,0 @@
-## SPDX-License-Identifier: GPL-2.0-only
-
-config VPD
-	bool "Support for Vital Product Data tables"
-	default n
-	help
-	  Enable support for flash based vital product data.

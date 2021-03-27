@@ -1,0 +1,44 @@
+junit.xml
+abuild*.xml
+.config
+.config.old
+defconfig
+.coreboot-version
+.xcompile
+.ccwrap
+build/
+coreboot-builds/
+coreboot-builds*/
+
+site-local
+
+*.\#
+*.a
+*.bin
+*.debug
+!Kconfig.debug
+*.elf
+*.fd
+*.o
+*.o.d
+*.out
+*.pyc
+*.sw[po]
+/*.rom
+.test
+.dependencies
+
+# Development friendly files
+tags
+.clang_complete
+
+# Cross-compile toolkits
+xgcc/
+tarballs/
+
+# editor backup files, temporary files, IDE project files
+*~
+*.kate-swp
+*.kdev4
+
+doxygen/*
