@@ -30,6 +30,8 @@ There is now a utility to easily change the background displayed on the grub men
 1.  `cp roms/x200_8mb_free.rom x200.rom`
 2.  `cp ~/Downloads/my_background.jpg .`
 3.  `./changebg.sh x200.rom my_background.jpg`
+
+The rom with the changed background will appear with the prefix `newbg_`. In this case, it will be `newbg_x200.rom`.
 ## Changing the keyboard layout in GRUB
 As per request, I have created a utility to change the keyboard layout. The supported options are currently the same as libreboot: `deqwertz`, `esqwerty`, `frazerty`, `frdvbepo`, `itqwerty`, `svenska`, `ukdvorak`, `ukqwerty`, `usdvorak`, `usqwerty`(default) . <br> <br>
 The proceedure is very similar to changing the mac address. It assumes that one is already at the root of the cloned git repository. Make sure that the arguments are passed in the same order as the example, and that there are no errors in the filename or keymap. The name of the keymap has to be EXACTLY matching one of those listed above. Here is an exmaple changing the keymap to `frazerty`:
