@@ -25,6 +25,11 @@ Below is an example on how to make the change. It assumes that one is already at
 2. `./changemac.sh x200.rom 00 4c 69 62 72 65`
 
 The rom with the changed macaddress will be generated with the prefix `newmac_`, so in this case the rom to flash will be `newmac_x200.rom`
+## Changing the background image
+There is now a utility to easily change the background displayed on the grub menu. To make the change, place the desired image at the root of the cloned git repository. The supplied image MUST BE A JPEG, otherwise there will potentially be errors and undefined behavior! Also, copy the rom that will be modified to the root of the git repository and navigate there. Then, run the script with the arguments such that the name of the rom comes first, and is then followed by the name of the image. Here is an example:
+1.  `cp roms/x200_8mb_free.rom x200.rom`
+2.  `cp ~/Downloads/my_background.jpg .`
+3.  `./changebg.sh x200.rom my_background.jpg`
 ## Changing the keyboard layout in GRUB
 As per request, I have created a utility to change the keyboard layout. The supported options are currently the same as libreboot: `deqwertz`, `esqwerty`, `frazerty`, `frdvbepo`, `itqwerty`, `svenska`, `ukdvorak`, `ukqwerty`, `usdvorak`, `usqwerty`(default) . <br> <br>
 The proceedure is very similar to changing the mac address. It assumes that one is already at the root of the cloned git repository. Make sure that the arguments are passed in the same order as the example, and that there are no errors in the filename or keymap. The name of the keymap has to be EXACTLY matching one of those listed above. Here is an exmaple changing the keymap to `frazerty`:
