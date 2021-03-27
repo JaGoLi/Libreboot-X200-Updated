@@ -1,9 +1,9 @@
 #! /bin/env bash
 ## Create directory and cd
-cd libreboot_x200/coreboot-4.13
+cd libreboot_x200/coreboot
 
 ##Get coreboot configuration
-cp libreboot-x200-configs-release1/config_${1}_${2} .config
+cp libreboot-x200-configs-release2/config_${1}_${2} .config
 
 ## Compile Coreboot
 make -j`nproc`
@@ -14,11 +14,7 @@ cbfstool x200.rom add -f grub.cfg -n grub.cfg -t raw
 cbfstool x200.rom add -f background.jpg -n background.jpg -t raw
 
 ## Change nvram settings
-nvramtool -C x200.rom -w debug_level=Spew
-nvramtool -C x200.rom -w bluetooth=Disable
-nvramtool -C x200.rom -w power_management_beeps=Disable
-nvramtool -C x200.rom -w low_battery_beep=Disable
-nvramtool -C x200.rom -w gfx_uma_size=352M
+nvramtool -C x200.rom -p nvram_settings.cfg
 
 ## Export rom to home directory
 cp x200.rom ../../roms/x200_${1}_${2}.rom
