@@ -1,0 +1,21 @@
+================== Release 328  ================================
+This Release Notes file covers these blobs:
+ * aop.mbn
+ * AOP_AAAAANAAO.elf
+
+Version : 000328
+
+Release Date : April, 2021
+
+Supported Silicon : SC7280
+
+Changes since last version:
+ *CPR fixes for timeout issue
+
+aop.mbn is used to generate coreboot image.
+AOP_AAAAANAAO.elf is used for debugging purpose if needed.
+
+No special instructions, requirements or dependencies, files must be
+present in this folder to be pulled in during coreboot build
+
+Errata : Nothing to report

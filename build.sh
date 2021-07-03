@@ -3,15 +3,14 @@
 mkdir libreboot_x200 
 cd libreboot_x200
 
-## Get coreboot and match revision
-git clone https://review.coreboot.org/coreboot
-cd coreboot
-git checkout 927fa6d04c
-git submodule update --init --checkout
-cd ..
+##Get coreboot from tarballs
+wget https://coreboot.org/releases/coreboot-4.14.tar.xz
+wget https://coreboot.org/releases/coreboot-blobs-4.14.tar.xz
+tar -xvf coreboot-4.14.tar.xz
+tar -xvf coreboot-blobs-4.14.tar.xz
 
 ## Get libreboot
-git clone https://notabug.org/libreboot/libreboot.git
+git clone https://github.com/JaGoLi/libreboot-repo.git libreboot
 cd libreboot
 
 ## Get grub
@@ -29,20 +28,20 @@ sudo make install
 ##Generate grub elf
 cd ../resources/utilities/grub-assemble
 ./gen.sh vesafb
-cp grub_vesafb.elf ../../../../coreboot/payload.elf
+cp grub_vesafb.elf ../../../../coreboot-4.14/payload.elf
 
 ##Get grub background and config
-cd ../../../../coreboot
+cd ../../../../coreboot-4.14
 wget https://github.com/JaGoLi/libreboot-resources/archive/libreboot_res2.tar.gz
 tar -xvf libreboot_res2.tar.gz
 mv libreboot-resources-libreboot_res2/* .
 
 ##Get coreboot configuration
-wget https://github.com/JaGoLi/libreboot-x200-configs/archive/release2.tar.gz
-tar -xvf release2.tar.gz
-cp libreboot-x200-configs-release2/config_${1}_${2} .config
-cp libreboot-x200-configs-release2/nvram_settings.cfg .
-cp 'libreboot-x200-configs-release2/gbe-ich9m.set' util/bincfg
+wget https://github.com/JaGoLi/libreboot-x200-configs/archive/release3.tar.gz
+tar -xvf release3.tar.gz
+cp libreboot-x200-configs-release3/config_${1}_${2} .config
+cp libreboot-x200-configs-release3/nvram_settings.cfg .
+cp 'libreboot-x200-configs-release3/gbe-ich9m.set' util/bincfg
 
 ##Compile utilities
 cd util/cbfstool

@@ -1,5 +1,6 @@
 html {
     background-color: #eee;
+    padding-bottom:7em;
 }
 
 body {
@@ -79,4 +80,37 @@ h1, h2, h3, .h:hover a {
 
 .h a {
     display: none;
+}
+
+h1.title {
+    display: block;
+    margin: 0;
+}
+
+p.author, p.date {
+	clear: left;
+	display: inline;
+}
+ul.llist {
+padding:0;
+margin:0;
+}
+ul.llist li {
+padding:0;
+margin:0;
+display:inline;
+padding-left:0.5em;
+padding-right:0.5em;
+border-right:solid 1px #000;
+}
+ul.llist li:first-child {
+padding-left:0;
+}
+ul.llist li:last-child {
+padding-right:0;
+border:none;
+}
+p.translate {
+padding:0;
+margin:0;
 }

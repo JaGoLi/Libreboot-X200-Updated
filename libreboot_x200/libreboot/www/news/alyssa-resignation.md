@@ -4,9 +4,8 @@
 
 Alyssa Rosenzweig has notified the rest of the team (Andrew Robbins, Paul
 Kocialkowski, Leah Rowe and Swift Geek) of her intention to step down from the
-core management team, as per [our management guidelines](../management.md),
-due to increased pressure from school studies which prevent her from having
-time to contribute.
+Libreboot project team, due to increased pressure from school studies which
+prevent her from having time to contribute.
 
 In her email, she wishes the Libreboot project well and states that she intends
 to continue contributing in the future.
@@ -47,12 +46,6 @@ issue; people use the Notabug instance, and IRC.
 
 I will issue another news post, once the new mailing list is online. For the
 time being, the links to it have been removed on the website.
-
-The mail server itself is online, so the 4 of us on the team now have
-libreboot.org email addresses; these are published on the
-[governance page](../management.md). If anyone wishes to contact a member of
-the project directly via email, we recommend that you use these email
-addresses.
 
 Of interest: the new hosting infrastructure for libreboot.org is entirely
 libre. The main router on that network is a Libreboot system, with the router software

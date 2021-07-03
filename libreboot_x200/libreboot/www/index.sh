@@ -36,8 +36,6 @@ meta() {
 
     printf '%s\n' "[$(title "$file")]($URL){.title}"
     printf '%s\n' "[$(sed -n 3p "$file" | sed -e s-^..--)]{.date}"
-    printf '\n'
-    tail -n +5 "$file" | perl -p0e 's/(\.|\?|\!)( |\n)(.|\n)*/.../g'
 
     printf '\n'
     printf '\n'

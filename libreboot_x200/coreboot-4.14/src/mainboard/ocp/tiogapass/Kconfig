@@ -1,0 +1,34 @@
+## SPDX-License-Identifier: GPL-2.0-or-later
+
+if BOARD_OCP_TIOGAPASS
+
+config BOARD_SPECIFIC_OPTIONS
+	def_bool y
+	select BOARD_ROMSIZE_KB_32768
+	select HAVE_ACPI_TABLES
+	select IPMI_KCS
+	select IPMI_KCS_ROMSTAGE
+	select IPMI_OCP
+	select MAINBOARD_USES_FSP2_0
+	select OCP_DMI
+	select SOC_INTEL_SKYLAKE_SP
+	select SUPERIO_ASPEED_AST2400
+	select VPD
+
+config MAINBOARD_DIR
+	string
+	default "ocp/tiogapass"
+
+config MAINBOARD_PART_NUMBER
+	string
+	default "TiogaPass"
+
+config MAINBOARD_FAMILY
+	string
+	default "TiogaPass"
+
+config FMDFILE
+	string
+	default "src/mainboard/\$(CONFIG_MAINBOARD_DIR)/board.fmd"
+
+endif # BOARD_OCP_TIOGAPASS

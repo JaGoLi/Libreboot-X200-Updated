@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 ## Copy template file
-cd libreboot_x200/coreboot
+cd libreboot_x200/coreboot-4.14
 cp 'libreboot-x200-configs-release2/gbe-ich9m.set' util/bincfg
 
 ## Install ifdtool on system

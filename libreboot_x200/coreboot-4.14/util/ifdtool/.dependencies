@@ -1,0 +1,6 @@
+ifdtool.o: ifdtool.c \
+ ../../src/commonlib/bsd/include/commonlib/bsd/compiler.h \
+ ../../src/commonlib/include/commonlib/helpers.h \
+ ../../src/commonlib/bsd/include/commonlib/bsd/helpers.h \
+ ../../src/commonlib/bsd/include/commonlib/bsd/compiler.h \
+ ../cbfstool/flashmap/fmap.h ../cbfstool/flashmap/valstr.h ifdtool.h

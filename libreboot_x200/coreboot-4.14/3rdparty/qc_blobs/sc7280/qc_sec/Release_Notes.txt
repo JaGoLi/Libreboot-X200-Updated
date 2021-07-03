@@ -1,0 +1,12 @@
+=================== Release 00017 ================================
+This Release Notes file covers these blobs:
+* qc_sec.mbn
+Version : 00017
+Release Date : March 30, 2021
+Supported Silicon : SC7280
+No special instructions, requirements or dependencies, files must be
+present in this folder to be pulled in during coreboot build
+Changes since last version :
+* Perform SoC SC7280
+Errata : Nothing to report
+

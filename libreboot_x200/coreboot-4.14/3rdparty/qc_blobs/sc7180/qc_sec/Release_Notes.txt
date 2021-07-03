@@ -1,0 +1,37 @@
+=================== Release 00013 ================================
+This Release Notes file covers these blobs:
+ * qc_sec.mbn
+
+Version : 00013
+
+Release Date : November 03, 2020
+
+Changes since last version :
+ * Modem protection based on LTE and WLAN Flavour
+
+=================== Release 00010 ================================
+This Release Notes file covers these blobs:
+ * qc_sec.mbn
+
+Version : 00010
+
+Release Date : September 09, 2020
+
+Changes since last version :
+ * tool upgrade to generate image
+
+=================== Release 00008 ================================
+Version : 00008
+
+Release Date : May 27, 2020
+
+Supported Silicon : SC7180
+
+No special instructions, requirements or dependencies, files must be
+present in this folder to be pulled in during coreboot build
+
+Changes since last version :
+ * Perform SoC
+
+Errata : Nothing to report
+

@@ -1,9 +1,9 @@
 #! /usr/bin/env bash
 ## Create directory and cd
-cd libreboot_x200/coreboot
+cd libreboot_x200/coreboot-4.14
 
 ##Get coreboot configuration
-cp libreboot-x200-configs-release2/config_${1}_${2} .config
+cp libreboot-x200-configs-release3/config_${1}_${2} .config
 
 ## Compile Coreboot
 make -j`nproc`

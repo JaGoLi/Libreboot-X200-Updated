@@ -7,9 +7,9 @@ title: Libreboot
 [Install](docs/install/)                                                    --
 [Docs](docs/)                                                               --
 [News](news/)                                                               --
-[Support](https://webchat.freenode.net/?channels=libreboot)                    --
 [Bugs](https://notabug.org/libreboot/libreboot/issues)                      --
 [Send patches](git.md)                                                      --
+**[Contact](contact.md)**						--
 **[Donate](donate.md)**                                                      --
 **[Buy preinstalled](suppliers.md)**
 

@@ -1,0 +1,93 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -Os
+A -Wuninitialized
+A -Wall
+A -Werror
+A -Wstrict-aliasing
+A -Wshadow
+A --RTS=build/libgnat-x86_32/
+A -gnatp
+A -g
+A -fno-common
+A -fomit-frame-pointer
+A -ffunction-sections
+A -fdata-sections
+A -gnatwa
+A -gnatw.e
+A -gnatwe
+A -gnatwD
+A -gnatw.H
+A -gnatwH
+A -gnatwT
+A -gnatwU
+A -gnatw.U
+A -gnatw.W
+A -gnatw.Y
+A -gnatyN
+A -m32
+A -fuse-ld=bfd
+A -fno-stack-protector
+A -mtune=i386
+A -march=i386
+P FX
+
+RN
+RR NO_ACCESS_SUBPROGRAMS
+RR NO_ALLOCATORS
+RR NO_CALENDAR
+RR NO_DISPATCH
+RR NO_EXCEPTION_HANDLERS
+RR NO_FIXED_POINT
+RR NO_FLOATING_POINT
+RR NO_IO
+RR NO_IMPLICIT_DYNAMIC_CODE
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_INITIALIZE_SCALARS
+RR NO_LOCAL_ALLOCATORS
+RR NO_RECURSION
+RR NO_SECONDARY_STACK
+RR NO_STREAMS
+RR NO_TASKING
+RR NO_UNCHECKED_ACCESS
+RR NO_UNCHECKED_DEALLOCATION
+RR STATIC_STORAGE_SIZE
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLEMENTATION_RESTRICTIONS
+RR NO_IMPLICIT_LOOPS
+RV NO_OBSOLESCENT_FEATURES
+RR NO_WIDE_CHARACTERS
+
+U hw.gfx.dp_defs%s	hw-gfx-dp_defs.ads	e2948386 NE OO PK IU
+W hw.gfx%s		hw-gfx.ads		hw-gfx.ali
+
+D hw.ads		20210510203207 349e873c hw%s
+D hw-gfx.ads		20210510203207 d263ba5b hw.gfx%s
+D hw-gfx-dp_defs.ads	20210510203207 30f739dd hw.gfx.dp_defs%s
+D interfac.ads		20210702142454 8908571f interfaces%s
+D system.ads		20210702142454 21923ced system%s
+D s-unstyp.ads		20210702142454 9d58a4c0 system.unsigned_types%s
+D gnat.adc		20210510203207 00000000
+X 1 hw.ads
+17K9*HW 91e7 3|15r9 33r5
+21M12*Byte{4|62M9}
+89A9*Buffer(21M12)<integer> 3|22r27 26r27 31r28
+X 2 hw-gfx.ads
+21K12*GFX 1|17k9 2|217e11 3|15r12 33r8
+X 3 hw-gfx-dp_defs.ads
+15K16*DP_Defs 2|21k12 3|33l12 33e19
+17M9*Aux_Message_Command
+18M9*Aux_Message_Address
+20I12*Aux_Payload_Length{natural} 21r52
+21I12*Aux_Payload_Index{natural} 22r35
+22A12*Aux_Payload{1|89A9}<integer>
+24I12*Aux_Request_Length{natural} 25r52
+25I12*Aux_Request_Index{natural} 26r35
+26A12*Aux_Request{1|89A9}<integer>
+28I12*Aux_Response_Length{natural} 30r26
+29I12*Aux_Response_Index{natural} 31r36
+31A12*Aux_Response{1|89A9}<integer>
+X 4 interfac.ads
+62M9*Unsigned_8
+

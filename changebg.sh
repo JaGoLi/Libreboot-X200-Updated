@@ -4,7 +4,7 @@
 mv ${2} background.jpg
 
 ## Build cbfstool
-cd libreboot_x200/coreboot/util/cbfstool
+cd libreboot_x200/coreboot-4.14/util/cbfstool
 make -j`nproc`
 sudo make install
 cd ../../../..

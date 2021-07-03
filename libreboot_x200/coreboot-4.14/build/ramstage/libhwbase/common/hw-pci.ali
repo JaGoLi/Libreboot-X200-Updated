@@ -1,0 +1,114 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -Os
+A -Wuninitialized
+A -Wall
+A -Werror
+A -Wstrict-aliasing
+A -Wshadow
+A --RTS=build/libgnat-x86_32/
+A -gnatp
+A -g
+A -fno-common
+A -fomit-frame-pointer
+A -ffunction-sections
+A -fdata-sections
+A -gnatwa
+A -gnatw.e
+A -gnatwe
+A -gnatwD
+A -gnatw.H
+A -gnatwH
+A -gnatwT
+A -gnatwU
+A -gnatw.U
+A -gnatw.W
+A -gnatw.Y
+A -gnatyN
+A -m32
+A -fuse-ld=bfd
+A -fno-stack-protector
+A -mtune=i386
+A -march=i386
+P FX
+
+RN
+RR NO_ACCESS_SUBPROGRAMS
+RR NO_ALLOCATORS
+RR NO_CALENDAR
+RR NO_DISPATCH
+RR NO_EXCEPTION_HANDLERS
+RR NO_FIXED_POINT
+RR NO_FLOATING_POINT
+RR NO_IO
+RR NO_IMPLICIT_DYNAMIC_CODE
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_INITIALIZE_SCALARS
+RR NO_LOCAL_ALLOCATORS
+RR NO_RECURSION
+RR NO_SECONDARY_STACK
+RR NO_STREAMS
+RR NO_TASKING
+RR NO_UNCHECKED_ACCESS
+RR NO_UNCHECKED_DEALLOCATION
+RR STATIC_STORAGE_SIZE
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLEMENTATION_RESTRICTIONS
+RR NO_IMPLICIT_LOOPS
+RV NO_OBSOLESCENT_FEATURES
+RR NO_WIDE_CHARACTERS
+RV SPARK_05
+
+U hw.pci%s		hw-pci.ads		e63e29d4 NE OO PK IU
+W hw%s			hw.ads			hw.ali
+
+D hw.ads		20210510203207 349e873c hw%s
+D hw-pci.ads		20210510203207 d2a0aee8 hw.pci%s
+D interfac.ads		20210702142454 8908571f interfaces%s
+D system.ads		20210702142454 21923ced system%s
+D gnat.adc		20210510203207 00000000
+X 1 hw.ads
+17K9*HW 91e7 2|15r9 53r13 61r5
+40M12*Word64{3|71M9} 2|53r16 54r44 54r74 57r7 58r7 59r7
+X 2 hw-pci.ads
+15K12*PCI 1|17k9 2|23r15 24r15 25r15 54E13 61l8 61e11
+18I9*Bus<short_integer> 23r19
+19I9*Slot<short_short_integer> 24r19
+20I9*Func<short_short_integer> 25r19
+22R9*Address 26e14 54r58
+23i7*Bus{18I9} 57r19
+24i7*Slot{19I9} 58r19
+25i7*Func{20I9} 59r19
+28I9*Index<short_integer> 30r45 31r45 32r45 34r45 39r48
+30i4*Vendor_Id{28I9}
+31i4*Device_Id{28I9}
+32i4*Command{28I9}
+33N7*Command_Memory
+34i4*Header_Type{28I9}
+35N7*Header_Type_Mask
+36N7*Header_Type_Normal
+38E9*Resource 38e57 39r35
+38n22*Res0{38E9}
+38n28*Res1{38E9}
+38n34*Res2{38E9}
+38n40*Res3{38E9}
+38n46*Res4{38E9}
+38n52*Res5{38E9}
+39a4*Base_Address(28I9)
+41N7*Base_Address_Space_Mask
+42N7*Base_Address_Space_IO
+43N7*Base_Address_Space_Mem
+44N7*Base_Address_Mem_Type_Mask
+45N7*Base_Address_Mem_Type_32
+46N7*Base_Address_Mem_Type_1M
+47N7*Base_Address_Mem_Type_64
+48N7*Base_Address_Mem_Prefetch
+49N7*Base_Address_IO_Mask
+50N7*Base_Address_Mem_Mask
+54V13 Calc_Base_Address{1|40M12} 54>32 54>52
+54m32 Base_Addr{1|40M12} 56r7
+54r52 Dev{22R9} 57r15 58r15 59r15
+X 3 interfac.ads
+71M9*Unsigned_64
+

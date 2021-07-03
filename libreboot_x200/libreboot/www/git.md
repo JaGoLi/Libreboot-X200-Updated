@@ -10,9 +10,6 @@ Download Libreboot from the Git repository like so:
 You can submit your patches via
 [Notabug pull requests](#how-to-submit-your-patches-via-pull-requests).
 
-Information about how the Libreboot project is governed is documented in our
-[general management guidelines](management.md).
-
 Libreboot development is done using the Git version control system.
 Refer to the [official Git documentation](https://git-scm.com/doc) if you don't
 know how to use Git.

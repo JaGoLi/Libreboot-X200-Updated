@@ -1,0 +1,193 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -Os
+A -Wuninitialized
+A -Wall
+A -Werror
+A -Wstrict-aliasing
+A -Wshadow
+A --RTS=build/libgnat-x86_32/
+A -gnatp
+A -g
+A -fno-common
+A -fomit-frame-pointer
+A -ffunction-sections
+A -fdata-sections
+A -gnatwa
+A -gnatw.e
+A -gnatwe
+A -gnatwD
+A -gnatw.H
+A -gnatwH
+A -gnatwT
+A -gnatwU
+A -gnatw.U
+A -gnatw.W
+A -gnatw.Y
+A -gnatyN
+A -m32
+A -fuse-ld=bfd
+A -fno-stack-protector
+A -mtune=i386
+A -march=i386
+P FX
+
+RN
+RR NO_ACCESS_SUBPROGRAMS
+RR NO_ALLOCATORS
+RR NO_CALENDAR
+RR NO_DISPATCH
+RR NO_EXCEPTION_HANDLERS
+RR NO_FIXED_POINT
+RR NO_FLOATING_POINT
+RR NO_IO
+RV NO_IMPLICIT_CONDITIONALS
+RR NO_IMPLICIT_DYNAMIC_CODE
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_INITIALIZE_SCALARS
+RR NO_LOCAL_ALLOCATORS
+RR NO_RECURSION
+RR NO_SECONDARY_STACK
+RR NO_STREAMS
+RR NO_TASKING
+RR NO_UNCHECKED_ACCESS
+RR NO_UNCHECKED_DEALLOCATION
+RR STATIC_STORAGE_SIZE
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLEMENTATION_RESTRICTIONS
+RR NO_IMPLICIT_LOOPS
+RV NO_OBSOLESCENT_FEATURES
+RR NO_WIDE_CHARACTERS
+RV SPARK_05
+
+U gma.gfx_init%b	gma-gfx_init.adb	88466b59 NE OO PK IU
+W cb%s			cb.ads			cb.ali
+W cb.config%s		cb-config.ads		cb-config.ali
+W gma%s			gma.adb			gma.ali
+W gma.mainboard%s	gma-mainboard.ads	gma-mainboard.ali
+W hw%s			hw.ads			hw.ali
+W hw.gfx%s		hw-gfx.ads		hw-gfx.ali
+W hw.gfx.framebuffer_filler%s  hw-gfx-framebuffer_filler.adb  hw-gfx-framebuffer_filler.ali
+W hw.gfx.gma%s		hw-gfx-gma.adb		hw-gfx-gma.ali
+W hw.gfx.gma.display_probing%s  hw-gfx-gma-display_probing.adb  hw-gfx-gma-display_probing.ali
+
+U gma.gfx_init%s	gma-gfx_init.ads	cd05678f EE NE OO PK IU
+W gma%s			gma.adb			gma.ali
+W hw%s			hw.ads			hw.ali
+W interfaces%s		interfac.ads		interfac.ali
+W interfaces.c%s	i-c.adb			i-c.ali
+
+D cb.ads		20210510203207 e6df39c3 cb%s
+D cb-config.ads		20210702142827 9a23bb18 cb.config%s
+D gma.ads		20210510203207 f34d3a16 gma%s
+D gma-gfx_init.ads	20210510203207 974245c2 gma.gfx_init%s
+D gma-gfx_init.adb	20210510203207 7fde4d03 gma.gfx_init%b
+D gma-mainboard.ads	20210510203207 938c339c gma.mainboard%s
+D hw.ads		20210510203207 349e873c hw%s
+D hw-config.ads		20210702142811 3df8aafb hw.config%s
+D hw-gfx.ads		20210510203207 d263ba5b hw.gfx%s
+D hw-gfx-edid.ads	20210510203207 99bc6e4c hw.gfx.edid%s
+D hw-gfx-framebuffer_filler.ads  20210510203207 0b5937f9 hw.gfx.framebuffer_filler%s
+D hw-gfx-gma.ads	20210510203207 20234815 hw.gfx.gma%s
+D hw-gfx-gma-display_probing.ads  20210510203207 906c2eab hw.gfx.gma.display_probing%s
+D hw-pci.ads		20210510203207 d2a0aee8 hw.pci%s
+D hw-port_io.ads	20210510203207 42e65734 hw.port_io%s
+D hw-time.ads		20210510203207 9808c5a0 hw.time%s
+D interfac.ads		20210702142454 8908571f interfaces%s
+D i-c.ads		20210702142454 9d949f67 interfaces.c%s
+D system.ads		20210702142454 21923ced system%s
+D s-parame.ads		20210702142454 c706fdbb system.parameters%s
+D s-unstyp.ads		20210702142454 9d58a4c0 system.unsigned_types%s
+D gnat.adc		20210510203207 00000000
+X 1 cb.ads
+1K9*CB 2e7 5|3r6 5r5
+X 2 cb-config.ads
+1K12*Config 754e14 5|3w9 39r24 40r24
+124N4*LINEAR_FRAMEBUFFER_MAX_WIDTH 5|39r31
+125N4*LINEAR_FRAMEBUFFER_MAX_HEIGHT 5|40r31
+X 3 gma.ads
+7K9*GMA 16e8 4|8r9 26r5 5|16r6 18r14 100r5
+X 4 gma-gfx_init.ads
+8K13*GFX_Init 3|7k9 4|26l9 26e17 5|18b18 100l9 100t17
+11U14*gfxinit 11<23 12i<c,gma_gfxinit>22 5|23b14 98l8 98t15
+11i23 lightup_ok{18|35I9} 5|23b23 45m7 92m22
+16V13*c_fb_add_framebuffer_info{18|60M9} 17>7 18>7 19>7 20>7 21>7 24b<c,fb_add_framebuffer_info>22
+. 5|85s29
+17m7 fb_addr{18|60M9} 5|86r23
+18m7 x_resolution{7|34M12} 5|87r23
+19m7 y_resolution{7|34M12} 5|88r23
+20m7 bytes_per_line{7|34M12} 5|89r23
+21m7 bits_per_pixel{7|22M12} 5|90r23
+X 5 gma-gfx_init.adb
+30a7 ports{13|21A9} 50m10 51r58
+31a7 configs{12|102A9} 51m49 53r13 55r26 57r43 58r43 61r19 68r26 70m16 73r38
+. 81r43
+33b7 success{boolean} 47m41 47r41 49r10 78m28 80r16
+35m7 linear_fb_addr{7|40M12} 83m42 84r19 86r62
+37r7 fb{9|43R9} 61m13 62m13 63m13 64m13 64r42 65m13 65r28 70r43 76r28 83r58
+. 87r49 88r49 89r49
+39i7 min_h{7|53I12} 57m16 57r36 62r40
+40i7 min_v{7|53I12} 58m16 58r36 63r41
+42m7 fbinfo{18|60M9} 85m19 91r22
+54e17 i{12|101E9} 55r35 57r52 58r52
+67e17 i{12|101E9} 68r35 70r25
+X 6 gma-mainboard.ads
+9K21*Mainboard 5|16w10 50r19 6|18e18
+11a4*ports{13|21A9} 5|50r29
+X 7 hw.ads
+17K9*HW 4|5w6 6r5 5|7r6 8r6 9r6 10r6 12r5 13r5 14r5 47r7 51r10 73r13 75r13
+. 81r16 83r16 7|91e7
+21M12*Byte{17|62M9}
+22M12*Word8{21M12} 4|21r24
+34M12*Word32{17|68M9} 4|18r22 19r22 20r24 5|27r16 87r41 88r41 89r41
+40M12*Word64{17|71M9} 5|26r16 35r24
+53I12*Pos32{17|51I9} 5|25r16 39r15 40r15 57r25 58r25
+73V13*Div_Round_Up{53I12} 5|64s28
+X 9 hw-gfx.ads
+21K12*GFX 5|7w9 8r9 9r9 10r9 12r8 13r8 14r8 47r10 51r13 73r16 75r16 81r19
+. 83r19 9|217e11
+31I12*Width_Type{7|53I12} 5|62r28
+32I12*Height_Type{7|53I12} 5|63r28
+43R9*Framebuffer_Type 5|37r12 9|55e14
+45i7*Width{31I12} 5|62m16 64r45 87r52
+46i7*Height{32I12} 5|63m16 65r31 88r52
+50i7*Stride{31I12} 5|64m16 89r52
+51i7*V_Stride{32I12} 5|65m16
+127i7*H_Visible{31I12} 5|57r60
+131i7*V_Visible{32I12} 5|58r60
+X 11 hw-gfx-framebuffer_filler.ads
+21K16*Framebuffer_Filler 5|8w13 11|32e30
+X 12 hw-gfx-gma.ads
+22K16*GMA 5|9w13 10r13 13r12 14r12 47r14 51r17 73r20 75r20 81r23 83r23 12|324e15
+61n7*Disabled{60E9} 5|53r39 55r45 68r45
+96e7*Port{60E9} 5|53r31 55r38 68r38
+97r7*Framebuffer{9|43R9} 5|61r37 70m28
+99r7*Mode{9|124R9} 5|57r55 58r55
+101E9*Pipe_Index 5|54r22 67r22 12|101e53
+101n24*Primary{101E9} 5|53r22 61r28
+102A9*Pipe_Configs(95R9)<101E9> 5|31r17
+110U14*Initialize 5|47s18
+113b7 Success{boolean} 5|47r30
+135U14*Update_Outputs 5|81s27
+210U14*Setup_Default_FB 5|75s24
+211r7 FB{9|43R9} 5|76r16
+212b7 Clear{boolean} 5|77r16
+213b7 Success{boolean} 5|78r16
+222U14*Map_Linear_FB 5|83s27
+233U14*Dump_Configs 5|73s24
+X 13 hw-gfx-gma-display_probing.ads
+17K20*Display_Probing 5|10w17 14r16 51r21 13|40e31
+21A9*Port_List(12|60E9)<20I9> 5|30r15
+32U14*Scan_Ports 5|51s37
+X 17 interfac.ads
+38K9*Interfaces 4|3r6 11r40 17r16 22r14 5|23r40 28r16 42r16 86r41 17|161e15
+51I9*Integer_32<integer>
+62M9*Unsigned_8
+68M9*Unsigned_32
+71M9*Unsigned_64
+X 18 i-c.ads
+18K20*C 4|3w17 11r51 17r27 22r25 5|23r51 28r27 42r27 86r52 18|81e17
+35I9*int<integer> 4|11r53 5|23r53
+60M9*size_t 4|17r29 22r27 5|28r29 42r29 86r54
+

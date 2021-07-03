@@ -1,12 +1,12 @@
 #! /usr/bin/env bash
 ## Copy grub config
-cp libreboot_x200/coreboot/grub.cfg .
+cp libreboot_x200/coreboot-4.14/grub.cfg .
 
 ## Modify grub config
 sed -i "34s/usqwerty/${2}/" 'grub.cfg'
 
 ## Build cbfstool
-cd libreboot_x200/coreboot/util/cbfstool
+cd libreboot_x200/coreboot-4.14/util/cbfstool
 make -j`nproc`
 sudo make install
 cd ../../../..

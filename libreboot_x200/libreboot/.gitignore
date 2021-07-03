@@ -40,7 +40,9 @@ push
 /gm45macaddress
 tocheck*
 *.html
+!www/template.rms.ar.html
 !www/template.html
+!www/template.rms.html
 !www/template.homepage.html
 /www/news/index.md
 /www/feed.xml

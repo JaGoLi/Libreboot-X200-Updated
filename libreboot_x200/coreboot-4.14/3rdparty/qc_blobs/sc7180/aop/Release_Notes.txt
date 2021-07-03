@@ -1,0 +1,41 @@
+================== Release 61  ================================
+This Release Notes file covers these blobs:
+ * aop.mbn
+ * AOP_AAAAANAZO.elf
+
+Version : 000061
+Release Date : April, 2021
+
+Supported Silicon : SC7180
+
+Changes since last version:
+ *addressed ETM timestamp issue
+
+================== Release 59  ================================
+This Release Notes file covers these blobs:
+ * aop.mbn
+ * AOP_AAAAANAZO.elf
+
+Version : 000059
+
+Release Date : September, 2020
+
+Supported Silicon : SC7180
+
+Changes since last version:
+ *Fixes for different pmic rail related issues
+
+=================== Release 50  =================================
+Version : 000050
+
+Release Date : March, 2020
+
+Supported Silicon : SC7180
+
+aop.mbn is used to generate coreboot image.
+AOP_AAAAANAZO.elf is used for debugging purpose if needed.
+
+No special instructions, requirements or dependencies, files must be
+present in this folder to be pulled in during coreboot build
+
+Errata : Nothing to report

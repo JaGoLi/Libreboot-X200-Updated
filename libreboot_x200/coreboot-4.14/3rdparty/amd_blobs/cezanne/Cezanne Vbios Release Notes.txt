@@ -1,0 +1,148 @@
+============================ Cezanne 018 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 018
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.018   02/28/21,08:58:46 2267626@17.10.0.29  ATOMBuild#554021
+
+Major changes:
+1. WA for DCN block Pstate change @SMU when set mode
+2. Update rlc_gpu_timer_refclk to correct SW delay timer 
+
+============================ Cezanne 017 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 017
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.017   11/13/20,02:11:10 2201120@17.10.0.28  ATOMBuild#540614
+
+Major changes:
+1. Add display connector caps record for driver to tell if external DFPx monitor set as "INTERNAL" display.
+
+============================ Cezanne 016 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 016
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.016   09/11/20,04:55:20 2170377@17.10.0.27  ATOMBuild#531528
+
+Major feature:
+1. Update standard VESA mode table, Mode list and timing reviewed follow VESA DMT Version 1.0.13 released on  February 8, 2013
+
+============================ Cezanne 015 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 015
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.015  08/24/20,06:11:57 2162078@17.10.0.26  ATOMBuild#528480
+
+Major feature:
+1. DISP CLK increase to max 700Mhz to support high pixel clock eDP.
+2. PLAT-68663: Connceto to PEI GOP first than DXE GOP cause system hang
+
+============================ Cezanne 014 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 014
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.014  08/16/20,22:43:14 2158707@17.10.0.25  ATOMBuild#527732
+
+Major feature:
+1. Update standard VESA mode table for optimized display mode functionality
+
+============================ Cezanne 013 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 013
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.013  08/14/20,01:47:14 2158150@17.10.0.24  ATOMBuild#527574
+
+Major feature:
+1. Add new display PHY tuning items in integrated system info table V1_12
+
+============================ Cezanne 012 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 012
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.012  08/04/20,04:17:23 2153049@17.10.0.23  ATOMBuild#525132
+
+Major feature:
+1. Due to build server problem, rebuilt generic VBIOS 011 to include the latest setting.
+
+============================ Cezanne 011 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 011
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.011  07/27/20,02:39:12 2149991@17.10.0.23  ATOMBuild#524291
+
+Major feature:
+1. PLAT-66584 - DRTM enabled + GPU driver installed causes system to hang at POST logo screen with PC B00000CAD, Fail Rate 100%
+   Setting HUBP_BLANK_EN = 0 on pipe that is not enabled will put pipe in undefined state.
+2. PLAT-66156 - VGA monitor no display output after system reboot/S4/S5 when it's connected by type-c to VGA dongle
+   ENABLE_DPHY_TX_RESET=0x1 enable DPPHY TX reset as on Renoir platfrom.
+
+
+============================ Cezanne 010 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 010
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.010  07/16/20,22:44:43 2145705@17.10.0.22  ATOMBuild#523184
+
+Major feature:
+1. AUX pre-charge setting for CZN/Lucienne
+   [IPSE]
+   Please only update VBIOS for Cezanne and Lucienne and don’t touch Renoir (in production).
+       AUX_TX_PRECHARGE_LEN = 0xD (updated)
+       AUX_TX_PRECHARGE_LEN_MUL = 0 (updated)
+       AUX_TX_OE_ASSERT_TIME = 1 (no change)
+       AUX_TX_PRECHARGE_SYMBOLS = 0x1C (no change)
+       AUX_MODE_DET_CHECK_DELAY = 2 (no change)
+       AUXn_AUX_CTRL = 2 (added)
+       AUXn_VOD_TUNE = 2 (added)
+       
+============================ Cezanne 009 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 009
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.009  07/01/20,02:03:02 2139194@17.10.0.21  ATOMBuild#520539
+
+Major feature:
+1. Support the eDP which pixel clock over 568Mhz.
+
+============================ Cezanne 008 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 008
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.008  06/22/20,05:50:17 2135205@17.10.0.20  ATOMBuild#519746
+
+Major feature:
+1. Remove the bit "RDPCS_PHY_TEST_POWERDOWN" from CZN/LCN VBIOS, it needs re-load PHY FW for programming
+   RDPCS_PHY_TEST_POWERDOWN from 1 to 0.
+2. Update the LANEx_ANA_TX_LP_ATT setting to improve SI. 
+
+============================ Cezanne 007 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 007
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.007  06/03/20,23:21:17 2126342@17.10.0.19  ATOMBuild#517791
+
+Major feature:
+1. New phy power down seq. apply on PhyA/B/C, usb-c combo-Phy works w/ old seq.
+
+============================ Cezanne 006 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 006
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.006  05/29/20,05:15:40 2123598@17.10.0.19  ATOMBuild#517227
+
+Major feature:
+1. Implement new PHY MPLLb setting for DP and HDMI on CZN
+
+============================ Cezanne 005 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 005
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.005  05/13/20,10:09:01 2114552@17.10.0.18  ATOMBuild#515566
+
+Major feature:
+1. Fix HDMI hotplug function abnormal in OS
+2. Disable DPHY_TX_RESET
+
+============================ Cezanne 004 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 004
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.004  05/11/20,13:23:11 2113274@17.10.0.17  ATOMBuild#515297
+
+Major feature:
+1. PLAT-63233 - Hangs in VBIOS when POST if boot w/ DP2HDMI dongle 
+2. PLAT-63243 -System hang 0000217 when connect KVM, Failrate:5/5 
+3. DIAG-7542 - can't be booted without connecting to the monitor
+
+============================ Cezanne 003 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 003
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.003  04/27/20,05:16:46 2106505@17.10.0.16  ATOMBuild#511891
+
+Major feature:
+1. New PHY power down sequence for CZN
+
+============================ Cezanne 002 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 002
+Cezanne A0 0x1638 105_D27000_00A  CZNGenericVbios.002  03/04/20,09:04:39 2079353@17.10.0.15  ATOMBuild#503889
+
+Major feature:
+1. Sync up w/ the latest RN VBIOS 026
+
+
+============================ Cezanne 001 VBIOS release ========================================
+Cezanne generic Baseline VBIOS 001
+Cezanne A0 0x1638 105_D27000_00A  CezanneGenericVbios.001  11/07/19,13:40:26 2026739@17.10.0.12  ATOMBuild#488889
+
+Major feature:
+1. First Cenaane protoype Vbios.
+
+

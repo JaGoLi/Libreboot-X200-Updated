@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html$if(lang)$ lang="$lang$"$endif$$if(dir)$ dir="$dir$"$endif$>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+$for(author-meta)$
+  <meta name="author" content="$author-meta$">
+$endfor$
+$if(date-meta)$
+  <meta name="dcterms.date" content="$date-meta$">
+$endif$
+$if(keywords)$
+  <meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$">
+$endif$
+  <title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
+$if(quotes)$
+  <style type="text/css">q { quotes: "“" "”" "‘" "’"; }</style>
+$endif$
+$if(highlighting-css)$
+  <style type="text/css">
+$highlighting-css$
+  </style>
+$endif$
+$for(css)$
+  <link rel="stylesheet" href="$css$">
+$endfor$
+$if(math)$
+  $math$
+$endif$
+$for(header-includes)$
+  $header-includes$
+$endfor$
+<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml"/>
+</head>
+<body>
+$for(include-before)$
+$include-before$
+$endfor$
+$if(title)$
+<header>
+<h1 class="title">$title$</h1>
+$if(subtitle)$
+<p class="subtitle">$subtitle$</p>
+$endif$
+$for(author)$
+<p class="author">$author$</p>
+$endfor$
+$if(date)$
+<p class="date">$date$</p>
+$endif$
+</header>
+$endif$
+$if(return)$
+$return$
+$endif$
+$if(toc)$
+<nav id="$idprefix$TOC">
+<ul class="llist">
+<li><a href="rms.html">english</a></li>
+<li><a href="rms.ar.html">عربى</a></li>
+<li><a href="rms.bn.html">বাঙালি</a></li>
+<li><a href="rms.el.html">ελληνικά</a></li>
+<li><a href="rms.es.html">español</a></li>
+<li><a href="rms.fi.html">suomi</a></li>
+<li><a href="rms.fr.html">français</a></li>
+<li><a href="rms.he.html">עברית</a></li>
+<li><a href="rms.hr.html">hrvatski</a></li>
+<li><a href="rms.it.html">italiano</a></li>
+<li><a href="rms.ja.html">日本語</a></li>
+<li><a href="rms.ko.html">한국어</a></li>
+<li><a href="rms.nl.html">nederlands</a></li>
+<li><a href="rms.pl.html">polski</a></li>
+<li><a href="rms.pt-br.html">português</a></li>
+<li><a href="rms.ru.html">русский</a></li>
+<li><a href="rms.tr.html">Türkçe</a></li>
+<li><a href="rms.vi.html">Tiếng Việt</a></li>
+<li><a href="rms.zh.html">简体中文</a></li>
+</ul>
+<p class="translate">
+Translations needed! Download <a href="rms.markdown">rms.markdown</a>, translate
+it and send the translation here to
+<a href="mailto:leah@libreboot.org">leah@libreboot.org</a>
+</p>
+<p>
+FSF now publicly defends RMS, but the petition defending his honour is still
+open. So the statement on this page that FSF doesn't defend RMS is no longer
+true, but other parts of this page are still relevant. <strong>You should still
+sign your name on the petition, to show your support for RMS!</strong>
+<a href="fsf-thank-you.html">Thank you FSF for supporting RMS. Ignore
+the haters. You did the right thing in honouring Richard Stallman!</a>.
+</p>
+<p class="translate">
+<strong><a href="https://stallmansupport.org/">Visit stallmansupport.org to learn more about the hate campaigns targeting RMS.</a></strong>
+</p>
+$toc$
+</nav>
+$endif$
+$body$
+$for(include-after)$
+$include-after$
+$endfor$
+<p class="translate">
+<strong><a href="https://stallmansupport.org/">Visit stallmansupport.org to learn more about the smear campaigns targeting RMS.</a></strong>
+</p>
+<p>
+<strong><a href="/git.html#editing-the-website-and-documentation-wiki-style">Edit this page</a></strong> | 
+<a href="../">Back to homepage</a>
+</p>
+<p>
+<img src="https://web.archive.org/web/20210327142304if_/https://av.vimuser.org/stallmon.jpg" />
+</p>
+<p>
+Permission is granted to copy, distribute and/or modify this document under the
+terms of the GNU Free Documentation License Version 1.3 as
+published by the Free Software Foundation with no Invariant Sections, no Front
+Cover Texts, and no Back Cover Texts. A copy of this license can be found
+on <a href="https://www.gnu.org/licenses/fdl-1.3.en.html">the GNU website</a>.
+</p>
+</body>
+</html>

@@ -1,0 +1,8 @@
+** Build from MediaTek Internal **
+
+# 1.0.0
+1. Add version number.
+2. Disable boot log
+
+# 2020.11.19 (no version)
+1. Add SSPM firmware.

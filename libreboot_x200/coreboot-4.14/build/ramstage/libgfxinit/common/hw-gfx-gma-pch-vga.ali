@@ -1,0 +1,208 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -Os
+A -Wuninitialized
+A -Wall
+A -Werror
+A -Wstrict-aliasing
+A -Wshadow
+A --RTS=build/libgnat-x86_32/
+A -gnatp
+A -g
+A -fno-common
+A -fomit-frame-pointer
+A -ffunction-sections
+A -fdata-sections
+A -gnatwa
+A -gnatw.e
+A -gnatwe
+A -gnatwD
+A -gnatw.H
+A -gnatwH
+A -gnatwT
+A -gnatwU
+A -gnatw.U
+A -gnatw.W
+A -gnatw.Y
+A -gnatyN
+A -m32
+A -fuse-ld=bfd
+A -fno-stack-protector
+A -mtune=i386
+A -march=i386
+P FX
+
+RN
+RR NO_ACCESS_SUBPROGRAMS
+RR NO_ALLOCATORS
+RR NO_CALENDAR
+RR NO_DISPATCH
+RR NO_EXCEPTION_HANDLERS
+RR NO_FIXED_POINT
+RR NO_FLOATING_POINT
+RR NO_IO
+RV NO_IMPLICIT_CONDITIONALS
+RR NO_IMPLICIT_DYNAMIC_CODE
+RR NO_IMPLICIT_HEAP_ALLOCATIONS
+RR NO_INITIALIZE_SCALARS
+RR NO_LOCAL_ALLOCATORS
+RR NO_RECURSION
+RR NO_SECONDARY_STACK
+RR NO_STREAMS
+RR NO_TASKING
+RR NO_UNCHECKED_ACCESS
+RR NO_UNCHECKED_DEALLOCATION
+RR STATIC_STORAGE_SIZE
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLEMENTATION_RESTRICTIONS
+RR NO_IMPLICIT_LOOPS
+RV NO_OBSOLESCENT_FEATURES
+RR NO_WIDE_CHARACTERS
+
+U hw.gfx.gma.pch.vga%b	hw-gfx-gma-pch-vga.adb	a8619164 NE OO PK IU
+W gnat%s		gnat.ads		gnat.ali
+W gnat.source_info%s	g-souinf.ads		g-souinf.ali
+W hw%s			hw.ads			hw.ali
+W hw.debug%s		hw-debug.adb		hw-debug.ali
+W hw.gfx%s		hw-gfx.ads		hw-gfx.ali
+W hw.gfx.gma%s		hw-gfx-gma.adb		hw-gfx-gma.ali
+W hw.gfx.gma.config%s	hw-gfx-gma-config.adb	hw-gfx-gma-config.ali
+W hw.gfx.gma.pch%s	hw-gfx-gma-pch.ads	hw-gfx-gma-pch.ali
+W hw.gfx.gma.pch.sideband%s  hw-gfx-gma-pch-sideband.adb  hw-gfx-gma-pch-sideband.ali
+W hw.gfx.gma.registers%s  hw-gfx-gma-registers.adb  hw-gfx-gma-registers.ali
+
+U hw.gfx.gma.pch.vga%s	hw-gfx-gma-pch-vga.ads	65e1fddd EE NE OO PK IU
+W hw.gfx.gma.pch%s	hw-gfx-gma-pch.ads	hw-gfx-gma-pch.ali
+
+D gnat.ads		20210702142454 fd2ad2f1 gnat%s
+D g-souinf.ads		20210702142454 7fd67a54 gnat.source_info%s
+D hw.ads		20210510203207 349e873c hw%s
+D hw-config.ads		20210702142811 3df8aafb hw.config%s
+D hw-debug.ads		20210510203207 1328ccd5 hw.debug%s
+D hw-gfx.ads		20210510203207 d263ba5b hw.gfx%s
+D hw-gfx-framebuffer_filler.ads  20210510203207 0b5937f9 hw.gfx.framebuffer_filler%s
+D hw-gfx-gma.ads	20210510203207 20234815 hw.gfx.gma%s
+D hw-gfx-gma-config.ads	20210702142811 ae7bf1fe hw.gfx.gma.config%s
+D hw-gfx-gma-pch.ads	20210510203207 e6dc1f0f hw.gfx.gma.pch%s
+D hw-gfx-gma-pch-sideband.ads  20210510203207 3fae53c6 hw.gfx.gma.pch.sideband%s
+D hw-gfx-gma-pch-vga.ads  20210510203207 833de2d2 hw.gfx.gma.pch.vga%s
+D hw-gfx-gma-pch-vga.adb  20210510203207 a76c4614 hw.gfx.gma.pch.vga%b
+D hw-gfx-gma-registers.ads  20210510203207 711b211b hw.gfx.gma.registers%s
+D hw-pci.ads		20210510203207 d2a0aee8 hw.pci%s
+D hw-port_io.ads	20210510203207 42e65734 hw.port_io%s
+D hw-time.ads		20210510203207 9808c5a0 hw.time%s
+D interfac.ads		20210702142454 8908571f interfaces%s
+D system.ads		20210702142454 21923ced system%s
+D s-unstyp.ads		20210702142454 9d58a4c0 system.unsigned_types%s
+D gnat.adc		20210510203207 00000000
+X 1 gnat.ads
+34K9*GNAT 37e9 13|20r6 48r37 71r37 128r37
+X 2 g-souinf.ads
+39K14*Source_Info 92e21 13|20w11 48r42 71r42 128r42
+68V13*Enclosing_Entity{string} 13|48s54 71s54 128s54
+X 3 hw.ads
+17K9*HW 91e7 12|15r9 25r5 13|15r6 16r6 17r6 19r6 22r10 24r14 172r5
+34M12*Word32{18|68M9} 13|32r34 46r18 69r22 99r46 99r61 104r46 104r61 109r43
+. 109r58 114r47 114r62 126r21 138r22 139r22
+35V13*Shift_Left=36:26{18|68M9} 13|101s14 106s14 111s14 116s14
+40M12*Word64{18|71M9} 13|22r13
+54I12*Pos64{18|54I9}
+X 5 hw-debug.ads
+16K12*Debug 41e13 13|19w9 48r21 71r21 128r21 142r21 143r21 144r21 145r21
+19U14*Put_Line 13|48s27 71s27 128s27
+34U14*Put_Reg32 13|142s27 143s27 144s27 145s27
+X 6 hw-gfx.ads
+21K12*GFX 3|17k9 6|217e11 12|15r12 25r8 13|15r9 16r9 17r9 24r17 172r8
+69I12*Frequency_Type{3|54I12}
+124R9*Mode_Type 138e14 12|19r14 23r31 13|44r14 119r31
+126i7*Dotclock{69I12} 13|138r46 139r53
+135b7*H_Sync_Active_High{boolean} 13|50r15
+136b7*V_Sync_Active_High{boolean} 13|53r15
+X 8 hw-gfx-gma.ads
+22K16*GMA 6|21k12 8|324e15 12|15r16 25r12 13|15r13 16r13 17r13 24r21 172r12
+X 9 hw-gfx-gma-config.ads
+17K28*Config 542e22 13|15w17 73r10
+237b4*VGA_Has_Sync_Disable{boolean} 13|73r17
+X 10 hw-gfx-gma-pch.ads
+17K28*PCH 8|22k16 10|37e19 12|15r20 25r16 13|17r17 24r25 172r16
+19E9*FDI_Port_Type 19e47 12|18r14 13|43r14
+28V13*PCH_TRANSCODER_SELECT_MASK{3|34M12} 13|33s7
+31V13*PCH_TRANSCODER_SELECT{3|34M12} 13|61s25
+X 11 hw-gfx-gma-pch-sideband.ads
+15K32*Sideband 71e28 13|17w21 132r7 133r22 134r22 147r7 148r25 149r25 158r7
+. 159r25 160r25 164r7 165r22 166r22
+17n30*SBI_ICLK{17E9} 13|133r31 148r34 159r34 165r31
+23n7*SBI_SSCDIVINTPHASE6{19E9} 13|149r34
+24n7*SBI_SSCCTL6{19E9} 13|134r31 166r31
+25n7*SBI_SSCAUXDIV{19E9} 13|160r34
+55U14*Unset_Mask 13|164s16
+56e7 Dest{17E9} 13|165r10
+57e7 Register{19E9} 13|166r10
+58m7 Mask{3|34M12} 13|167r10
+60U14*Set_Mask 13|132s16
+61e7 Dest{17E9} 13|133r10
+62e7 Register{19E9} 13|134r10
+63m7 Mask{3|34M12} 13|135r10
+65U14*Unset_And_Set_Mask 13|147s16 158s16
+66e7 Dest{17E9} 13|148r10 159r10
+67e7 Register{19E9} 13|149r10 160r10
+68m7 Mask_Unset{3|34M12} 13|150r10 161r10
+69m7 Mask_Set{3|34M12} 13|153r10 162r10
+X 12 hw-gfx-gma-pch-vga.ads
+15K24*VGA 10|17k28 12|25l20 25e23 13|24b29 172l20 172t23
+17U14*On 18>7 19>7 13|42b14 63l8 63t10
+18e7 Port{10|19E9} 13|43b7 61r48
+19r7 Mode{6|124R9} 13|44b7 50r10 53r10
+21U14*Off 13|67b14 81l8 81t11
+23U14*Clock_On 23>24 13|119b14 170l8 170t16
+23r24 Mode{6|124R9} 13|119b24 138r41 139r48
+X 13 hw-gfx-gma-pch-vga.adb
+26N4 PCH_ADPA_DAC_ENABLE 34r7 60r25 79r25
+27N4 PCH_ADPA_VSYNC_DISABLE 35r7 74r52
+28N4 PCH_ADPA_HSYNC_DISABLE 36r7 74r26
+29N4 PCH_ADPA_VSYNC_ACTIVE_HIGH 37r7 54r34
+30N4 PCH_ADPA_HSYNC_ACTIVE_HIGH 38r7 51r34
+32V13 PCH_ADPA_MASK{3|34M12} 59s25
+46m7 Polarity{3|34M12} 51m10 51r22 54m10 54r22 62r25
+69m7 Sync_Disable{3|34M12} 74m10 80r25
+85N4 PCH_PIXCLK_GATE_GATE 130r51
+86N4 PCH_PIXCLK_GATE_UNGATE 169r51
+88N4 SBI_SSCCTL_DISABLE 135r22 167r22
+89N4 SBI_SSCDIVINTPHASE_DIVSEL_SHIFT 101r31
+90N4 SBI_SSCDIVINTPHASE_DIVSEL_MASK 150r25
+91N4 SBI_SSCDIVINTPHASE_INCVAL_SHIFT 106r31
+92N4 SBI_SSCDIVINTPHASE_INCVAL_MASK 151r25
+93N4 SBI_SSCDIVINTPHASE_DIR_SHIFT 111r31
+94N4 SBI_SSCDIVINTPHASE_DIR_MASK 152r25
+95N4 SBI_SSCDIVINTPHASE_PROPAGATE 156r25
+96N4 SBI_SSCAUXDIV_FINALDIV2SEL_SHIFT 116r31
+97N4 SBI_SSCAUXDIV_FINALDIV2SEL_MASK 161r25
+99V13 SBI_SSCDIVINTPHASE_DIVSEL{3|34M12} 99b13 99>40 102l8 102t33 153s25
+99m40 Val{3|34M12} 101r26
+104V13 SBI_SSCDIVINTPHASE_INCVAL{3|34M12} 104b13 104>40 107l8 107t33 154s25
+104m40 Val{3|34M12} 106r26
+109V13 SBI_SSCDIVINTPHASE_DIR{3|34M12} 109b13 109>37 112l8 112t30 155s25
+109m37 Val{3|34M12} 111r26
+114V13 SBI_SSCAUXDIV_FINALDIV2SEL{3|34M12} 114b13 114>41 117l8 117t34 162s25
+114m41 Val{3|34M12} 116r26
+121N7 Refclock 138r30 139r31
+123m7 Aux_Div{3|34M12} 137m7 142r51 162r53
+124m7 Div_Sel{3|34M12} 138m7 143r51 153r52
+125m7 Phase_Inc{3|34M12} 139m7 144r51 154r52
+126m7 Phase_Dir{3|34M12} 140m7 145r51 155r49
+X 14 hw-gfx-gma-registers.ads
+19K28*Registers 13|16w17 57r7 58r25 77r7 78r25 130r7 130r24 169r7 169r24
+. 14|1825e25
+604n7*PCH_PIXCLK_GATE{36E9} 13|130r34 169r34
+650n7*PCH_ADPA{36E9} 13|58r35 78r35
+1705U14*Write 13|130s17 169s17
+1768U14*Unset_And_Set_Mask 13|57s17 77s17
+1769e8 Register{1652E12} 13|58r10 78r10
+1770m8 Mask_Unset{3|34M12} 13|59r10 79r10
+1771m8 Mask_Set{3|34M12} 13|60r10 80r10
+X 18 interfac.ads
+54I9*Integer_64<long_long_integer>
+68M9*Unsigned_32
+71M9*Unsigned_64
+
