@@ -17,7 +17,10 @@ Select your rom within the **roms** directory and ending with **free** for build
 If libreboot is not currently installed on the target computer, the flashing proceedure is detailed very well on the libreboot website. Simply use the rom from this repository instead of the one from the website.<br><br>
 If libreboot is currently installed on the system: boot the computer with the following linux kernel parameter: `iomem=relaxed`.<br><br>
 Then, once inside of the operating system, make sure that a recent version of `flashrom` is installed, finally run the following command:<br>
-`sudo flashrom -c "chip_name" -p internal:boardmismatch=force,laptop=force_I_want_a_brick -w name_of_selected_rom`
+`sudo flashrom -c "chip_name" -p internal -w name_of_selected_rom`<br><br>
+To get a list of possible chip names, run the command: <br>
+`sudo flashrom -p internal`<br>
+If you get only one match, you don't need to use the `-c "chip_name"` argument when running the commnand.
 ## Changing the mac address
 For the release using coreboot 4.13 and onwards, the project is now using the `bincfg` utility provided by coreboot in order to generate the gbe rom and descriptor file. This change was made because the old `ich9gen` utility has not been updated in over two years. The new utility is still 100% free software, so there shouldn't be any concerns about proprietary components. Also the process for changing the macaddress has been streamlined, requiring mainly one command in order to do the whole process.<br> <br>
 Below is an example on how to make the change. It assumes that one is already at the root of the cloned git repository, and the mac address is `00:4c:69:62:72:65`. Pay close attention to how the mac address is entered into the command, instad of being delimited by `:` markers, there are spaces between sets of two characters. Finally, make sure to enter the arguments in the same order as in the example and without errors, as I have not implemented error-handling as of yet. 
